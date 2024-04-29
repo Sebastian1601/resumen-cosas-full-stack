@@ -11,8 +11,9 @@ shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
 		repeat-x (la imágen se repite solo horizontalmente)
 		repeat-y (la imágen se repite solo verticalmente)
 		no-repeat (la imágen no se repite)
-		space (la imágen se repite la mayor cantidad de veces sin recorte. 		       se distribuye espacio vacío entre las mismas para evitar el 		       corte.)
- 		round (la imágen es repetida y ajustada o estirada para llenar los 			espacios vacíos)
+		space (la imágen se repite la mayor cantidad de veces sin recorte. se distribuye espacio vacío entre las 
+  		mismas para evitar el corte.)
+ 		round (la imágen es repetida y ajustada o estirada para llenar los espacios vacíos)
 		initial (setea la propiedad a valor inicial)
 		inherit (hereda la propiedad de su elemento padre)
 
@@ -21,10 +22,12 @@ shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
 shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color)
 ///////el shorthand no soporta definicion de más de un border width, style, color.//////////
 
-	border-width: ancho del borde a marcar.(se define borde TOP, RIGHT, BOTTOM 			y LEFT) (de definir 2 bordes, se toma TOP/BOTTOM, 				LEFT/RIGHT por cada valor.)
+	border-width: ancho del borde a marcar.(se define borde TOP, RIGHT, BOTTOM y LEFT) (de definir 2 bordes, se toma TOP/
+ 	BOTTOM, LEFT/RIGHT por cada valor.)
 
 	border-style: estilo del borde a marcar
-		Se pueden definir los 4 bordes individualmente(border-top-style / 			border-right-style, border-bottom-style, border-left-style)
+		Se pueden definir los 4 bordes individualmente(border-top-style / border-right-style, border-bottom-style,
+  		border-left-style)
 		dotted:	borde de puntos
 		dashed:	borde de lineas
 		solid: 	borde solido de una linea
@@ -47,6 +50,137 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 
 *  ACCENT-COLOR : le da color a inputs de tipo checkbox / radio / range y progress
 	
+* MARGIN (margen externo entre la caja y otra caja o elemento)
+
+	margin top
+	
+	margin right
+
+	margin bottom
+
+	margin left
+
+	shorthand:
+		margin:(top) (right) (bottom) (left)		
+
+	Margin Collapse: Si tenemos màrgenes entre la parte superior e inferior de una caja, y hay 2 margenes que deberìan 		sumarse, ambos colapsan para que se aplique el mayor de los 2 solamente, no se suman.
+
+* PADDING (espacio interior entre el margen de un elemento y su contenido)
+
+	padding-top:
+	
+	padding-right:
+
+	padding-bottom:
+
+	padding-left:
+
+	shorthand:
+		padding: (top) (right) (bottom) (left)
+
+
+* HEIGHT & WIDTH (alto y ancho de un elemento)
+
+	max-width: determina el ancho máximo que debería tomar la caja, aunque se amplíe el espacio disponible.
+
+	min-width: determina el ancho mínimo que puede tomar la caja, al llegar al mínimo no se achica más.
+
+	
+* OUTLINE (resaltador de caja que no ocupa lugar en el DOM)
+
+	outline-style: (REQUERIDO)
+		dotted:	borde de puntos
+		dashed:	borde de lineas
+		solid: 	borde solido de una linea
+		double:	borde solido de dos lineas
+		groove:	define un borde 3d, el efecto depende de los colores
+		ridge:	define un borde 3d, el efecto depende de los colores
+		inset:	define un borde 3d, el efecto depende de los colores
+		outset:	define un borde 3d...
+		none:	define SIN borde el elemento
+		hidden:	define un borde OCULTO.
+
+	outline-color:
+
+	outline-width:
+		thin (1px)
+		medium (3px)
+		thick (5px)
+		un ancho específico(px, pt, cm, em, etc)
+
+	outline-offset: (distancia entre la caja y el outline)
+
+	shorthand  outline: (width) (style) (color)
+
+
+* TEXT
+	text-color: (color del texto)
+
+	text-align: (se determina la alineación horizontal del texto)
+		left: (texto alineado a la izquierda)
+		center: (texto centrado)
+		right: (texto alineado a la derecha)
+		justify: (justifica el texto para que ocupe todo el ancho disponible)
+	 	
+	text-align-last: (especificar como se alinea la última linea del párrafo)
+		right: (texto a la derecha)
+		center: (texto centrado)
+		justify: (justificado)
+
+	direction: (determina la dirección del texto escrito)
+		rtl: (derecha a izquierda)
+		unicode-bidi:bidi-override
+
+	vertical-align: (determina la alineación vertical)
+		baseline: (por defecto)
+		text-top: (sobre la linea del texto)
+		text-bottom: (debajo de la linea del texto)
+		sub: (debajo de la linea del texto)
+		super: (por sobre la linea del texto)
+
+	text-decoration-line: (agrega una linea decoradora de texto)
+		overline: (agrega una linea sobre el texto)
+		line-through: (agrega una linea en medio del texto)
+		underline: (agrega una linea debajo del texto)
+		overline underline: (lineas sobre y debajo del texto)
+
+	text-decoration-color: (color de la linea de subrayado suprayado, etc)
+
+	text-decoration-style: (estilo de la linea de subrayado suprayado)
+		solid: 
+		double:
+		dotted:
+		dashed:
+		wavy:
+
+	text-decoration-thickness: (ancho de la linea subrayado o suprayado)
+	
+	shorthand text-decoration: (line{requerido}) (color) (style) (thickness)
+
+	TEXT-DECORATION: NONE (remueve todo agregado al texto, como el subrayado de
+				los hipervínculos)
+
+	text-transformation: (cambio en el texto)
+		uppercase: (cambia todo a mayúsculas)
+		lowercase: (cambia texto a minúsculas)
+		capitalize: (cambia inicial a mayúscula)
+
+	text-indent: [px/em/rem/cm/pt] (sangría del texto)
+
+	letter-spacing: [px/em/rem/cm/pt] (espacio entre los caractéres de un párrafo)
+	
+	line-height: [px/em/rem/cm/pt] (espacio entre cada renglón de un párrafo)
+	
+	word-spacing: [px/em/rem/cm/pt] (espacio entre las palabras de un párrafo)
+
+	white-space: (determina si el texto se ajusta a la pantalla o no)
+		wrap: (el texto se ajusta)
+		nowrap: (el texto no se ajustará, creando barras de desplazamiento)
+
+	text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads con coma])
+		   : (horizontal shadow) (vertical shadow) (blur effect) (color)
+		   : [px/em/rem/cm/pt]
+	  ejemplo  : 5px 10px 3px red, 10px 20px 5px blue	
 
 
 		
@@ -219,6 +353,7 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 
 	none: ()
 
+	scale-down: (elige la mejor propiedad para ajustar la imágen)
 
 * OBJECT-POSITION: (se puede definir en ejes X e Y la posición del objeto en la caja, aparte de predefinidos)
 	
