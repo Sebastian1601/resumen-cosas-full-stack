@@ -1,3 +1,6 @@
+Verificar 02:26:00 del video. Propiedad POSITION porque tiene datos sobre como cambia el estado de un elemento al cual se le cambia la propiedad.
+
+
 * BACKGROUND (fondos de cajas)
 
 shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
@@ -207,6 +210,169 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 	:valid (selecciona elementos, generalmente inputs con un valor establecido Valido)
 
 	:visited (selecciona generalmente vinculos ya visitados "a:visited" {})
+
+
+* OBJECT-FIT : (ubicar imágenes en contenedores, no hay que darle ancho ni alto a la imágen para esto)
+	contain: (busca ocupar lo más grande del contenedor, ancho o alto, manteniendo el ratio de la imágen y mostrando toda la imágen, aunque tenga que achicarse)
+
+	cover: (mantiene el ratio y ocupa todo el contenedor, aunque se recorte tramos de la imágen)
+
+	none: ()
+
+
+* OBJECT-POSITION: (se puede definir en ejes X e Y la posición del objeto en la caja, aparte de predefinidos)
+	
+	left: 
+	
+	right:
+
+	top:
+
+	bottom:
+
+
+* COLORS (colores)
+
+
+
+* MEDIAQUERY (las mediaquerys se utilizan para el responsive design, creando cortes según resolución para cambiar propiedades de las cajas mediante el mismo CSS)
+
+		@media only screen and (CONDICION según resolución) {
+
+		bloque de contenido de cambios	
+	
+		}
+	
+
+VOY POR EL MINUTO 04.34.00 DEL VIDEO DE CSS.
+
+PAUSA PARA APRENDER GIT.
+
+*********************** GIT & GITHUB *******************************************
+
+
+///////////////////////CONFIGURACION INICIAL////////////////////////////////////
+
+existen distintos scopes de configuración, local, global, y system.
+
+accedemos a las mismas con 
+git config --(local/global/system)
+			:local realiza cambios para ese repositorio en particular
+			:global realiza cambios para todos los repos en ese equipo.
+			:system realiza cambios para todo el sistema.
+
+* limpiar consola git
+	clear
+
+* ver la lista de configuraciones globales
+	git config --global --list
+
+* configurando el nombre global de usuario en git
+	git config --global user.name "Davidejemplo"
+
+* configurando mail
+	git config --global user.email "davidseba.giordano@gmail.com"
+
+
+* Configurar el editor(visual studio code) para mensajes
+	git config --global core.editor "code --wait"
+					(visual studio code)  --(esto genera que se 
+
+* confirmen los cambiso cuando se cierre el editor de codigos)
+
+* configurar colores de interfaz
+	git config --global color.ui true
+
+
+** importante para evitar problemas a futuro con el texto (funciona solo en windows)
+	git config --global core.autocrlf true (carriage return line feed)
+
+
+info adicional
+
+https://stackoverflow.com/questions/2517190/how-do-i-force-git-to-use-lf-instead-of-crlf-under-windows/13154031#13154031
+
+////////////////// REPOS ////////////////////////////////////////////////////
+* comandos basicos del shell
+
+	cd (nombre entrar carpeta) 	: entrar a una carpeta.
+
+	cd ../ 				:(volver para atrás un nivel en el directorio) (es lo mismo poner cd ..)
+
+	mkdir (nombre de carpeta)	:(crea una carpeta en el directorio actual)
+
+	rmdir (nombre de la carpeta)	:(borra una carpeta del directorio actual con el nombre)
+
+	rm (nombre del archivo)		:(remueve el archivo indicado localmente)
+
+	dir				:(lista contenido de directorio actual)
+
+	ls				:(lista de archivos)
+
+	ls -l				:(lista de archivos como lista efectiva)
+
+	ls -lh				:(lista de archivos)
+
+	touch (nombre de archivo.ext)	:(crear un archivo nuevo)
+
+	cp (nombre del archivo a copiar) (nombre del directorio donde queremos copiarlo) :copia archivos
+
+	mv (directorio del archivo/nombre de archivo.ext) (directorio a donde queremos mover el archivo) :mueve archivos
+
+	rm -r (nombre de la carpeta a eliminar, junto con sus archivos) :(elimina archivos y carpetas todo junto) 
+
+//////// Area de trabajo ---> Area de Staging ---> REPOSITORIO /////////////////
+
+INICIALIZAR EL REPOSITORIO LOCAL----------------
+	git init  (esto inicializa la carpeta como repositorio local)
+
+
+* agregar archivos al area de STAGING
+	git add .  (agrega TODOS los archivos de la carpeta al area de staging)
+
+	git add (nombre del archivo uno por uno) ej git add index.html
+
+
+* ver estado de la carpeta, commits, etc del repo. (muestra qué archivo se va a subir al repo)
+	git status
+
+* sacar archivo del area de STAGING
+	git rm --cached (nombre del archivo)
+
+
+/////////REALIZAR COMMIT ----------------------------------
+
+	git commit -m "(mensaje de actualización en el commit)"  (-m permite agregar mensaje al commit)
+
+	git commit (esto abre automáticamente el editor de texto configurado antes, para escribir en 	detalle los datos del commit)
+
+* REALIZAR COMMIT -- Sin pasar por el área de STAGING --
+
+	git commit -a 
+
+* ELIMINAR UN ARCHIVO DEL REPO
+
+	rm (archivo) se elimina el archivo.
+	luego, se debe agregar la "eliminación del archivo" con git add (nombre de archivo o punto[git add .]) 
+	finalmente se realiza el commit.
+	git commit -m "(mensaje)" -a
+
+* RESTAURAR UN ARCHIVO ELIMINADO LOCALMENTE DESDE EL REPO
+
+	git restore (ruta/nombre del archivo.ext) :(esto restaura un archivo borrado localmente al punto
+			de la última actualización que tuvo el mismo en el repo. si se hicieron cambios
+			luego del commit y no se guardaron, no van a estar en el archivo restaurado)
+
+
+* VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado.(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
+
+	git checkout (ruta/archivo.ext) :(vuelve el estado del archivo al estado del último commit.
+					Todo cambio posterior se descarta)
+
+
+* VOLVER ATRÁS el estado de un archivo sin tener en cuenta si hay archivos en el área de staging
+
+	git reset --hard
 
 
 
