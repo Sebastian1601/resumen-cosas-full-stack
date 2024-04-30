@@ -411,9 +411,8 @@ git config --(local/global/system)
 
 * Configurar el editor(visual studio code) para mensajes
 	git config --global core.editor "code --wait"
-					(visual studio code)  --(esto genera que se 
-
-* confirmen los cambiso cuando se cierre el editor de codigos)
+					(visual studio code)  --(esto genera que se confirmen los cambiso cuando se cierre
+  					 el editor de codigos)
 
 * configurar colores de interfaz
 	git config --global color.ui true
@@ -421,6 +420,9 @@ git config --(local/global/system)
 
 ** importante para evitar problemas a futuro con el texto (funciona solo en windows)
 	git config --global core.autocrlf true (carriage return line feed)
+
+* configurar para que la versiòn abreviada del hash de cada commit, sea de x dígitos (normalmente 10)
+  	git config --global core.abbrev X
 
 
 info adicional
@@ -462,7 +464,7 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 	git init  (esto inicializa la carpeta como repositorio local)
 
 
-* agregar archivos al area de STAGING
+* agregar archivos al area de STAGINGrm
 	git add .  (agrega TODOS los archivos de la carpeta al area de staging)
 
 	git add (nombre del archivo uno por uno) ej git add index.html
@@ -483,7 +485,13 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 
 * REALIZAR COMMIT -- Sin pasar por el área de STAGING --
 
-	git commit -a 
+	git commit -a
+
+* VER DATOS Y HASH DE LOS COMMITS
+
+  	git log
+
+  	git log --oneline
 
 * ELIMINAR UN ARCHIVO DEL REPO
 
@@ -514,16 +522,68 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 
   	git mv (nombre del archivo actual.ext) (nuevo nombre.ext)
 
+* VERIFICAR CONTENIDO DE UN ARCHIVO ¡¡ YA GUARDADO !! EN EL REPOSITORIO LOCAL
+
+  	git show (nombre del archivo.ext)
+
+* COMPARAR ARCHIVOS EN EL REPO(ya commiteados) CON ARCHIVOS EN EL AREA DE STAGING (obviamente no se define el archivo en el comando sino subiendolos al área de staging) 
+
+	git diff --staged
+
+* COMPARAR DIFERENCIAS ENTRE 2 VERSIONES DE LOS COMMITS, DE ACUERDO A SU HASH
+
+   	git diff (1er hash de commit de x dígitos) (2do hash de commit de x dígitos)
+
+* COMPARAR SOLAMENTE CAMBIO DE NOMBRES EN LOS ARCHIVOS
+
+  	git diff --name-only (1er hash de commit de x dígitos) (2do hash de commit de x dígitos)
+
+* COMPARAR QUE SE CAMBIO ENTRE DOS COMMITS
+
+  	git diff --word-diff (1er hash de commit de x dígitos) (2do hash de commit de x dígitos)
+
+
+* CAMIAR DE MENSAJE EL ÚLTIMO COMMIT REALIZADO (y modificar el último commit)
+
+  	git commit --amend
+
+  	(en caso de necesitar modificar archivos en este ùltimo commit, se agregan al area de STAGING
+  	y ahi luego de tener todo organizado en staging se realiza el comando indicado git commit --amend)
+
   
+* DESHACER EL ULTIMO COMMIT (mover el HEAD al commit anterior, y mueve los archivos del ùltimo commit, al área de staging para
+  				realizar cambios o eliminarlos, y si ha archivos ya en staging, se agregan todos juntos)
+
+  	git reset --soft (hash de commit anterior al que queremos borrar de x digitos)
+
+   	git reset --soft head~1  (esto es lo mismo que pensar desde el commit head - 1 restarle uno)
+
+  	git reset --mixed (hash de commit anterior al que queremos borrar de x digitos) (esto vuelve atràs sin dejar nada
+  				 en el area de staging)
+
+	*********** ANTES DE USAR GIT RESET HARD hay que guardar los archivos del area de trabajo sino darà error*************
+  	***********LOS ARCHIVOS QUE SE USAN CON GIT RESET HARD no pueden ser guardados ***************************************
+
+  	gir reset --hard (hash del commit del que quiero tener todos los archivos en el area de trabajo, pisando todo
+  			lo que tenía)
 
 
+  //////////// RAMAS o BRANCHES //////////////////////////////////////////////////////////////////////////////////////////////
 
+  Tener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	git branch  (esto muestra todas las ramas activas y creadas del repo)
 
+	git branch  (nombre de la rama)  :esto crea una rama(copia del estado actual) con el nombre indicado.
 
+* cambiar a una rama:
+	git checkout (nombre de la rama en la que se quiere trabajar) (ya no se suele utilizar)
 
+	git switch (nombre de la rama en la que se quiere trabajar)
 
-
+* Crear una rama y cambiar a esa inmediatamente:
+	git switch -c (nomber de la rama a crear) 
 
 
 
