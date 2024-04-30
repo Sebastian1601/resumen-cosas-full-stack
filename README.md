@@ -510,6 +510,12 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 	git reset --hard
 
 
+* CAMBIAR NOMBRE DE UN ARCHIVO
+
+  	git mv (nombre del archivo actual.ext) (nuevo nombre.ext)
+
+  
+
 
 
 
