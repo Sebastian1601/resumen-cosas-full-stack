@@ -1,5 +1,7 @@
 Verificar 02:26:00 del video. Propiedad POSITION porque tiene datos sobre como cambia el estado de un elemento al cual se le cambia la propiedad.
 
+Ver la parte de Modificar y deshacer commits nuevamente, del video curso de GIT desde CERO
+
 
 * BACKGROUND (fondos de cajas)
 
@@ -489,9 +491,14 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 
 * VER DATOS Y HASH DE LOS COMMITS
 
-  	git log
+  	git log 
 
-  	git log --oneline
+  	git log --oneline  :(muestra el log y los hash resumidos configurados de los commits)
+
+	git log --oneline --all  :(muestra los commits de TODAS las ramas)
+
+	git ls-tree -r --name-only (hash resumido del commit a ver) :(muestra lista de  archivos y carpetas en ese commit)
+	git ls-tree -r --name-only HEAD (esto refiere al último commit disponible)
 
 * ELIMINAR UN ARCHIVO DEL REPO
 
@@ -586,11 +593,75 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 	git switch -c (nomber de la rama a crear) 
 
 
+* Eliminar ramas (ES IMPORTANTE QUE PARA ELIMINAR UNA RAMA, NO DEBEMOS ESTAR PARADOS EN ELLA)
+  	git branch -d (nombre de la rama a borrar)
+
+* Cambiar nombre de rama donde NO ESTAMOS PARADOS
+
+  	git branch -m (nombre actual de la rama) (nombre nuevo de la rama)
+
+* Cambiar nombre de la RAMA ACTUAL
+
+  	git branch -m (nuevo nombre a colocar en la rama actual)
+
+//////////////////////////////////////////////////////////////////////////// UNIR RAMAS (MERGE o FUSIONAR) ///////////////////
+
+IMPORTANTE! para fusionar RAMA1 con RAMA2, debemos estar "parados" en la rama a la cual queremos "mantener". En este caso, debemos estar en RAMA1 y fusionar RAMA2 con RAMA1, para que los cambios se agreguen a RAMA1.
+
+* FUSIONAR RAMAS:
+	git merge (nombre de la rama a fusionar en la rama actual donde estamos parado)
+
+* EN CASO DE HABERSE EQUIVOCADO:
+
+  	git reset --hard (hash del último commit de la rama principal antes de fusionar las ramas)
+  								ESTO ELIMINA EL COMMIT DE FUSION DE LAS RAMAS pero
+  								no la rama que se fusionó!
 
 
+////////// CONFLICTOS DE FUSIONADO (MERGE) ////////////////////////////////////////////////////////////////////////////////////
 
+Esto suele suceder cuando se trabaja en una rama, desde un punto B de la rama principal, y antes de fusionar la rama con el principal, se da que la rama principal tuvo modificaciones. 
 
+			rama1 ---- rama1(2)
+   		       /                   \
+	    	      /                     \
+	main------main(2) ----main(3)------ (main + rama1(2)) = Conflicto Posible
 
+Abriendo el editor de Visual Studio Code permite seleccionar qué código va a quedar seleccionado y se realiza el commit 
+desde ahi directamente.
+Se pueden aceptar cambios de una rama, de otra, ambas, o seleccionando la opción más conveniente de cada una.
+
+Caso contrario, se pone:
+	git merge --continue   (esto finaliza con el commit del merging)
+
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ .GITIGNORE 
+
+ 	esto define qué archivos GIT debe ignorar al momento de buscar para commitear. y solo funciona para archivos que
+  	NUNCA se han guardado en un commit, si el archivo ya se subió
+
+  se crea un archivo .gitignore
+
+  se puede abrir con el VSC y se puede comentar dentro con el símbolo #(comentario)
+  se agrega el [nombre.ext] del archivo a ignorar, pero se puede definir por rangos
+  	ej: *.txt / *.jpg / *.py
+   
+*  para excepcionar un archivo dentro del grupo de archivos definidos por ej en *.txt, se pone
+  ![nombre de archivo.txt]
+  
+Para ignorar un directorio completo se pone
+	[nombre de carpeta]/
+
+* CONFIGURAR QUE LOS REPOS LEAN UN ARCHIVO .GITIGNORE general:
+
+  	git config --global core.excludesfile [ruta en la pc del archivo]
+ 	ej: git config --global core.excludesfile c:/generalfiles/.gitignore_global
+
+  
+ 	
+ 
+  
 
 
 
