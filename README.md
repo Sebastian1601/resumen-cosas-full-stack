@@ -705,6 +705,10 @@ ALIAS EN GIT
 
     esto genera que al escribir c:>git logsimple 
     esto genere que se dispare el comando configurado anteriormente.
+
+* Ver la lista de alias asignado:
+  	 git config --global --list |grep alias
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 * GIT REFLOG
