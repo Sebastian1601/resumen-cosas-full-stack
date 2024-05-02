@@ -666,6 +666,9 @@ Se pueden aceptar cambios de una rama, de otra, ambas, o seleccionando la opció
 Caso contrario, se pone:
 	git merge --continue   (esto finaliza con el commit del merging)
 
+* VER la última actualización de cada rama
+  	git branch -v
+
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  .GITIGNORE 
@@ -725,14 +728,19 @@ ALIAS EN GIT
 
 // CREAR Y CONFIGURAR REPOSITORIO REMOTO //
 
-## GIT CLONE --------------------------------------------------------------------------------
+  ## GIT CLONE --------------------------------------------------------------------------------
 
   c:>CODE .     :abre el VSC dentro de la carpeta actual.
 
 	ESTANDO en la carpeta donde queremos copiar el repositorio por HTTPS, copiamos la dirección http y luego:
 
  	git clone [dirección https del repositorio a clonar] ↩️
+  
+  esto ya configura el remote origin, para el push y fetch
 
+ 
+  
+  
   ## GIT PUSH --------------------------------------------------------------------------------
 
 	Para poder subir archivos a nuestro repo, debemos tener configurado el mismo mail con el que iniciamos sesión
@@ -740,7 +748,7 @@ ALIAS EN GIT
   	Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
 
     	git push origin main
-     	git push [orígen del repo] [rama del repo de orígen]
+     	git push [nombre del repo remoto] [rama del repo remoto]
   	
 *Si esto abre una ventana de log, lo recomendable es hacerlo por [TOKEN]. Para obtener el [TOKEN], 
  vamos a Settings > Developer Settings > Personal Acces Tokens > Tokens (classic) y ahi Generar nuevo token
@@ -751,6 +759,10 @@ ALIAS EN GIT
 
  Esto generará un código que se debe copiar en el sistema de inicio de sesión de Github por la solapa TOKEN.
 
+ 
+
+
+ 
  ## GIT PULL -----------------------------------------------------------------------------------
 
 	Se utiliza para descargar CAMBIOS hechos en el repo online, al repo local, de ciertos archivos(no todos, para eso 
@@ -759,7 +771,42 @@ ALIAS EN GIT
 
    * Git pull origin main
 
-## GIT FETCH ------------------------------------------------------------------------------------
+ # *ERRORES con git push:
+
+   There are two ways of solving the fatal: refusing to merge unrelated histories error
+
+	*git pull origin master --allow-unrelated-histories.
+
+   You can substitute origin with the remote repository you are pulling from. You can also replace the master branch with whatever branch you want the pull request to merge into.
+
+  	Option 2: unstage, stash, clone, unstash, and then commit
+
+The alternative (and longer) way of fixing the fatal: refusing to merge unrelated histories issues is to unstage your current commits, stash them, clone your required remote repository, and then place your stashed branch contents into the new clone.
+
+This will ensure that any conflicts that you may encounter in the code are addressed before merging and prevent application errors from occurring.
+To unstage all the files in your last commit, use the following git command: git reset HEAD~.
+
+To stash your unsaved files, use the following git command: git stash.
+
+This will give you a clean working tree to pull your remote repository into. Once you’ve successfully pulled into your branch, you can unstash your files, commit them as a separate commit and resolve any file conflicts that you may have.
+
+To unstash your files, use git pop. This will move the changes stashed and reapplies them to your current working copy.
+
+Alternatively, you can use git stash apply to add the changes to your current working copy of code.
+
+Here is a quick summary of differences between git stash apply and <code”>git pop:
+
+    git pop: ‘pops’ the changes from the stash and applies them to the current code
+    git stash apply: keeps the changes in the stash and applies the changes to the current code
+
+The easiest way to prevent the fatal: refusing to merge unrelated histories error is to avoid pulling remote repositories into branches that already have commits on them.
+However, sometimes you just want to keep the commits. One way to prevent the error is to create a brand new branch, pull your required code in, and then manually merge your local branch into your main flow.
+
+
+
+
+
+## GIT FETCH ---------------------------------------------------------------------------------------------
 	esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del mismo nombre para poder
  	verificar los cambios, y en todo caso, sumarlos a nuestro repo local
 	Luego de ejecutar el fetch, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
@@ -769,11 +816,40 @@ ALIAS EN GIT
  	y luego, si sirven, guardarlos. VOLVER a la rama principal de nuestro repo local
   	para hacer un -git pull-
 
-## Migrar repositorio local a uno remoto ----------------------------------------------------------
 
+
+## Migrar repositorio local a uno remoto ------------------------------------------------------------------
+
+   Luego de crear un repositorio en Github, mediante Git hay que hacer
+
+  	git remote add [nombre de referencia del repo remoto] [dirección http del repositorio remoto creado]
+
+   ej:  	
+   			
+      git remote add origin https://github.com/Sebastian1601/Codoacodo-tp-nodejs.git
+      
+   luego se comanda
+  				
+      		git branch -M main
+   y finalmente
+
+    		git push -u origin main
  	
- 
   
+
+# FORK ----------------------------------------------------------------------------------------------------
+
+   Un fork es una copia de un repositorio remoto en nuestro repositorio remoto. Cuando queremos duplicar algun proyecto del que podemos copiarnos.
+   Al hacerlo, queda en nuestro repo, y se hace el commit para "guardarlo" por primera vez.
+
+
+# PULL REQUEST --------------------------------------------------------------------------------------------
+
+esto se da cuando hacemos un fork, y guardamos un repositorio que no es nuestro en el repo online.
+queremos subirla de nuevo al repo remoto copia del proyecto de alguien más.
+
+cuando ya tenemos cargado en el repo online nuestro el repo local del fork, tenemos una opción llamada [CONTRIBUTE], y de ahi se abre la opción [OPEN PULL REQUEST].
+Ahi se verifica que se pueda fusionar ambos repos, y luego se agregan los datos sobre titulo y descripción del pull request.
 
 
 
