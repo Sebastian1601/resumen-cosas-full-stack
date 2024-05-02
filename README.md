@@ -1,7 +1,26 @@
-Verificar 02:26:00 del video. Propiedad POSITION porque tiene datos sobre como cambia el estado de un elemento al cual se le cambia la propiedad.
+alt + 60 = <
+alt + 62 = >
 
-Ver la parte de Modificar y deshacer commits nuevamente, del video curso de GIT desde CERO
+alt + 91 = [
+alt + 93 = ]
 
+alt + 40 = (
+alt + 41 = )
+
+alt + 35 = #
+
+alt + 92 = \ (barra invertida)
+
+alt + 126 = ~
+
+alt + 64 = @
+
+alt + 32 =  (espacio vacío)
+
+*Verificar 02:26:00 del video de CSS. Propiedad POSITION porque tiene datos sobre como cambia el estado de un elemento al cual se le cambia la propiedad.
+
+*Ver la parte de Modificar y deshacer commits nuevamente, del video curso de GIT desde CERO
+*Ver GITPULL y GITFETCH
 
 * BACKGROUND (fondos de cajas)
 
@@ -478,12 +497,15 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 * sacar archivo del area de STAGING
 	git rm --cached (nombre del archivo)
 
+ 	git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)
+
 
 /////////REALIZAR COMMIT ----------------------------------
 
 	git commit -m "(mensaje de actualización en el commit)"  (-m permite agregar mensaje al commit)
 
-	git commit (esto abre automáticamente el editor de texto configurado antes, para escribir en 	detalle los datos del commit)
+	git commit (esto abre automáticamente el editor de texto configurado antes, para escribir en
+ 	detalle los datos del commit)
 
 * REALIZAR COMMIT -- Sin pasar por el área de STAGING --
 
@@ -502,7 +524,7 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 
 * ELIMINAR UN ARCHIVO DEL REPO
 
-	rm (archivo) se elimina el archivo.
+	rm (archivo)  :se elimina el archivo.
 	luego, se debe agregar la "eliminación del archivo" con git add (nombre de archivo o punto[git add .]) 
 	finalmente se realiza el commit.
 	git commit -m "(mensaje)" -a
@@ -514,15 +536,22 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 			luego del commit y no se guardaron, no van a estar en el archivo restaurado)
 
 
-* VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado.(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
+* VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
 
 	git checkout (ruta/archivo.ext) :(vuelve el estado del archivo al estado del último commit.
 					Todo cambio posterior se descarta)
+  	git checkout (hash de un commit anterior cualquiera) :(cambia al estado de los archivos en ese commit, pero es solamente
+  							 para revision)
 
+  	SI AL UTILIZAR GIT CHECKOUT, CREAMOS UNA RAMA DESDE ESE PUNTO, PODEMOS LLEVAR ESTE ESTADO A UNA RAMA "OFICIAL"
+  	PARA SEGUIR TRABAJANDO DESE ESE PUNTO LOS ARCHIVOS.
+  
+	== SOLO SE UTILIZA LUEGO DE ver un commit anterior con GIT CHECKOUT y no queremos cambiar nada ==
+	git switch - (vuelve el HEAD al último commit disponible del repo)
 
 * VOLVER ATRÁS el estado de un archivo sin tener en cuenta si hay archivos en el área de staging
-
-	git reset --hard
+	======== SIEMPRE HAY QUE TENER LOS ARCHIVOS GUARDADOS ANTE UN RESET HARD =======
+	git reset --hard (hash del commit a donde quiero volver el estado de todos los archivos)
 
 
 * CAMBIAR NOMBRE DE UN ARCHIVO
@@ -561,12 +590,12 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 * DESHACER EL ULTIMO COMMIT (mover el HEAD al commit anterior, y mueve los archivos del ùltimo commit, al área de staging para
   				realizar cambios o eliminarlos, y si ha archivos ya en staging, se agregan todos juntos)
 
-  	git reset --soft (hash de commit anterior al que queremos borrar de x digitos)
+  	git reset --soft (hash de commit anterior al que queremos borrar de x digitos) :(no modifica archivos del área d trabajo)
 
    	git reset --soft head~1  (esto es lo mismo que pensar desde el commit head - 1 restarle uno)
 
   	git reset --mixed (hash de commit anterior al que queremos borrar de x digitos) (esto vuelve atràs sin dejar nada
-  				 en el area de staging)
+  				 en el area de staging pero sin modificar el área de trabajo)
 
 	*********** ANTES DE USAR GIT RESET HARD hay que guardar los archivos del area de trabajo sino darà error*************
   	***********LOS ARCHIVOS QUE SE USAN CON GIT RESET HARD no pueden ser guardados ***************************************
@@ -613,9 +642,12 @@ IMPORTANTE! para fusionar RAMA1 con RAMA2, debemos estar "parados" en la rama a 
 
 * EN CASO DE HABERSE EQUIVOCADO:
 
-  	git reset --hard (hash del último commit de la rama principal antes de fusionar las ramas)
+  	git reset --hard (HASH del último commit de la rama principal antes de fusionar las ramas)
   								ESTO ELIMINA EL COMMIT DE FUSION DE LAS RAMAS pero
   								no la rama que se fusionó!
+* EN EL CASO DE QUERER RECUPERAR UN COMMIT BORRADO CON RESET --HARD, si tenemos el HASH de referencia, podemos recuperarlo con
+
+  	git reset --hard (HASH del commit borrado)
 
 
 ////////// CONFLICTOS DE FUSIONADO (MERGE) ////////////////////////////////////////////////////////////////////////////////////
@@ -650,7 +682,7 @@ Caso contrario, se pone:
 *  para excepcionar un archivo dentro del grupo de archivos definidos por ej en *.txt, se pone
   ![nombre de archivo.txt]
   
-Para ignorar un directorio completo se pone
+*  Para ignorar un directorio completo se pone
 	[nombre de carpeta]/
 
 * CONFIGURAR QUE LOS REPOS LEAN UN ARCHIVO .GITIGNORE general:
@@ -659,6 +691,82 @@ Para ignorar un directorio completo se pone
  	ej: git config --global core.excludesfile c:/generalfiles/.gitignore_global
 
   
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ALIAS EN GIT
+	(se definen como funciones que guardan todos los comandos determinados para ejecutar más simple)
+
+ ej:
+   git log --oneline --graph --all
+  	
+   	se puede resumir configurando lo siguiente: elijiendo el nombre del comando propio como logsimple
+
+   git config --global alias.[nombre del comando propio] "log --oneline --graph --all"
+
+    esto genera que al escribir c:>git logsimple 
+    esto genere que se dispare el comando configurado anteriormente.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+* GIT REFLOG
+  	esto es un log de todos los movimientos generados en el repo, borrados, HASH de elementos borrados, etc.
+ 
+  
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#------------------------------------- GIT HUB [Repositorios Remotos] ----------------------------------------------------------#
+
+                Área de trabajo --> STAGING --> REPOSITORIO LOCAL --> REPOSITORIO EN LINEA
+			a		b		c		D
+
+
+// CREAR Y CONFIGURAR REPOSITORIO REMOTO //
+
+## GIT CLONE --------------------------------------------------------------------------------
+
+  c:>CODE .     :abre el VSC dentro de la carpeta actual.
+
+	ESTANDO en la carpeta donde queremos copiar el repositorio por HTTPS, copiamos la dirección http y luego:
+
+ 	git clone [dirección https del repositorio a clonar] ↩️
+
+  ## GIT PUSH --------------------------------------------------------------------------------
+
+	Para poder subir archivos a nuestro repo, debemos tener configurado el mismo mail con el que iniciamos sesión
+ 	en Github. 
+  	Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
+
+    	git push origin main
+     	git push [orígen del repo] [rama del repo de orígen]
+  	
+*Si esto abre una ventana de log, lo recomendable es hacerlo por [TOKEN]. Para obtener el [TOKEN], 
+ vamos a Settings > Developer Settings > Personal Acces Tokens > Tokens (classic) y ahi Generar nuevo token
+
+   		Recomendaciones sobre el token ------
+     		- No debería ser eterno. Lo recomendable es de 7 a 30 días.
+       		- Los permisos con la primera opción, REPO ya es suficiente.
+
+ Esto generará un código que se debe copiar en el sistema de inicio de sesión de Github por la solapa TOKEN.
+
+ ## GIT PULL -----------------------------------------------------------------------------------
+
+	Se utiliza para descargar CAMBIOS hechos en el repo online, al repo local, de ciertos archivos(no todos, para eso 
+ 	se usa un git clone).
+  	esto es un /git fetch/ y luego hacer un /git merge/ todo junto.
+
+   * Git pull origin main
+
+## GIT FETCH ------------------------------------------------------------------------------------
+	esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del mismo nombre para poder
+ 	verificar los cambios, y en todo caso, sumarlos a nuestro repo local
+	Luego de ejecutar el fetch, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
+
+   git switch --detach origin/main (esto genera que se trate como temporal)
+   
+ 	y luego, si sirven, guardarlos. VOLVER a la rama principal de nuestro repo local
+  	para hacer un -git pull-
+
+## Migrar repositorio local a uno remoto ----------------------------------------------------------
+
  	
  
   
