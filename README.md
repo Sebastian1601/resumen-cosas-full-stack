@@ -367,7 +367,7 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 	:visited (selecciona generalmente vinculos ya visitados "a:visited" {})
 
 
-* OBJECT-FIT : (ubicar imágenes en contenedores, no hay que darle ancho ni alto a la imágen para esto)
+* OBJECT-FIT : (se aplica directamente a las <IMG>) (ubicar imágenes en contenedores, no hay que darle ancho ni alto a la imágen para esto)
 	contain: (busca ocupar lo más grande del contenedor, ancho o alto, manteniendo el ratio de la imágen y mostrando toda la imágen, aunque tenga que achicarse)
 
 	cover: (mantiene el ratio y ocupa todo el contenedor, aunque se recorte tramos de la imágen)
@@ -377,14 +377,16 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 	scale-down: (elige la mejor propiedad para ajustar la imágen)
 
 * OBJECT-POSITION: (se puede definir en ejes X e Y la posición del objeto en la caja, aparte de predefinidos)
+  	si definimos object-position: 0px 0px; esto genera que la imágen se alinee desde el borde superior izquierdo a la caja
+  	contenedora
 	
-	left: 
+	:left :alinea la imágen desde el margen izquierdo al contenedor
 	
-	right:
+	:right :alinea la imágen desde el margen derecho al contenedor
 
-	top:
+	:top :alinea la imágen desde el margen superior al contenedor
 
-	bottom:
+	:bottom :alinea la imágen desde el margen inferior al contenedor
 
 
 * COLORS (colores)
@@ -398,6 +400,8 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 		bloque de contenido de cambios	
 	
 		}
+
+  :Mediaquerys:
 	
 
 VOY POR EL MINUTO 04.34.00 DEL VIDEO DE CSS.
