@@ -401,12 +401,10 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 	
 		}
 
-  :Mediaquerys:
-	
 
-VOY POR EL MINUTO 04.34.00 DEL VIDEO DE CSS.
 
-PAUSA PARA APRENDER GIT.
+
+
 
 *********************** GIT & GITHUB *******************************************
 
