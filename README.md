@@ -402,11 +402,93 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 		}
 
 
+# ---------------------- FLEX BOX -------------------
+
+* Flexbos posee 2 ejes, el main axis y el cross axis. (esto depende de la orientación del contenedor flex.)
+
+
+     -----------------------------------------------------------------
+     |                           |cross-star                         |
+     |                           |                                   |
+     |main start                 |                           main end|
+     |---------------------------------------------------------------|
+     |                           |                                   |
+     |                           |cross end                          |
+     |                           |                                   |
+     -----------------------------------------------------------------
+
+*Al setear un contenedor con display:flex, todo contenedor hijo directo(exclusivamente) del mismo, se convierte en un flex item.
+
+  ej:
+
+  	<div CLASS="flex_container">
+   		<p CLASS="flex_item"> lorem ipsum etc </p>
+     		<img src="./img/img_prueba1.jpg" CLASS="flex_item">
+       </div>
+
+## PROPIEDADES DEL CONTENEDOR FLEX ------------------------------------------------
+
+* Cambiar dirección del main axis (eje principal)
+
+  		Flex-direction: row (por defecto)
+  				column (vertical)
+  				row-reverse (horizontal desde derecha a izquierda)
+  				column-reverse (vertical desde abajo hacia arriba)
+
+* Adaptar las filas o columnas para que al modificarse, se reubiquen
+ 
+    		flex-wrap: wrap (al no tener espacio, se reubican las cajas en más filas inferiores)
+  			   wrap-reverse (al no tener espacio, las cajas se ubican en más filas superiores)
+  			   no-wrap (las cajas, van a seguir ocupando una unica fila auque no haya espacio en la pantalla por lo tanto se agrega un scroll horizontal)
+* SHORTHAND:
+
+  		flex-flow:[propiedad de flex-direction] [propiedad de flex-wrap]
+    
+* distribuir en el main axis los flex items:
+
+		justify-content: flex-start (ubica a los flex items al inicio del contenedor flex) 
+				 flex-end (ubica a los flex items al final del contenedor flex)
+  				 center (ubicar en el centro los flex items sin espacio)
+  				 space-around (le da un margin automatico entre cajas y limites del contenedor, todos iguales para usar todo el espacio)
+  				 space-between (ubica los flex items con el mayor espacio posible entre ellos, sin margenes entre los limites)
+  				 space-evenly (distribuye los flex-items con el mismo margin entre ellos y los limites del contenedor flex)
+  				 
+
+* distribuir en el cross axis los flex items cuando hay una sola fila de flex items en el contenedor:
+
+		align-items: flex-start (ubica a los flex items al inicio del contenedor flex y si los items no tienen definido alto, se ajusta al contenido) 
+			     flex-end (ubica a los flex items al final del contenedor flex y si los items no tienen definido alto, se ajusta al contenido)
+  			     center (ubicar en el centro los flex items sin espacio y si los items no tienen definido alto, se ajusta al contenido)
+			     stretch (por defecto)(si los items no tienen definido alto, los items se "estiran" para ocupar todo el alto del contenedor flex)
+  			     baseline (ubica a los items, en la parte inferior del contenedor, junto si y solo si con la opción flex-wrap:wrap-reverse)
+
+* distribuir en el cross axis los flex items cuando hay varias filas de flex items en el contenedor:
+
+  		align-content: flex-start (ubica a los flex items al inicio del contenedor flex y si los items no tienen definido alto, se ajusta al contenido) 
+			     flex-end (ubica a los flex items al final del contenedor flex y si los items no tienen definido alto, se ajusta al contenido)
+  			     center (ubicar en el centro los flex items sin espacio y si los items no tienen definido alto, se ajusta al contenido)
+			     stretch (por defecto)(si los items no tienen definido alto, los items se "estiran" para ocupar todo el alto del contenedor flex)
+  			     baseline (ubica a los items, en la parte inferior del contenedor, junto si y solo si con la opción flex-wrap:wrap-reverse)
+
+## PROPIEDADES DE LOS ITEMS FLEX ---------------------------------------------------
+
+# EL MARGIN:AUTO EN EL ITEM FLEX FUNCIONA MUY DISTINTO, PERO CENTRA SI HAY UN ITEM SOLO EN EL CENTRO DEL CONTENEDOR. SI HAY MAS DE UN ITEM, LOS CENTRA SOLAMENTE EN EL CROSS AXIS
+
+* ubicar en el cross axis el item en particular seleccionado:
+
+  		align-self: flex-start (ubica al principio del cross axis el item)
+   			    center (ubica en el cross axis al centro del contenedor)
+  			    flex-end (ubica en el final del cross axis el item dentro del contenedor)
+
+
+* determinar el tamaño de las cajas en el contenedor:
+
+  		flex-grow: [ratio de crecimiento ]
 
 
 
 
-*********************** GIT & GITHUB *******************************************
+# ******************* GIT & GITHUB ************************************
 
 
 ///////////////////////CONFIGURACION INICIAL////////////////////////////////////
