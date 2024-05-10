@@ -301,8 +301,8 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 	
 
 	pseudoclase ::before y ::after
-	 ambas clases dan la posibilidad de "insertar" elementos antes y después 	 del elemento de la selección, pero no forman parte del DOM como  	  	 cualquier otro.
-	 Llevan siempre la propiedad "content:"
+	 	ambas clases dan la posibilidad de "insertar" elementos antes y después del elemento de la selección, pero no forman 			parte del DOM como cualquier otro.
+	 	Llevan siempre la propiedad "content:"
 
 
 * PSEUDO-CLASES: 
@@ -480,15 +480,62 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
    			    center (ubica en el cross axis al centro del contenedor)
   			    flex-end (ubica en el final del cross axis el item dentro del contenedor)
 
+* determinar el orden en el eje flex principal de los items flex
 
-* determinar el tamaño de las cajas en el contenedor:
-
-  		flex-grow: [ratio de crecimiento ]
-
+  		order: (x, x E N)
 
 
+* determinar el tamaño de las cajas para crecer con respecto al espacio vacío en el contenedor:
 
-# ******************* GIT & GITHUB ************************************
+  		flex-grow: (x, x E N) (esta opción, colocada en el item flex, determina qué parte del espacio vacío
+  				se lleva este item)
+
+* determinar el espacio que cede la caja al achicarse con respecto a las demás.-
+
+  		flex-shrink: (x, x E N)
+
+* determinar el ancho inicial del item flex con más importancia que "width".
+
+		flex-basis:200px;
+
+# SHORTHAND : 
+
+		flex: [flex-grow] [flex-shrink] [flex-basis];
+
+
+
+# ------------------- GRID BOX -------------------------------------------------
+
+## Grillas dinámicas
+
+* Toda grilla tiene un contenedor.
+
+  		Display:grid;
+
+
+* Los Grid items, no necesariamente son cada celda de la grilla. Un grid Item puede ocupar varias grid cells.
+
+* La cantidad de grid tracks se determina sumando las filas y las columnas.
+
+* Grid area las definimos para maquetar la grilla.
+
+## PROPIEDADES A APLICAR A LOS GRIDs CONTAINERs -------------------------------
+
+* Determinar cuántas filas (rows) va a tener la grilla:
+  
+	  grid-template-rows: (tamaño de fila 1) (tamaño de fila 2) (tamaño de fila 3) ... (tamaño de fila 12);
+
+* Determinar cuántas columnas (columns) va a tener la grilla:
+
+  	  grid-template-columns: (tamaño de columna 1) (tamaño de columna 2) ... (tamaño de columna 12);
+
+Unidades para definir filas y columnas: AUTO, Fr, (medidas fijas como px, em, rem, etc.)
+
+
+
+
+
+# **************************** GIT & GITHUB ************************************
 
 
 ///////////////////////CONFIGURACION INICIAL////////////////////////////////////
