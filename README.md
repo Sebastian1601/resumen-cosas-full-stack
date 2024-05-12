@@ -942,7 +942,7 @@ However, sometimes you just want to keep the commits. One way to prevent the err
  	verificar los cambios, y en todo caso, sumarlos a nuestro repo local
 	Luego de ejecutar el fetch, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
 
-   git switch --detach origin/main (esto genera que se trate como temporal)
+   git switch --detach origin/main (esto genera que se trate como temporal) 
    
  	y luego, si sirven, guardarlos. VOLVER a la rama principal de nuestro repo local
   	para hacer un -git pull-
@@ -983,7 +983,11 @@ cuando ya tenemos cargado en el repo online nuestro el repo local del fork, tene
 Ahi se verifica que se pueda fusionar ambos repos, y luego se agregan los datos sobre titulo y descripción del pull request.
 
 
+# ERROR AL USAR GIT LOG (queda la lista de commits y luego dice log file: y no sale de esa pantalla.)
 
+	al registrar este error, hay que presionar ESC, y luego la tecla "Q"
+
+ 
 
 
 
