@@ -10,7 +10,7 @@ alt + 41 = )
 alt + 35 = #
 
 alt + 92 = \ (barra invertida)
-
+alt + 96 = ` (backticks)
 alt + 126 = ~
 
 alt + 64 = @
