@@ -795,11 +795,20 @@ desde ahi directamente.
 Se pueden aceptar cambios de una rama, de otra, ambas, o seleccionando la opción más conveniente de cada una.
 
 Caso contrario, se pone:
-	git merge --continue   (esto finaliza con el commit del merging)
+	
+ 	  git merge --continue   (esto finaliza con el commit del merging)
 
 * VER la última actualización de cada rama
-  	git branch -v
 
+   	  git branch -v
+
+
+## EN CASO DE QUE FIGURE EN EL MERGE NO MERGIN UNRELATED HISTORIES(esto es cuando varia demasiado las ramas)
+
+	git merge [nombre de la rama a fusionar con la actual] --allow-unrelated-histories
+
+ esto abre el editor para resolver codigo o dejar el mensaje de commit del merging
+ 
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  .GITIGNORE 
