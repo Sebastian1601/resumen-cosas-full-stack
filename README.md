@@ -613,22 +613,26 @@ https://stackoverflow.com/questions/2517190/how-do-i-force-git-to-use-lf-instead
 //////// Area de trabajo ---> Area de Staging ---> REPOSITORIO /////////////////
 
 INICIALIZAR EL REPOSITORIO LOCAL----------------
-	git init  (esto inicializa la carpeta como repositorio local)
+	
+       git init  (esto inicializa la carpeta como repositorio local)
 
 
 * agregar archivos al area de STAGINGrm
-	git add .  (agrega TODOS los archivos de la carpeta al area de staging)
 
-	git add (nombre del archivo uno por uno) ej git add index.html
+       git add .  (agrega TODOS los archivos de la carpeta al area de staging)
+
+       git add (nombre del archivo uno por uno) ej git add index.html
 
 
 * ver estado de la carpeta, commits, etc del repo. (muestra qué archivo se va a subir al repo)
-	git status
+
+       git status
 
 * sacar archivo del area de STAGING
-	git rm --cached (nombre del archivo)
 
- 	git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)
+      git rm --cached (nombre del archivo)
+
+      git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)
 
 
 /////////REALIZAR COMMIT ----------------------------------
@@ -657,7 +661,7 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
 
 	rm (archivo)  :se elimina el archivo.
 	luego, se debe agregar la "eliminación del archivo" con git add (nombre de archivo o punto[git add .]) 
-	finalmente se realiza el commit.
+	finalmente se realiza el commit.		
 	git commit -m "(mensaje)" -a
 
 * RESTAURAR UN ARCHIVO ELIMINADO LOCALMENTE DESDE EL REPO
@@ -909,7 +913,7 @@ Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
 	git push OnlineRepo ramaL:ramaR
 
  
- ## GIT PULL -----------------------------------------------------------------------------------
+ ## GIT PULL ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	Se utiliza para descargar CAMBIOS hechos en el repo online, al repo local, de ciertos archivos(no todos, para eso 
  	se usa un git clone).
@@ -949,7 +953,43 @@ The easiest way to prevent the fatal: refusing to merge unrelated histories erro
 However, sometimes you just want to keep the commits. One way to prevent the error is to create a brand new branch, pull your required code in, and then manually merge your local branch into your main flow.
 
 
+## GIT STASH (guardar temporalmente los cambios realizados en el area de trabajo sin commitear)------------------------------------------------------------------
 
+	git stash save "(MENSAJE PARA EL STASH-como un commit)" 
+
+ Esto guarda los cambios y revierte el directorio de trabajo a como se veía en tu último commit. Los cambios guardados están disponibles en cualquier rama de ese repositorio.
+
+ ·Ver los cambios guardados en el stash:
+
+ 	git stash list
+
+Esto devuelve una lista de tus capturas guardadas en el formato stash@{0}: RAMA-STASHED-CAMBIOS-SON-PARA: MESSAGE. La parte de stash@{0} es el nombre del stash, y el número en las llaves ({ }) es el índice (index) del stash. Si tienes múltiples conjuntos de cambios guardados en stash, cada uno tendrá un índice diferente.
+
+Si olvidaste los cambios que hiciste en el stash, puedes ver un resumen de ellos con el comando 
+
+	git stash show NOMBRE-DEL-STASH
+
+ Si quieres ver las direferencias de los cambios en la consola, se puede ejecutar lo siguiente:
+
+ 	git stash show -p NOMBRE-DEL-STASH
+
+Para recuperar los cambios del stash y aplicarlos a la rama actual en la que estás, tienes dos opciones:
+   aplica los cambios y deja una copia en el stash:
+    	
+        git stash apply NOMBRE-DEL-STASH 
+
+
+   aplica los cambio y elimina los archivos del stash:
+
+     	git stash pop NOMBRE-DEL-STASH
+
+Si quieres remover los cambios guardados en stash sin aplicarlos, ejecuta el comando:
+
+	git stash drop NOMBRE-DEL-STASH
+
+Para limpiar todo del stash, ejecuta el comando:
+
+	git stash clear
 
 
 ## GIT FETCH ---------------------------------------------------------------------------------------------
