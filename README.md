@@ -883,9 +883,9 @@ ALIAS EN GIT
   
   ## GIT PUSH --------------------------------------------------------------------------------
 
-	Para poder subir archivos a nuestro repo, debemos tener configurado el mismo mail con el que iniciamos sesión
- 	en Github. 
-  	Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
+Para poder subir archivos a nuestro repo, debemos tener configurado el mismo mail con el que iniciamos sesión
+en Github. 
+Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
 
     	git push origin main
      	git push [nombre del repo remoto] [rama del repo remoto]
@@ -900,7 +900,13 @@ ALIAS EN GIT
  Esto generará un código que se debe copiar en el sistema de inicio de sesión de Github por la solapa TOKEN.
 
  
+*Para subir todas las ramas de tu repo local al remoto
 
+ 	git push --all
+
+*Para subir al repo remoto OnlineRepo con una rama remota ramaR (distinto nombre a la tuya local) tu rama local ramaL:
+
+	git push OnlineRepo ramaL:ramaR
 
  
  ## GIT PULL -----------------------------------------------------------------------------------
