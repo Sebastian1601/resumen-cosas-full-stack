@@ -75,7 +75,7 @@ Superscript 		X^2^
 
 >:warning: <b>IMPORTANT!:</b> #CSS desde aqui ---
 
-* BACKGROUND (fondos de cajas)
+* <mark> BACKGROUND </mark> (fondos de cajas)
 
 ==shorthand== BACKGROUND:(color) (image) (repeat) (attachment) (position)
 
