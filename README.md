@@ -74,21 +74,24 @@ Superscript 		X^2^
 
 * <mark> BACKGROUND </mark> (fondos de cajas)
 
-==shorthand== BACKGROUND:(color) (image) (repeat) (attachment) (position)
+ 🗒️ shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
 
-	color: el color del fondo
-	image: url(ruta de la imágen a usar)
-	repeat: repite horizontal y verticalmente la imágen usada.
-		repeat-x (la imágen se repite solo horizontalmente)
-		repeat-y (la imágen se repite solo verticalmente)
-		no-repeat (la imágen no se repite)
-		space (la imágen se repite la mayor cantidad de veces sin recorte. se distribuye espacio vacío entre las 
-  		mismas para evitar el corte.)
- 		round (la imágen es repetida y ajustada o estirada para llenar los espacios vacíos)
-		initial (setea la propiedad a valor inicial)
-		inherit (hereda la propiedad de su elemento padre)
+```
+color: el color del fondo
+image: url(ruta de la imágen a usar)
+repeat: repite horizontal y verticalmente la imágen usada.
+ repeat-x (la imágen se repite solo horizontalmente)
+ repeat-y (la imágen se repite solo verticalmente)
+	   no-repeat (la imágen no se repite)
+	   space (la imágen se repite la mayor cantidad de veces sin recorte. se distribuye espacio vacío entre las 
+  	   mismas para evitar el corte.)
+ 	   round (la imágen es repetida y ajustada o estirada para llenar los espacios vacíos)
+	   initial (setea la propiedad a valor inicial)
+	   inherit (hereda la propiedad de su elemento padre)
+```
 
-* BORDER (bordes de una caja)
+
+ **BORDER** (bordes de una caja)
 
 shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color)
 ///////el shorthand no soporta definicion de más de un border width, style, color.//////////
