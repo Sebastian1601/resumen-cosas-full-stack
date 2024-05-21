@@ -24,11 +24,13 @@ alt + 32 =  (espacio vacío)
 
 # MARKDOWN CHEATSHEET
 
-Element 	Markdown Syntax
-Heading 	# H1
-		## H2
-		### H3
-Bold 		**bold text**
+| titulo | descripcion |
+|--------|-------------|
+|Element |	Markdown Syntax|
+|Heading |	# H1   |
+		## H2  |
+		### H3 |
+|Bold 	 |	**bold text** |
 Italic	 	*italicized text*
 Blockquote 	> blockquote
 Ordered List 	1. First item
