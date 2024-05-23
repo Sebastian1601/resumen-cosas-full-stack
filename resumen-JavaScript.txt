@@ -17,14 +17,28 @@ devuelve un nro con coma flotante (decimal)
 
 #Operadores de asignacion
 
-|Operador | Descripción |
-|---------|-------------|
-| +       |  Suma       |
-| - | Resta   |
-| * | Multiplicacion  |
-| ** | Exponenciación |
-| / | Division |
-| % | Módulo:resto de dividir |
-| ++ | Incremento |
-| -- | Decremento |
+|Operador | Descripción    |
+|---------|----------------|
+| +       |  Suma          |
+| -       | Resta          |
+| *       | Multiplicacion |
+| **      | Exponenciación |
+| /       | Division       |
+| %       | Módulo:resto de dividir|
+| ++      | Incremento     |
+| --      | Decremento     |
+____________________________
+
+
+## Operadores de cadena y números.-
+
+El operador + se puede utilizar también para concaternar cadenas.
+
+ej: var texto1 = "Juan" ;
+    var texto2 = "Pablo" ; 
+    var textoJunto = texto1 + " " + texto2 ; // (se agrega + " " + para sumar un espacio vacío entre las 2 cadenas y que no quede "JuanPablo" sino "Juan Pablo")
+ej2:
+  var texto3 = "bienvenidos a ";
+  var texto3 += "Javascript" ;
+
 
