@@ -1,0 +1,30 @@
+#Javascript para principiantes.
+
+una variable se asigna con el operador "="
+
+si ingresamos un nro, puede no tomarse como nro.
+un numero escrito en comillas, es tomado como un "string de texto"("cadena")
+
+## Number.parseInt("7130") esto devuelve 7130 como número propiamente dicho.
+
+Number.parseInt(42000$$) devuelve 42000.
+
+Number.parseInt("Num. 2345") devuelve NaN (not a number) por lo tanto no puede convertir.
+
+## Number.parseFloat() 
+
+devuelve un nro con coma flotante (decimal)
+
+#Operadores de asignacion
+
+|Operador | Descripción |
+|---------|-------------|
+| +       |  Suma       |
+| - | Resta   |
+| * | Multiplicacion  |
+| ** | Exponenciación |
+| / | Division |
+| % | Módulo:resto de dividir |
+| ++ | Incremento |
+| -- | Decremento |
+
