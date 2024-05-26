@@ -1,4 +1,4 @@
-#Javascript para principiantes.
+# Javascript para principiantes.
 
 una variable se asigna con el operador "="
 
@@ -15,7 +15,7 @@ un numero escrito en comillas, es tomado como un "string de texto"("cadena")
 
 devuelve un nro con coma flotante (decimal)
 
-#Operadores de asignacion
+# Operadores de asignacion
 
 |Operador | Descripción    |
 |---------|----------------|
@@ -49,7 +49,98 @@ ej2:
 
 
 
-))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+## funcion Prompt() :
+
+- Metodo de windows, permite al usuario ingresar datos con una ventana emergente.
+
+      prompt ([mensaje de texto a mostrar:string], [valor por defecto al abrir el prompt, como un placeholder]);
+
+## document.write() :
+
+- comando de consola que permite escribir los datos dentro del paréntesis directamente en el HTML como texto simple, aún asi, se pueden agregar etiquetas completas para darle formato a lo escrito en el HTML.
+
+  ej:
+  
+      document.write('<div class='ejemplo'>texto a ingresar</div>');
+
+
+# Operadores de comparación
+
+|Operador ------- | Descripción ------------- |
+| ----------------|---------------------------|
+| ==              |     igual a    |
+| ===               |  igual valor y tipo |
+|!=        |no igual a |
+|!==           |igual valor no tipo |
+| >           | mayor a       |
+| <          | menor a          |
+| >=         | mayor o igual que |
+| <=         | menor o igual que |
+|?           | operador ternario |
+
+
+# Operadores lógicos
+
+> Normalmente se utilizan con valores booleanos (true or false);
+
+
+| Operador | Descripción |
+|----------|-------------|
+| &&       | Y lógico    |
+|  ||      |  O lógico   |
+| !        | No lógico   |
+
+
+# Operadores Prefijo y Posfijo
+
+| Operador | Descripción | Ejemplo |
+|-----------|------------|---------|
+| i++       | incremento posfijo | a=i++ primero a=i y luego i=i+1|
+|++i       | incremento prefijo| a= ++i primero i=i+1, luego a=i|
+|i--       | decremento posfijo| a= i-- primero a=i y luego i=i-1|
+|--i       | decremento prefijo| a=--i primero i=i-1 luego a=i|
+
+
+# Operadores de asignación
+
+|Operador | Descripción | Equivale a |
+|---------|-------------|------------|
+| =     | x=3          | x=3        |
+|+=      | x += y      | x= x+y      |
+|-=      | x -= y     | x= x-y      |
+|*=      | x *= y       | x = x * y |
+|/=      | x/=y        | x= x / y   |
+|%=      | x %=y       | x = x % y  |
+|**=     | x **= y     | x = x**y    |
+
+
+
+))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+# ESTRUCTURAS DE CONTROL 
+
+> Condicional que evalua una condicion, y de ser verdadera, ejecuta un bloque de código, sino tiene la opción de ejecutar otro código.
+
+## If condicional
+
+    `if (condicion) {
+    [bloque a ejecutar si la condicion es verdadera]
+    } else {
+    [bloque a ejecutar si la condicion es falsa]
+    };`
+
+## Operador Ternario
+
+es un operador que evalua similar al if/else pero con la estructura más legible
+
+    
+
+
+## Switch evalua cierta cantidad de posibilidades
+
+
+
+))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 # Funciones ASYNC y promesas.
 
@@ -71,9 +162,9 @@ teniendo este dato, podemos solicitar nos envíen la información de la siguient
     //codigo segun el error dado por la respuesta. //si el servidor da una respuesta de error, enviará un codigo del error que se puede ver en developers.mozilla.org.
 }
         
-))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
-# Manejo del DOM ---------------------------------------------------------------------------------------------------
+# Manejo del DOM ------------------------------------------------------------------------
 Tipos de nodo:
     -Document: es el nodo raíz del cual se derivan el resto de nodos.
 
@@ -99,7 +190,7 @@ obtener nodos por nombre de etiqueta:
 
 obtener nodos por querySelector:
 
-                document.querySelector('.clase'); // esto permite seleccionar el primer elemento mediante selectores de css, se puede definir #id, .clase, [atributo], etc.
+                document.querySelector('.clase'); *// esto permite seleccionar el primer elemento mediante selectores de css, se puede definir #id, .clase, [atributo], etc.*
 
 obtener una lista de nodos por querySelectorAll:
 
@@ -117,18 +208,18 @@ obtener una lista de nodos por querySelectorAll:
 ## removeAttribute("atributo"): directamente esto elimina el atributo del elemento html.
 
 
-ATRIBUTOS GLOBALES (TODOS LOS ELEMENTOS TIENEN ESTOS ATRIBUTOS)-----------------------------------------------------------------------
+ATRIBUTOS GLOBALES (TODOS LOS ELEMENTOS TIENEN ESTOS ATRIBUTOS)-------------------------------------
 
--contenteditable (booleano) : indica si el elemento puede ser modificable por el usuario.
+- contenteditable (booleano) : indica si el elemento puede ser modificable por el usuario.
 
--style:
+- style:
 
--tabIndex: permite definir con qué orden se seleccionan las etiquetas con la tecla TAB
+- tabIndex: permite definir con qué orden se seleccionan las etiquetas con la tecla TAB
 
--title: atributo que define un titulo al elemento seleccionado.
+- title: atributo que define un titulo al elemento seleccionado.
 
 
-ATRIBUTOS INPUTS----------------------------------------------------------------------------------------------------------------------
+ATRIBUTOS INPUTS-----------------------------------------------------------------------------------
 
 
 
@@ -137,9 +228,9 @@ ATRIBUTOS INPUTS----------------------------------------------------------------
 
 # Metodos del DOM para agregar elementos desde JS.
 
-
-
-https://lenguajejs.com/javascript/dom/insertar-elementos-dom/
+> https://lenguajejs.com/javascript/dom/insertar-elementos-dom/
+>
+> 
 
 
             
