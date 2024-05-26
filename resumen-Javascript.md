@@ -191,9 +191,9 @@ variable expuesta como condición sea igual a los valores que se especifican a c
 
 El bucle *while* se utiliza cuando es necesario generar un bucle analizando una condición a cumplirse.
 
-    `while (condicion a evaluar) {
-    bloque a ejecutar mientras la condicion sea verdadera
-    }`
+`while (condicion a evaluar) {
+bloque a ejecutar mientras la condicion sea verdadera
+}`
 
 ### Es importante que la condición en algún momento sea falsa, para terminar el bucle, sino se produce un bucle infinito, deteniendo la ejecución del resto del código js.
 
@@ -202,10 +202,62 @@ El bucle *while* se utiliza cuando es necesario generar un bucle analizando una 
 
 Un bucle *for* depende de el valor de una variable, que automáticamente va incrementandose por lo tanto hay determinada cantidad de iteraciones del mismo.
 
-    `for (let i=1 ; i <= 10; i++) {
-    bloque de código a ejecutar mientras se cumple el 2do término de la condición
-    }
-    `
+`for (let i=1 ; i <= 10; i++) {
+bloque de código a ejecutar mientras se cumple el 2do término de la condición
+}`
+    
+
+# *FUNCIONES*
+
+Las funciones nos permiten agrupar líneas de código en tareas con un nombre (subprograma), para que posteriormente podamos referenciar ese
+nombre para realizar dicha tarea. Algunas razones para declarar funciones:
+
+● Simplificación: Cuando un conjunto de instrucciones se va a usar muchas veces, se
+crea una función con esas instrucciones y se llama la cantidad de veces que sea
+necesario, reduciendo un programa complejo en unidades más simples.
+
+● División: Una función me permite modularizar, es decir, armar módulos. De esta
+manera un equipo puede dividir el trabajo en partes. Cada integrante realiza una
+función, para luego integrarlas en un programa principal más grande.
+
+● Claridad: Usando funciones un programa gana claridad, aunque esa función solo
+se llame una vez.
+
+● Reusabilidad: Una función es reutilizable, sólo es necesario cambiar los valores de
+entrada
+
+- Declarar la función es darle un nombre a la funcion y definir qué realizará.
+- Ejecutar la función es "llamar" o "invocar" la función para que se ejecute en el punto del código donde la llamamos.
+
+> El nombre de la función debería ser descriptivo e indicar qué tarea realiza. Deberían ser:
+    - simple, claro
+    -Representativo de la tarea que realiza la función.
+    -verbos en infinitivo, (-ar, -er, -ir)
+    -Si es más de una palabra, se usa la nomenclatura camelCase
+
+### **Parámetros** 
+: Los **parámetros** de la función son variables que ponemos cuando definimos la función.
+ej:
+        `function sumar (a, b) {
+        console.log( a+b );
+        };`
+> En este caso, los parámetros son a y b, definidos entre paréntesis al lado del nombre de la función.
+
+ == Los parámetros predeterminados se suelen inicializar con un valor por si no se pasa ningún parámetro para el mismo al invocar la función ==
+
+```
+function multiplicar (a, b = 1) {
+return a * b;
+}
+```
+
+### **Argumentos**
+: Los **argumentos** son los valores que se le pasan mediante los parámetros
+
+```
+let a = sumar( 7,4 );
+console.log(a); //se espera 11 como resultado
+```
 
 
 
