@@ -67,6 +67,75 @@ teniendo este dato, podemos solicitar nos envíen la información de la siguient
         
 ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
+# Manejo del DOM ---------------------------------------------------------------------------------------------------
+Tipos de nodo:
+    -Document: es el nodo raíz del cual se derivan el resto de nodos.
+
+    -Element: son nodos definidos por etiquetas HTML ej: <div>, <p>, <span>, etc.
+
+    -Text : el texto dentro de un nodo element se considera un nuevo nodo hijo del tipo "text"
+
+    -Attribute: los atributos de las etiquetas definen nodos, pero en js lo vemos como información asociada al nodo.
+
+    -Comment node: los nodos que definen comentarios.
+
+##DOCUMENT - Metodos de seleccion de elementos:
+
+    como son métodos, se aplican al nodo document.
+
+obtener un nodo por id:
+    
+                document.getElementByID('id a seleccionar');
+
+obtener nodos por nombre de etiqueta:
+
+                document.getElementsByTagName('div'); //esto devuelve una coleccion HTML de elementos, donde se puede acceder a cada elemento por indice(como un array, pero sin ser un array)
+
+obtener nodos por querySelector:
+
+                document.querySelector('.clase'); // esto permite seleccionar el primer elemento mediante selectores de css, se puede definir #id, .clase, [atributo], etc.
+
+obtener una lista de nodos por querySelectorAll:
+
+                document.querySelectorAll('#id');
+
+
+## setAttribute("atributo a cambiar", "nuevo valor de atributo") : permite definir atributos de los elementos html.
+    
+                const input = document.querySelector('.form__input');
+                input.setAttribute("type","text")
+
+## getAttribute("atributo") : permite obtener atributos de los elementos html.
+    .getAttribute; //esto devuelve el valor del atributo "type";
+
+## removeAttribute("atributo"): directamente esto elimina el atributo del elemento html.
+
+
+ATRIBUTOS GLOBALES (TODOS LOS ELEMENTOS TIENEN ESTOS ATRIBUTOS)-----------------------------------------------------------------------
+
+-contenteditable (booleano) : indica si el elemento puede ser modificable por el usuario.
+
+-style:
+
+-tabIndex: permite definir con qué orden se seleccionan las etiquetas con la tecla TAB
+
+-title: atributo que define un titulo al elemento seleccionado.
+
+
+ATRIBUTOS INPUTS----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+# Metodos del DOM para agregar elementos desde JS.
+
+
+
+https://lenguajejs.com/javascript/dom/insertar-elementos-dom/
+
+
             
 
 
