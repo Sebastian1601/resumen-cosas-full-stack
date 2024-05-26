@@ -191,9 +191,9 @@ variable expuesta como condición sea igual a los valores que se especifican a c
 
 El bucle *while* se utiliza cuando es necesario generar un bucle analizando una condición a cumplirse.
 
-`while (condicion a evaluar) {
-bloque a ejecutar mientras la condicion sea verdadera
-}`
+        while (condicion a evaluar) {
+        bloque a ejecutar mientras la condicion sea verdadera
+        }`
 
 ### Es importante que la condición en algún momento sea falsa, para terminar el bucle, sino se produce un bucle infinito, deteniendo la ejecución del resto del código js.
 
@@ -202,9 +202,9 @@ bloque a ejecutar mientras la condicion sea verdadera
 
 Un bucle *for* depende de el valor de una variable, que automáticamente va incrementandose por lo tanto hay determinada cantidad de iteraciones del mismo.
 
-`for (let i=1 ; i <= 10; i++) {
-bloque de código a ejecutar mientras se cumple el 2do término de la condición
-}`
+        for (let i=1 ; i <= 10; i++) {
+        bloque de código a ejecutar mientras se cumple el 2do término de la condición
+        }`
     
 
 # *FUNCIONES*
@@ -238,35 +238,36 @@ entrada
 ### **Parámetros** 
 : Los **parámetros** de la función son variables que ponemos cuando definimos la función.
 ej:
-        `function sumar (a, b) {
+
+        function sumar (a, b) {
         console.log( a+b );
         };`
+
 > En este caso, los parámetros son a y b, definidos entre paréntesis al lado del nombre de la función.
 
- == Los parámetros predeterminados se suelen inicializar con un valor por si no se pasa ningún parámetro para el mismo al invocar la función ==
+> Los parámetros predeterminados se suelen inicializar con un valor por si no se pasa ningún parámetro para el mismo al invocar la función ==
 
-```
-function multiplicar (a, b = 1) {
-return a * b;
-}
-```
+
+        function multiplicar (a, b = 1) {
+        return a * b;
+        }
+
 
 ### **Argumentos**
    : Los **argumentos** son los valores que se le pasan mediante los parámetros
 
-```
-let a = sumar( 7,4 );
-console.log(a); //se espera 11 como resultado
-```
+    let a = sumar( 7,4 );
+    console.log(a); //se espera 11 como resultado
+
 
 ### Devolución de valores
  : una función puede ejecutar código sin devolver nada al terminar, o puede devolver datos necesarios obtenidos durante el proceso, para posteriormente utilizarlos en otra función u otro evento. Para esto se usa *RETURN*.
 
- `
- function sumar ( a, b){
- return a+b;
- }
- `
+    
+     function sumar ( a, b){
+     return a+b;
+     }
+
 
 > El comando *RETURN* devuelve lo necesario fuera de la función, y termina la ejecución del código, si existe más código a ejecutar luego del return, este no se realiza.
 
