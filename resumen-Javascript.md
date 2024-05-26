@@ -252,12 +252,92 @@ return a * b;
 ```
 
 ### **Argumentos**
-: Los **argumentos** son los valores que se le pasan mediante los parámetros
+   : Los **argumentos** son los valores que se le pasan mediante los parámetros
 
 ```
 let a = sumar( 7,4 );
 console.log(a); //se espera 11 como resultado
 ```
+
+### Devolución de valores
+ : una función puede ejecutar código sin devolver nada al terminar, o puede devolver datos necesarios obtenidos durante el proceso, para posteriormente utilizarlos en otra función u otro evento. Para esto se usa *RETURN*.
+
+ `
+ function sumar ( a, b){
+ return a+b;
+ }
+ `
+
+> El comando *RETURN* devuelve lo necesario fuera de la función, y termina la ejecución del código, si existe más código a ejecutar luego del return, este no se realiza.
+
+
+---
+
+#FUNCIONES FLECHA O 'ARROW'
+
+### Las funciones flecha se utilizan para definir funciones de manera más fluida y resumida. Normalmente se asignan a una constante, para que no puedan variar ni reasignarse.
+
+definicion:
+
+`const Variable = (parámetros) => {
+    bloque a ejecutar 
+    };
+`
+ ---
+
+ej:
+`
+function cuadrado (x) {
+return x*x
+}
+console.log(cuadrado(2))
+`
+
+esto es lo mismo que lo siguiente:
+
+`
+const Cuadrado = x => x*x;
+console.log(Cuadrado(2));
+`
+
+
+##Sintaxis básica
+
+*Un parámetro. con una expresión simple, no necesita RETURN*
+
+        parámetro => expresión
+
+*Varios parámetros requieren paréntesis, con una expresión simple no necesita RETURN*
+
+        (parámetro1, parámetro2, ..., parámetroN) => expresión
+
+*Un parámetro con varias líneas de código necesitan llaves y RETURN*
+
+        parámetro => {
+        varios bloques de código
+        .
+        .
+        .
+        bloque de código;
+        RETURN (a devolver)
+    }
+
+*Varios parámetros requieren paréntesis y varias lineas de código requieren llaves y RETURN*
+
+    (parámetro1, ...,parámetroN) => {
+        bloque de código;
+        .
+        .
+        .
+        bloque de código;
+        RETURN (a devolver)
+        `
+# FUNCIONES ANÓNIMAS
+
+    
+
+
+
 
 
 
