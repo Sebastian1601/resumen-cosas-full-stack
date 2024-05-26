@@ -123,24 +123,94 @@ ej2:
 
 ## If condicional
 
-    `if (condicion) {
+    if (condicion) {
     [bloque a ejecutar si la condicion es verdadera]
     } else {
     [bloque a ejecutar si la condicion es falsa]
-    };`
+    };
+
+
+### Las condiciones pueden ser más de una, donde se utilizan los operadores lógicos && y || para evaluar condiciones más complejas.
+
+    if (condicion1 && condicion2) {
+    bloque a ejecutar si ambas son correctas
+    };
+
 
 ## Operador Ternario
 
-es un operador que evalua similar al if/else pero con la estructura más legible
+> es un operador que evalua similar al if/else pero con la estructura más legible
 
+        var calificacion = nota < 5 ? "suspendido" : "aprobado";
+        console.log("estoy", calificacion);
     
-
 
 ## Switch evalua cierta cantidad de posibilidades
 
+La estructura de control switch permite definir casos específicos a realizar en el caso de que la
+variable expuesta como condición sea igual a los valores que se especifican a continuación mediante los case.
+
+        var nota = 7;
+        switch (nota) {
+            case 10:
+                console.log("sobresaliente");
+                break;
+            case 9:
+                console.log("notable");
+                break;
+            case 8:
+                console.log("bien");
+                break;
+            case 7:
+                console.log("aprobado");
+                break;
+            case 6:
+                console.log("suficiente");
+                break;
+            case 5:
+            case 4:
+            case 3:
+            case 2:
+            case 1:
+            default:
+                console.log('no es un valor válido');
+                break;
+        }
 
 
-))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+# Bucles e Iteraciones:
+
+### Los bucles evalúan una condición y se ejecutan si la condicion es verdadera.
+ - Condición : el bucle evalúa la condición para saber si se genera una nueva iteración del mismo o no.
+ - Iteracion : se llama así a cada repetición que se genera del bucle.
+ - contador : Los bucles suelen usar una variable como **contador** para muchas tareas. la variable suele *vivir* solamente dentro del bucle.
+ - Incremento : se debe incrementar la variable contator para que el bucle avance. Un bucle que no tiene un contador, generalmente depende si o si de que la condicion se cumpla o no.
+ - Bucle Infinito : esto se da si la condicion nunca se cumple y si el bucle no tiene un contador.
+
+# While (estructura de control)
+
+El bucle *while* se utiliza cuando es necesario generar un bucle analizando una condición a cumplirse.
+
+    `while (condicion a evaluar) {
+    bloque a ejecutar mientras la condicion sea verdadera
+    }`
+
+### Es importante que la condición en algún momento sea falsa, para terminar el bucle, sino se produce un bucle infinito, deteniendo la ejecución del resto del código js.
+
+
+# FOR (estructura de control definida - bucle finito)
+
+Un bucle *for* depende de el valor de una variable, que automáticamente va incrementandose por lo tanto hay determinada cantidad de iteraciones del mismo.
+
+    `for (let i=1 ; i <= 10; i++) {
+    bloque de código a ejecutar mientras se cumple el 2do término de la condición
+    }
+    `
+
+
+
+
+))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 # Funciones ASYNC y promesas.
 
