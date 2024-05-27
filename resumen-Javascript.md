@@ -280,26 +280,26 @@ ej:
 
 definicion:
 
-`const Variable = (parámetros) => {
+    const Variable = (parámetros) => {
     bloque a ejecutar 
     };
-`
+
  ---
 
 ej:
-`
-function cuadrado (x) {
-return x*x
-}
-console.log(cuadrado(2))
-`
+
+    function cuadrado (x) {
+    return x*x
+    }
+    console.log(cuadrado(2))
+
 
 esto es lo mismo que lo siguiente:
 
-`
-const Cuadrado = x => x*x;
-console.log(Cuadrado(2));
-`
+
+    const Cuadrado = x => x*x;
+    console.log(Cuadrado(2));
+
 
 
 ##Sintaxis básica
@@ -325,17 +325,102 @@ console.log(Cuadrado(2));
 
 *Varios parámetros requieren paréntesis y varias lineas de código requieren llaves y RETURN*
 
-    (parámetro1, ...,parámetroN) => {
+        (parámetro1, ...,parámetroN) => {
         bloque de código;
         .
         .
         .
         bloque de código;
         RETURN (a devolver)
-        `
+        }
 # FUNCIONES ANÓNIMAS
 
-    
+  Son funciones que se definen **sin nombre**, y se alojan en una variable haciendo referencia a la misma cuando queremos ejecutar la función.
+
+      const Saludo = function (){
+            return "Hola"
+            }
+
+      const Saludo = function (nombre) {
+          var mensaje = "hola "+ nombre;
+          return mensaje;
+          }
+
+
+# SCOPE (alcance)
+
+El scope (alcance) determina la accesibilidad (visibilidad) de las variables. Define ¿en qué contexto las variables son visibles y cuándo no lo son?. Una variable que no está “al alcance actual” no está disponible para su uso.
+En JavaScript hay dos tipos de alcance:
+    ● Alcance local (por ejemplo, una función)
+    ● Alcance global (entorno completo de JavaScript)
+Las variables definidas dentro de una función no son accesibles (visibles) desde fuera. La función “crea un ámbito cerrado” que impide el acceso a una variable de su interior desde fuera de ella o desde otras funciones. 
+
+Si asignamos un valor a una variable que no ha sido declarada, se convertirá en una variable global. Este ejemplo declara la variable global carName, aún cuando su valor se asigna dentro de una función.
+ej:
+
+    myFunction();
+    //aqui se puede usar carName
+    function myFunction () {
+        carName = "Wolkswagen";
+    }
+
+> En este concepto, declarar variables con *let* permite que la misma se utilice y "exista" solo en el ámbito donde fue creada, disponiendo de la misma una vez el código del bloque donde se definió termina de ejecutarse. Definir una variable con *var* genera que la misma esté disponible en todo el *SCOPE*, por lo que hay que ser cuidadoso al manejar los valores de la misma.
+
+# CALLBACK
+
+Se determina *"Callback"* a una función que fue pasada como parámetro de otra. 
+
+# CLOSURE
+
+Un *CLOSURE* se define como una función que encierra variables en su propio ámbito.
+
+
+# OBJETOS EN JS.
+
+Un objeto de JavaScript tiene propiedades asociadas a él. Una propiedad de un objeto se puede explicar como una variable asociada al objeto. Las propiedades de un objeto básicamente son lo mismo que las variables comunes de JavaScript, excepto por el nexo con el objeto.
+
+El objeto se puede crear mediante el operador de asignación (=), o de la manera "literal".
+ej:
+Manera con el operador de asignación:
+
+        var miAuto = new Object();
+
+        miAuto.marca = "wolkswagen";
+        miAuto.tipo = "automóvil";
+        miAuto.modelo = 2013;
+
+Manera literal de crear un objeto:
+
+        var miAuto = {
+            marca:"wolkswagen",
+            tipo: "automovil",
+            modelo: 2013
+            };
+
+###También los objetos pueden tener *METODOS* (son funciones asociadas a los objetos en si):
+
+ej:
+
+            var miAuto = {
+            marca:"wolkswagen",
+            tipo: "automovil",
+            modelo: 2013,
+            datosDelVehiculo: function () {
+                return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
+            };
+esto permite que al nosotros invocar el método del objeto miAuto, se obtenga los 3 datos del objeto.
+
+            console.log(miAuto.datosDelVehiculo()); //esto devuelve "Este es un wolkswagen, tipo automovil, modelo 2013"
+
+
+## Acceder a las propiedades de un objeto.
+
+Para acceder a las propiedades de un objeto hay distintas notaciones. 
+Se puede utilizar el punto; `miAuto.marca`, se puede utilizar corchetes; `miAuto['marca']`
+            
+> :warning El nombre de una propiedad puede ser cualquier cadena válida de JS. Pero si
+no es un identificador válido de JS (por ejemplo, comienza con un número)
+solo se puede acceder utilizando la notación de corchetes.
 
 
 
