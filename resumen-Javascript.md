@@ -413,17 +413,134 @@ esto permite que al nosotros invocar el método del objeto miAuto, se obtenga lo
             console.log(miAuto.datosDelVehiculo()); //esto devuelve "Este es un wolkswagen, tipo automovil, modelo 2013"
 
 
+### Los metodos pueden ser creados con otra sintaxis, ej:
+
+      var miAuto = {
+            marca:"wolkswagen",
+            tipo: "automovil",
+            modelo: 2013,
+            datosDelVehiculo () {
+                return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
+            };
+
+
 ## Acceder a las propiedades de un objeto.
 
 Para acceder a las propiedades de un objeto hay distintas notaciones. 
 Se puede utilizar el punto; `miAuto.marca`, se puede utilizar corchetes; `miAuto['marca']`
             
-> :warning El nombre de una propiedad puede ser cualquier cadena válida de JS. Pero si
+> ⚠️ El nombre de una propiedad puede ser cualquier cadena válida de JS. Pero si
 no es un identificador válido de JS (por ejemplo, comienza con un número)
 solo se puede acceder utilizando la notación de corchetes.
 
 
+# OBJETOS | CLASES
 
+ Las clases son una suerte de *molde* para crear distintas instancias de un tipo de objeto. Se usa el "*CONSTRUCTOR*" y *THIS* para asignar valores a las propiedades y metodos.
+
+ej:
+
+        class Perro {
+            constructor ( _nombre, _edad, _color) {
+                this.nombre = _nombre
+                this.edad = _edad
+                this.color = _color
+                }
+            }
+
+Esto permite generar un nuevo objeto con estas propiedades de la siguiente manera
+
+    var Perro1 = new Perro ('Lola', 4, 'marrón'); 
+    var Perro2 = new Perro ('Estrellita', 10, 'blanco');
+
+    
+# String (PROPIEDADES Y MÉTODOS).
+---
+Cuando hablamos de una variable que posee información de texto, decimos
+que su tipo de dato es String. Hay dos formas de crear una variable de texto:
+
+con el método del objeto `var texto = new String('hola a todos');` o de manera literal (es la más utilizada): 
+`var texto = 'Hola a todos';`
+
+existen muchos métodos para strings dado que JavaScript fue diseñado en base a manejar cadenas de texto, por lo tanto, las posibilidades son muchas.
+
+| Propiedad ---------------- | Descripción -------------------------------------------------------|
+|----------------------------|------------------------------------|
+|  .length                | Devuelve el número de caracteres de la variable de tipo string en cuestión|
+|  .charAt(*index*)                | Devuelve el carácter en la posición *index* de la variable. |
+|  .concat(*str1*, *str2*,...,*strN*) | Devuelve una nueva cadena uniendo *str1*, a *str2*..., a *strN* |
+|  .indexOf(str)    |  Devuelve la primera posición del texto *str* |
+|  .indexOf(str, from) | Devuelve la posición de *str*, partiendo desde el index *from* |
+ | .lastIndexOf(str, from) | Devuelve la posición de *str*, pero indica la última posición encontrada desde *from*|
+| .toLowerCase () | Devuelve el string de la variable aplicada en minúsculas. |
+| .toUpperCase () | Devuelve el string de la variable aplicada en mayúsculas. |
+| .repeat (**n**) | Devuelve el string repetido **n** veces  |
+| .trim () | Devuelve el string de la variable aplicada sin espacios a la izquierda y derecha |
+| .replace (*str*, *nuevastr*) | Reemplaza la primera iteración de *str* con *nuevastr*  |
+| .substring(*ini*, *len*) | Devuelve el subtexto generado desde la posición *ini*, hasta *ini* + (*len* - 1) |
+
+
+---
+
+##TEMPLATE STRINGS
+
+Las Template Strings utilizan las comillas invertidas o backticks para
+delimitar sus contenidos, en vez de las tradicionales comillas simples o
+dobles de las cadenas de texto normales.
+Las principales funcionalidades que aportan las Template Strings son:
+● Interpolación de cadenas.
+    : La interpolación permite utilizar cualquier expresión válida de JavaScript (como por ejemplo la suma de dos variables)
+    dentro de una cadena y obtener como resultado la cadena completa con la expresión evaluada.
+    Las partes variables de una Template String se denominan placeholders y utilizan la sintaxis ${ } para diferenciarse del
+    resto de la cadena.
+● Posibilidad de incluir (y evaluar) expresiones dentro de cadenas.
+● Definición de cadenas de texto en varias líneas sin tener que usar hacks.
+● Formatear cadenas de manera avanzada.
+● Cadenas etiquetadas.
+ 
+ej: 
+
+        var a = 10;
+        var b = 10;
+        console.log(`Javascript se publicó hace ${ a + b} años!`);
+
+        console.log(`Existen ${2 * (a + b)} frameworks Javascript`);
+
+Dentro inclusive del valor interpolado, se pueden utilizar directamente funciones.
+
+ej:
+
+        function fn () { return "este es el resultado" };
+        console.log (`Hola mundo! ${ fn () }`);
+
+Incluso la sintaxis permite acceder a métodos y propiedades...
+ej:
+
+    var usuario = {nombre : "Juan Perez"};
+    console.log(`Estás hablando con ${ usuario.nombre.toUpperCase() }.`);
+
+
+
+# OBJETO MATH ------
+---
+Math es un objeto que tiene propiedades y métodos para constantes y funciones matemáticas.
+
+`Math.E
+Math.LN2
+Math.LN10
+Math.LOG2E
+Math.LOG10E
+Math.PI
+Math.SQRT1_2
+Math.SQRT2
+
+###Los métodos más útiles para web.
+
+| Método -----------| Descripción     |
+|-------------------|--------|
+
+
+ 
 
 
 
