@@ -525,15 +525,113 @@ ej:
 ---
 Math es un objeto que tiene propiedades y métodos para constantes y funciones matemáticas.
 
-```Math.E /n Math.LN2 /n Math.LN10 /n Math.LOG2E /n Math.LOG10E /n Math.PI /n Math.SQRT1_2 /n Math.SQRT2```
+- Math.E
+- Math.LN2
+- Math.LN10
+- Math.LOG2E
+- Math.LOG10E
+- Math.PI
+- Math.SQRT1_2
+- Math.SQRT2
 
 ###Los métodos más útiles para web.
 
 | Método -----------| Descripción     |
 |-------------------|--------|
+| Math.abs(x) | Devuelve el valor absoluto de x |
+| Math.sign(x) | Devuelve el signo del número: 1 positivo, -1 negativo |
+| Math.exp(x)    | Exponenciación W. Devuelve el número *e* elevado a la *x* |
+| Math.expm1(x)  |  Equivalente a Math.exp(x) - 1 |
+| Math.max(*a*, *b*, *c*, ... , *n*)| Devuelve el número más grande de los indicados por parámetro.|
+| Math.min(*a*, *b*, *c*, ... , *n*)| Devuelve el número más pequeño dentro de los indicados |
+| Math.pow (*base*, *exp*) | Potenciación W. Devuelve el nro *base* elevado a *exp* |
+| Math.sqrt(x) | Devuelve la raíz cuadrada W de *x* |
+| Math.cbrt(x) | Devuelve la raíz cúbica W de *x* |
 
 
- 
+
+ ## *Math.random()*
+
+ Este método del objeto Math, devuelve un nro aleatorio entre 0 y 1, con 16 decimales. Si queremos usarlo para obtener un nro al azar entre los límites *a* y *b* se puede hacer lo siguiente.
+
+        let randomNro = Math.random() * (b-a);
+        let nroFinal = Math.floor (randomNro) + a;
+
+ej: si quiero un nro al azar entre 50 y 70(no incluido):
+
+        let randomNro = Math.random() * (70 - 50);
+        let nroFinal = Math.floor (randomNro) + 50;
+
+## metodos similares a floor:
+
+- Math.round(*x*) : Devuelve el redondeo de *X* (entero más cercano)
+- Math.ceil (*x*) : Devuelve el redondeo superior de *X* (entero más alto)
+- Math.floor (*x*) : Devuelve el redondeo inferior de *X* (entero más bajo)
+- Math.fround (*x*) : Devuelve el redondeo de *X* (flotante con precisión simple)
+- Math.trunc (*x*) : Devuelve **sólamente** la parte entera de *X*
+
+
+# ARRAYS (vectores o arreglos)
+
+Un array, también conocido como arreglo o vector, es una colección o agrupación de elementos en una misma variable.
+
+Los elementos del array pueden ser datos de diferentes tipos. Sin embargo, algunos de los métodos que poseen sólo funcionarán correctamente en arrays que tengan todos sus elementos del mismo tipo.
+
+Cada elemento dentro del array posee un índice, un valor que nos permite identificarlo. 
+Pensábamos a las variables como una “caja”. De forma similar, podemos imaginar un array como los vagones de un tren, donde cada vagón posee un contenido y un orden. El índice es el orden y el contenido dentro
+del vagón es el dato
+
+Se suelen definir de manera literal:
+ej:
+
+    const arreglo1 = ['a', 'b', 'c', 'd', 'e'];
+
+o vacío
+
+    const arreglo2 = [];
+
+con distintos elementos:
+
+    const arreglo3 = ['a', 3434, true, {nombre:'juan', edad:21, nacionalidad:'argentina'}];
+    
+## ACCEDER A LOS ELEMENTOS DE UN ARRAY
+
+Las posiciones de un array se numeran a partir de 0 (cero). Cuando usamos 
+`arreglo1[0]`
+estamos haciendo referencia a la posición 0 del arreglo cuyo contenido, en este caso, es la letra *“a”*:
+
+Si coloráramos por ej.
+
+`arreglo[7]`, esto daría *undefined* dado que nuestro arreglo, no tiene esa ubicación definida(no hay elemento en la pos 7).
+---
+### Metodo arreglo.*length*
+
+   Este Metodo devuelve la cantidad de elementos que posee este arreglo en particular.
+
+> Si necesitamos acceder al último elemento de un array donde no sabemos qué indice tiene, se puede usar:
+
+        const arregloN = [1, 4, 334, 2323, ..., 3242354];
+        consolelog (arregloN[arregloN.length - 1]);
+
+> Normalmente el nro devuelto por .length, es mayor a 1 con respecto a las ubicaciones del arreglo, que comienzan por 0, por lo tanto, para acceder al último valor del arreglo, se obtiene la posición restándole 1 a la cantidad total de elementos.
+---
+## Metodos de arreglos
+
+| --------Metodo--------| ------Descripción ------- |
+|------------------------|--------------------------|
+| .push(*obj1*, *obj2*, ... , *objn*)| Añade uno o más elementos al final del arreglo. Devuelve el nuevo tamaño del arreglo.|
+| .pop()        | Elimina y devuelve el último elemento del arreglo |
+| .unshift(*obj1*, *obj2*,...,*objn*)|Añade uno o más elementos al inicio del arreglo. Devuelve el tamaño nuevo|
+| .shift()    | Elimina y devuelve el primer elemento del arreglo|
+| .concat (*array1*, *array2*, *array3*, ...,*arrayN*)| concatena los elementos de los arreglos pasados por parámetro|
+| .indexOf(*obj*, *from*)| Devuelve la posición de la primera aparición de *obj* desde *from* |
+| .lastIndexOf(*obj*, *from*) | Devuelve la posición de la última aparición de *obj* desde *from*|
+| .slice (*inicio*,*final*) | Retorna una copia de un arreglo desde el indice de *inicio*, hasta el *final* - NO INCLUIDO-|
+
+
+
+
+
 
 
 
