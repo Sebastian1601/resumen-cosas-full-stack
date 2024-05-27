@@ -525,14 +525,7 @@ ej:
 ---
 Math es un objeto que tiene propiedades y métodos para constantes y funciones matemáticas.
 
-`Math.E
-Math.LN2
-Math.LN10
-Math.LOG2E
-Math.LOG10E
-Math.PI
-Math.SQRT1_2
-Math.SQRT2
+```Math.E /n Math.LN2 /n Math.LN10 /n Math.LOG2E /n Math.LOG10E /n Math.PI /n Math.SQRT1_2 /n Math.SQRT2```
 
 ###Los métodos más útiles para web.
 
