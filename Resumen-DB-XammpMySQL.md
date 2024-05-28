@@ -157,21 +157,21 @@ otro ej:
 
 
   
-  - [NULLS FIRST, NULLS LAST] Al ordenar los datos se puede determinar que se muestren los elementos con campos NULLS al principio con FIRST, o al final con LAST, dependiendo de qué orden se elija.
+##  - [NULLS FIRST, NULLS LAST] Al ordenar los datos se puede determinar que se muestren los elementos con campos NULLS al principio con FIRST, o al final con LAST, dependiendo de qué orden se elija.
 
   ej:
   
 	  SELECT * FROM Products ORDER BY ProductName DESC NULLS FIRST
 
   
- - [RANDOM ()] También exite la función RANDOM() que al no especificar un campo de orden, ordena al azar los elementos en el resultado de la lista.
+## - [RANDOM ()] También exite la función RANDOM() que al no especificar un campo de orden, ordena al azar los elementos en el resultado de la lista. ESTO SIRVE TAMBIEN PARA REALIZAR una misma busqueda varias veces pero variando los elementos presentados que cumplen las condiciones evaluadas.
 
  ej:
 
  	SELECT * FROM Products ORDER BY RANDOM()
 
   
-- [ORDER BY campo1, campo2, ... campon]Realizando una busqueda y ordenando de 2 maneras el resultado:
+## - [ORDER BY campo1, campo2, ... campon]Realizando una busqueda y ordenando de 2 maneras el resultado:
 
 	  SELECT FROM [nom tabla] ORDER BY [campo1], [campo2], ...
 
@@ -182,8 +182,8 @@ ej:
   > esto devuelve la lista ordenada primero por el nombre de los productos, y luego por su ID si es que hay productos con el mismo nombre.
   
 
-  - [DISTINCT] Seleccionar una lista de elementos "únicos" ordenados por ProductName:
-    esto genera que si en una busqueda común, obtuviera 2 o más registros que tuviesen el mismo "nombre de campo", con esta sentencia figuraría solamente uno.
+ ## - [DISTINCT] Seleccionar una lista de elementos "únicos" ordenados por ProductName:
+   esto genera que si en una busqueda común, obtuviera 2 o más registros que tuviesen el mismo "nombre de campo", con esta sentencia figuraría solamente uno.
 
 
      	  SELECT DISTINCT [nombre de campo] FROM [nom de tabla] 
@@ -192,9 +192,9 @@ ej:
      
 	   SELECT DISTINCT ProductName from Products ORDER BY ProductName
 
-  - [WHERE] Condición para las selecciones.
+##  - [WHERE] Condición para las selecciones.
  
-    Esta condicion puede obtener registros de acuerdo a lo que indicamos luego del where
+   Esta condicion puede obtener registros de acuerdo a lo que indicamos luego del where
 
 
   	    SELECT [nombre del campo] FROM [nombre de tabla] WHERE [condicion]
@@ -205,9 +205,9 @@ ej:
 
 
   		
-  - [DELETE] sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
+##  - [DELETE] sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
 
-	Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
+   Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
 
 	    DELETE FROM [tabla a obterner los datos] WHERE [condicion]
 
@@ -216,9 +216,9 @@ ej:
             DELETE from Products where ProductId >= 79;
 
 
- - [UPDATE] sentencia para == actualizar ==  una tabla o registro.
+## - [UPDATE] sentencia para == actualizar ==  una tabla o registro.
 
-	Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
+   Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
 
 
        UPDATE [nom tabla] SET [campo a actualizar] = [valor a ingresar] WHERE [condicion a evaluar para encontrar el campo a modificar]
@@ -241,17 +241,17 @@ Se utilizan para armar busquedas con 2 condiciones, o varias posibilidades.
 
 - AND / OR / NOT
 
-AND : si se cumplen ambas, hay resultados =>
+- AND : si se cumplen ambas, hay resultados =>
 
 	  SELECT [campo] FROM [tabla] WHERE [condicion1] AND [condicion2]
 
   
-OR : si se cumple una de las dos, hay resultados =>
+- OR : si se cumple una de las dos, hay resultados =>
 
  	  SELECT [campo] FROM [tabla] WHERE [condicion1] OR [condicion2]
 
 
-- Se pueden sumar condiciones a la busqueda, y separar con paréntesis () para aplicar ciertas condiciones juntas a otras.
+	Se pueden sumar condiciones a la busqueda, y separar con paréntesis () para aplicar ciertas condiciones juntas a otras.
 
   ej:
 
@@ -259,16 +259,121 @@ OR : si se cumple una de las dos, hay resultados =>
   		WHERE Price < 20    OR CategoryID = 6 AND SupplierID = 6
   		     [1er condicion] [ ------ 2da condicion ------- ]
 
-Separando con paréntesis, podemos ejecutar de la siguiente manera las condiciones:
+	Separando con paréntesis, podemos ejecutar de la siguiente manera las condiciones:
 
 		SELECT * FROM Products
   		WHERE (Price < 20 OR CategoryID = 6) AND SupplierID = 6
-    		     [ ------ 1er condicion ------ ]  [ 2da condicion ]
+    		     [---- 1er condicion----]         [ 2da condicion ]
 
     
+- NOT : Invertir la condición a evaluar
+
+  nos devuelve resultados donde se obtienen los registos que NO SON condicion uno o dos.
+  SE UTILIZA HABITUALMENTE ANTES DE UN OPERADOR.
+
+  ej:
+
+  	  SELECT * FROM Customers WHERE NOT country = 'USA' AND NOT country = 'Argentina'
+
+Esto devuelve registros donde el país NO ES 'USA' y NO ES 'Argentina'.
+
+> El NOT se puede pensar en SQL como poner un eventoA 'Distinto' eventoB.
 
 
+## - [LIMIT] : Se utiliza para "limitar" la cantidad de resultados en la consulta.
+
+  ej:
+
+  		SELECT * from Customers WHERE
+  		CustomerID > 50 and NOT Country = 'Germany'
+  		LIMIT 5 //esto limita a 5 resultados en la consulta(que devuelve muchos más)
+
+ ### Operador NOT y != (distinto de) 
+ - La diferencia entre estos dos operadores, es el tipo de clase de cada uno.
+   	NOT es un operador lógico.
+   	!=  es un operador de comparación.
+
+   Pueden llegar a dar los mismos resultados, pero la sintaxis es distinta y los resultados pueden resultar diferentes.
+
+
+## - [BETWEEN] : 
+   Se utiliza para especificar un rango de busqueda, incluido los límites en la busqueda.
+Claramente el valor1 debe ser menor al valor2 y del mismo tipo de dato compatible. Por ej:
+
+		SELECT * FROM Products WHERE Price BETWEEN 20 and 40
+
+  esto devolverá los productos de precios entre 20 y 40.
+
+  Tambien maneja datos de _Fechas_:
+
+  		SELECT * FROM [tablas] WHERE [campo] BETWEEN 'fecha1' and 'fecha2'
+
+## - [LIKE] :
+   Se utiliza para buscar y filtrar patrones de texto en campos. Existen cómodines para las busquedas, y la cantidad depende de la base de datos, por ej Postgres maneja muchos más comodines con busquedas de texto.
+
+  
+ej:
+
+		SELECT * FROM customers WHERE CustomerName LIKE 'Antonio Moreno Taquería'
+
+-Dentro del operador like, se usan los comodines "%" y "_" .
+
+  [%] : indica que puede haber más texto(cantidad indefinida) antes o después de donde se ubica en el término de la condición.
+
+ej:
+
+		SELECT * FROM customers WHERE CustomerName LIKE '%r'
+  
+  > Esto significa y devuelve los registros donde el nombre del cliente, termine con "r", pero antes puede tener cualquier otra cosa el campo.
+
+[_] : el guión bajo indica que en su lugar, puede haber un caracter, pero especifiando que en ese lugar hay UN SOLO caracter(no puede haber más)
+
+ej:
+
+	SELECT * FROM customers WHERE CustomerName LIKE 'Fu___' (3 underdash)
  
+ > Esto devolveria Fulle, Fully, Furia, etc.
+
+
+## - [ISNULL] o [ISNOTNULL]
+   Esto evalua si el campo es _null_ o es _notnull_
+
+
+## [IN] : operador
+
+  Esto puede evaluar si el campo indicado, posee algunos de los valores pasados entre paréntesis.
+
+  	SELECT * FROM [tabla] WHERE [CAMPO1] IN (valor1, valor2, ..., valorN)
+
+ej:
+
+	SELECT * FROM products WHERE CategoryID IN (2, 3)
+ > Esto devuelve los productos donde la categoría de cada uno es 2 o es 3.
+ 
+
+# SUBCONSULTAS (relacionar tablas)
+
+## COUNT (campo a contar)
+   Cuenta qué cantidad de registros tengo en el campo indicado.
+   ej:
+
+   	SELECT count(FirstName) as Cantidad_de_nombres FROM Employees
+
+## SUM(campo a sumar)
+   Cuenta qué cantidad suma todos los valores de una columna.
+
+	SELECT SUM(campo a sumar) FROM [tabla]
+ej:
+
+	SELECT sum(price) AS Suma_total FROM Products
+
+
+
+
+
+
+
+
 
 ===============================================================================
 
