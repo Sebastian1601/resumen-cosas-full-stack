@@ -127,7 +127,7 @@ Los identificadores _"Foráneos"_  son campos de una tabla que hacen referencia 
 
 # Sentencias de busquedas intermedias
 
-- Asignar _Alias_ al nombre de un campo. (as)
+- [AS] Asignar _Alias_ al nombre de un campo. (as)
 
 En la sentencia SQL al buscar en una tabla, podemos "renombrar" temporalmente un campo, de la siguiente manera:
 
@@ -136,7 +136,7 @@ otro ej:
 
     select LastName as Apellidos, FirstName as Nombre from employees
 
- Realizar "funciones" en una busqueda:
+- Realizar "funciones" en una busqueda:
 
      select price as precioOriginal, price*2 as precioDoble from Products
 
@@ -153,10 +153,124 @@ otro ej:
   |         |numeros  
   |         |carácteres especiales
   |         |letras  |
-  | blob    | no hay orden | 
+  | blob    | no hay orden |
+
+
+  
+  - [NULLS FIRST, NULLS LAST] Al ordenar los datos se puede determinar que se muestren los elementos con campos NULLS al principio con FIRST, o al final con LAST, dependiendo de qué orden se elija.
+
+  ej:
+  
+	  SELECT * FROM Products ORDER BY ProductName DESC NULLS FIRST
+
+  
+ - [RANDOM ()] También exite la función RANDOM() que al no especificar un campo de orden, ordena al azar los elementos en el resultado de la lista.
+
+ ej:
+
+ 	SELECT * FROM Products ORDER BY RANDOM()
+
+  
+- [ORDER BY campo1, campo2, ... campon]Realizando una busqueda y ordenando de 2 maneras el resultado:
+
+	  SELECT FROM [nom tabla] ORDER BY [campo1], [campo2], ...
+
+ej:
+        
+	SELECT FROM Products ORDER BY ProductName, ProductID
+  
+  > esto devuelve la lista ordenada primero por el nombre de los productos, y luego por su ID si es que hay productos con el mismo nombre.
   
 
+  - [DISTINCT] Seleccionar una lista de elementos "únicos" ordenados por ProductName:
+    esto genera que si en una busqueda común, obtuviera 2 o más registros que tuviesen el mismo "nombre de campo", con esta sentencia figuraría solamente uno.
 
+
+     	  SELECT DISTINCT [nombre de campo] FROM [nom de tabla] 
+
+ej:
+     
+	   SELECT DISTINCT ProductName from Products ORDER BY ProductName
+
+  - [WHERE] Condición para las selecciones.
+ 
+    Esta condicion puede obtener registros de acuerdo a lo que indicamos luego del where
+
+
+  	    SELECT [nombre del campo] FROM [nombre de tabla] WHERE [condicion]
+
+ej:
+
+    	    select productname from products WHERE productID = 14
+
+
+  		
+  - [DELETE] sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
+
+	Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
+
+	    DELETE FROM [tabla a obterner los datos] WHERE [condicion]
+
+     ej:
+
+            DELETE from Products where ProductId >= 79;
+
+
+ - [UPDATE] sentencia para == actualizar ==  una tabla o registro.
+
+	Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
+
+
+       UPDATE [nom tabla] SET [campo a actualizar] = [valor a ingresar] WHERE [condicion a evaluar para encontrar el campo a modificar]
+
+ej:
+
+	UPDATE Products SET ProductName = "salchichas chichas" 
+ 	WHERE ProductID = 40
+
+ej2:
+
+   	UPDATE [tabla] SET [campo1] = [valor1], [campo2] = [valor2] 
+    	WHERE [condicion para encontrar el registro o registros]
+
+---
+
+### OPERADORES LOGICOS ---
+
+Se utilizan para armar busquedas con 2 condiciones, o varias posibilidades.
+
+- AND / OR / NOT
+
+AND : si se cumplen ambas, hay resultados =>
+
+	  SELECT [campo] FROM [tabla] WHERE [condicion1] AND [condicion2]
+
+  
+OR : si se cumple una de las dos, hay resultados =>
+
+ 	  SELECT [campo] FROM [tabla] WHERE [condicion1] OR [condicion2]
+
+
+- Se pueden sumar condiciones a la busqueda, y separar con paréntesis () para aplicar ciertas condiciones juntas a otras.
+
+  ej:
+
+  		SELECT * FROM Products
+  		WHERE Price < 20    OR CategoryID = 6 AND SupplierID = 6
+  		     [1er condicion] [ ------ 2da condicion ------- ]
+
+Separando con paréntesis, podemos ejecutar de la siguiente manera las condiciones:
+
+		SELECT * FROM Products
+  		WHERE (Price < 20 OR CategoryID = 6) AND SupplierID = 6
+    		     [ ------ 1er condicion ------ ]  [ 2da condicion ]
+
+    
+
+
+ 
+
+===============================================================================
 
 ## Entidad:
    - Es una representación de algo. 
