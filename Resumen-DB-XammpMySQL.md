@@ -149,11 +149,11 @@ otro ej:
   | tipo de dato | Orden Ascendente |
   |------------|---------|
   | numeros | 0 - 9 |
-  |texto  | null    
-           numeros  
-           carácteres especiales
-           letras  |
-  | blob  | no hay orden | 
+  |texto    | null     
+  |         |numeros  
+  |         |carácteres especiales
+  |         |letras  |
+  | blob    | no hay orden | 
   
 
 
