@@ -65,6 +65,21 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
 - Numeric (nros matemáticos precisos) de cualquier tamaño
 ---
 
+### LAS SENTENCIAS VAN A TENER QUE GENERARSE EN ESTE ORDEN 
+
+(SELECT / DELETE/ UPDATE)
+
+(CONDICION WHERE) 
+
+(GROUP BY)
+
+(HAVING -solo se usa si usamos group by-)
+
+(ORDER BY)
+
+(LIMIT)
+
+
 ### Sentencias de busqueda inicial
 
 Mostrar todos los datos de la tabla 'usuarios'
@@ -351,7 +366,7 @@ ej:
  > Esto devuelve los productos donde la categoría de cada uno es 2 o es 3.
  
 
-# SUBCONSULTAS (relacionar tablas)
+## Funciones y más  
 
 ## COUNT (campo a contar)
    Cuenta qué cantidad de registros tengo en el campo indicado.
@@ -368,9 +383,98 @@ ej:
 	SELECT sum(price) AS Suma_total FROM Products
 
 
+## AVG (campo a calcular promedio)
+   Cuenta y reporta el promedio de todos los valores de los registros del campo indicado.
+
+Sintaxis:
+	
+ 	SELECT AVG (campo a promediar) FROM [tabla]
+
+## ROUND (campo a calcular)
+   Cuenta y calcula el redondeo de un valor con coma flotante a su entero más cercano.
+
+Sintaxis:
+
+  	SELECT ROUND (campo a redondear, cantidad de decimales) from [tabla]
+Ej:
+
+	SELECT ROUND (AVG(Price), 2) from Products
+
+## MIN (campo a evaluar mínimo)
+
+	SELECT *, Min(Price) from Products
+> Esto genera una tabla de un registro con el valor minimo en el campo "Price"
+
+## GROUP BY 
+   Este operador agrupa según el campo definido, cada elemento único del campo.
+
+Ej.
+   TABLA "VENTAS"
+	
+   | Frutas | Cliente | Cantidad |
+   |--------|---------|-----------|
+   |bananas | xxxx-xx| 10       |
+   |manzanas| xxxx-xx| 2       |
+   |frutillas| xxxx-xx| 30     |
+   |bananas | xxxx-xx | 5       |
+   |naranjas| xxxx-xx | 3         |
+   |frutillas|xxxx-xx| 15        |
+   |manzanas| xxxx-xx| 4        |
+
+   entonces, para ver cuantas manzanas en total hemos vendido, bananas, frutillas, etc.
+   escribimos la sentencia:
+
+   	SELECT * from VENTAS GROUP BY Frutas
 
 
+## HAVING
+   HAVING funciona como un WHERE pero va luego del _GROUP BY_ y se utiliza como una condición para filtrar resultados de grupos cuando se aplica alguna función en el select.
 
+ej:
+
+	select supplierID, round(avg(price)) as promedio from Products
+	group by SupplierID
+	having promedio > 40
+	
+
+## No se puede aplicar una función de agregación al resultado de otra función de agregación.
+
+
+# SUBCONSULTAS (relacionar tablas)
+
+   Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, pero se pueden utilizar en un SELECT, dentro de un WHERE, HAVING.
+
+Ej:
+
+	SELECT productID, quantity,
+	(select productname from products where orderDetails.productID = ProductID) as 		Nombre from OrderDetails
+ 
+> Esta consulta obtiene el _productID_ y _Quantity_ de la tabla **OrderDetails** pero aparte, con la subconsulta, busca también los _ProductName_ donde el ProductID de la tabla Products es igual al ProductID de la tabla OrderDetails.
+La SUBCONSULTA va entre paréntesis.
+
+
+ej de subconsulta:
+
+    SELECT productID, SUM(quantity) AS TotalVendido,
+    (select productName FROM Products WHERE productID = OD.productID) AS NombreProducto,
+    (select Price FROM Products WHERE productID = OD.productID) AS Precio,
+    (SUM(Quantity)*(SELECT Price FROM Products WHERE productID = OD.productID)) AS TotalGanado
+    FROM [OrderDetails] OD 
+    WHERE Precio > 40
+    GROUP BY ProductID
+> Esta sentencia, va a unir resultados de 2 tablas, unidas por el productID de ambas.
+
+- seleccionar el productID, y la SUMA de Cantidad como totalvendido de OrderDetails
+- _sc_(seleccionar ProductName de tabla Productos donde ProductID = ProductID de  orderdetails) y presentalo como NombreProducto,
+- _sc_(seleccionar Price de tabla Productos donde productID = ProductID de OrderDetails) y presentalo como Precio,
+- _sc_(SUMA(Cantidad)) multiplicado (Seleccionar Price de Products donde PoductID = ProductID de OrderDetails)) y presentarlo como TotalGanado,
+- DESDE [OrderDetails] alias OD
+- Donde la _sc_ Precio sea mayor a 40,
+- Agrupar por ProductID.
+
+
+## JOIN
+   inner Join / Left Join / Right Join / cross join
 
 
 
