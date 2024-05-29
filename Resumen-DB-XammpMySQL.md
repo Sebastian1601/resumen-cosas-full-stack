@@ -80,6 +80,18 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
 (LIMIT)
 
 
+### Sentencia para crear una tabla (ya dentro de la base de datos)
+
+	CREATE TABLE "[nombre]" (
+ 	"nombre de campo1" [tipo de campo],
+  	"nombre de campo2" [tipo de campo],
+		.			,	
+  		.			,
+    		.			,
+      	"nombre de campoN" [tipo de campo],
+       PRIMARY KEY("nombre de campoX", AUTOINCREMENT)
+       )
+
 ### Sentencias de busqueda inicial
 
 Mostrar todos los datos de la tabla 'usuarios'
@@ -474,7 +486,66 @@ ej de subconsulta:
 
 
 ## JOIN
-   inner Join / Left Join / Right Join / cross join
+   inner Join / Left Join / Right Join / Cross Join
+
+### Cross Join es realizar un producto cartesiano de las tablas.
+
+si  |tabla a | tabla b |
+    |--------|---------|
+    | valor a1| valor b1|
+    |valor a2 | valor b2|
+    |valor a3 | valor b3|
+
+Con un cross join sin condición( where ) quedaría lo siguiente de resultado:
+
+   | valor a1 | valor b1 |
+   | valor a1 | valor b2 |
+   | valor a1 | valor b3 |
+   | valor a2 | valor b1 |
+   | valor a2 | valor b2 |
+   | valor a2 | valor b3 |
+   | valor a3 |valor b1|
+   | valor a3 | valor b2 |
+   |valor a3 | valor b3|
+
+No tiene sentido.
+
+### INNER JOIN (o join) (devuelve la intersección de datos, o dicho de otra manera, los datos de la tabla A que coinciden con datos de la tabla B)
+
+- SI queremos unir los resultados de la busqueda de 2 tablas podemos realizar lo siguiente:
+
+		SELECT * FROM [Employees] e INNER JOIN [Orders] o
+  		ON e.EmployeeID = o.EmployeeID
+
+  El "ON" actua de Where cuando utilizamos JOINs
+  > Esto devuelve todos los registros, tanto de los empleados, como de las ordenes emparejados por el employee ID que es una Primary Key en Employees y una Foreign Key en Orders.
+
+  
+### LEFT JOIN Es una busqueda que devuelve todos los datos solicitados de la tabla A, y los datos de la tabla B que COINCIDEN con A.
+
+	select firstname AS nombre, Reward as Recompensa, Month as Mes from Rewards r
+	left join Employees e on e.EmployeeID = r.EmployeeID
+
+### RIGHT JOIN es una busqueda que devuelve todos los datos solicitados de la tabla B, y los datos de la tabla A que coinciden con B.
+
+### FULL JOIN es una union de LEFT JOIN y RIGHT JOIN, pero evitando los duplicados.
+
+Se usa el UNION para unir dos consultas, normalmente left y right.
+
+y esto da el resultado de la busqueda cruzada.
+
+## Cardinalidad
+   La cardinalidad define qué tipo de relaciones une a las tablas, normalmente pueden haber distintas relaciones entre tablas, siendo las siguientes:
+
+   **uno a uno:** Un elemento de una tabla se relaciona con un elemento de otra. ej: una persona con su dni. cada persona es unica y tiene un único nro de documento.
+
+   **uno a muchos:** Relaciones de un elemento de una tabla con n-cantidad de elementos de otra tabla. Ej: un autor puede tener muchos libros.
+
+   **muchos a uno:** Relacion establecida entre varios elementos de una tabla, a uno solo de otra. Es la opción anterior invertida
+   Ej: existen muchos libros que tienen un único autor.
+
+   **muchos a muchos:** Varios registros en una tabla se relaciona con varios registros en otra y vicecersa. Normalmente se utiliza una relación con una 3er tabla intermedia de uno a n y de n a 1
+   con las 2 tablas principales.
 
 
 
