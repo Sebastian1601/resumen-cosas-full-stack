@@ -47,6 +47,17 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
  - Buscamos la versión según nuestra pc.
       `(DB Browser for SQLite - Standard installer for 64-bit Windows)`
  - Luego de instalado el browser, ya se puede abrir para manejar desde ahi las bases.
+ ---
+
+ 
+# Entidad:
+   - Es una representación de algo. 
+   - Para representarlos se utiliza la *Notación de chen*.
+   - Para representarlas, se utiliza un sustantivo dentro de un cuadrado.
+Una entidad está definida por sus propiedades. Se representan con un óvalo.
+> Las entidades se componen por atributos simples, atributos compuestos, atributos multivalor, y atributos derivados.
+
+## Tablas
 
 > TABLA : Es una estructura de datos, organizada en filas y columnas.
 
@@ -200,7 +211,7 @@ otro ej:
   
 ## - [ORDER BY campo1, campo2, ... campon]Realizando una busqueda y ordenando de 2 maneras el resultado:
 
-	  SELECT FROM [nom tabla] ORDER BY [campo1], [campo2], ...
+	  SELECT FROM "nom tabla" ORDER BY "campo1", "campo2", ...
 
 ej:
         
@@ -213,7 +224,7 @@ ej:
    esto genera que si en una busqueda común, obtuviera 2 o más registros que tuviesen el mismo "nombre de campo", con esta sentencia figuraría solamente uno.
 
 
-     	  SELECT DISTINCT [nombre de campo] FROM [nom de tabla] 
+     	  SELECT DISTINCT "nombre de campo" FROM "nom de tabla" 
 
 ej:
      
@@ -224,7 +235,7 @@ ej:
    Esta condicion puede obtener registros de acuerdo a lo que indicamos luego del where
 
 
-  	    SELECT [nombre del campo] FROM [nombre de tabla] WHERE [condicion]
+  	    SELECT "nombre del campo" FROM "nombre de tabla" WHERE "condicion"
 
 ej:
 
@@ -236,7 +247,7 @@ ej:
 
    Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
 
-	    DELETE FROM [tabla a obterner los datos] WHERE [condicion]
+	    DELETE FROM "tabla a obterner los datos" WHERE "condicion"
 
      ej:
 
@@ -248,7 +259,7 @@ ej:
    Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
 
 
-       UPDATE [nom tabla] SET [campo a actualizar] = [valor a ingresar] WHERE [condicion a evaluar para encontrar el campo a modificar]
+       UPDATE "nom tabla" SET "campo a actualizar" = "valor a ingresar" WHERE "condicion a evaluar para encontrar el campo a modificar"
 
 ej:
 
@@ -257,8 +268,8 @@ ej:
 
 ej2:
 
-   	UPDATE [tabla] SET [campo1] = [valor1], [campo2] = [valor2] 
-    	WHERE [condicion para encontrar el registro o registros]
+   	UPDATE "tabla" SET "campo1" = "valor1", "campo2" = "valor2" 
+    	WHERE "condicion para encontrar el registro o registros"
 
 ---
 
@@ -270,12 +281,12 @@ Se utilizan para armar busquedas con 2 condiciones, o varias posibilidades.
 
 - AND : si se cumplen ambas, hay resultados =>
 
-	  SELECT [campo] FROM [tabla] WHERE [condicion1] AND [condicion2]
+	  SELECT "nombre de campo" FROM "nombre de tabla" WHERE "condicion1" AND "condicion2"
 
   
 - OR : si se cumple una de las dos, hay resultados =>
 
- 	  SELECT [campo] FROM [tabla] WHERE [condicion1] OR [condicion2]
+ 	  SELECT "nombre de campo" FROM "nombre de tabla" WHERE "condicion1" OR "condicion2"
 
 
 	Se pueden sumar condiciones a la busqueda, y separar con paréntesis () para aplicar ciertas condiciones juntas a otras.
@@ -370,7 +381,7 @@ ej:
 
   Esto puede evaluar si el campo indicado, posee algunos de los valores pasados entre paréntesis.
 
-  	SELECT * FROM [tabla] WHERE [CAMPO1] IN (valor1, valor2, ..., valorN)
+  	SELECT * FROM "nombre de tabla" WHERE "campo1" IN ("valor1", "valor2", ..., "valorN")
 
 ej:
 
@@ -384,15 +395,15 @@ ej:
    Cuenta qué cantidad de registros tengo en el campo indicado.
    ej:
 
-   	SELECT count(FirstName) as Cantidad_de_nombres FROM Employees
+   	SELECT COUNT(FirstName) AS Cantidad_de_nombres FROM Employees
 
 ## SUM(campo a sumar)
    Cuenta qué cantidad suma todos los valores de una columna.
 
-	SELECT SUM(campo a sumar) FROM [tabla]
+	SELECT SUM("campo a sumar") FROM "nombre de tabla"
 ej:
 
-	SELECT sum(price) AS Suma_total FROM Products
+	SELECT SUM(price) AS Suma_total FROM Products
 
 
 ## AVG (campo a calcular promedio)
@@ -400,21 +411,21 @@ ej:
 
 Sintaxis:
 	
- 	SELECT AVG (campo a promediar) FROM [tabla]
+ 	SELECT AVG (campo a promediar) FROM "nombre de tabla"
 
 ## ROUND (campo a calcular)
    Cuenta y calcula el redondeo de un valor con coma flotante a su entero más cercano.
 
 Sintaxis:
 
-  	SELECT ROUND (campo a redondear, cantidad de decimales) from [tabla]
+  	SELECT ROUND ("campo a redondear", "cantidad de decimales") FROM "nombre de tabla"
 Ej:
 
-	SELECT ROUND (AVG(Price), 2) from Products
+	SELECT ROUND (AVG(Price), 2) FROM Products
 
 ## MIN (campo a evaluar mínimo)
 
-	SELECT *, Min(Price) from Products
+	SELECT *, Min(Price) FROM Products
 > Esto genera una tabla de un registro con el valor minimo en el campo "Price"
 
 ## GROUP BY 
@@ -436,7 +447,7 @@ Ej.
    entonces, para ver cuantas manzanas en total hemos vendido, bananas, frutillas, etc.
    escribimos la sentencia:
 
-   	SELECT * from VENTAS GROUP BY Frutas
+   	SELECT * FROM Ventas GROUP BY Frutas
 
 
 ## HAVING
@@ -444,9 +455,9 @@ Ej.
 
 ej:
 
-	select supplierID, round(avg(price)) as promedio from Products
-	group by SupplierID
-	having promedio > 40
+	SELECT supplierID, ROUND(AVG(price)) AS promedio FROM Products
+	GROUP BY SupplierID
+	HAVING promedio > 40
 	
 
 ## No se puede aplicar una función de agregación al resultado de otra función de agregación.
@@ -459,7 +470,7 @@ ej:
 Ej:
 
 	SELECT productID, quantity,
-	(select productname from products where orderDetails.productID = ProductID) as 		Nombre from OrderDetails
+	(select productname from products where orderDetails.productID = ProductID) as Nombre from OrderDetails
  
 > Esta consulta obtiene el _productID_ y _Quantity_ de la tabla **OrderDetails** pero aparte, con la subconsulta, busca también los _ProductName_ donde el ProductID de la tabla Products es igual al ProductID de la tabla OrderDetails.
 La SUBCONSULTA va entre paréntesis.
@@ -490,8 +501,8 @@ ej de subconsulta:
 
 ### Cross Join es realizar un producto cartesiano de las tablas.
 
-si  |tabla a | tabla b |
-    |--------|---------|
+si  |tabla a  | tabla b |
+    |-------- |---------|
     | valor a1| valor b1|
     |valor a2 | valor b2|
     |valor a3 | valor b3|
@@ -504,9 +515,9 @@ Con un cross join sin condición( where ) quedaría lo siguiente de resultado:
    | valor a2 | valor b1 |
    | valor a2 | valor b2 |
    | valor a2 | valor b3 |
-   | valor a3 |valor b1|
+   | valor a3 |valor b1  |
    | valor a3 | valor b2 |
-   |valor a3 | valor b3|
+   |valor a3  | valor b3 |
 
 No tiene sentido.
 
@@ -547,19 +558,40 @@ y esto da el resultado de la busqueda cruzada.
    **muchos a muchos:** Varios registros en una tabla se relaciona con varios registros en otra y vicecersa. Normalmente se utiliza una relación con una 3er tabla intermedia de uno a n y de n a 1
    con las 2 tablas principales.
 
+---
 
+##Crear índices --
 
+   Los índices ayudan a que las busquedas sean más eficientes y rápidas. Están los índices primarios, que están representados por las *Primary Keys*, pero luego se pueden crear otros indices, para ayudar más a las busquedas y rendimiendo de la base de datos.
+
+- Indice ordinario (permite campos duplicados y vacíos)
+
+		CREATE INDEX "nombre del indice" ON "nombre de tabla" (campo a indexar)
+  
+
+ - Indice compuesto
+   Para crear un índice compuesto, de 2 campos que no deberían tener datos repetidos, dado que normalmente son únicos por naturaleza, pero aún asi no son *Primary Keys* podemos realizar lo siguiente:
+
+		CREATE UNIQUE INDEX "nombre del indice" ON "nombre de tabla" (campo1, campo2)
+
+La conjunción de los datos de estos 2 campos, crearían un virtual "campo único" donde la composición de sus valores, daría un resultado único, por lo tanto, actuaría como una primary key sin serlo.
+El término *INDEX* genera que el campo índice no pueda tener valores repetidos, la misma tabla no permitiría INSERTARLOS
+
+ej:
+
+		CREATE UNIQUE INDEX "nombre" ON Employees (LastName, FirstName).
+
+ -Esto genera que los campos LastName y FirstName compuestos, no acepten datos duplicados. 
+ >NO PODEMOS AGREGAR 2 "GIORDANO" "DAVID". La combinación es única. Puede haber otro "David", puede haber otro "GIORDANO" pero no pueden haber 2 empleados con el mismo first y last name. 
+
+## Eliminar índices
+
+  Si vemos que los índices no mejoran las consultas, podemos borrarlos dado que sino ocupan mucho espacio en disco, y generalmente cuando agregamos o borramos datos, los índices afectan la lectura y escritura.
+
+  	DROP INDEX "nombre del índice"
 
 ===============================================================================
 
-## Entidad:
-   - Es una representación de algo. 
-   - Para representarlos se utiliza la *Notación de chen*.
-   - Para representarlas, se utiliza un sustantivo dentro de un cuadrado.
-Una entidad está definida por sus propiedades. Se representan con un óvalo.
-   
-
-> Las entidades se componen por atributos simples, atributos compuestos, atributos multivalor, y atributos derivados.
 
 
 
