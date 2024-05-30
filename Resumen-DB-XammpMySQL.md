@@ -592,6 +592,59 @@ ej:
 
 ===============================================================================
 
+## Crear "VISTAS"
+
+  Las vistas se definen mediante las busquedas SQL que se realizan, obteniendo campos específicos con ciertas condiciones, o sea, podemos nombrar como "vista" a una "tabla resultado de una sentencia SQL".
+
+- Para crear una vista:
+
+CREATE VIEW "nombre de la vista" AS "consulta sql que devuelve la vista de columnas seleccionadas"
+
+- Para eliminar una vista, se corre:
+
+DROP VIEW IF EXIST "nombre de la vista".
+
+---
+
+# BLOQUEOS Y TRANSACCIONES
+
+Esto se refiere al concepto de que las bases de datos deben tener seguridad de los datos consultados modificados al momento de realizarze los cambios.
+
+SQLite maneja un bloqueo compartido (shared lock) el cual permite a un usuario B mientras un usuario A está escribiendo en la base de datos, poder leer todavia los datos de la misma.
+
+## BEGIN, ROLLBACK y COMMIT.
+
+para asegurar las transacciones realizadas en la base de datos, como métodos de seguridad, hay procesos que marcan los inicios y finales de las escrituras de las mismas.
+
+- _BEGIN_ permite iniciar el proceso de escritura cuidado, esto permite realizar un _ROLLBACK_ en caso de que los datos a guardar tengan un error o se hayan guardado de manera incorrecta.
+
+- _ROLLBACK_ devuelve el estado de la base de datos al punto donde se inicio el _BEGIN_.
+
+- _COMMIT_ confirma luego de confirmado los nuevos cambios a la base, guardandolos finalmente en la base real. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
