@@ -882,7 +882,7 @@ teniendo este dato, podemos solicitar nos envíen la información de la siguient
         
 )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
-# Manejo del DOM ------------------------------------------------------------------------
+## Manejo del DOM ------------------------------------------------------------------------
 Tipos de nodo:
     -Document: es el nodo raíz del cual se derivan el resto de nodos.
 
@@ -894,7 +894,7 @@ Tipos de nodo:
 
     -Comment node: los nodos que definen comentarios.
 
-##DOCUMENT - Metodos de seleccion de elementos:
+## DOCUMENT - Metodos de seleccion de elementos:
 
     como son métodos, se aplican al nodo document.
 
@@ -914,41 +914,248 @@ obtener una lista de nodos por querySelectorAll:
 
                 document.querySelectorAll('#id');
 
+> ⚠️ LOS HTMLCollections no se recorren con un forEach, pero sí se pueden recorrer con un "for of" para mostrar el contenido(cada etiqueta obtenida) de cada elemento.
 
-## setAttribute("atributo a cambiar", "nuevo valor de atributo") : permite definir atributos de los elementos html.
+
+### setAttribute("atributo a cambiar", "nuevo valor de atributo") : permite definir atributos de los elementos html.
     
                 const input = document.querySelector('.form__input');
                 input.setAttribute("type","text")
 
-## getAttribute("atributo") : permite obtener atributos de los elementos html.
+### getAttribute("atributo") : permite obtener atributos de los elementos html.
     .getAttribute; //esto devuelve el valor del atributo "type";
 
-## removeAttribute("atributo"): directamente esto elimina el atributo del elemento html.
+### removeAttribute("atributo"): directamente esto elimina el atributo del elemento html.
 
 
-ATRIBUTOS GLOBALES (TODOS LOS ELEMENTOS TIENEN ESTOS ATRIBUTOS)-------------------------------------
+## ATRIBUTOS GLOBALES (TODOS LOS ELEMENTOS TIENEN ESTOS ATRIBUTOS)----------------------------
 
 - contenteditable (booleano) : indica si el elemento puede ser modificable por el usuario.
 
-- style:
+- dir : indica la dirección del texto.
+ 
+- style: contiene declaraciones de estilos CSS para ser aplicadas al elemento.
 
 - tabIndex: permite definir con qué orden se seleccionan las etiquetas con la tecla TAB
 
 - title: atributo que define un titulo al elemento seleccionado.
 
+- Hay muchos más...
 
-ATRIBUTOS INPUTS-----------------------------------------------------------------------------------
+### ATRIBUTOS directos de INPUTS ----------------------------------------------------------------
+
+- className : esto devuelve la clase asignada al objeto.
+- value : esto devuelve el valor ingresado en el objeto.
+- type : esto puede modificar directamente el tipo de input.
+- accept : esto si ponemos un input para insertar imágenes, determina qué tipo de imágenes son válidas.
+- form : este atributo vincula a través del id del formulario, un input que esté fuera del FORM.
+- minLength : determina la mínima cantidad de caracteres que debe tener un input para ser válido.
+- placeholder : texto que va dentro del input y se borra al momento de escribir.
+- required : determina si es necesario el campo y no puede estar vacío o sin selección.
+
+### Atributo Style.(element.style)
+   esto permite modificar "al vuelo" propiedades CSS de los elementos. se pueden cambiar todos, pero no es siempre igual.
+
+  element._style_.color = "#91a";
+  
+  element._style_.backgroundColor = "#48d"; (aca normalmente sería 'background-color:"#48d", pero mediante JS se elimina el guion medio para transformar la propiedad en camelCase)
+
+### ClassList y métodos de ClassList. ------------------------------------------------------------------------
+
+Estos métodos permiten manejar las clases de manera dinámica, agregando, quitando clases, etc.(no cambia directamente las propiedades)
+
+    Element.classList.(método)
+
+- classList.add('clase a agregar') : esto le agrega la clase indicada entre () al elemento.
+
+- classList.remove('clase a quitar') : esto elimina la clase indicada siempre que el elemento la tenga.
+
+- classList.item(n) : este método devuelve la clase posición _n_, si es que el elemento tiene varias.
+
+- classList.contains('nombre de clase') : Esto evalua si el elemento html contiene la clase indicada. Devuelve _TRUE_ o _FALSE_
+
+- classList.toggle('nombre de la clase') : si la clase indicada está en el elemento, la casa, y si no la tiene, la agrega.
+
+- classList.replace('clase a reemplazar', 'clase a agregar') : reemplaza una clase, por otra directamente.
+
+  ### Creación de elementos en HTML.
+
+ - element._textContent_ : devuelve todo lo que tiene de texto el elemento html, sin etiquetas.
+
+ - element._innerHTML_ : devuelve todo el contenido interno del elemento, incluido código html dentro.
+
+ - element._outerHTML_ : devuelve TODO el contenido del elemento, etiquetas externas, internas, texto, etc.
+  
+  
+  
+### Crear Elementos en JavaScript.
+
+definimos una constante con el elemento, descripto TODO en mayúscula. ej:
+
+    const Lista = document.createElement('LI');
+    
+esto crea la etiqueta <li></li> vacía. Por lo tanto, para agregarle texto debemos crear un '_text node_':
+
+    const textDelItem = document.createTextNode('esto es el texto dentro de la etiqueta li');
+
+finalmente, agregamos a **Lista**, el text node creado:
+
+    Lista.innerHTML = textDelItem;
+
+ > ...Pero esta no es la mejor manera de hacerlo, dado que el texto insertado, no está creado como un nodo HTML, y por lo tanto, no tiene las mismas propiedades que un elemento creado de la siguiente manera...
+
+
+### Métodos Child.
+
+siguiendo el ejemplo anterior para crear los elementos **Lista** y **textDelItem**, podemos agregar el texto a la etiqueta html escribiendo:
+
+    Lista.appendChild(textDelItem);
+
+A su vez, ya creado el elemento <li> con su texto interno, podemos "agregarlo" a otro contenedor padre, por ejemplo un <div>
+
+    let divPadre = document.getElementByID('contenedor');
+    divPadre.appendChild('Lista');
+
+y esto devolvería una estructura de la siguiente manera en HTML:
+
+    <div id="contenedor">
+        <li>esto es el texto dentro de la eitqueta li</li>
+    </div>
+
+
+### el método para crear más de un elemento html y presentarlo
+
+_document.createDocumentFragment();
+
+Primero creamos una constante de la siguiente manera:
+
+    const fragmento = document.createDocumentFragment(); 
+esto crea un "fragmento de documento HTML", para ir agregando elementos a medida que los vamos creando, y cuando ya no se agregarán más(por lo menos en esta instancia) se sube al documento principal, el "fragmento" de html, para agregar varios elementos html en un paso.
+
+ej:
+    
+    const contenedor = document.querySelector(".contenedor");
+    const fragmento = document.createDocumentFragment();
+    for (i=0; i<20; i++){
+    const item = document.createElement("LI");
+    item.innerHTML = "este es un item de la lista";
+    fragmento.appendChild(item);
+    }
+
+    contenedor.appendChild(fragmento);
+
+Y esto consume muchos menos recursos que hacerlo por separado.
+
+
+---
+
+### Obtener y modificar Childs.
+
+siendo el ejemplo:
+
+        <body>
+            <div class="contenedor">
+                <h2> un titulo comun </h2>
+                <h4> un h4 comun </h4>
+                <p> un simple párrafo </p>
+            </div>
+        <body>
+
+-Este elemento DIV tiene 2 hijos, _h2_ y _p_ 
+
+- _firstChild_ : Obtiene el primer hijo del contenedor padre.
+
+      let contenedor = document.querySelector (".contenedor");
+      const primerHijo = contenedor.firstChild
+
+  esto devuelve el primer elemento luego del DIV, en este caso, va a dar #text dado que el espacio en el código se cuenta como elemento texto. Para esto hay una solución más adelante.
+
+- _lastChild_ : Obtiene el último hijo del contenedor padre.
+
+-  _firstElementChild : Con este método resolvemos el problema de los espacios como #text.
+Esto devolvería correctamente el <h2> un titulo comun </h2> aunque haya espaciones e indentaciones en el código HTML.
+
+- _lastElementChild_ : Obtiene el último elemento hijo del contenedor padre, sin tener en cuenta los espacios #text.
+
+- _childNodes_ : devuelve TODOS los elementos hijos de un contenedor padre, incluidos tags html, y #texts siendo espacios vacíos.
+
+-  _children_ : resuelve lo anterior, devolviendo solamente los hijos que son ELEMENTOS del contenedor padre, en este caso:
+
+        let hijoselementos =
+        <h2>un titulo comun</h2>
+        <h4>un h4 comun</h4>
+        <p>un simple parrafo</p>
+
+  > _childNodes_ y _children_ NO SON ARRAYs, son NodeList, se pueden recorrer como un array, pero no se le pueden aplicar los métodos de array.
+
+        console.log(hijoselementos[1]) = <h4>un h4 comun</h4>
+
+> Se pueden recorrer con un forEach los nodelist.
+
+ej:
+        
+        hijoselementos.forEach( (hijo) => {
+            console.log(hijo);
+            });
+
+### replaceChild(), removeChild(), hasChildNodes
+
+- Padre._replaceChild('elemento a agregar','elemento viejo a reemplazar')_ : reemplaza un nodo viejo ya existente con uno nuevo.
+
+- Padre._removeChild('elemento hijo de padre a quitar del DOM')_ : quita el elemento hijo del padre del DOM.
+
+- Padre._hasChildNodes()_ : Este método verifica si el Padre tiene hijos, devuelve _true_ o _false_ según corresponda. Hay que tener en cuenta que un #text node se cuenta como hijo.
+
+
+
+
+### parentElement.
+
+- _parentElement_ : Selecciona el ELEMENTO padre, del elemento del método.
+
+ej:
+siendo el html:
+
+        <div>
+            <h1> un titulo importante </h1>
+            <h2 class="h2"> un titulo secundario </h2>
+            <p> un párrafo común </p>
+        </div>
+
+podemos probar lo siguiente:
+        
+        const h2_antiguo = document.querySelector('.h2');
+        console.log(h2_antiguo.parentElement); //esto devuelve <div></div>
+
+
+### Siblings (hermanos, elementos en el mismo rango del DOM)
+
+- elemento._nextElementSibling_ : devuelve el hermano ELEMENTO posterior en el DOM.
+
+- elemento._previousElementSibling_ : devuelve el hermano ELEMENTO anterior en el DOM.
+        
+  Teniendo en cuenta el html anterior
+
+      h2_antiguo.nextElementSibling; //esto devuelve <p>un párrafo común</p>
+
+      h2_antiguo.previousElementSibling; //esto devuelve <h1> un titulo importante
+
+Si no tiene hermano anterior, o posterior, devuelve _null_
+
+### Closest()
+
+- este método devuelve, aplicandolo a un elemento en un punto del DOM, el elemento más cercano indicado con selector CSS.
 
 
 
 
 
 
-# Metodos del DOM para agregar elementos desde JS.
+### Metodos del DOM para agregar elementos desde JS.
 
 > https://lenguajejs.com/javascript/dom/insertar-elementos-dom/
->
-> 
+
+---
 
 
             
