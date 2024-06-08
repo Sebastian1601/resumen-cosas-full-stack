@@ -14,7 +14,23 @@ Para esto, necesitamos de 3 aplicaciones requerídas. Windows Terminal (WSL), RU
 - Para instalar Windows Terminal(que no es cdm, ni windows powershell), podemos instalarlo desde la página oficial de microsoft con una simple busqueda.
 - Para instalar RUST, vamos a https://www.rust-lang.org/learn/get-started, y copiamos el código que brinda la página en nuestra Terminal.
 - Puede ser que tengamos que instalar Unos archivos de VISUAL STUDIO INSTALLER, pero el mismo instalador de RUST nos da la opción de hacerlo.
-- 
+- Finalmente, luego de instalado RUST y los derivados de Visual Studio, abrimos la terminal Bash por ej. de GIT, y colocamos el c+odigo indicado en la página de fnm.
+- esto finalmente indicará que se instaló fnm, para verificarlo, cerrar y reabrir la terminal.
+- al finalizar, podemos poner
+
+              fnm --version
+
+  y esto debería resultar en la versión instalada de fnm.
+
+  comandos:
+
+   - _fnm list_: devuelve la lista de versiones de node js instaladas.
+   - _fnm install (version de node a instalar)_ : esto instala la versiòn que existe en la página oficial de node.
+   - _fnm use (version de node a usar)_ : esto determina qué versión ejecutará el código indicado.
+   - _fnm alias (versión de node a referenciar) default_ : esto hace que la versión indicada de node quede "por defecto" a utilizar cada vez que iniciemos un código, evitando que se usen otras versiones ya instaladas automáticamente.
+   - _fnm --HELP_ : muestra los distintos comandos que fnm puede tener.
+ 
+---
 
 
 
