@@ -14,7 +14,7 @@ Para esto, necesitamos de 3 aplicaciones requerídas. Windows Terminal (WSL), RU
 - Para instalar Windows Terminal(que no es cdm, ni windows powershell), podemos instalarlo desde la página oficial de microsoft con una simple busqueda.
 - Para instalar RUST, vamos a https://www.rust-lang.org/learn/get-started, y copiamos el código que brinda la página en nuestra Terminal.
 - Puede ser que tengamos que instalar Unos archivos de VISUAL STUDIO INSTALLER, pero el mismo instalador de RUST nos da la opción de hacerlo.
-- Finalmente, luego de instalado RUST y los derivados de Visual Studio, abrimos la terminal Bash por ej. de GIT, y colocamos el c+odigo indicado en la página de fnm.
+- Finalmente, luego de instalado RUST y los derivados de Visual Studio, abrimos la terminal Bash por ej. de GIT, y colocamos el código indicado en la página de fnm.
 - esto finalmente indicará que se instaló fnm, para verificarlo, cerrar y reabrir la terminal.
 - al finalizar, podemos poner
 
@@ -32,9 +32,44 @@ Para esto, necesitamos de 3 aplicaciones requerídas. Windows Terminal (WSL), RU
  
 ---
 
+> ⚠️ Hay entornos de Windows que pueden no estar configurados para ciertas acciones de los lenguajes o códigos.
 
+*1 Aqui veremos cómo resolver el caso en que FNM se instale, puedas descargar los paquetes de nodejs, pero aún asi, al ejecutar >node en la terminal, no reconozca el comando.
+Normalmente para esto hay que correr una linea de código al abrir la terminal, para que se reconozca el path de la instalación de node, pero si la terminal tiene desactivada la ejecución de _scripts_, esto generará que cada vez de abrir la terminal, deberás correr esa linea de código :
 
+    fnm env --use-on-cd | Out-String | Invoke-Expression
 
+Para evitar esto, y que al abrir la terminal en cualquier lugar (ej. Visual studio code) no tengamos que realizar esto manualmente, se utilizan los perfiles de powershell por ej.
+Hay que crear uno, si la terminal activa no tiene uno habilitado, y agregar esa linea de código al final del perfil(si el perfil es nuevo, no va a tener nada excepto esa linea de código)
+
+Según la página _https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4#the-profile-variable_
+
+Para crear un perfil del usuario actual de power shell:
+
+    if (!(Test-Path -Path $PROFILE)) {
+    New-Item -ItemType File -Path $PROFILE -Force
+    }
+
+Para verificar si se creó correctamente y editarlo, podemos poner en la misma terminal lo siguiente:
+
+    >notepad $profile
+
+Esto abrirá el achivo profile en el bloc de notas para agregar la linea de código indicada en *1
+
+Al guardar el archivo, si cerramos y abrimos de nuevo la terminal, podremos leer si tiene una restricción para ejecutar scripts en la terminal. De ser asi, en la misma terminal podemos cambiar esto de la siguiente manera.
+
+ejecutamos:
+
+    Get-ExecutionPolicy
+
+Si esto devuelve "_Restricted_" quiere decir que está prohibido ejecutar scripts desde la consola directamente. Ahí debemos cambiar con lo siguiente:
+
+    Set-ExecutionPolicy Unrestricted
+
+y luego de que tome los cambios, reiniciar la terminal. Al abrirla nuevamente, debería haberse ido el mensaje y podremos ejecutar directamente "node" en la terminal, y esto abrira el REPL (read eval proccess load).
+A esta altura ya debería funcionar node en cualquier terminal, incluida la de Visual Studio Code, y ejecutar cualquier programa en la versión de NodeJs elegida.
+
+---
 
 ---
 
