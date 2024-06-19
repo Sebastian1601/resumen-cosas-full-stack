@@ -464,10 +464,16 @@ con el método del objeto `var texto = new String('hola a todos');` o de manera 
 
 existen muchos métodos para strings dado que JavaScript fue diseñado en base a manejar cadenas de texto, por lo tanto, las posibilidades son muchas.
 
+### Propiedades de strings (son inmutables, siempre se obtiene un nuevo string con los métodos)
+
 | Propiedad ---------------- | Descripción -------------------------------------------------------|
 |----------------------------|------------------------------------|
 |  .length                | Devuelve el número de caracteres de la variable de tipo string en cuestión|
 |  .charAt(*index*)                | Devuelve el carácter en la posición *index* de la variable. |
+| _string_.at(posicion)    | Devuelve el caracter en la posición indicada / ACEPTA posicion negativa|
+| _string_.slice(*start*, *end*) | devuelve un nuevo string con el texto desde start hasta end(NO INCLUIDO) / Si se omite el 2do parámetro, se obtiene un nuevo string desde el start hasta el final / ACEPTA start y end negativo|
+| .substr(*ini*, *len*) | Devuelve el subtexto generado desde la posición *ini*, hasta *ini* + (*len* - 1) / SI SE OMITE el 2do parámetro, se obtiene el resto del string desde *ini* / ACEPTA PARAMETRO NEGATIVO|
+| .substring(*start*, *end*) | Devuelve el subtexto generado desde la posición *start*, hasta *end* / NO ACEPTA VALORES NEGATIVOS|
 |  .concat(*str1*, *str2*,...,*strN*) | Devuelve una nueva cadena uniendo *str1*, a *str2*..., a *strN* |
 |  .indexOf(str)    |  Devuelve la primera posición del texto *str* |
 |  .indexOf(str, from) | Devuelve la posición de *str*, partiendo desde el index *from* |
@@ -477,7 +483,7 @@ existen muchos métodos para strings dado que JavaScript fue diseñado en base a
 | .repeat (**n**) | Devuelve el string repetido **n** veces  |
 | .trim () | Devuelve el string de la variable aplicada sin espacios a la izquierda y derecha |
 | .replace (*str*, *nuevastr*) | Reemplaza la primera iteración de *str* con *nuevastr*  |
-| .substring(*ini*, *len*) | Devuelve el subtexto generado desde la posición *ini*, hasta *ini* + (*len* - 1) |
+
 
 
 ---
