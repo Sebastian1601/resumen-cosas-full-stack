@@ -453,6 +453,29 @@ Esto permite generar un nuevo objeto con estas propiedades de la siguiente maner
     var Perro1 = new Perro ('Lola', 4, 'marrón'); 
     var Perro2 = new Perro ('Estrellita', 10, 'blanco');
 
+
+### OBJETOS metodo protoype
+
+Cuando ya tenemos creado una clase u objeto instanciado, o varios, y queremos agregarle una propiedad para que todos los objetos ya instanciados la tengan disponible, podemos usar el método  _prototype_ 
+
+Usando la clase Perro definida arriba, podemos agregarle una propiedad a todos por igual, por ejemplo, "cantidadPatas".
+
+esto se hace mediante el metodo prototype, de la siguiente manera:
+
+        Perro.prototype.cantidadPatas = 4
+
+Esto genera que si ya tenemos instanciada a "Estrellita" y "Lola", los objetos Estrellita y Lola tenga las propiedades nombre, edad, color y cantidadPatas por igual.
+
+Podemos también definir un método para todos los objetos por igual, de la misma manera:
+
+        Perro.prototype.ladrar = function() {
+            console.log(`mi nombre es ${this.nombre} y ladro asi! wau! wau!`);
+        };
+
+Esto generaría que al ejecutar el método en cada instancia de Estrellita y Lola, se pueda obtener el código:
+
+        Estrellita.ladrar();   //mi nombre es Estrellita y ladro así! wau! wau! 
+        Lola.ladrar();         //mi nombre es Lola y ladro así! wau! wau!
     
 ## String (PROPIEDADES Y MÉTODOS).
 ---
@@ -464,27 +487,60 @@ con el método del objeto `var texto = new String('hola a todos');` o de manera 
 
 existen muchos métodos para strings dado que JavaScript fue diseñado en base a manejar cadenas de texto, por lo tanto, las posibilidades son muchas.
 
-### Propiedades de strings (son inmutables, siempre se obtiene un nuevo string con los métodos)
+### Metodos de strings que crean una nueva STRING (los strings son inmutables, siempre se obtiene un nuevo string con los métodos)
 
 | Propiedad ---------------- | Descripción -------------------------------------------------------|
 |----------------------------|------------------------------------|
-|  .length                | Devuelve el número de caracteres de la variable de tipo string en cuestión|
-|  .charAt(*index*)                | Devuelve el carácter en la posición *index* de la variable. |
-| _string_.at(posicion)    | Devuelve el caracter en la posición indicada / ACEPTA posicion negativa|
-| _string_.slice(*start*, *end*) | devuelve un nuevo string con el texto desde start hasta end(NO INCLUIDO) / Si se omite el 2do parámetro, se obtiene un nuevo string desde el start hasta el final / ACEPTA start y end negativo|
+| .toString() | Convierte un integer en string para poder aplicar los métodos correspondientes |
+| .length           | Devuelve el número de caracteres de la variable de tipo string en cuestión|
+| .charAt(*index*)                | Devuelve el carácter en la posición *index* de la variable. |
+| .at(posicion)    | Devuelve el caracter en la posición indicada / ACEPTA posicion negativa|
+| .slice(*start*, *end*) | devuelve un nuevo string con el texto desde start hasta end(NO INCLUIDO) / Si se omite el 2do parámetro, se obtiene un nuevo string desde el start hasta el final / ACEPTA start y end negativo|
 | .substr(*ini*, *len*) | Devuelve el subtexto generado desde la posición *ini*, hasta *ini* + (*len* - 1) / SI SE OMITE el 2do parámetro, se obtiene el resto del string desde *ini* / ACEPTA PARAMETRO NEGATIVO|
 | .substring(*start*, *end*) | Devuelve el subtexto generado desde la posición *start*, hasta *end* / NO ACEPTA VALORES NEGATIVOS|
 |  .concat(*str1*, *str2*,...,*strN*) | Devuelve una nueva cadena uniendo *str1*, a *str2*..., a *strN* |
-|  .indexOf(str)    |  Devuelve la primera posición del texto *str* |
-|  .indexOf(str, from) | Devuelve la posición de *str*, partiendo desde el index *from* |
- | .lastIndexOf(str, from) | Devuelve la posición de *str*, pero indica la última posición encontrada desde *from*|
 | .toLowerCase () | Devuelve el string de la variable aplicada en minúsculas. |
 | .toUpperCase () | Devuelve el string de la variable aplicada en mayúsculas. |
-| .repeat (**n**) | Devuelve el string repetido **n** veces  |
-| .trim () | Devuelve el string de la variable aplicada sin espacios a la izquierda y derecha |
-| .replace (*str*, *nuevastr*) | Reemplaza la primera iteración de *str* con *nuevastr*  |
+| .trim () | Devuelve el string de la variable aplicada sin espacios al principio y al final |
+| .trimStart() | Devuelve el string sin los espacios en blanco desde el principio |
+| .trimEnd() | Devuelve el string sin los espacions al final si es que los tiene |
+| .padStart(*num*, *string*) | rellena un string con *string* para que contenga *num* cantidad de letras |
+| .padEnd(*num*, *string*) | rellena un string con *string* para que contenga *num* cantidad de letras|
+| .repeat(*nro de veces*) | devuelve una nueva cadena con el _string_ repetido *nro de veces* |
+
+| .replace (*str*, **nuevastr**) | Reemplaza la primera iteración de *str* con *nuevastr*  / en caso de querer cambiar todas las iteraciones, se coloca en la expresión el flag **/g** y en caso de que se desee que sea case insensitive se coloca el flag **/i** _ej: text.replace(/MICROSOFT/gi,"W3Schools")_ |
+| .replaceAll(*str*, **nuevaStr**) | Devuelve un string con todas las iteraciones **str** reemplazadas por **nuevaStr** / ACEPTA REG EXP con el flag /g |
+| .split(*separador*, *cantidad de splits*=0) | este metodo puede convertir un string a array, usando separadores. Si el separador se omite, se crea un array con todo el string original en el elemento [0], si el separador es "", se crea un array con una letra por elemento / el valor cantidad determinar qué cantidad de splits se realizan |
+| String.fromCharCode(*n1*,*n2*,*n3*,...,*nX*) | Devuelve un string creado de los valores unicode pasados como parámetros.|
+| .match(*string or RegExp to search*) | devuelve un ARRAY con las coincidencias de comparar _string_ con la **expresion a buscar** / DEVUELVE NULL si no hay coincidencias|
+
+---
 
 
+
+### Metodos de String Booleanos
+
+| Propiedad ---------------- | Descripción -------------------------------------------------------|
+|----------------------------|------------------------------------|
+| _string_.endsWith(**str**)  | devuelve true or false dependiendo si el _string_ evaluado termina con **str**|
+| _string_.startsWith(**str**, *index*=0) | Devuelve true or false dependiendo si el _string_ inicia con **str** si el *index* = 0, o si contiene **str** exactamente desde el *index* especificado. |
+| _string_.includes(**str**, *start*=0) | Devuelve true or false dependiendo si _string_ contiene **str** desde *start*|
+
+
+---
+
+### Metodos de String que devuelven indices
+
+| Propiedad ---------------- | Descripción -------------------------------------------------------|
+|----------------------------|------------------------------------|
+|  .indexOf(**str**)    |  Devuelve la primera posición del texto *str* pero no puede evaluar una regExp|
+|  .indexOf(**str**, from) | Devuelve la posición de *str*, partiendo desde el index *from* |
+ | .lastIndexOf(**str**, *from*) | Devuelve la posición de *str*, pero indica la última posición encontrada desde *from* / devuelve -1 si no encuentra nada|
+ | _string1_.localeCompare(_string2_) | Compara dos cadenas, devuelve -1, 0 si son iguales, 1 |
+ | .search(**regExp**) | Devuelve el *index* al encontrar la primer coincidencia en la cadena con **regExp** / si se pasa un string se transforma a *regExp* / .match() devuelve un array de indices|
+|
+ 
+ 
 
 ---
 
@@ -621,15 +677,17 @@ Si coloráramos por ej.
 
 > Normalmente el nro devuelto por .length, es mayor a 1 con respecto a las ubicaciones del arreglo, que comienzan por 0, por lo tanto, para acceder al último valor del arreglo, se obtiene la posición restándole 1 a la cantidad total de elementos.
 ---
-## Metodos de arreglos
+## Metodos de ARRAYS
 
 | --------Metodo--------| ------Descripción ------- |
 |------------------------|--------------------------|
+| .at(*index*) | devuelve el elemento contenido en el *index* del array / acepta *index* negativos|
 | .push(*obj1*, *obj2*, ... , *objn*)| Añade uno o más elementos al final del arreglo. Devuelve el nuevo tamaño del arreglo.|
 | .pop()        | Elimina y devuelve el último elemento del arreglo |
 | .unshift(*obj1*, *obj2*,...,*objn*)|Añade uno o más elementos al inicio del arreglo. Devuelve el tamaño nuevo|
 | .shift()    | Elimina y devuelve el primer elemento del arreglo|
 | .concat (*array1*, *array2*, *array3*, ...,*arrayN*)| concatena los elementos de los arreglos pasados por parámetro|
+| .copyWithin(*x*, *y*, *z*) | Copia en otro arreglo, en la posición *x*, los elementos desde el index *y*, hasta *z*|
 | .indexOf(*obj*, *from*)| Devuelve la posición de la primera aparición de *obj* desde *from* |
 | .lastIndexOf(*obj*, *from*) | Devuelve la posición de la última aparición de *obj* desde *from*|
 | .slice (*inicio*,*final*) | Retorna una copia de un arreglo desde el indice de *inicio*, hasta el *final* - NO INCLUIDO-|
