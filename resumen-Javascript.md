@@ -507,7 +507,6 @@ existen muchos métodos para strings dado que JavaScript fue diseñado en base a
 | .padStart(*num*, *string*) | rellena un string con *string* para que contenga *num* cantidad de letras |
 | .padEnd(*num*, *string*) | rellena un string con *string* para que contenga *num* cantidad de letras|
 | .repeat(*nro de veces*) | devuelve una nueva cadena con el _string_ repetido *nro de veces* |
-
 | .replace (*str*, **nuevastr**) | Reemplaza la primera iteración de *str* con *nuevastr*  / en caso de querer cambiar todas las iteraciones, se coloca en la expresión el flag **/g** y en caso de que se desee que sea case insensitive se coloca el flag **/i** _ej: text.replace(/MICROSOFT/gi,"W3Schools")_ |
 | .replaceAll(*str*, **nuevaStr**) | Devuelve un string con todas las iteraciones **str** reemplazadas por **nuevaStr** / ACEPTA REG EXP con el flag /g |
 | .split(*separador*, *cantidad de splits*=0) | este metodo puede convertir un string a array, usando separadores. Si el separador se omite, se crea un array con todo el string original en el elemento [0], si el separador es "", se crea un array con una letra por elemento / el valor cantidad determinar qué cantidad de splits se realizan |
