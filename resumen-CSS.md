@@ -6,7 +6,6 @@
 shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
 ```
 
-```
 color:  *el color del fondo*
 image:  *url(ruta de la imágen a usar)*
 repeat: *repite horizontal y verticalmente la imágen usada.*
@@ -17,10 +16,10 @@ repeat: *repite horizontal y verticalmente la imágen usada.*
  	*round (la imágen es repetida y ajustada o estirada para llenar los espacios vacíos)*
 	*initial (setea la propiedad a valor inicial)*
 	*inherit (hereda la propiedad de su elemento padre)*
-```
 
 
- **BORDER** (bordes de una caja)
+
+# BORDER (bordes de una caja)
 
 shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color)
 ///////el shorthand no soporta definicion de más de un border width, style, color.//////////
@@ -51,47 +50,47 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 
 
 
-*  ACCENT-COLOR : le da color a inputs de tipo checkbox / radio / range y progress
+# ACCENT-COLOR : le da color a inputs de tipo checkbox / radio / range y progress
 	
-* MARGIN (margen externo entre la caja y otra caja o elemento)
+# MARGIN (margen externo entre la caja y otra caja o elemento)
 
-	margin top
+*margin top
 	
-	margin right
+*margin right
 
-	margin bottom
+*margin bottom
 
-	margin left
+*margin left
 
-	shorthand:
-		margin:(top) (right) (bottom) (left)		
+*shorthand:
+	margin:(top) (right) (bottom) (left)		
 
-	Margin Collapse: Si tenemos màrgenes entre la parte superior e inferior de una caja, y hay 2 margenes que deberìan 		sumarse, ambos colapsan para que se aplique el mayor de los 2 solamente, no se suman.
+*Margin Collapse: Si tenemos màrgenes entre la parte superior e inferior de una caja, y hay 2 margenes que deberìan 		sumarse, ambos colapsan para que se aplique el mayor de los 2 solamente, no se suman.
 
-* PADDING (espacio interior entre el margen de un elemento y su contenido)
+# PADDING (espacio interior entre el margen de un elemento y su contenido)
 
-	padding-top:
+*padding-top:
 	
-	padding-right:
+*padding-right:
 
-	padding-bottom:
+*padding-bottom:
 
-	padding-left:
+*padding-left:
 
-	shorthand:
-		padding: (top) (right) (bottom) (left)
+*shorthand:
+	padding: (top) (right) (bottom) (left)
 
 
-* HEIGHT & WIDTH (alto y ancho de un elemento)
+# HEIGHT & WIDTH (alto y ancho de un elemento)
 
-	max-width: determina el ancho máximo que debería tomar la caja, aunque se amplíe el espacio disponible.
+ *max-width: determina el ancho máximo que debería tomar la caja, aunque se amplíe el espacio disponible.
 
-	min-width: determina el ancho mínimo que puede tomar la caja, al llegar al mínimo no se achica más.
+ *min-width: determina el ancho mínimo que puede tomar la caja, al llegar al mínimo no se achica más.
 
 	
-* OUTLINE (resaltador de caja que no ocupa lugar en el DOM)
+# OUTLINE (resaltador de caja que no ocupa lugar en el DOM)
 
-	outline-style: (REQUERIDO)
+ *outline-style: (REQUERIDO)
 		dotted:	borde de puntos
 		dashed:	borde de lineas
 		solid: 	borde solido de una linea
@@ -103,87 +102,88 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 		none:	define SIN borde el elemento
 		hidden:	define un borde OCULTO.
 
-	outline-color:
+*outline-color:
 
-	outline-width:
+*outline-width:
 		thin (1px)
 		medium (3px)
 		thick (5px)
 		un ancho específico(px, pt, cm, em, etc)
 
-	outline-offset: (distancia entre la caja y el outline)
+*outline-offset: (distancia entre la caja y el outline)
 
-	shorthand  outline: (width) (style) (color)
+*shorthand  outline: (width) (style) (color)
 
 
-* TEXT
-	text-color: (color del texto)
+# TEXT
 
-	text-align: (se determina la alineación horizontal del texto)
+*text-color: (color del texto)
+
+*text-align: (se determina la alineación horizontal del texto)
 		left: (texto alineado a la izquierda)
 		center: (texto centrado)
 		right: (texto alineado a la derecha)
 		justify: (justifica el texto para que ocupe todo el ancho disponible)
 	 	
-	text-align-last: (especificar como se alinea la última linea del párrafo)
+* text-align-last: (especificar como se alinea la última linea del párrafo)
 		right: (texto a la derecha)
 		center: (texto centrado)
 		justify: (justificado)
 
-	direction: (determina la dirección del texto escrito)
+* direction: (determina la dirección del texto escrito)
 		rtl: (derecha a izquierda)
 		unicode-bidi:bidi-override
 
-	vertical-align: (determina la alineación vertical)
+* vertical-align: (determina la alineación vertical)
 		baseline: (por defecto)
 		text-top: (sobre la linea del texto)
 		text-bottom: (debajo de la linea del texto)
 		sub: (debajo de la linea del texto)
 		super: (por sobre la linea del texto)
 
-	text-decoration-line: (agrega una linea decoradora de texto)
+* text-decoration-line: (agrega una linea decoradora de texto)
 		overline: (agrega una linea sobre el texto)
 		line-through: (agrega una linea en medio del texto)
 		underline: (agrega una linea debajo del texto)
 		overline underline: (lineas sobre y debajo del texto)
 
-	text-decoration-color: (color de la linea de subrayado suprayado, etc)
+* text-decoration-color: (color de la linea de subrayado suprayado, etc)
 
-	text-decoration-style: (estilo de la linea de subrayado suprayado)
+* text-decoration-style: (estilo de la linea de subrayado suprayado)
 		solid: 
 		double:
 		dotted:
 		dashed:
 		wavy:
 
-	text-decoration-thickness: (ancho de la linea subrayado o suprayado)
+* text-decoration-thickness: (ancho de la linea subrayado o suprayado)
 	
-	shorthand text-decoration: (line{requerido}) (color) (style) (thickness)
+* shorthand text-decoration: (line{requerido}) (color) (style) (thickness)
 
-	TEXT-DECORATION: NONE (remueve todo agregado al texto, como el subrayado de
+* TEXT-DECORATION: NONE (remueve todo agregado al texto, como el subrayado de
 				los hipervínculos)
 
-	text-transformation: (cambio en el texto)
+* text-transformation: (cambio en el texto)
 		uppercase: (cambia todo a mayúsculas)
 		lowercase: (cambia texto a minúsculas)
 		capitalize: (cambia inicial a mayúscula)
 
-	text-indent: [px/em/rem/cm/pt] (sangría del texto)
+*text-indent: [px/em/rem/cm/pt] (sangría del texto)
 
-	letter-spacing: [px/em/rem/cm/pt] (espacio entre los caractéres de un párrafo)
+*letter-spacing: [px/em/rem/cm/pt] (espacio entre los caractéres de un párrafo)
 	
-	line-height: [px/em/rem/cm/pt] (espacio entre cada renglón de un párrafo)
+*line-height: [px/em/rem/cm/pt] (espacio entre cada renglón de un párrafo)
 	
-	word-spacing: [px/em/rem/cm/pt] (espacio entre las palabras de un párrafo)
+*word-spacing: [px/em/rem/cm/pt] (espacio entre las palabras de un párrafo)
 
-	white-space: (determina si el texto se ajusta a la pantalla o no)
+*white-space: (determina si el texto se ajusta a la pantalla o no)
 		wrap: (el texto se ajusta)
 		nowrap: (el texto no se ajustará, creando barras de desplazamiento)
 
-	text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads con coma])
+text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads con coma])
 		   : (horizontal shadow) (vertical shadow) (blur effect) (color)
 		   : [px/em/rem/cm/pt]
-	  ejemplo  : 5px 10px 3px red, 10px 20px 5px blue	
+* ejemplo  : 5px 10px 3px red, 10px 20px 5px blue	
 
 
 		
@@ -192,7 +192,7 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 
 
 
-* DISPLAY: 
+# DISPLAY: 
 	Inline no se le puede dar tamaño a la caja contenedora.
 
 	Inline block: si se le puede dar tamaño, pero posisionandose como inline, una caja al lado de la siguiente.
@@ -202,7 +202,7 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 
 
 
-* OVERFLOW: (solo funciona con elementos en bloque con altura definida)
+# OVERFLOW: (solo funciona con elementos en bloque con altura definida)
 	Visible: contenido no se altera y se sale de la caja
 	
 	Hidden: el contenido se oculta si es que se saldría de las dimensiones de la caja.
@@ -486,7 +486,7 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 
 
 
-# ------------------- GRID BOX -------------------------------------------------
+#  GRID BOX ---
 
 ## Grillas dinámicas
 
@@ -511,6 +511,53 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 
   	  grid-template-columns: (tamaño de columna 1) (tamaño de columna 2) ... (tamaño de columna 12);
 
-Unidades para definir filas y columnas: AUTO, Fr, (medidas fijas como px, em, rem, etc.)
+Unidades para definir filas y columnas: AUTO, Fr (dinámicas), (medidas fijas como px, em, rem, etc.)
+
+* Determinar espacios entre filas y columnas, o en general
+
+  		row-gap: 10px
+  		column-gap: 10px
+  
+* O se puede definir row y column con el shorthand:
+
+		gap:10px;
+
+* Para definir si un item ocupa màs _"filas o columnas"_ se puede determinar lo siguiente:
+
+  		grid-row: (linea de inicio) / (linea de final);
+ej:
+
+	grid-row: 1 / 3
+*O podemos definir que inicie en una linea, y se "expanda" cierta cantidad de lineas
+ej:
+
+	grid-column: (linea de inicio) / cantidad de "lineas" a expandirse
+  	grid-column: 2 / span 4 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
