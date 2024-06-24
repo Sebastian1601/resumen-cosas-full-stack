@@ -503,6 +503,8 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 
 ## PROPIEDADES A APLICAR A LOS GRIDs CONTAINERs -------------------------------
 
+## grid-template-rows y grid-template-columns (definir cuantas filas y columnas tendrá la grilla)
+
 * Determinar cuántas filas (rows) va a tener la grilla:
   
 	  grid-template-rows: (tamaño de fila 1) (tamaño de fila 2) (tamaño de fila 3) ... (tamaño de fila 12);
@@ -513,6 +515,20 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 
 Unidades para definir filas y columnas: AUTO, Fr (dinámicas), (medidas fijas como px, em, rem, etc.)
 
+* La cantidad de filas/columnas a crear se puede resumir con lo siguiente, si van a tener el mismo patrón:
+
+## repeat(_nro de veces a repetir_, _patrón a repetir_)
+
+  	grid-template-columns: repeat(3, 150px) //esto creará 3 columnas, de 150px cada una.
+
+ * si ponemos un patrón de columnas dentro del repeat, se crearán ese patrón la cantidad de veces indicadas.
+   ej:
+
+     	grid-template-columns: repeat (3, 100px, 200px)
+
+ ⚠️ esto creará 6 columnas con el patrón  100px, 200px, 100px, 200px, 100px, 200px
+
+## row-gap y column-gap (shorthand: gap)
 * Determinar espacios entre filas y columnas, o en general
 
   		row-gap: 10px
@@ -522,17 +538,51 @@ Unidades para definir filas y columnas: AUTO, Fr (dinámicas), (medidas fijas co
 
 		gap:10px;
 
+## grid-column / grid-row (definir si un item grid ocupa más de un lugar en fila o columna)
 * Para definir si un item ocupa màs _"filas o columnas"_ se puede determinar lo siguiente:
 
   		grid-row: (linea de inicio) / (linea de final);
 ej:
 
 	grid-row: 1 / 3
-*O podemos definir que inicie en una linea, y se "expanda" cierta cantidad de lineas
+* O podemos definir que inicie en una linea, y se "expanda" cierta cantidad de lineas
 ej:
 
 	grid-column: (linea de inicio) / cantidad de "lineas" a expandirse
   	grid-column: 2 / span 4 
+
+# Grid implícito ---
+El concepto de grid implícito tiene que ver con contenido que agregamos al grid, que no se define desde la creación del html, sino que se agrega como contenido dinámico. Al agregarse, se crean ciertas propiedades específicas para esto.
+
+Para definir este contenido que se puede actualizar y agregar luego de definir la página, existen 3 poropiedades.
+
+## grid-auto-row / grid-auto-column / grid-auto-flow.
+
+* La propiedad _grid-auto-flow_: [column / row] determina si los nuevos elementos agregados al grid, se van a agregar en una nueva fila o columna. Como esto define cualquier cantidad de nuevas filas o columnas, no se defin
+
+* La propiedad _grid-auto-column_ determinará qué ancho tendrán las columnas adicionales al grid explícito.
+  	Se define con un solo valor, no lleva repeat().
+ ej : ``` grid-auto-column: 200px```
+  
+* La propiedad _grid-auto-row_ determinará qué alto tendrán las filas adicionales al grid explícito.
+  	Se define con un solo valor, no lleva _repeat()_.
+ej : ``` grid-auto-row: 10em```
+
+# Grid-auto-flow (esto determina ocupar espacios vacíos implícitos por elementos próximos al vacio creado)
+ej: 	
+
+		grid-auto-flow:dense
+
+  ## Definiendo medidas de las filas/ columnas(preferentemente);
+
+ *  _min-content_ : se utiliza para indicar que la columna, va a poder medir lo mínimo para presentar el elemento dentro de item.
+
+ * _max-content_ : se utiliza para indicar que el ancho de la fila columna va a ser el máximo para presentar el elemento más ancho.
+
+ * _minmax([menor medida], [mayor medida])_ : esto se utiliza como medida de fila/columna para indicar el mínimo que puede tomar y el máximo, dentro de esos valores, puede variar.
+
+ * 
+  
 
 
 
