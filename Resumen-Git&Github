@@ -200,8 +200,39 @@ INICIALIZAR EL REPOSITORIO LOCAL----------------
   	gir reset --hard (hash del commit del que quiero tener todos los archivos en el area de trabajo, pisando todo
   			lo que tenía)
 
+## GIT Revert ---
 
-  //////////// RAMAS o BRANCHES //////////////////////////////////////////////////////////////////////////////////////////////
+* Git revert es similar a git reset, pero el enfoque es ligeramente diferente. En lugar de eliminar todos los commit a su paso, la reversión SÓLO deshace un único commit, devolviéndote a los archivos organizados antes del commit.
+
+* Así, en lugar de eliminar un commit, git revert invierte los cambios introducidos por el commit original creando un nuevo commit con el contenido inverso subyacente. Esta es una forma segura de revocar un commit porque evita que pierdas tu historial. 
+
+		git revert HEAD
+
+* el código anterior, genera un NUEVO COMMIT, posterior al actual, con los cambios generados en este commit actual desestimados. O sea, elimina los cambios introducidos en el commit actual, pero creando un nuevo commmit "hacia adelante"
+
+
+		git revert --no-edit <commit ID>
+
+* La opción --no-edit permite al usuario no cambiar el mensaje utilizado para el commit que desea revertir, y esto hará que git revierta el archivo a la rama maestra.
+
+
+----
+
+		git revert <commit hash>
+
+Esto sólo eliminará los cambios asociados a este hash de commit y no afectará a ningún otro commit. incluso funciona si por ej. se han eliminado archivos en un commit anterior, al revertir ese commit, se recuperan los archivos.
+
+---
+
+		git revert --no-comit <commit ID>  || [git revert -n <commit ID>]
+
+este comando revertirá los cambios del commit indicado, pero no creará un nuevo commit, para que se puedan verificar y decidir si se commitean asi como están o se agregan más cambios.
+
+
+
+
+
+  //////////// RAMAS o BRANCHES ///////////////////////////////////////////////////////////////////////////////////
 
   Tener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
