@@ -1,6 +1,0 @@
-# Expresiones Regulares
-
-° Se utilizan para validar cadenas de texto, buscar y reemplazar, etc.
-
-
-
