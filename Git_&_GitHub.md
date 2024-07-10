@@ -368,16 +368,17 @@ ALIAS EN GIT
 
   ## GIT CLONE --------------------------------------------------------------------------------
 
-  c:>CODE .     :abre el VSC dentro de la carpeta actual.
+* Abrir el VSC dentro de la carpeta actual.
+  `c:>CODE .`     
 
-	ESTANDO en la carpeta donde queremos copiar el repositorio por HTTPS, copiamos la dirección http y luego:
+* ESTANDO en la carpeta donde queremos copiar el repositorio por HTTPS, copiamos la dirección http y luego:
 
- 	git clone [dirección https del repositorio a clonar] ↩️
+  `git clone [dirección https del repositorio a clonar] ↩️`
   
   esto ya configura el remote origin, para el push y fetch
 
  
-  
+ 
   
   ## GIT PUSH --------------------------------------------------------------------------------
 
@@ -385,10 +386,10 @@ Para poder subir archivos a nuestro repo, debemos tener configurado el mismo mai
 en Github. 
 Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
 
-    	git push origin main
-     	git push [nombre del repo remoto] [rama del repo remoto]
+ `git push origin main`
+ `git push [nombre del repo remoto] [rama del repo remoto]`
   	
-*Si esto abre una ventana de log, lo recomendable es hacerlo por [TOKEN]. Para obtener el [TOKEN], 
+* Si esto abre una ventana de log, lo recomendable es hacerlo por [TOKEN]. Para obtener el [TOKEN], 
  vamos a Settings > Developer Settings > Personal Acces Tokens > Tokens (classic) y ahi Generar nuevo token
 
    		Recomendaciones sobre el token ------
@@ -398,32 +399,31 @@ Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
  Esto generará un código que se debe copiar en el sistema de inicio de sesión de Github por la solapa TOKEN.
 
  
-*Para subir todas las ramas de tu repo local al remoto
+* Para subir todas las ramas de tu repo local al remoto
 
- 	git push --all
+`git push --all`
 
-*Para subir al repo remoto OnlineRepo con una rama remota ramaR (distinto nombre a la tuya local) tu rama local ramaL:
+* Para subir al repo remoto _OnlineRepo_ con una rama remota _ramaR_ (distinto nombre de la rama remota a la rama local) tu rama local _ramaL_:
 
-	git push OnlineRepo ramaL:ramaR
+`git push OnlineRepo ramaL:ramaR`
 
  
  ## GIT PULL ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	Se utiliza para descargar CAMBIOS hechos en el repo online, al repo local, de ciertos archivos(no todos, para eso 
- 	se usa un git clone).
-  	esto es un /git fetch/ y luego hacer un /git merge/ todo junto.
+* Se utiliza para descargar CAMBIOS hechos en el repo online, al repo local, de ciertos archivos(no todos, para eso 
+se usa un git clone). Esto es un /git fetch/ y luego hacer un /git merge/ todo junto.
 
-   * Git pull origin main
+   `Git pull origin main`
 
- # *ERRORES con git push:
+ #### ERRORES con git push:
 
    There are two ways of solving the fatal: refusing to merge unrelated histories error
 
-	*git pull origin master --allow-unrelated-histories.
+   `git pull origin main --allow-unrelated-histories`
 
-   You can substitute origin with the remote repository you are pulling from. You can also replace the master branch with whatever branch you want the pull request to merge into.
+ * You can substitute origin with the remote repository you are pulling from. You can also replace the master branch with whatever branch you want the pull request to merge into.
 
-  	Option 2: unstage, stash, clone, unstash, and then commit
+### Option 2: unstage, stash, clone, unstash, and then commit
 
 The alternative (and longer) way of fixing the fatal: refusing to merge unrelated histories issues is to unstage your current commits, stash them, clone your required remote repository, and then place your stashed branch contents into the new clone.
 
@@ -440,64 +440,73 @@ Alternatively, you can use git stash apply to add the changes to your current wo
 
 Here is a quick summary of differences between git stash apply and <code”>git pop:
 
-    git pop: ‘pops’ the changes from the stash and applies them to the current code
-    git stash apply: keeps the changes in the stash and applies the changes to the current code
+  `git pop`: ‘pops’ the changes from the stash and applies them to the current code
+  `git stash apply`: keeps the changes in the stash and applies the changes to the current code
 
 The easiest way to prevent the fatal: refusing to merge unrelated histories error is to avoid pulling remote repositories into branches that already have commits on them.
+
 However, sometimes you just want to keep the commits. One way to prevent the error is to create a brand new branch, pull your required code in, and then manually merge your local branch into your main flow.
 
 
 ## GIT STASH (guardar temporalmente los cambios realizados en el area de trabajo sin commitear)------------------------------------------------------------------
 
-	git stash save "(MENSAJE PARA EL STASH-como un commit)" 
+`git stash save "(MENSAJE PARA EL STASH-como un commit)"` 
 
- Esto guarda los cambios y revierte el directorio de trabajo a como se veía en tu último commit. Los cambios guardados están disponibles en cualquier rama de ese repositorio.
+* Esto guarda los cambios y revierte el directorio de trabajo a como se veía en tu último commit. Los cambios guardados están disponibles en cualquier rama de ese repositorio.
 
- ·Ver los cambios guardados en el stash:
+### Ver los cambios guardados en el stash:
 
- 	git stash list
+ `git stash list`
 
-Esto devuelve una lista de tus capturas guardadas en el formato stash@{0}: RAMA-STASHED-CAMBIOS-SON-PARA: MESSAGE. La parte de stash@{0} es el nombre del stash, y el número en las llaves ({ }) es el índice (index) del stash. Si tienes múltiples conjuntos de cambios guardados en stash, cada uno tendrá un índice diferente.
+* Esto devuelve una lista de tus capturas guardadas en el formato stash@{0}: RAMA-STASHED-CAMBIOS-SON-PARA: MESSAGE. La parte de stash@{0} es el nombre del stash, y el número en las llaves ({ }) es el índice (index) del stash. Si tienes múltiples conjuntos de cambios guardados en stash, cada uno tendrá un índice diferente.
 
-Si olvidaste los cambios que hiciste en el stash, puedes ver un resumen de ellos con el comando 
+* Si olvidaste los cambios que hiciste en el stash, puedes ver un resumen de ellos con el comando 
 
-	git stash show NOMBRE-DEL-STASH
+`git stash show NOMBRE-DEL-STASH`
 
- Si quieres ver las direferencias de los cambios en la consola, se puede ejecutar lo siguiente:
+* Si quieres ver las direferencias de los cambios en la consola, se puede ejecutar lo siguiente:
 
- 	git stash show -p NOMBRE-DEL-STASH
+ `git stash show -p NOMBRE-DEL-STASH`
 
-Para recuperar los cambios del stash y aplicarlos a la rama actual en la que estás, tienes dos opciones:
-   aplica los cambios y deja una copia en el stash:
+* Para recuperar los cambios del stash y aplicarlos a la rama actual en la que estás, tienes dos opciones:
+  - aplica los cambios y deja una copia en el stash:
     	
-        git stash apply NOMBRE-DEL-STASH 
+   `git stash apply NOMBRE-DEL-STASH` 
 
 
-   aplica los cambio y elimina los archivos del stash:
+  - aplica los cambio y elimina los archivos del stash:
 
-     	git stash pop NOMBRE-DEL-STASH
+    `git stash pop NOMBRE-DEL-STASH`
 
-Si quieres remover los cambios guardados en stash sin aplicarlos, ejecuta el comando:
+ - Si quieres remover los cambios guardados en stash sin aplicarlos, ejecuta el comando:
 
-	git stash drop NOMBRE-DEL-STASH
+	`git stash drop NOMBRE-DEL-STASH`
 
-Para limpiar todo del stash, ejecuta el comando:
+  - Para limpiar todo del stash, ejecuta el comando:
 
-	git stash clear
+ `git stash clear`
 
 
 ## GIT FETCH ---------------------------------------------------------------------------------------------
-	esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del mismo nombre para poder
- 	verificar los cambios, y en todo caso, sumarlos a nuestro repo local
-	Luego de ejecutar el fetch, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
+esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del mismo nombre para poder	verificar los cambios, y en todo caso, sumarlos a nuestro repo local. Luego de ejecutar el fetch, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
 
-   git switch --detach origin/main (esto genera que se trate como temporal) 
+   `git switch --detach origin/main (esto genera que se trate como temporal) `
    
- 	y luego, si sirven, guardarlos. VOLVER a la rama principal de nuestro repo local
-  	para hacer un -git pull-
+ y luego, si sirven, guardarlos. VOLVER a la rama principal de nuestro repo local para hacer un -git pull-
 
+### Git fetch, revisar cambios y luego merge con la rama main.
 
+`git fetch`
+- esto descarga los cambios al repo local, pero figura en la rama temporal.
+- Para revisar esa rama local, se usa
+  `git chekcout fetch_HEAD`
+- esto mostrará la rama "temporal" con los cambios nuevos, sin aplicarlos a la rama local main.
+ 
+- SI QUEREMOS guardar los datos, en otra rama, para fusionar o revisarlos, realizamos
 
+`git switch -c [nombre de la rama para mantener el fetch_HEAD]`
+
+- Si ahora usamos `git branch` podemos ver ambas ramas, y hacer un merge, o seguir trabajando en una u otra.
 ## Migrar repositorio local a uno remoto ------------------------------------------------------------------
 
    Luego de crear un repositorio en Github, mediante Git hay que hacer
