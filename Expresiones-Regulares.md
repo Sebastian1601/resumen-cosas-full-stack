@@ -5,16 +5,22 @@ Las expresiones regulares se suelen utilizar para comparar y de una manera "mane
 `| (barra vertical)` : La barra vertical indica que tanto el elemento a la izquierda como el de la derecha son posibles. 
 ej: amarillo| azul : indicaría que tanto amarillo como azul se pueden escribir y son válidos.
 
-### Cuantificadores ?, +, *
+## Cuantificadores ?, +, *
 ---
-`?` : este símbolo indica que el caracter que precede al símbolo puede aparecer COMO MUCHO UNA VEZ.
-`+` : este símbolo indica que el caracter que precede aparece AL MENOS UNA VEZ.
-`*` : este símbolo indica que el caracter que precede, PUEDE APARECER NINGUNA, UNA o MAS VECES.
 
+### SIMBOLO DE INTERROGANTE ?
+`?` : este símbolo indica que el caracter que precede al símbolo puede aparecer COMO MUCHO UNA VEZ.
+
+### SIMBOLO DE SUMA +
+`+` : este símbolo indica que el caracter que precede aparece AL MENOS UNA VEZ.
+
+### SIMBOLO DE MULTIPLICACION *
+`*` : este símbolo indica que el caracter que precede, PUEDE APARECER NINGUNA, UNA o MAS VECES.
 ```ej: 0*42 valida 42, 042, 0042, 00042, 0000042, etc.```
 
 ### PARéNTESIS ()
 ---
+
 `()` : Los paréntesis agrupan y se utilizan para definir ámbito y precedencia de los demás operadores. Los caracteres especiales mantienen su significado dentro de los paréntesis, y utilizados en conjunto con `|` permiten realizar busquedas opcionales.
 ```ej: (p|m)adre valida padre, madre.```
 ```ej: (des)?amor valida amor, desamor```
@@ -36,6 +42,8 @@ El símbolo `!` se utiliza para "buscar anticipadamente una negativa".
 Este símbolo se usa para "escapar" el siguiente caracter de la expresión de busqueda. NO SE USA POR SI SOLA.
 
 ```ej: \.  ``` valida que en la expresión, el punto significa un punto "literal"
+
+## Caracteres con barra invertida
 
 |caracteres con barra invertida especiales| que valida|
 |----|------|
@@ -64,6 +72,9 @@ Este símbolo se usa para "escapar" el siguiente caracter de la expresión de bu
 | \b | representa la posición de una palabra, limitado por espacios en blanco, puntuacion, o por el inicio/final de una cadena|
 | \B | marca la posición entre dos caracteres alfanuméricos, o dos NO ALFANUMERICOS|
 |\Q y \E| se interpreta como LITERAL todo lo indicado entre las marcas|
+|\b | representa el inicio o fin de un patrón regular determinando los límites|
+
+
 
 ejemplos:
 `^[0-9]$` valida un string numérico
@@ -71,6 +82,7 @@ ejemplos:
 `\Q .*/ \E` valida .*/ como caracteres
 
 ### CORCHETES []
+---
 
 Este símbolo se utiliza para representar "clase de caracteres"(grupos).
 Se utiliza el guión para especificar "rangos" `ej: [0 - 9]`
@@ -79,10 +91,12 @@ El motor de busqueda va a buscar expresiones con solo UNO de ellos.
 `ej: expresi[oó]n` valida "expresion" y "expresión".
 
 ### DOLAR $
+---
 Este símbolo representa el final de una cadena o final de linea. No representa caracter, sino posición.
 `ej: \.$` valida todos los puntos que esten al final de la cadena evaluada.
 
 ### ACENTO CIRCUNFLEJO ^
+---
 Este símbolo tiene 2 funciones:
 * SI SE USA SOLO, representa el inicio de una cadena.
   `ej: ^[a-z]` valida todas las palabras que INICIEN con una letra minúscula.
@@ -92,6 +106,7 @@ Este símbolo tiene 2 funciones:
   `otro ej: ^\d\d / \d\d / \d\d\d\d$` valida un nro con formato fecha.
 
 ### SIGNO ?
+---
 Este símbolo tiene varias funciones, en principio, especifica que los caracteres precedentes son opciones, que pueden o no aparecer.
 `ej: ob?scuridad` valida "obscuridad" y "oscuridad".
 
@@ -103,4 +118,41 @@ Este símbolo tiene varias funciones, en principio, especifica que los caractere
 - Permite al motor de busqueda ignorar la expresión.
   `ej4: Nov(?:\.|iembre|ember)?` esto validaría lo mismo que la expresión anterior, pero validando también las expresiones que contienen "Nov" en el inicio, como "Noverturía", "Novertemás", etc.
 
-  
+  ### MAYOR y MENOR < >
+Estos símbolos permiten definir grupos "anónimos" sin usar el ?, y utilizando el ? permite "nombrar" los grupos.
+`?<nombre>`
+
+`ej: ^(?<dia>\d\d)\/(?<mes>\d\d)\/(?<año>\d\d\d\d)$`
+
+## SIMBOLOS DE REPETICION
+---
+Estos símbolos se usan para indicar una repetición de ciertos patrones, cierta cantidad de veces, definiendo patrones más exactos.
+
+### LLAVES {}
+  Son símbolos LITERALES, EXCEPTO que encierren uno o más nros separados por coma, y que estén a la derecha de otra expresión regular.
+  `ej: \d{2}` valida números de 2 dígitos.
+
+  `ej2: \d {2,4}` esto valida expresiones numéricas de 2, 3 y 4 dígitos. Es lo mismo que definir ^\d\d$, ^\d\d\d$ y ^\d\d\d\d$ pero todo en una expresión.
+
+### ASTERISCO *
+  El símbolo * indica que la expresión precedente puede aparecer indefinida cantidad de veces.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
