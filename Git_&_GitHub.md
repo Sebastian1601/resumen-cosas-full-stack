@@ -523,6 +523,15 @@ esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del 
    y finalmente
 
     		git push -u origin main
+
+
+## RAMAS REMOTAS ----------------------------------------------------------------------------------------
+
+* Para ver las ramas remotas se ejecuta
+  `git branch -a`
+
+* Para eliminar una rama remota listada
+  `git push origin -d [nombre de la rama remota a borrar]`
  
 # FORK --------------------------------------------------------------------------------------------------
    Un fork es una copia de un repositorio remoto en nuestro repositorio remoto. Cuando queremos duplicar algun proyecto del que podemos copiarnos.
