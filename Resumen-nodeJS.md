@@ -125,6 +125,20 @@ automáticamente inicia nuestra ruta descripta, normalmente se usa para iniciar 
 https://www.npmjs.com/package/express
 
 
+## Process.env (importante)
+* Este elemento en nodejs, permite ver mucha información sobre el proceso que se ejecuta al iniciar cualquier aplicación en nodejs.
+  Normalmente se definen las variables de entorno en este proceso, dado que son datos sensibles, que se pueden utilizar de manera "oculta" para no dejar estos datos en el mismo programa (datos de acceso de la base de datos, palabras clave, etc)
+
+  `console.log(process.argv)` esto devuelve en un array, todos los argumentos utilizados para ejecutar la aplicación donde se está corriendo la app.
+
+  ej:
+  `node app7.js Ernesto rojo abh51342 focusin`
+  devolverá el array:
+  `["path a la app node instalada", "path al archivo app7.js", "Ernesto", "rojo", "abh51342", "focusin"]`
+
+  
+
+
 ### Importaciones y exportaciones de módulos.
 
 normalmente, vamos a importar muchas funciones, objetos, de distintos módulos, pero si localmente debemos hacer esto, podemos tener las funciones por un lado, por ej en el archivo "funciones.js", y objetos por otro, archivo "objetos.js".
