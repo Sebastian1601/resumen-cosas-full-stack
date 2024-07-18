@@ -136,6 +136,16 @@ https://www.npmjs.com/package/express
   devolverá el array:
   `["path a la app node instalada", "path al archivo app7.js", "Ernesto", "rojo", "abh51342", "focusin"]`
 
+
+  `Process.exit(0 ó 1)`
+  esto nos permite terminar el proceso ejecutado, donde 0 indicaría que el proceso ha terminado exitosamente, o 1 si es que ha habido algún tipo de error.
+
+  `process.cwd()`
+  devuelve el directorio actual desde donde se está corriendo la app de Node(NO ES LA UBICACION DEL ARCHIVO).
+
+  `process.on('evento', callback)`
+  esto permite escuchar eventos del proceso y poder manejar errores
+
   
 
 
