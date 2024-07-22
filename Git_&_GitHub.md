@@ -408,12 +408,34 @@ Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
 `git push OnlineRepo ramaL:ramaR`
 
  
- ## GIT PULL ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-* Se utiliza para descargar CAMBIOS hechos en el repo online, al repo local, de ciertos archivos(no todos, para eso 
+ ## GIT PULL ----------
+ 
+ Utiliza para descargar CAMBIOS hechos en el repo online, al repo local, de ciertos archivos(no todos, para eso 
 se usa un git clone). Esto es un /git fetch/ y luego hacer un /git merge/ todo junto.
 
    `Git pull origin main`
+
+
+## Configurar un repo remoto limpio luego de tener un repo local con commits----
+
+- Primer, ya teniendo los commits en el repo local, creamos el repo remoto, y en git usamos
+
+`git remote add origin [direccion http del repo remoto]`
+
+luego hacemos un fetch de lo que tiene el repo remoto.
+
+`git fetch`
+
+- esto crea una descarga en una rama temporal llamada *fetch_HEAD*, entonces podemos mergear esa rama temporal con el main nuestro:
+parados en nuestra rama local a fusionar, usamos
+
+  `git merge fetch_HEAD --allow-unrelated-histories` dado que no hay una relacion entre los commits.
+
+y esto nos abre el editor de mensajes de commits, para poner un mensaje. al finalizar, tendremos las ramas vinculadas.
+
+finalmente, hacemos un git push
+
+`git push --set-upstream origin main`
 
  #### ERRORES con git push:
 
