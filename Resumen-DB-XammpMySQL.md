@@ -69,12 +69,28 @@ Una entidad está definida por sus propiedades. Se representan con un óvalo.
 
   Al definir un campo, tenemos que definir qué tipo de datos va a almacenar.
   Existen varios tipos de datos, los más utilizados son:
+- Varchar (cantidad de digitos hasta 255 máximo)
 - Integer (nro.entero)
-- Text    (texto)
+- Text    (texto libre / ocupa más espacio en la base) 
 - Blob    (archivos binarios varios, imágenes, videos, etc)
 - Real    (nros con coma flotante, porcentajes, etc) más rápido, menos precisión en los nros.
+- Decimal (cant nro entero, cant nro decimal) decimales, por ej decimal(1,1) = 9,3 pero NO 10,1
 - Numeric (nros matemáticos precisos) de cualquier tamaño
+- BINARY (datos binarios, por ejemplo los UUID())
 ---
+### OPCIONES ESPECIALES DE LOS CAMPOS.
+
+`default(valor)` - esto se usa en un campo para indicar que si no se pasa el valor al insertar un dato, se genere un valor "por defecto" el cual figura dentro de los paréntesis
+ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
+*esto indica que el campo idusuario, es binario de 16bits, clave primaria, y por defecto, si no le enviamos un dato al crear un registro, se genere un id universal unico(uuid), el cual se pasará a binario mediante la funcion UUID_TO_BIN() y se guardará.*
+
+`UUID()` : función de SQL que se usa para generar un ID Universal Unico, se utiliza la sentencia 
+`SELECT UUID();` y esto crea el valor.
+
+`UUID_TO_BIN()`: esta funcion va acompañada del argumento UUID() para crear el id, y pasarlo a formato binario de 16 bits, y tener un registro único para ese elemento de la base.
+
+`UNSIGNED` : determina que el valor a ingresar, debe ser positivo, sin signo ni valor negativo.
+
 
 ### LAS SENTENCIAS VAN A TENER QUE GENERARSE EN ESTE ORDEN 
 
