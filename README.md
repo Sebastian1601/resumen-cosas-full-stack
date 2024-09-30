@@ -1,3 +1,12 @@
+webs a revisar
+web scrapping con nodejs
+https://www.digitalocean.com/community/tutorials/how-to-scrape-a-website-using-node-js-and-puppeteer-es
+
+patrones de diseño
+https://refactoring.guru/es/design-patterns
+
+
+
 alt + 60 = <
 alt + 62 = >
 
