@@ -181,6 +181,7 @@ Si no encuentra ningún valor "truthy", devuelve el último valor evaluado.
     console.log(saludo);  // "Anónimo"
 
 
+
 ## Switch evalua cierta cantidad de posibilidades
 
 La estructura de control switch permite definir casos específicos a realizar en el caso de que la
