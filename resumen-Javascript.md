@@ -143,7 +143,43 @@ ej2:
 
         var calificacion = nota < 5 ? "suspendido" : "aprobado";
         console.log("estoy", calificacion);
-    
+
+
+
+## Operador OR ||
+
+> Evaluación de valores "truthy" y "falsy":
+
+> En JavaScript, ciertos valores son considerados "truthy" (verdaderos) o "falsy" (falsos). Algunos ejemplos de valores "falsy" son:
+* false
+* 0
+* "" (cadena vacía)
+* null
+* undefined
+* NaN (Not-A-Number)
+
+Cualquier valor distinto de los mencionados arriba se considera "truthy".
+Comportamiento del operador:
+
+El operador || evalúa de izquierda a derecha.
+Devuelve el primer valor "truthy" que encuentre.
+Si no encuentra ningún valor "truthy", devuelve el último valor evaluado.
+
+    ej:
+    const nombre = "";
+    const saludo = nombre || 'usuario anónimo' ;
+
+    console.log(saludo) // ESTO SERA IGUAL A 'usuario anónimo' ;
+
+## Operador de Coalescencia Nula (??)
+
+> El operador de coalescencia nula (??) se utiliza para asignar un valor por defecto cuando una variable o expresión es _null_ o _undefined_. Es útil cuando deseas asegurarte de que un valor no sea nulo ni indefinido, pero quieres permitir otros valores como 0, false, o una cadena vacía.
+
+    ej:
+    const nombre = null; // TENER EN CUENTA QUE FIGURA NULL, no es lo mismo que "".
+    const saludo = nombre ?? "Anónimo"; 
+    console.log(saludo);  // "Anónimo"
+
 
 ## Switch evalua cierta cantidad de posibilidades
 
