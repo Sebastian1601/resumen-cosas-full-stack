@@ -124,6 +124,86 @@ automáticamente inicia nuestra ruta descripta, normalmente se usa para iniciar 
 
 https://www.npmjs.com/package/express
 
+### Instalacion en detalle de módulos externos
+
+  De forma local
+
+  La mayoría de las dependencias (express, request, etc) se instalan localmente.
+
+> $ npm install [nombre_del_modulo]
+> $ npm i [nombre_del_modulo]
+
+  De forma global
+
+  Se utiliza en su mayoría para instalar herramientas de la linea de comandos (mocha, browserify, gulp, etc).
+
+> $ npm install --global [nombre_del_modulo]
+> $ npm i -g [nombre_del_modulo]
+
+
+#### Instalar una versión específica de un módulo de nodejs
+
+> $ npm install nombre_del_paquete@3.3.0
+
+#### Instalar la última versión de un módulo.
+
+> $ npm install nombre_del_paquete@latest
+
+#### Instalar un módulo como dependencia 
+
+   Si se desea guardar la referencia a los módulos dentro de package.json.
+
+> $ npm i --save nombre_del_paquete
+
+o su forma corta…
+
+> $ npm i -S nombre_del_paquete
+
+#### Instalar módulo como dependencia de desarrollo.
+
+   Si se desea instalar una dependencia o devDependency.
+
+> $ npm i --save-dev nombre_del_paquete
+
+o su forma corta…
+
+> $ npm i -D nombre_del_paquete
+
+
+
+    ⚠️ Por default, npm agregará ^ cuando se utilice --save. El símbolo ^ es peligroso ya que mantiene actualizada la instalación con la última versión disponible de la librería. Por ello es echar mano de una versión exacta. 
+
+#### Instalar una versión exacta del módulo.
+
+> $ npm i --exact nombre_del_modulo
+
+o su forma corta…
+
+> $ npm i -E nombre_del_modulo
+
+#### Instalar un módulo de forma global 
+
+> $ npm i --global nombre_del_modulo
+
+o su forma corta…
+
+> $ npm i -g nombre_del_modulo
+
+
+#### Si se desea mostrar la lista de dependencias.
+
+> $ npm ls -g
+
+#### Desinstalar un módulo de node
+
+> $ npm rm nombre_del_modulo
+
+¿Cómo desinstalar un módulo global de NPM?
+
+> $ npm rm -g nombre_del_modulo
+
+---
+
 
 ## Process.env (importante)
 * Este elemento en nodejs, permite ver mucha información sobre el proceso que se ejecuta al iniciar cualquier aplicación en nodejs.
