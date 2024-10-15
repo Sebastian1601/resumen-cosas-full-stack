@@ -77,8 +77,53 @@ ej:
 > ej: > db.users.drop()
 
 
-Ejemplo de definicion
-: este texto debería ser un texto definiendo el titulo anterior.
+### Ejemplo de Documento para una coleccion.
+
+> Los documentos van a estar agregados en formato JSON (Javascript) a la base de datos, y como tales, pueden contener datos primitivos, o incluso más objetos, o arrays.
+
+ej:
+```
+{
+      "nombre de propiedad 1":"valor string",
+      "nombre de propiedad 2": valor Number,
+      "nombre de propiedad 3": valor Boolean,
+      "nombre de propiedad 4": valor RegExp,
+      "nombre de propiedad 5": {
+            otro objeto como el definido,
+}
+}
+```
+ej:
+```
+{
+      "nombre":"Pedro",
+      "edad":45,
+      "vive": true,
+      "contactos":{
+            "nombre":"Ariana",
+            "parentesco":"hermana",
+            "nro_contacto":0115465231152
+            }
+}
+```
+
+### Insertar documentos en una coleccion
+
+Para insertar documentos en una coleccion, tenemos el método `db.insert([objeto en formato json a insertar])`
+
+A su vez, podemos crear una coleccion al vuelo, insertando un documento directamente en la nueva colección, con el código
+
+`db.[nombre_de_nueva_coleccion].insert([objeto en formato json a insertar])`
+
+y esto nos devuelve un objeto del siguiente formado, confirmando si se agregó el documento:
+
+```
+{
+      acknowloedged:true,
+insertedIds: {'[index]': ObjectId('[IdUnicaParaIdentificarElDocumento]')}
+}
+```
+
 
 
 
