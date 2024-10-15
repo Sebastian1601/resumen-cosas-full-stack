@@ -77,23 +77,8 @@ ej:
 > ej: > db.users.drop()
 
 
-[[Titulo colapsable {[Título del contenido colapsado][
-
-Aquí escribís el texto del componente, puede tener más de un párrafo, aunque no es recomendable por usabilidad.
-
-]}]]
-
-
-[[lista-destacada Seba(lavanda){
-* Un elemento de la lista destacada.
-   * Un subítem del primer elemento.
-   * Otro subítem del primer elemento.
-+ Otro elemento de la lista destacada.
-   * Un subítem del segundo elemento.
-- Y otro elemento de la lista destacada.
-}]]
-
-
+Ejemplo de definicion
+: este texto debería ser un texto definiendo el titulo anterior.
 
 
 
