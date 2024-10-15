@@ -111,15 +111,17 @@ ej:
 
 Para insertar documentos en una coleccion, tenemos dos métodos: 
 
-1 - db.collections('coleccion a usar').insertOne( {} ) // insertar un elemento.
-2 - db.collections('coleccion a usar').insertMany( [{}, {}, ..., {}] ) // insertar varios documentos
+1 db.collections('coleccion a usar').insertOne( {} ) // insertar un elemento.
 
+2 db.collections('coleccion a usar').insertMany( [{}, {}, ..., {}] ) // insertar varios documentos
 
-`db.insertOne([objeto en formato json a insertar])`
+#### db.coleccion.insertOne()
+
+`db.collection('coleccion_donde_insertar').insertOne( {Obj JSON a insertar} )`
 
 A su vez, podemos crear una coleccion al vuelo, insertando un documento directamente en la nueva colección, con el código
 
-`db.[nombre_de_nueva_coleccion].insertOne({ Obj Json })`
+`db.[nombre_de_nueva_coleccion].insertOne({ Obj JSON a insertar })`
 
 y esto nos devuelve un objeto del siguiente formado, confirmando si se agregó el documento:
 
@@ -129,7 +131,16 @@ y esto nos devuelve un objeto del siguiente formado, confirmando si se agregó e
 insertedIds: {'[index]': ObjectId('[IdUnicaParaIdentificarElDocumento]')}
 }
 ```
+
+#### db.coleccion.insertMany()
+
+`db.collection('coleccion_donde_insertar').insertMany( [ {}, {}, ..., {}] )`
+
+> ⚠️ NOTESE: al usar .insertMany se pasa como argumento, un array de Obj JSON a insertar. Cada operación es atómica, pero el proceso en sí no lo es.
+> Si la colección no existe, el método insertMany() crea la misma para guardar los datos.
+
 ---
+
 ### Listar elementos en una coleccion
 
 Para buscar algún objeto dentro de una colección, tenemos el método de Javascript _find()_
