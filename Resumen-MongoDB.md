@@ -106,37 +106,200 @@ ej:
             }
 }
 ```
-
+---
 ### Insertar documentos en una coleccion
 
-Para insertar documentos en una coleccion, tenemos el método `db.insert([objeto en formato json a insertar])`
+Para insertar documentos en una coleccion, tenemos el método 
+`db.insertOne([objeto en formato json a insertar])`
 
 A su vez, podemos crear una coleccion al vuelo, insertando un documento directamente en la nueva colección, con el código
 
-`db.[nombre_de_nueva_coleccion].insert([objeto en formato json a insertar])`
+`db.[nombre_de_nueva_coleccion].insertOne([objeto en formato json a insertar])`
 
 y esto nos devuelve un objeto del siguiente formado, confirmando si se agregó el documento:
 
 ```
 {
-      acknowloedged:true,
+      acknowledged:true,
 insertedIds: {'[index]': ObjectId('[IdUnicaParaIdentificarElDocumento]')}
 }
 ```
+---
+### Listar elementos en una coleccion
+
+Para buscar algún objeto dentro de una colección, tenemos el método de Javascript _find()_
+
+ej:
+
+`db.[nombre de la coleccion].find()`
+
+esto nos devuelve el listado de todos los elementos de la coleccion.
+
+ejemplo de elemento guardado ya en la coleccion.
+
+`{
+      "_id: ObjectId('jaksljd32345klj8das988s8ds8')
+      "nombre":"Pedro",
+      "edad":45,
+      "vive": true,
+      "contactos":{
+            "nombre":"Ariana",
+            "parentesco":"hermana",
+            "nro_contacto":0115465231152
+            }
+}`
+
+#### Guardar múltiples datos al mismo tiempo
+
+Para guardar una lista de documentos a guardar, se pasa por el método insert, un array de los objetos a agregar...
+ej:
+
+`db.[coleccion_donde_agregamos_los_datos].insertMany( [ array de documentos a ingresar ])`
+
+ejemplo práctico:
+
+```
+db.productos.insert([
+{
+"name":"Monitor 24",
+"price":9.99
+},
+{
+"name":"Monitor 29",
+"price":14.99
+}
+])
+```
+
+---
+
+#### Buscar por una propiedad en particular
+
+Para buscar y obtener resultados de un dato en particular, debemos usar el método find() con un objeto dentro indicando el valor que queremos obtener o buscar.
+ej:
+
+`db.productos.find( { "price":4.99 } )`
+
+> Esto nos devolverá una ***lista de elementos*** donde TODOS coincidan con este dato en particular.
 
 
+#### Eliminar propiedades de las respuesta 
+
+Al buscar documentos que coincidan con el criterio indicado, podemos indicar que los resultados, manejen solamente ciertas propiedades del documento.
+ej:
+
+Tengo la siguiente lista de elementos...
+
+```
+[
+  {
+    _id: ObjectId('670dc3b3c5633caa6786b01e'),
+    name: 'keyboard',
+    price: 4.99
+  },
+  {
+    _id: ObjectId('670dc3c7c5633caa6786b01f'),
+    name: 'mouse',
+    price: 2
+  },
+  {
+    _id: ObjectId('670dc4ecc5633caa6786b020'),
+    name: "Monitor 24'",
+    price: 9.99
+  },
+  {
+    _id: ObjectId('670dc4ecc5633caa6786b021'),
+    name: "Monitor 29'",
+    price: 14.99
+  },
+  {
+    _id: ObjectId('670dc64cc5633caa6786b022'),
+    name: 'tablet barata',
+    price: 14.99
+  }
+]
+```
+Al realizar la busqueda de los mismos, podemos definir qué propiedades queremos obtener de los resultados, algo así como el `SELECT name, price FROM` de SQL, pero con objetos JSON...
+
+Por lo tanto podemos realizar nuestra busqueda de la siguiente manera, de acuerdo a la lista anteriormente mencionada:
+
+`db.productos.find({"price":14.99}, {"name":1, "_id":0})`
+
+...esto devolverá como resultado el siguiente array de documentos:
+
+`[ { name: "Monitor 29'" }, { name: 'tablet barata' } ]`
+
+demostrando que los documentos que coinciden con ese precio, son 2.
+
+---
+
+#### Ordenar resultados al buscar
+
+Para poder ordenar los datos al buscar y obtener una lista de documentos, se utiliza el método .sort().
+
+***NOTESE QUE DENTRO DEL METODO SORT(), NO SE USA COMILLA PARA EL OBJETO PASADO COMO PARAMETRO***
+
+ej:
+`db.productos.find().sort({price: 1})`
 
 
+---
+
+#### Establecer límite en los resultados de una busqueda
+
+Para obtener un límite en la busqueda, le agregamos el método .limit([cant. de resultados que queremos]) 
+
+ej:
+
+`db.productos.find().limit(5)`
+
+> Esto nos devuelve un listado de los primeros 5 documentos de entre todos los que listaría sin el límite.
 
 
+---
 
+#### Contar documentos de una colección en particular
 
+Podemos contar qué cantidad de documentos tenemos en la colección que queremos, con el método `.countDocuments()`
+Ej:
+`db.[coleccion].countDocuments()`
 
+---
 
+#### Métodos de arrays en los resultados de busqueda.
 
+Al ser MongoDB un intérprete de Javascript, podemos definir que a los resultados de una busqueda, le apliquemos un callback para cada uno de ellos, como por ejemplo el método `.forEach(callback)`
 
+ej:
 
+`db.productos.find().forEach(producto => print("Nombre del producto: " + producto.name))`
 
+> ⚠️ NOTESE: no se usa el método console.log() para imprimir en consola los datos, se usa print() de igual manera que console.log().
+---
+
+### Actualizar datos de un documento
+
+Para poder modificar propiedades de un documento, usamos el método dedicado `.update()`
+
+ej:
+`db.productos.updateOne({busqueda de propiedad}, { $set: {propiedad a editar o agregar con su valor}} )`
+
+`db.productos.updateOne({"name":"tablet barata"}, { $set: {"name":"tablet Samsung Galaxy X9"} } )`
+
+esto devolverá un objeto con la siguiente estructura:
+
+```
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+```
+---
+
+### Selectores de busqueda (importante)
 
 
 
