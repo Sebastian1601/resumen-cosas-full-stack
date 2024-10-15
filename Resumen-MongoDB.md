@@ -109,12 +109,17 @@ ej:
 ---
 ### Insertar documentos en una coleccion
 
-Para insertar documentos en una coleccion, tenemos el método 
+Para insertar documentos en una coleccion, tenemos dos métodos: 
+
+1 - db.collections('coleccion a usar').insertOne( {} ) // insertar un elemento.
+2 - db.collections('coleccion a usar').insertMany( [{}, {}, ..., {}] ) // insertar varios documentos
+
+
 `db.insertOne([objeto en formato json a insertar])`
 
 A su vez, podemos crear una coleccion al vuelo, insertando un documento directamente en la nueva colección, con el código
 
-`db.[nombre_de_nueva_coleccion].insertOne([objeto en formato json a insertar])`
+`db.[nombre_de_nueva_coleccion].insertOne({ Obj Json })`
 
 y esto nos devuelve un objeto del siguiente formado, confirmando si se agregó el documento:
 
