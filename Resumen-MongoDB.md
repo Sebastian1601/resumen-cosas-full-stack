@@ -20,11 +20,93 @@ Se crea un nuevo item del menú Variables de Entorno en PATH, con la ruta de la 
 
 ## Ejecutar MongoDB
 
-Abrimos una Terminal, y ejecutamos "MongoD", esto disparará varios comandos y devolverá información en la ventana, que  no se cierra ni se termina mientras esté en uso.
+Abrimos una Terminal, y ejecutamos   
 
-Para conectar el Shell de la terminal, debemos abrir otra Terminal, y ejecutar "MongoSH", para que el shell se conecte con el servicio de "MongoD".
+      >mongod
+
+esto disparará varios comandos y devolverá información en la ventana, que  no se cierra ni se termina mientras esté en uso.
+
+Para conectar el Shell de la terminal, debemos abrir otra Terminal, y ejecutar 
+
+    >mongosh
+para que el shell se conecte con el servicio de "MongoD".
 
 
-Ahi ya tenemos vinculado el Shell con el servicio y podemos ejecutar código de Mongo para administrar bases.
+Ahi ya tenemos vinculado el Shell con el servicio y podemos ejecutar código de Mongo para administrar bases. *Deben estar ambos procesos abiertos*.
+
+
+### Comandos Básicos del Shell.
+
+
+Se puede ejecutar el comando _base_ con el método .help y esto nos devolverá la lista de comandos derivados del comando base.
+ej:
+
+    > db.help //esto dispara ayuda sobre los comandos db.(métodos)
+    
+
+#### _db_
+
+>  este comando devuelve la base de datos que estamos utilizando (independientemente de que el prompt ya lo indica)
+ 
+#### _show dbs_
+
+>  este comando devuelve la lista de base de datos que tenemos creadas(esto es importante, las bases deben tener algún dato para figurar en esta lista)
+
+#### _use [dbname]_
+
+>  este comando "crea" una base de datos nueva de nombre [dbname] y pasa a ella directamente.
+> ej: >use peliculas
+
+#### _db.dropDatabase()_
+
+> este comando elimina la base de datos donde estábamos parados.
+
+#### _db.createCollection("[nombre de la collecion a crear]")_
+
+> este comando nos permite crear una colleción nueva dentro de nuestra base de datos.
+> ej: > db.createCollection("users")
+
+
+#### _show collections_
+
+> este comando nos devuelve las colecciones dentro de la base de datos actual.
+
+#### _db.[nombre de una coleccion].drop()_
+
+> este comando elimina la coleccion indicada en el comando, devolviendo "true" si es exitoso.
+> ej: > db.users.drop()
+
+
+[[Titulo colapsable {[Título del contenido colapsado][
+
+Aquí escribís el texto del componente, puede tener más de un párrafo, aunque no es recomendable por usabilidad.
+
+]}]]
+
+
+[[lista-destacada Seba(lavanda){
+* Un elemento de la lista destacada.
+   * Un subítem del primer elemento.
+   * Otro subítem del primer elemento.
++ Otro elemento de la lista destacada.
+   * Un subítem del segundo elemento.
+- Y otro elemento de la lista destacada.
+}]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
