@@ -181,6 +181,8 @@ o su forma corta…
 
 #### Instalar una versión exacta del módulo.
 
+Esto evita que el módulo instalado se actualice automáticamente.
+
 > $ npm i --exact nombre_del_modulo
 
 o su forma corta…
@@ -219,6 +221,8 @@ Cada dígito indica cómo son los cambios de las nuevas versiones y funciona as�
 Cuando la versión modifica el dígito de en medio, sabemos que los cambios fueron menores, es decir, que se agregó funcionalidad nueva al framework, que aunque es nueva, es compatible con la versión anterior del framework. Actualizar a esta versión significa que tenemos nuevas funcionalidades disponibles, pero que tu código debería seguir funcionando.
 
 Por último, actualizaciones al primer dígito significa que se agregó nueva funcionalidad, que se pudieron haber eliminado otras características y que el código que se actualice a esta versión podría no ser compatible y requerir de modificaciones sobre el código para que funcione con la nueva versión.
+
+El _caret_ ^ al frente de cada versión de los módulos, indica que ese módulo se actualizará cada vez que se lance una nueva versión. En caso de no querer esto, que será la mayoría de veces, se borra el caret y esto evitará la posibilidad de actualizar el módulo automáticamente.
 
 > ⚠️ TENER EN CUENTA ESTO AL MOMENTO DE USAR MODULOS Y MANEJAR EL PACKAGE.JSON
 
