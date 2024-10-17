@@ -110,7 +110,13 @@ el comando:
 
       npm start
 
-automáticamente inicia nuestra ruta descripta, normalmente se usa para iniciar el codigo, para pruebas, demostración, etc.
+> automáticamente inicia nuestra ruta descripta, normalmente se usa para iniciar el codigo, para pruebas, demostración, etc.
+
+
+      npm run
+> Este comando te muestra en consola, todos los "runs" configurados en el package.json, los cuales se pueden usar para iniciar de distintas maneras nuestro proyecto.
+
+
 
 ### Instalando dependencias
 
@@ -201,6 +207,21 @@ o su forma corta…
 ¿Cómo desinstalar un módulo global de NPM?
 
 > $ npm rm -g nombre_del_modulo
+
+---
+
+### Semantyc Versioning 
+
+Este esquema significa que cada versión del módulo tiene tres dígitos separados por punto, como por ejemplo 6.0.0, 4.3.6, 5.2.1, etc.
+
+Cada dígito indica cómo son los cambios de las nuevas versiones y funciona así. Si el último dígito cambia, significa que los cambios son menores, normalmente se arreglan bugs, brechas de seguridad y problemas de rendimiento. Actualizar a esta versión significa que nuestra app seguirá funcionando, y que de hecho lo hará mejor.
+
+Cuando la versión modifica el dígito de en medio, sabemos que los cambios fueron menores, es decir, que se agregó funcionalidad nueva al framework, que aunque es nueva, es compatible con la versión anterior del framework. Actualizar a esta versión significa que tenemos nuevas funcionalidades disponibles, pero que tu código debería seguir funcionando.
+
+Por último, actualizaciones al primer dígito significa que se agregó nueva funcionalidad, que se pudieron haber eliminado otras características y que el código que se actualice a esta versión podría no ser compatible y requerir de modificaciones sobre el código para que funcione con la nueva versión.
+
+> ⚠️ TENER EN CUENTA ESTO AL MOMENTO DE USAR MODULOS Y MANEJAR EL PACKAGE.JSON
+
 
 ---
 
@@ -311,5 +332,6 @@ y el objeto igual:
 
 
 ---
+
 
 
