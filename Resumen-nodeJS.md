@@ -337,5 +337,155 @@ y el objeto igual:
 
 ---
 
+## Cargando variables de entorno al Process.env
 
+Actualmente, a partir de _NodeJS_ ver. 22, se pueden cargar las variables de entorno mediante un método interno de _Process_.
+
+esto se realiza creando un archivo *.env* en el proyecto, y en el mismo definiendo las variables que queremos tener, por ej.
+
+```
+USER = 'david@gmail'
+PASSWORD = 'testing01'
+DBASE = mongo
+
+```
+
+y luego, al iniciar el archivo _.js_, se usa el método:
+
+`process.env.loadEnvFile([ruta al archivo .env])`
+
+
+## Métodos y módulos nativos más comúnes.
+
+NodeJS viene con módulos nativos que se suelen utilizar mucho en la construcción de distintas aplicaciones y proveen de mucha información del entorno de ejecución del mismo proceso actual. Tenemos métodos para leer archivos, rutas, extensiones, información sobre el sistema operativo, etc.
+
+
+Para leer el directorio actual, se pueden utilizar algunos métodos básicos.
+
+### process.cwd() 
+Este método nos devuelve la ruta al directorio actual del proceso. Si el proceso se ejecuta en 
+> c:\gitwork\proyectos\proyecto1\app.js
+
+...el metodo nos devuelve la siguiente ruta:
+> "c:\gitworkproyectos\proyecto1\
+
+
+### import.meta.url()
+Este método nos devuelve la ruta con file incluido, al archivo donde se ejecuta, independientemente del arbol de subcarpetas que posea el proyecto.
+Si el proyecto tiene la estructura:
+> c:\gitwork\proyectos\proyecto1\main\utils\app.js
+
+...el metodo devolverá la misma ruta URL completa:
+>file:////c:/gitwork/proyectos/proyecto1/main/utils/app.js
+
+---
+
+### Modulos Nativos
+
+### Path
+
+Este módulo nos permite manejar con facilidad las rutas relativas y absolutas usadas en los proyectos. Permite determinar rutas según el sistema operativo, y permitir mucha más compatibilidad con nuestro proyecto.
+
+Principales métodos:
+
+> path.basename([ruta_al_archivo]):
+   * Devuelve el nombre del archivo incluyendo la extensión en la ruta dada.
+   * Se le puede pasar un segundo argumento para eliminar la extensión del archivo en el resultado.
+  
+ej:
+```
+const ruta = "/users/documentos/archivo.txt"
+console.log(path.basename(ruta, '.txt'))   //esto devuelve "archivo"
+```
+
+> path.dirname([ruta_al_archivo])
+   * Devuelve el directorio de la ruta, EXCLUYENDO el nombre del archivo.
+ej:
+```
+const ruta = "/users/documentos/archivo1.png"
+console.log(path.dirname(ruta))   //esto devuelve "/users/documentos"
+```
+
+> path.extname([ruta_al_archivo])
+   * Devuelve la extension del archivo pasado como argumento, incluyendo el punto.
+ej:
+```
+const ruta = "/users/documentos/archivo1.png"
+console.log(path.extname(ruta))   //esto devuelve ".png"
+```
+
+> path.join([argumento1, argumento2, argumento3])
+
+  * Este metodo normaliza las rutas, y une en una sola cadena, la ruta conformada por _argumento1_, _argumento2_ y _argumento3_ con su separador correspondiente de acuerdo al sistema operativo usado.
+  
+  ej:
+```
+const ruta = path.join('users', 'documentos', 'archivo1.png')
+console.log(ruta) // esto devolverá "/users/documentos/archivo1.png"
+```
+
+> path.resolve([arg1, arg2, ..., argN])
+
+   * Construye una ruta absoluta a partir de una secuencia de segmentos con arg1, arg2, etc.
+   * Si no se especifica un directorio inicial, toma _process.cwd()_(directorio de trabajo actual) como base.
+
+
+```
+const rutaAbsoluta = path.resolve('documentos', 'archivo1.txt')
+console.log(rutaAbsoluta) //esto devuelve 'ruta/actual/documentos/archivo1.txt'
+```
+
+> path.normalize([ruta_al_archivo])
+ 
+ * Normaliza una rura, resolviendo elementos como . y .. y eliminando separadores redundantes en la misma.
+
+ej:
+```
+const ruta = '/usuarios//documentos/./archivo.txt'
+console.log(path.normalize(ruta)) //esto devuelve '/usuarios/documentos/archivo.txt'
+```
+
+> path.isAbsolute([ruta_al_archivo])
+
+* Devuelve _true_ si la ruta es absoluta, o _false_ si es relativa.
+
+ej:
+```
+console.log(path.isAbsolute('/usuarios/documentos')); // true
+console.log(path.isAbsolute('documentos/archivo.txt')); // false
+```
+
+> path.relative([argumento1-FROM, argumento2-TO])
+
+* Este método calcula la ruta relativa, entre los 2 argumentos pasados, indicando la secuencia de directorios para pasar de una a la otra.
+
+ej:
+
+```
+const ruta1 = '/usuarios/documentos';
+const ruta2 = '/usuarios/fotos';
+console.log(path.relative(ruta1, ruta2)); // '../fotos'
+```
+
+> path.parse() y path.format()
+
+* El método path.parse([ruta]) convierte una ruta pasada como argumento, a un objeto con las propiedades `root`, `dir`, `base`, `name` y `ext`.
+
+* El método path.format(objRuta) construye un string con los datos de un objeto con las propiedades indicadas anteriormente.
+  
+
+```
+const ruta = '/usuarios/documentos/archivo.txt';
+const objRuta = path.parse(ruta);
+console.log(objRuta);
+/* {
+  root: '/',
+  dir: '/usuarios/documentos',
+  base: 'archivo.txt',
+  name: 'archivo',
+  ext: '.txt'
+} */
+
+console.log(path.format(objRuta)); // '/usuarios/documentos/archivo.txt'
+```
 

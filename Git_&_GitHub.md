@@ -47,44 +47,48 @@ https://stackoverflow.com/questions/2517190/how-do-i-force-git-to-use-lf-instead
 ////////////////// REPOS ////////////////////////////////////////////////////
 ## comandos basicos del shell
 
-cd (nombre entrar carpeta) 	: entrar a una carpeta.
+`cd` <mark>(nombre entrar carpeta)</mark> 	: entrar a una carpeta.
 
-cd ../ 				:(volver para atrás un nivel en el directorio) (es lo mismo poner cd ..)
+`cd ../` 				:(volver para atrás un nivel en el directorio) (es lo mismo poner cd ..)
 
-mkdir (nombre de carpeta)	:(crea una carpeta en el directorio actual)
+`mkdir` <mark>(nombre de carpeta)</mark>	:(crea una carpeta en el directorio actual)
 
-rmdir (nombre de la carpeta)	:(borra una carpeta del directorio actual con el nombre)
+`rmdir` <mark>(nombre de la carpeta)</mark>	:(borra una carpeta del directorio actual con el nombre)
 
-rm (nombre del archivo)		:(remueve el archivo indicado localmente)
+`rm` <mark>(nombre del archivo)</mark>		:(remueve el archivo indicado localmente)
 
-dir				:(lista contenido de directorio actual)
+`dir`				:(lista contenido de directorio actual)
 
-ls				:(lista de archivos)
+`ls`				:(lista de archivos)
 
-ls -l				:(lista de archivos como lista efectiva)
+`ls -l`				:(lista de archivos como lista efectiva)
 
-ls -lh				:(lista de archivos)
+`ls -lh`				:(lista de archivos)
 
-touch (nombre de archivo.ext)	:(crear un archivo nuevo)
+`touch` <mark>(nombre de archivo.ext)</mark>	:(crear un archivo nuevo)
 
-cp (nombre del archivo a copiar) (nombre del directorio donde queremos copiarlo) :copia archivos
+`cp` <mark>(nombre del archivo a copiar) (nombre del directorio donde queremos copiarlo)</mark> :copia archivos
 
-mv (directorio del archivo/nombre de archivo.ext) (directorio a donde queremos mover el archivo) :mueve archivos
+`mv` <mark>(directorio del archivo/nombre de archivo.ext) (directorio a donde queremos mover el archivo)</mark> :mueve archivos
 
-rm -r (nombre de la carpeta a eliminar, junto con sus archivos) :(elimina archivos y carpetas todo junto) 
+`rm -r` <mark>(nombre de la carpeta a eliminar, junto con sus archivos)</mark> :(elimina archivos y carpetas todo junto) 
 
 ##  Area de trabajo ---> Area de Staging ---> REPOSITORIO 
 
 ## INICIALIZAR EL REPOSITORIO LOCAL----------------
 	
-  `git init  (esto inicializa la carpeta como repositorio local)`
+  `git init`  (esto inicializa la carpeta como repositorio local)
 
 
-### Agregar archivos al area de STAGINGrm
+### Agregar archivos al area de STAGING
 
-   `git add .  (agrega TODOS los archivos de la carpeta al area de staging)`
+   `git add .`  (agrega TODOS los archivos de la carpeta al area de staging)
 
-   `git add (nombre del archivo uno por uno) ej git add index.html`
+   `git add (nombre del archivo uno por uno)`
+    
+	ejemplo:
+
+   ``` git add index.html image.jpg readme.txt```
 
 
 ### Ver estado de la carpeta, commits, etc del repo. (muestra qué archivo se va a subir al repo)
@@ -97,7 +101,7 @@ rm -r (nombre de la carpeta a eliminar, junto con sus archivos) :(elimina archiv
 
    `git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)`
 
-
+---
 ## REALIZAR COMMIT ------
 
 `git commit -m "(mensaje de actualización en el commit)"  (-m permite agregar mensaje al commit)`
@@ -120,21 +124,21 @@ rm -r (nombre de la carpeta a eliminar, junto con sus archivos) :(elimina archiv
 	git ls-tree -r --name-only (hash resumido del commit a ver) :(muestra lista de  archivos y carpetas en ese commit)
 	git ls-tree -r --name-only HEAD (esto refiere al último commit disponible)
 
-* ELIMINAR UN ARCHIVO DEL REPO
+* ### ELIMINAR UN ARCHIVO DEL REPO
 
 	rm (archivo)  :se elimina el archivo.
 	luego, se debe agregar la "eliminación del archivo" con git add (nombre de archivo o punto[git add .]) 
 	finalmente se realiza el commit.		
 	git commit -m "(mensaje)" -a
 
-* RESTAURAR UN ARCHIVO ELIMINADO LOCALMENTE DESDE EL REPO
+* ### RESTAURAR UN ARCHIVO ELIMINADO LOCALMENTE DESDE EL REPO
 
 	git restore (ruta/nombre del archivo.ext) :(esto restaura un archivo borrado localmente al punto
 			de la última actualización que tuvo el mismo en el repo. si se hicieron cambios
 			luego del commit y no se guardaron, no van a estar en el archivo restaurado)
 
 
-* VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
+* ### VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
 
 	git checkout (ruta/archivo.ext) :(vuelve el estado del archivo al estado del último commit.
 					Todo cambio posterior se descarta)
@@ -147,32 +151,32 @@ rm -r (nombre de la carpeta a eliminar, junto con sus archivos) :(elimina archiv
 	== SOLO SE UTILIZA LUEGO DE ver un commit anterior con GIT CHECKOUT y no queremos cambiar nada ==
 	git switch - (vuelve el HEAD al último commit disponible del repo)
 
-* VOLVER ATRÁS el estado de un archivo sin tener en cuenta si hay archivos en el área de staging
+* ### VOLVER ATRÁS el estado de un archivo sin tener en cuenta si hay archivos en el área de staging
 	======== SIEMPRE HAY QUE TENER LOS ARCHIVOS GUARDADOS ANTE UN RESET HARD =======
 	git reset --hard (hash del commit a donde quiero volver el estado de todos los archivos)
 
 
-* CAMBIAR NOMBRE DE UN ARCHIVO
+* ### CAMBIAR NOMBRE DE UN ARCHIVO
 
   	git mv (nombre del archivo actual.ext) (nuevo nombre.ext)
 
-* VERIFICAR CONTENIDO DE UN ARCHIVO ¡¡ YA GUARDADO !! EN EL REPOSITORIO LOCAL
+* ### VERIFICAR CONTENIDO DE UN ARCHIVO ¡¡ YA GUARDADO !! EN EL REPOSITORIO LOCAL
 
   	git show (nombre del archivo.ext)
 
-* COMPARAR ARCHIVOS EN EL REPO(ya commiteados) CON ARCHIVOS EN EL AREA DE STAGING (obviamente no se define el archivo en el comando sino subiendolos al área de staging) 
+* ### COMPARAR ARCHIVOS EN EL REPO(ya commiteados) CON ARCHIVOS EN EL AREA DE STAGING (obviamente no se define el archivo en el comando sino subiendolos al área de staging) 
 
 	git diff --staged
 
-* COMPARAR DIFERENCIAS ENTRE 2 VERSIONES DE LOS COMMITS, DE ACUERDO A SU HASH
+* ### COMPARAR DIFERENCIAS ENTRE 2 VERSIONES DE LOS COMMITS, DE ACUERDO A SU HASH
 
    	git diff (1er hash de commit de x dígitos) (2do hash de commit de x dígitos)
 
-* COMPARAR SOLAMENTE CAMBIO DE NOMBRES EN LOS ARCHIVOS
+* ### COMPARAR SOLAMENTE CAMBIO DE NOMBRES EN LOS ARCHIVOS
 
   	git diff --name-only (1er hash de commit de x dígitos) (2do hash de commit de x dígitos)
 
-* COMPARAR QUE SE CAMBIO ENTRE DOS COMMITS
+* ### COMPARAR QUE SE CAMBIO ENTRE DOS COMMITS
 
   	git diff --word-diff (1er hash de commit de x dígitos) (2do hash de commit de x dígitos)
 

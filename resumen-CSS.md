@@ -1,125 +1,126 @@
 # Resumen CSS del curso de Dalto
 
-* <mark> BACKGROUND </mark> (fondos de cajas)
+#### BACKGROUND (fondos de cajas)
 
  ```
 shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
 ```
 
 color:  *el color del fondo*
+
 image:  *url(ruta de la imágen a usar)*
+
 repeat: *repite horizontal y verticalmente la imágen usada.*
-  	*repeat-x (la imágen se repite solo horizontalmente)*	
- 	*repeat-y (la imágen se repite solo verticalmente)*
-	*no-repeat (la imágen no se repite)*
-	*space (la imágen se repite la mayor cantidad de veces sin recorte. se distribuye espacio vacío entre las mismas para evitar el corte.)*
- 	*round (la imágen es repetida y ajustada o estirada para llenar los espacios vacíos)*
-	*initial (setea la propiedad a valor inicial)*
-	*inherit (hereda la propiedad de su elemento padre)*
+  * repeat-x (la imágen se repite solo horizontalmente)
+  * repeat-y (la imágen se repite solo verticalmente)
+  * no-repeat (la imágen no se repite)
+  * space (la imágen se repite la mayor cantidad de veces sin recorte. se distribuye espacio vacío entre las mismas para evitar el corte.)
+  * round (la imágen es repetida y ajustada o estirada para llenar los espacios vacíos)
+  * initial (setea la propiedad a valor inicial)
+  * inherit (hereda la propiedad de su elemento padre)
 
 
 
-# BORDER (bordes de una caja)
+#### BORDER (bordes de una caja)
 
-shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color)
+> SHORTHAND border: (border-width) (border-style)[requerido siempre] (border-color)
+
 ///////el shorthand no soporta definicion de más de un border width, style, color.//////////
 
-	border-width: ancho del borde a marcar.(se define borde TOP, RIGHT, BOTTOM y LEFT) (de definir 2 bordes, se toma TOP/
+* border-width: ancho del borde a marcar.(se define borde TOP, RIGHT, BOTTOM y LEFT) (de definir 2 bordes, se toma TOP/
  	BOTTOM, LEFT/RIGHT por cada valor.)
 
-	border-style: estilo del borde a marcar
-		Se pueden definir los 4 bordes individualmente(border-top-style / border-right-style, border-bottom-style,
-  		border-left-style)
-		dotted:	borde de puntos
-		dashed:	borde de lineas
-		solid: 	borde solido de una linea
-		double:	borde solido de dos lineas
-		groove:	define un borde 3d, el efecto depende de los colores
-		ridge:	define un borde 3d, el efecto depende de los colores
-		inset:	define un borde 3d, el efecto depende de los colores
-		outset:	define un borde 3d...
-		none:	define SIN borde el elemento
-		hidden:	define un borde OCULTO.
+* border-style: estilo del borde a marcar
 
-	border-color: se define el color de cada borde, como el width, se toma 				color TOP, RIGHT, BOTTOM, LEFT si se definen 4 colores, y 				si se definen 2 se toma TOP/BOTTOM, LEFT/RIGHT
+Se pueden definir los 4 bordes individualmente
+*(border-top-style / border-right-style, border-bottom-style, border-left-style)*
+
+* dotted:	borde de puntos
+* dashed:	borde de lineas
+* solid: 	borde solido de una linea
+* double:	borde solido de dos lineas
+* groove:	define un borde 3d, el efecto depende de los colores
+* ridge:	define un borde 3d, el efecto depende de los colores
+* inset:	define un borde 3d, el efecto depende de los colores
+* outset:	define un borde 3d...
+* none:	define SIN borde el elemento
+* hidden:	define un borde OCULTO.
+
+* border-color: se define el color de cada borde, como el width, se toma color `TOP`, `RIGHT`, `BOTTOM`, `LEFT` si se definen 4 colores, y si se definen 2 se toma `TOP/BOTTOM`, `LEFT/RIGHT`
 	
-	border-radius: estilo redondeado de los bordes, definido en pixeles.
+* border-radius: estilo redondeado de los bordes, definido en pixeles.
 
+
+#### ACCENT-COLOR : le da color a inputs de tipo checkbox / radio / range y progress
+
+#### MARGIN (margen externo entre la caja y otra caja o elemento)
+
+* margin top
 	
+* margin right
 
+* margin bottom
 
+* margin left
 
+> SHORTHAND: margin:(top) (right) (bottom) (left)
 
-# ACCENT-COLOR : le da color a inputs de tipo checkbox / radio / range y progress
+* Margin Collapse: Si tenemos màrgenes entre la parte superior e inferior de una caja, y hay 2 margenes que deberìan 		sumarse, ambos colapsan para que se aplique el mayor de los 2 solamente, no se suman.
+
+#### PADDING (espacio interior entre el margen de un elemento y su contenido)
+
+* padding-top:
 	
-# MARGIN (margen externo entre la caja y otra caja o elemento)
+* padding-right:
 
-*margin top
-	
-*margin right
+* padding-bottom:
 
-*margin bottom
+* padding-left:
 
-*margin left
-
-*shorthand:
-	margin:(top) (right) (bottom) (left)		
-
-*Margin Collapse: Si tenemos màrgenes entre la parte superior e inferior de una caja, y hay 2 margenes que deberìan 		sumarse, ambos colapsan para que se aplique el mayor de los 2 solamente, no se suman.
-
-# PADDING (espacio interior entre el margen de un elemento y su contenido)
-
-*padding-top:
-	
-*padding-right:
-
-*padding-bottom:
-
-*padding-left:
-
-*shorthand:
-	padding: (top) (right) (bottom) (left)
+> SHORTHAND: padding: (top) (right) (bottom) (left)
 
 
-# HEIGHT & WIDTH (alto y ancho de un elemento)
+#### HEIGHT & WIDTH (alto y ancho de un elemento)
 
- *max-width: determina el ancho máximo que debería tomar la caja, aunque se amplíe el espacio disponible.
+ * max-width: determina el ancho máximo que debería tomar la caja, aunque se amplíe el espacio disponible.
 
- *min-width: determina el ancho mínimo que puede tomar la caja, al llegar al mínimo no se achica más.
+ * min-width: determina el ancho mínimo que puede tomar la caja, al llegar al mínimo no se achica más.
 
-	
-# OUTLINE (resaltador de caja que no ocupa lugar en el DOM)
+--- 
 
- *outline-style: (REQUERIDO)
-		dotted:	borde de puntos
-		dashed:	borde de lineas
-		solid: 	borde solido de una linea
-		double:	borde solido de dos lineas
-		groove:	define un borde 3d, el efecto depende de los colores
-		ridge:	define un borde 3d, el efecto depende de los colores
-		inset:	define un borde 3d, el efecto depende de los colores
-		outset:	define un borde 3d...
-		none:	define SIN borde el elemento
-		hidden:	define un borde OCULTO.
+#### OUTLINE (resaltador de caja que no ocupa lugar en el DOM)
 
-*outline-color:
+ > outline-style: (REQUERIDO)
+* dotted:	borde de puntos
+* dashed:	borde de lineas
+* solid: 	borde solido de una linea
+* double:	borde solido de dos lineas
+* groove:	define un borde 3d, el efecto depende de los colores
+* ridge:	define un borde 3d, el efecto depende de los colores
+* inset:	define un borde 3d, el efecto depende de los colores
+* outset:	define un borde 3d...
+* none:	define SIN borde el elemento
+* hidden:	define un borde OCULTO.
 
-*outline-width:
-		thin (1px)
-		medium (3px)
-		thick (5px)
-		un ancho específico(px, pt, cm, em, etc)
-
-*outline-offset: (distancia entre la caja y el outline)
-
-*shorthand  outline: (width) (style) (color)
+> outline-color:
 
 
-# TEXT
+> outline-width:
+* thin (1px)
+* medium (3px)
+* thick (5px)
+* un ancho específico(px, pt, cm, em, etc)
 
-*text-color: (color del texto)
+* outline-offset: (distancia entre la caja y el outline)
 
-*text-align: (se determina la alineación horizontal del texto)
+> SHORTHAND  outline: (width) (style) (color)
+
+
+#### TEXT
+
+* text-color: (color del texto)
+
+* text-align: (se determina la alineación horizontal del texto)
 		left: (texto alineado a la izquierda)
 		center: (texto centrado)
 		right: (texto alineado a la derecha)
@@ -168,19 +169,19 @@ shorthand BORDER: (border-width) (border-style)[requerido siempre] (border-color
 		lowercase: (cambia texto a minúsculas)
 		capitalize: (cambia inicial a mayúscula)
 
-*text-indent: [px/em/rem/cm/pt] (sangría del texto)
+* text-indent: [px/em/rem/cm/pt] (sangría del texto)
 
-*letter-spacing: [px/em/rem/cm/pt] (espacio entre los caractéres de un párrafo)
+* letter-spacing: [px/em/rem/cm/pt] (espacio entre los caractéres de un párrafo)
 	
-*line-height: [px/em/rem/cm/pt] (espacio entre cada renglón de un párrafo)
+* line-height: [px/em/rem/cm/pt] (espacio entre cada renglón de un párrafo)
 	
-*word-spacing: [px/em/rem/cm/pt] (espacio entre las palabras de un párrafo)
+* word-spacing: [px/em/rem/cm/pt] (espacio entre las palabras de un párrafo)
 
-*white-space: (determina si el texto se ajusta a la pantalla o no)
+* white-space: (determina si el texto se ajusta a la pantalla o no)
 		wrap: (el texto se ajusta)
 		nowrap: (el texto no se ajustará, creando barras de desplazamiento)
 
-text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads con coma])
+* text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads con coma])
 		   : (horizontal shadow) (vertical shadow) (blur effect) (color)
 		   : [px/em/rem/cm/pt]
 * ejemplo  : 5px 10px 3px red, 10px 20px 5px blue	
@@ -192,25 +193,25 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 
 
 
-# DISPLAY: 
-	Inline no se le puede dar tamaño a la caja contenedora.
+#### DISPLAY: 
+* Inline no se le puede dar tamaño a la caja contenedora.
 
-	Inline block: si se le puede dar tamaño, pero posisionandose como inline, una caja al lado de la siguiente.
+* Inline block: si se le puede dar tamaño, pero posisionandose como inline, una caja al lado de la siguiente.
 
-	Block: se compportan como elemeno en bloque (uno debajo de otro y se le puede brindar parámetros de tamaño).
-
-
+* Block: se compportan como elemeno en bloque (uno debajo de otro y se le puede brindar parámetros de tamaño).
 
 
-# OVERFLOW: (solo funciona con elementos en bloque con altura definida)
-	Visible: contenido no se altera y se sale de la caja
+
+
+#### OVERFLOW: (solo funciona con elementos en bloque con altura definida)
+* Visible: contenido no se altera y se sale de la caja
 	
-	Hidden: el contenido se oculta si es que se saldría de las dimensiones de la caja.
-	Scroll: el contenido se "corta" para ajustarse a la caja, y se agrega una barra de desplazamiento para ver el resto.
+*	Hidden: el contenido se oculta si es que se saldría de las dimensiones de la caja.
+*	Scroll: el contenido se "corta" para ajustarse a la caja, y se agrega una barra de desplazamiento para ver el resto.
 
-	Auto: si es necesario agregar barras de desplazamiento porque el contenido se saldría de la caja, se agregan sino no.
+*	Auto: si es necesario agregar barras de desplazamiento porque el contenido se saldría de la caja, se agregan sino no.
 
-	se pueden definir por separado también.
+> se pueden definir por separado también.
 	*OVERFLOW-X:
 	*OVERFLOW-Y:
 
@@ -242,7 +243,7 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 	}
 
 
-* PSEUDO ELEMENTOS:
+#### PSEUDO ELEMENTOS:
 	Ambos funcionan si el elemento al que hacen referencia tiene display block ó inline-block.
 	
 	pseudoclase ::first-letter : selección de la primera letra de un texto.
@@ -287,11 +288,12 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 	 	Llevan siempre la propiedad "content:"
 
 
-* PSEUDO-CLASES: 
-
-	:active (selecciona el elemento "activo", cuando se clickea el mismo)
+#### PSEUDO-CLASES: 
+    
+	:active  (selecciona el elemento "activo", cuando se clickea el mismo)
 
 	:checked (selecciona el elemento "chequeado". normalmente son inputs)
+
 	
 	:disabled (selecciona el elemento "desactivado")
 
@@ -349,7 +351,7 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 	:visited (selecciona generalmente vinculos ya visitados "a:visited" {})
 
 
-* OBJECT-FIT : (se aplica directamente a las <IMG>) (ubicar imágenes en contenedores, no hay que darle ancho ni alto a la imágen para esto)
+#### OBJECT-FIT : (se aplica directamente a las <IMG>) (ubicar imágenes en contenedores, no hay que darle ancho ni alto a la imágen para esto)
 	contain: (busca ocupar lo más grande del contenedor, ancho o alto, manteniendo el ratio de la imágen y mostrando toda la imágen, aunque tenga que achicarse)
 
 	cover: (mantiene el ratio y ocupa todo el contenedor, aunque se recorte tramos de la imágen)
@@ -358,7 +360,7 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 
 	scale-down: (elige la mejor propiedad para ajustar la imágen)
 
-* OBJECT-POSITION: (se puede definir en ejes X e Y la posición del objeto en la caja, aparte de predefinidos)
+#### OBJECT-POSITION: (se puede definir en ejes X e Y la posición del objeto en la caja, aparte de predefinidos)
   	si definimos object-position: 0px 0px; esto genera que la imágen se alinee desde el borde superior izquierdo a la caja
   	contenedora
 	
@@ -371,44 +373,39 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 	:bottom :alinea la imágen desde el margen inferior al contenedor
 
 
-* COLORS (colores)
+#### COLORS (colores)
 
 
 
-* MEDIAQUERY (las mediaquerys se utilizan para el responsive design, creando cortes según resolución para cambiar propiedades de las cajas mediante el mismo CSS)
+#### MEDIAQUERY 
 
-		@media only screen and (CONDICION según resolución) {
+* Las mediaquerys se utilizan para el responsive design, creando cortes según resolución para cambiar propiedades de las cajas mediante el mismo CSS
+
+```
+@media only screen and (CONDICION según resolución) {
 
 		bloque de contenido de cambios	
 	
 		}
+```
 
-
-# ---------------------- FLEX BOX -------------------
+### ---------------------- FLEX BOX -------------------
 
 * Flexbos posee 2 ejes, el main axis y el cross axis. (esto depende de la orientación del contenedor flex.)
 
 
-     -----------------------------------------------------------------
-     |                           |cross-star                         |
-     |                           |                                   |
-     |main start                 |                           main end|
-     |---------------------------------------------------------------|
-     |                           |                                   |
-     |                           |cross end                          |
-     |                           |                                   |
-     -----------------------------------------------------------------
-
-*Al setear un contenedor con display:flex, todo contenedor hijo directo(exclusivamente) del mismo, se convierte en un flex item.
+* Al setear un contenedor con display:flex, todo contenedor hijo directo(exclusivamente) del mismo, se convierte en un flex item.
 
   ej:
 
-  	<div CLASS="flex_container">
+```
+  <div CLASS="flex_container">
    		<p CLASS="flex_item"> lorem ipsum etc </p>
      		<img src="./img/img_prueba1.jpg" CLASS="flex_item">
        </div>
+```
 
-## PROPIEDADES DEL CONTENEDOR FLEX ------------------------------------------------
+>------- PROPIEDADES DEL CONTENEDOR FLEX ------------------------
 
 * Cambiar dirección del main axis (eje principal)
 
@@ -422,9 +419,7 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
     		flex-wrap: wrap (al no tener espacio, se reubican las cajas en más filas inferiores)
   			   wrap-reverse (al no tener espacio, las cajas se ubican en más filas superiores)
   			   no-wrap (las cajas, van a seguir ocupando una unica fila auque no haya espacio en la pantalla por lo tanto se agrega un scroll horizontal)
-* SHORTHAND:
-
-  		flex-flow:[propiedad de flex-direction] [propiedad de flex-wrap]
+> SHORTHAND: flex-flow:[propiedad de flex-direction] [propiedad de flex-wrap]
     
 * distribuir en el main axis los flex items:
 
@@ -452,9 +447,9 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 			     stretch (por defecto)(si los items no tienen definido alto, los items se "estiran" para ocupar todo el alto del contenedor flex)
   			     baseline (ubica a los items, en la parte inferior del contenedor, junto si y solo si con la opción flex-wrap:wrap-reverse)
 
-## PROPIEDADES DE LOS ITEMS FLEX ---------------------------------------------------
+#### PROPIEDADES DE LOS ITEMS FLEX ---------------------------------------------------
 
-# EL MARGIN:AUTO EN EL ITEM FLEX FUNCIONA MUY DISTINTO, PERO CENTRA SI HAY UN ITEM SOLO EN EL CENTRO DEL CONTENEDOR. SI HAY MAS DE UN ITEM, LOS CENTRA SOLAMENTE EN EL CROSS AXIS
+#### EL MARGIN:AUTO EN EL ITEM FLEX FUNCIONA MUY DISTINTO, PERO CENTRA SI HAY UN ITEM SOLO EN EL CENTRO DEL CONTENEDOR. SI HAY MAS DE UN ITEM, LOS CENTRA SOLAMENTE EN EL CROSS AXIS
 
 * ubicar en el cross axis el item en particular seleccionado:
 
@@ -480,15 +475,11 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 
 		flex-basis:200px;
 
-# SHORTHAND : 
+> SHORTHAND : flex: [flex-grow] [flex-shrink] [flex-basis];
 
-		flex: [flex-grow] [flex-shrink] [flex-basis];
+###  GRID BOX ---
 
-
-
-#  GRID BOX ---
-
-## Grillas dinámicas
+#### Grillas dinámicas
 
 * Toda grilla tiene un contenedor.
 
@@ -501,9 +492,9 @@ text-shadow: (especifica una sombra al texto[se pueden agregar varias, separads 
 
 * Grid area las definimos para maquetar la grilla.
 
-## PROPIEDADES A APLICAR A LOS GRIDs CONTAINERs -------------------------------
+#### PROPIEDADES A APLICAR A LOS GRIDs CONTAINERs -------------------------------
 
-## grid-template-rows y grid-template-columns (definir cuantas filas y columnas tendrá la grilla)
+#### grid-template-rows y grid-template-columns (definir cuantas filas y columnas tendrá la grilla)
 
 * Determinar cuántas filas (rows) va a tener la grilla:
   
@@ -517,7 +508,7 @@ Unidades para definir filas y columnas: AUTO, Fr (dinámicas), (medidas fijas co
 
 * La cantidad de filas/columnas a crear se puede resumir con lo siguiente, si van a tener el mismo patrón:
 
-## repeat(_nro de veces a repetir_, _patrón a repetir_)
+#### repeat( _nro de veces a repetir_ , _patrón a repetir_ )
 
   	grid-template-columns: repeat(3, 150px) //esto creará 3 columnas, de 150px cada una.
 
@@ -528,7 +519,7 @@ Unidades para definir filas y columnas: AUTO, Fr (dinámicas), (medidas fijas co
 
  ⚠️ esto creará 6 columnas con el patrón  100px, 200px, 100px, 200px, 100px, 200px
 
-## row-gap y column-gap (shorthand: gap)
+#### row-gap y column-gap (shorthand: gap)
 * Determinar espacios entre filas y columnas, o en general
 
   		row-gap: 10px
@@ -538,7 +529,7 @@ Unidades para definir filas y columnas: AUTO, Fr (dinámicas), (medidas fijas co
 
 		gap:10px;
 
-## grid-column / grid-row (definir si un item grid ocupa más de un lugar en fila o columna)
+#### grid-column / grid-row (definir si un item grid ocupa más de un lugar en fila o columna)
 * Para definir si un item ocupa màs _"filas o columnas"_ se puede determinar lo siguiente:
 
   		grid-row: (linea de inicio) / (linea de final);
@@ -551,29 +542,29 @@ ej:
 	grid-column: (linea de inicio) / cantidad de "lineas" a expandirse
   	grid-column: 2 / span 4 
 
-# Grid implícito ---
+#### Grid implícito ---
 El concepto de grid implícito tiene que ver con contenido que agregamos al grid, que no se define desde la creación del html, sino que se agrega como contenido dinámico. Al agregarse, se crean ciertas propiedades específicas para esto.
 
 Para definir este contenido que se puede actualizar y agregar luego de definir la página, existen 3 poropiedades.
 
-## grid-auto-row / grid-auto-column / grid-auto-flow.
+#### grid-auto-row / grid-auto-column / grid-auto-flow.
 
 * La propiedad _grid-auto-flow_: [column / row] determina si los nuevos elementos agregados al grid, se van a agregar en una nueva fila o columna. Como esto define cualquier cantidad de nuevas filas o columnas, no se defin
 
 * La propiedad _grid-auto-column_ determinará qué ancho tendrán las columnas adicionales al grid explícito.
   	Se define con un solo valor, no lleva repeat().
- ej : ``` grid-auto-column: 200px```
+ ej : `grid-auto-column: 200px`
   
 * La propiedad _grid-auto-row_ determinará qué alto tendrán las filas adicionales al grid explícito.
   	Se define con un solo valor, no lleva _repeat()_.
-ej : ``` grid-auto-row: 10em```
+ej : `grid-auto-row: 10em`
 
-# Grid-auto-flow (esto determina ocupar espacios vacíos implícitos por elementos próximos al vacio creado)
+#### Grid-auto-flow (esto determina ocupar espacios vacíos implícitos por elementos próximos al vacio creado)
 ej: 	
 
 		grid-auto-flow:dense
 
-  ## Definiendo medidas de las filas/ columnas(preferentemente);
+#### Definiendo medidas de las filas/ columnas(preferentemente);
 
  *  _min-content_ : se utiliza para indicar que la columna, va a poder medir lo mínimo para presentar el elemento dentro de item.
 
@@ -582,7 +573,8 @@ ej:
  * _minmax([menor medida], [mayor medida])_ : esto se utiliza como medida de fila/columna para indicar el mínimo que puede tomar y el máximo, dentro de esos valores, puede variar.
 
  * 
-  
+
+
 
 
 

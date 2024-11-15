@@ -491,6 +491,11 @@ Esto permite generar un nuevo objeto con estas propiedades de la siguiente maner
     var Perro2 = new Perro ('Estrellita', 10, 'blanco');
 
 
+## OBJETOS | CLASES | Metodos
+
+
+
+
 ### OBJETOS metodo protoype
 
 Cuando ya tenemos creado una clase u objeto instanciado, o varios, y queremos agregarle una propiedad para que todos los objetos ya instanciados la tengan disponible, podemos usar el método  _prototype_ 
