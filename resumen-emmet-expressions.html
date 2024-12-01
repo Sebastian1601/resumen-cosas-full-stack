@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- #region General Syntax -->
+
+    CHILDS (hijos)
+    ---
+
+    nav>ul>li
+    <nav>
+        <ul>
+            <li></li>
+        </ul>
+    </nav>
+
+    SIBLINGs (hermanos)
+    ---
+
+    div+p+bq
+    <div></div>
+    <p></p>
+    <blockquote></blockquote>
+
+    Climb-up
+    ---
+
+    div + div > p > span + em ^ bq
+    <div></div>
+    <div>
+        <p><span></span><em></em></p>
+        <blockquote></blockquote>
+    </div>
+
+    GROUPING
+    ---
+    div > (header>ul>li*2>a) + footer > p
+    <div>
+        <header>
+            <ul>
+                <li><a href=""></a></li>
+                <li><a href=""></a></li>
+            </ul>
+        </header>
+        <footer>
+            <p></p>
+        </footer>
+    </div>
+
+
+    (div > dl > (dt+dd)*3) + footer > p
+    <div>
+        <dl>
+            <dt></dt>
+            <dd></dd>
+            <dt></dt>
+            <dd></dd>
+            <dt></dt>
+            <dd></dd>
+        </dl>
+    </div>
+    <footer>
+        <p></p>
+    </footer>
+
+    MULTIPLICATION
+    ---
+    ul > li*5
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    ITEM NUMBERING
+    ---
+
+    ul > li.item$*5
+    <ul>
+        <li class="item1"></li>
+        <li class="item2"></li>
+        <li class="item3"></li>
+        <li class="item4"></li>
+        <li class="item5"></li>
+    </ul>
+
+
+
+    h$ [title=item$] {header $}*3
+    <h1 title="item1">header 1</h1>
+    <h2 title="item2">header 2</h2>
+    <h3 title="item3">header 3</h3>
+
+
+
+    ul > li.item$$$*5 (numeración ordenada)
+    <ul>
+        <li class="item001"></li>
+        <li class="item002"></li>
+        <li class="item003"></li>
+        <li class="item004"></li>
+        <li class="item005"></li>
+    </ul>
+
+
+    ul > li.item$@-*5 (numeración invertida)
+    <ul>
+        <li class="item5"></li>
+        <li class="item4"></li>
+        <li class="item3"></li>
+        <li class="item2"></li>
+        <li class="item1"></li>
+    </ul>
+
+
+    ul > li.item$ @3 *5 (numeración iniciada desde el valor 3)
+    <ul>
+        <li class="item3"></li>
+        <li class="item4"></li>
+        <li class="item5"></li>
+        <li class="item6"></li>
+        <li class="item7"></li>
+    </ul>
+
+
+    IDs and CLASS attributes
+    ---
+
+    #header
+    <div id="header"></div>
+
+
+    .title
+    <div class="title"></div>
+
+
+    form #search .wide
+    <form action="" id="search" class="wide"></form>
+
+
+    p.class1.class2.class3
+
+    <p class="class1 class2 class3"></p>
+
+
+    CUSTOM attributes
+    ---
+
+    p [title="hello world"]
+    <p title="hello world"></p>
+
+
+    td[rowspan=2 colpsan=3 title]
+    <td rowspan="2" colpsan="3" title=""></td>
+
+    [a='value1' b='value2']
+    <div a="value1" b="value2"></div>
+
+
+
+    TEXT VALUES
+    ---
+    a{click me}
+    <a href="">click me</a>
+
+
+
+
+    p>{click}+a{here}+{to continue}
+    <p>click<a href="">here</a>to continue</p>
+
+
+
+    table > .row$*3 > .col$*5
+    <table>
+        <tr class="row1">
+            <td class="col1"></td>
+            <td class="col2"></td>
+            <td class="col3"></td>
+            <td class="col4"></td>
+            <td class="col5"></td>
+        </tr>
+        <tr class="row2">
+            <td class="col1"></td>
+            <td class="col2"></td>
+            <td class="col3"></td>
+            <td class="col4"></td>
+            <td class="col5"></td>
+        </tr>
+        <tr class="row3">
+            <td class="col1"></td>
+            <td class="col2"></td>
+            <td class="col3"></td>
+            <td class="col4"></td>
+            <td class="col5"></td>
+        </tr>
+    </table>
+
+
+    <!-- #endregion -->
+
+    <!-- #region HTML -->
+
+    a:link
+    <a href="http://"></a>
+
+    a
+    <a href=""></a>
+
+    a:mail
+    <a href="mailto:"></a>
+
+    abbr
+    <abbr title=""></abbr>
+
+    base
+    <base href="">
+
+    basefont
+    <basefont>
+
+    br
+    <br>
+
+    frame
+    <frame>
+
+        hr
+        <hr>
+
+        bdo
+        <bdo dir=""></bdo>
+
+        link
+        <link rel="stylesheet" href="">
+
+        link:css
+        <link rel="stylesheet" href="style.css">
+
+        link:print
+        <link rel="stylesheet" href="print.css" media="print">
+
+        link:favicon
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+        link:touch
+        <link rel="apple-touch-icon" href="favicon.png">
+
+        link:rss
+        <link rel="alternate" href="rss.xml" type="application/rss+xml" title="RSS">
+
+        link:atom
+        <link rel="alternate" href="atom.xml" type="application/atom+xml" title="Atom">
+
+        link:import, link:im
+        <link rel="import" href="component.html">
+
+        meta
+        <meta>
+
+        meta:utf
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+        meta:vp
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        meta:compat
+        <meta http-equiv="X-UA-Compatible" content="IE=7">
+
+        style
+        <style></style>
+
+        script
+        <script></script>
+
+        script:src
+        <script src=""></script>
+
+        img
+        <img src="" alt="">
+
+        img:srcset, img:s
+        <img src="" alt="" srcset="">
+
+        img:sizes, img:z
+        <img src="" alt="" sizes="" srcset="">
+
+        picture
+        <picture></picture>
+
+        source, src
+        <source />
+
+        source:src, src:sc
+        <source src="" type="">
+
+        source:srcset, src:s
+        <source srcset="">
+
+        source:media, src:m
+        <source media="(min-width: )" srcset="">
+
+        source:type, src:t
+        <source srcset="" type="image/">
+
+        source:sizes,src:z
+        <source sizes="" srcset="">
+
+        source:media:type, src:mt
+        <source media="(min-width: )" srcset="" type="image/">
+
+        source:media:sizes, src:mz
+        <source media="(min-width: )" srcset="" sizes="">
+
+        source:sizes:type, src:zt
+        <source sizes="" srcset="" type="image/">
+
+        iframe
+        <iframe src="" frameborder="0"></iframe>
+
+        embed
+        <embed src="" type="" />
+
+        object
+        <object data="" type=""></object>
+
+        param
+        <param name="" value="">
+
+        map
+        <map name=""></map>
+
+        area
+        <area shape="" coords="" href="" alt="">
+
+        area:d
+        <area shape="default" coords="" href="" alt="">
+
+        area:c
+        <area shape="circle" coords="" href="" alt="">
+
+        area:r
+        <area shape="rect" coords="" href="" alt="">
+
+        area:p
+        <area shape="poly" coords="" href="" alt="">
+
+        form
+        <form action=""></form>
+
+        form:get
+        <form action="" method="get"></form>
+
+        form:post
+        <form action="" method="post"></form>
+
+
+        label
+        <label for=""></label>
+
+        input
+        <input type="text">
+
+        inp
+        <input type="text" name="" id="">
+
+        input:hidden, input:h
+        <input type="hidden" name="">
+
+        input:text, input:t
+        <input type="text" name="" id="">
+
+        input:search
+        <input type="search" name="" id="">
+
+        input:email
+        <input type="email" name="" id="">
+
+        input:url
+        <input type="url" name="" id="">
+
+        input:password, input:p
+        <input type="password" name="" id="">
+
+        input:datetime
+        <input type="datetime" name="" id="">
+
+        input:date
+        <input type="date" name="" id="">
+
+        input:datetime-local
+        <input type="datetime-local" name="" id="">
+
+        input:month
+        <input type="month" name="" id="">
+
+        input:week
+        <input type="week" name="" id="">
+
+        input:time
+        <input type="time" name="" id="">
+
+        input:tel
+        <input type="tel" name="" id="">
+
+        input:number
+        <input type="number" name="" id="">
+
+        input:color
+        <input type="color" name="" id="">
+
+        input:checkbox, input:c
+        <input type="checkbox" name="" id="">
+
+        input:radio, input:r
+        <input type="radio" name="" id="">
+
+        input:range
+        <input type="range" name="" id="">
+
+        input:file, input:f
+        <input type="file" name="" id="">
+
+        input:submit, input:s
+        <input type="submit" value="">
+
+        input:image, input:i
+        <input type="image" src="" alt="">
+
+        input:button, input:b
+        <input type="button" value="">
+
+        <isindex />
+
+        input:reset
+        <input type="reset" value="">
+
+        select
+        <select name="" id=""></select>
+
+        select:disable, select:d
+        <select name="" id="" disabled="disabled"></select>
+
+        option, opt
+        <option value=""></option>
+
+        textarea, tarea
+        <textarea name="" id=""></textarea>
+
+        textarea[cols=30]
+        <textarea name="" id="" cols="30"></textarea>
+
+        marquee
+        <marquee behavior="" direction=""></marquee>
+
+        menu:context, menu:c
+        <menu type="context"></menu>
+
+        menu:toolbar, menu:t
+        <menu type="toolbar"></menu>
+
+        video
+        <video src=""></video>
+
+        audio
+        <audio src=""></audio>
+
+        html:xml
+        <html xmlns="http://www.w3.org/1999/xhtml">
+
+        </html>
+
+        keygen
+        <keygen />
+
+        command
+        <command />
+
+        button:submit, button:s, btn:s
+        <button type="submit"></button>
+
+        button:reset, button:r, btn:r
+        <button type="reset"></button>
+
+        button:disabled, button:d, btn:d
+        <button disabled="disabled"></button>
+
+        fieldset:disabled, fieldset:d, fset:d, fst:d
+        <fieldset disabled="disabled"></fieldset>
+
+        bq
+        <blockquote></blockquote>
+
+        fig
+        <figure></figure>
+
+        figc
+        <figcaption></figcaption>
+
+        pic
+        <picture></picture>
+
+        ifr
+        <iframe src="" frameborder="0"></iframe>
+
+        emb
+        <embed src="" type="">
+
+        obj
+        <object data="" type=""></object>
+
+        cap
+        <caption></caption>
+
+        colg
+        <colgroup></colgroup>
+
+        optgroup
+        <optgroup></optgroup>
+
+        leg
+        <legend></legend>
+
+        sect
+        <section></section>
+
+        art
+        <article></article>
+
+        hdr
+        <header></header>
+
+        ftr
+        <footer></footer>
+
+        adr
+        <address></address>
+
+        dlg
+        <dialog></dialog>
+
+        str
+        <strong></strong>
+
+        prog
+        <progress></progress>
+
+        mn
+        <main></main>
+
+        tem
+        <template></template>
+
+        datal
+        <datalist></datalist>
+
+        out
+        <output></output>
+
+        det
+        <details></details>
+
+        cmd
+        <command />
+
+        doc (=html)
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+
+        <body>
+
+        </body>
+
+        </html>
+
+        ri:art, ri:a
+        <picture>
+            <source media="(min-width: )" srcset="">
+            <img src="" alt="">
+        </picture>
+
+        ri:type, ri:t
+        <picture>
+            <source srcset="" type="image/">
+            <img src="" alt="">
+        </picture>
+
+
+
+
+
+        <!-- #endregion -->
+
+
+</body>
+
+</html>
