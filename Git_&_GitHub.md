@@ -420,6 +420,14 @@ se usa un git clone). Esto es un /git fetch/ y luego hacer un /git merge/ todo j
    `Git pull origin main`
 
 
+### hacer un GIT PULL de una rama en origin/ramaA la cual no existe en el repo local, y guardarla en una rama nueva.
+
+Para poder hacer un pull de una rama remota la cual no existe en nuestro repositorio local, debemos crear una rama nueva en el repo local, y podemos hacer el pull automáticamente creando y descargando la misma con el comando:
+`git switch -c [rama_local] [origin]/[rama_remota_a_hacer_track]`
+
+esto crearía en nuestro repo local, una "rama_local", y se descargaría la rama remota desde origin/"rama_remota_a_hacer_track"
+
+
 ## Configurar un repo remoto limpio luego de tener un repo local con commits----
 
 - Primer, ya teniendo los commits en el repo local, creamos el repo remoto, y en git usamos
