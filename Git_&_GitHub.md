@@ -266,6 +266,10 @@ este comando revertirá los cambios del commit indicado, pero no creará un nuev
 
   	git branch -m (nuevo nombre a colocar en la rama actual)
 
+* Eliminar una rama REMOTA desde Git
+
+	git push origin --delete [rama_a_borrar]
+
 //////////////////////////////////////////////////////////////////////////// UNIR RAMAS (MERGE o FUSIONAR) ///////////////////
 
 IMPORTANTE! para fusionar RAMA1 con RAMA2, debemos estar "parados" en la rama a la cual queremos "mantener". En este caso, debemos estar en RAMA1 y fusionar RAMA2 con RAMA1, para que los cambios se agreguen a RAMA1.
@@ -287,8 +291,8 @@ IMPORTANTE! para fusionar RAMA1 con RAMA2, debemos estar "parados" en la rama a 
 
 Esto suele suceder cuando se trabaja en una rama, desde un punto B de la rama principal, y antes de fusionar la rama con el principal, se da que la rama principal tuvo modificaciones. 
 
-			rama1 ---- rama1(2)
-   		       /                   \
+			        rama1 ---- rama1(2)
+   		           /                   \
 	    	      /                     \
 	main------main(2) ----main(3)------ (main + rama1(2)) = Conflicto Posible
 
