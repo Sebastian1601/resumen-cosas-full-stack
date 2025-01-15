@@ -246,6 +246,13 @@ este comando revertirá los cambios del commit indicado, pero no creará un nuev
 
 	git branch  (nombre de la rama)  :esto crea una rama(copia del estado actual) con el nombre indicado.
 
+	git branch -a : muestra todas las ramas locales disponibles.
+
+	git branch -r : muestra todas las ramas locales y remotas registradas (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
+
+	:warning: para actualizar esas referencias que quizás están erróneas, se usa 
+	`git fetch --prune`
+
 * cambiar a una rama:
 	git checkout (nombre de la rama en la que se quiere trabajar) (ya no se suele utilizar)
 
