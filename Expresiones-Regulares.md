@@ -139,6 +139,23 @@ Estos símbolos se usan para indicar una repetición de ciertos patrones, cierta
 
 
 
+### Lookahead y Lookbehind
+  estos métodos permiten buscar patrones de expresiones que sean precedidos o seguidos por otros patrones que NO ENTRAN en la busqueda del patrón principal.
+
+  por ej:
+
+  >> Positive Lookahead: Confirma que lo que inmediatamente sigue en la posición del _String_  coincide con el patrón dado.
+`Sintáxis: (?=patrón)`
+
+Ej: q(?=u) coincide con "q" solamente si es seguido por una "u"
+
+  >> Negative Lookahead: Confirma que lo que inmediatamente sigue la posición actual en el  _String_ no coincide con el patrón dado. 
+`Sintáxis: (?!patrón)`
+
+Ej: q(?!u) coincide con "q" cuando NO ESTÁ seguido de "u".
+
+
+These assertions are zero-width, meaning they do not consume characters in the string; they only assert whether a match is possible or not
 
 
 

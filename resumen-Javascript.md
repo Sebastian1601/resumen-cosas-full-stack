@@ -66,17 +66,17 @@ ej2:
 
 # Operadores de comparación
 
-|Operador ------- | Descripción ------------- |
-| ----------------|---------------------------|
-| ==              |     igual a    |
-| ===               |  igual valor y tipo |
-|!=        |no igual a |
-|!==           |igual valor no tipo |
-| >           | mayor a       |
-| <          | menor a          |
-| >=         | mayor o igual que |
-| <=         | menor o igual que |
-|?           | operador ternario |
+|Operador ------- | Descripción ------------|
+| ----------------|-------------------------|
+| ==              |     igual a             |
+| ===             |  igual valor y tipo     |
+|!=               | no igual a              |
+|!==              | igual valor no tipo     |
+| >               | mayor a                 |
+| <               | menor a                 |
+| >=              | mayor o igual que       |
+| <=              | menor o igual que       |
+|?                | operador ternario       |
 
 
 # Operadores lógicos
@@ -86,32 +86,32 @@ ej2:
 
 | Operador | Descripción |
 |----------|-------------|
-| &&       | Y lógico    |
+|  &&      | Y lógico    |
 |  ||      |  O lógico   |
-| !        | No lógico   |
+|  !       | No lógico   |
 
 
 # Operadores Prefijo y Posfijo
 
 | Operador | Descripción | Ejemplo |
-|-----------|------------|---------|
-| i++       | incremento posfijo | a=i++ primero a=i y luego i=i+1|
-|++i       | incremento prefijo| a= ++i primero i=i+1, luego a=i|
-|i--       | decremento posfijo| a= i-- primero a=i y luego i=i-1|
-|--i       | decremento prefijo| a=--i primero i=i-1 luego a=i|
+|----------|------------|---------|
+| i++      | incremento posfijo | a=i++ primero a=i y luego i=i+1|
+| ++i      | incremento prefijo| a= ++i primero i=i+1, luego a=i|
+| i--      | decremento posfijo| a= i-- primero a=i y luego i=i-1|
+| --i      | decremento prefijo| a=--i primero i=i-1 luego a=i|
 
 
 # Operadores de asignación
 
-|Operador | Descripción | Equivale a |
-|---------|-------------|------------|
-| =     | x=3          | x=3        |
-|+=      | x += y      | x= x+y      |
-|-=      | x -= y     | x= x-y      |
-|*=      | x *= y       | x = x * y |
+|Operador| Descripción | Equivale a |
+|--------|-------------|------------|
+| =      | x=3         | x=3        |
+|+=      | x += y      | x= x+y     |
+|-=      | x -= y      | x= x-y     |
+|*=      | x *= y      | x = x * y  |
 |/=      | x/=y        | x= x / y   |
 |%=      | x %=y       | x = x % y  |
-|**=     | x **= y     | x = x**y    |
+|**=     | x **= y     | x = x**y   |
 
 
 
@@ -445,6 +445,8 @@ ej:
             datosDelVehiculo: function () {
                 return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
             };
+            };
+
 esto permite que al nosotros invocar el método del objeto miAuto, se obtenga los 3 datos del objeto.
 
             console.log(miAuto.datosDelVehiculo()); //esto devuelve "Este es un wolkswagen, tipo automovil, modelo 2013"
@@ -459,13 +461,13 @@ esto permite que al nosotros invocar el método del objeto miAuto, se obtenga lo
             datosDelVehiculo () {
                 return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
             };
-
+      };
 
 ## Acceder a las propiedades de un objeto.
 
 Para acceder a las propiedades de un objeto hay distintas notaciones. 
 Se puede utilizar el punto; `miAuto.marca`, se puede utilizar corchetes; `miAuto['marca']`
-            
+
 > ⚠️ El nombre de una propiedad puede ser cualquier cadena válida de JS. Pero si
 no es un identificador válido de JS (por ejemplo, comienza con un número)
 solo se puede acceder utilizando la notación de corchetes.
@@ -491,7 +493,12 @@ Esto permite generar un nuevo objeto con estas propiedades de la siguiente maner
     var Perro2 = new Perro ('Estrellita', 10, 'blanco');
 
 
-### OBJETOS metodo protoype
+## OBJETOS | CLASES | Metodos
+
+
+
+
+### OBJETOS metodo prototype
 
 Cuando ya tenemos creado una clase u objeto instanciado, o varios, y queremos agregarle una propiedad para que todos los objetos ya instanciados la tengan disponible, podemos usar el método  _prototype_ 
 
