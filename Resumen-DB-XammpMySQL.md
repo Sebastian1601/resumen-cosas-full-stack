@@ -106,24 +106,103 @@ ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
 
 (LIMIT)
 
+### Sentencia para crear bases
+
+muestra las bases de datos activas.
+ `SHOW DATABASES;`
+
+crea la base de datos que indicamos.
+ `CREATE DATABASE [nombre];`
+
+### Seleccionar una tabla para administrar
+
+`USE [nombre_de_la_base]`
 
 ### Sentencia para crear una tabla (ya dentro de la base de datos)
 
 	CREATE TABLE "[nombre]" (
  	"nombre de campo1" [tipo de campo],
   	"nombre de campo2" [tipo de campo],
-		.			,	
-  		.			,
-    		.			,
-      	"nombre de campoN" [tipo de campo],
-       PRIMARY KEY("nombre de campoX", AUTOINCREMENT)
+		.			                      ,	
+  		.			                      ,
+    	.	      		                ,
+   "nombre de campoN" [tipo de campo],
+   PRIMARY KEY("nombre de campoX", AUTOINCREMENT)
        )
+
+### Propiedades habituales de los capos definidos en la tabla
+
+tipos de datos para los campos:
+
+*Numéricos*
+- INT: número entero.
+- TINYINT: número entero...
+- BIGINT: número entero...
+- FLOAT: número de coma flotante.
+- REAL: número real.
+- BOOL : datos booleanos(true/false)
+- DATE : datos en formato de fecha (YYYY-MM-DD).
+- TIME : datos en formato de hora.(HH:MM:SS)
+- DATETIME : datos en formato de fecha y hora.(YYYY-MM-DD HH:MM:SS)
+- TIMESTAMP : guarda los segundos pasados desde la época Unix.
+- YEAR: guarda el año en formato de 2 o 4 dígitos.
+
+*Carácteres*
+- DECIMAL : datos en formato decimal, con coma flotante.
+- VARCHAR(cant_carácteres) : cadenas de texto acotadas en longitud
+- CHAR : tipo de datos de longitud fija de máximo de 8000 carácteres
+- TEXT : tipo de datos texto variable en longitud de tamaño máximo de 2GB.
+
+*SQL unicode character y string tipo de datos.*
+- NCHAR : longitud fija de 4000 carácteres.
+- NVARCHAR : longitud variable de máximo 4000 carácteres.
+- NTEXT : longitud variable de máximo 1Gb de datos.
+
+*SQL misc data types*
+
+- CLOB : objetos de carácteres grandes de hasta 2Gb.
+- BLOB : objetos binarios grandes.
+- XML : para guardar datos xml.
+- JSON : para guardar datos en formato Json.
+
+
+### Limitaciones (o restricciones) en la definición de columnas, y tablas.
+
+- NOT NULL : indica que el campo no puede tener valor NULL al crearse o modificarse un registro.
+- UNIQUE : indica que el campo será único entre los registros, aparte del id que suele ser autoincrementable.
+- PRIMARY KEY : una combinación de NOT NULL y UNIQUE. identifica inequívocamente un registro de la tabla.
+- FOREIGN KEY : evita acciones que destruirían el vínculo entre tablas.
+- CHECK : determina que los valores en una columna satisfacen una condición específica.
+- DEFAULT : setea un valor por defecto si no se especifica alguno en el ingreso de registro.
+- CREATE INDEX:
+
+- AUTO_INCREMENT : indica que el campo incrementará automáticamente su valor al crearse un registro.
+
+
+*Para agregar una restricción a un campo, luego de creada la tabla, se puede utilizar la siguiente sintaxis*
+
+`ALTER TABLE [nombre_de_tabla] ADD [restricción_a_agregar]([campo_al_cual_agregarle_la_restricción])`
+
+Ejemplo:
+`ALTER TABLE users ADD UNIQUE(last_name);`
+
+*Para eliminar una restricción a un campo, luego de creado, se utiliza la siguiente sintaxis:*
+
+`ALTER TABLE [nombre_tabla] DROP INDEX [nombre_campo_a_eliminar_restricciones]`
+
+Ejemplo:
+`ALTER TABLE users DROP INDEX last_name;`
+
+*Para eliminar una restricción de PRIMARY KEY en un campo ya creado se usa:
+
+`ALTER TABLE [nombre_de_tabla] DROP PRIMARY KEY;`
+
 
 ### Sentencias de busqueda inicial
 
 Mostrar todos los datos de la tabla 'usuarios'
         
-        select * from users 
+  `select * from users` 
 - select : selecciona,
 - * : símbolo que significa "todo",
 - from : desde,
