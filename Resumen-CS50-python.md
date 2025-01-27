@@ -26,6 +26,8 @@ malan@harvard.edu
 
 [Semana 2](#semana2)
 
+1 - [Instalando Clang para compilar código c/c++](#clanginstall)
+
 ---
 
 - bits and bytes -
@@ -39,6 +41,7 @@ Later, with more bytes available, UNICODE was created, wich can map up to
 
 
 <a id="semana1"></a>
+
 ## Semana 1 - Progarmando en C
 
 ### Command Line Interface basic commands
@@ -369,3 +372,156 @@ printf(" %.2f ", (float) x / y);
 `%.2f` esto significa que tenemos un placeholder de un valor %f (float), pero que aparte, queremos representar 2 dígitos luego de la coma solamente (.2). Esto nos permite tener un mayor control sobre qué resultado se mostrará.
 
 `(float x / y)` ingresar entre paréntesis un nuevo tipo de datos, permite "cambiarlo al vuelo" tratando el resultado de x/y como un valor float, para que coincida con la representación en la función printf(). 
+
+#### Command line in unix systems.
+
+* Comandos a tener en cuenta en una terminal basada en unix. Normalmente esto no funciona en la linea de comandos de Windows.
+
+- ls   { lista el directorio activo }
+
+- cd [nombre_del_directorio] { entrar a un directorio especificador }
+
+- pwd { indica la ruta actual donde nos encontramos }
+
+- mkdir [nombre_de_la_carpeta] { crear una carpeta con el nombre indicado }
+
+- cp [archivo_origen.ext] [archivo_destino.ext] { crea una copia del archivo de orígen en un nuevo archivo de nombre "archivo_destino.ext" }
+
+- cp -r [directorio_a_copiar] [nombre_de_nuevo_directorio] { copia todo un directorio completo, a otro creado con el "nombre_de_nuevo_directorio" }
+
+- rm (-f) [archivo_a_borrar] { borrar el archivo, el flag -f nos permite no confirmar el borrado del archivo, pero es más peligroso! }
+
+- rm -rf [nombre_de_directorio_a_borrar] { borra el directorio y su contenido }
+
+- mv [nombre_original_de_archivo_a_renombrar] [nombre_de_nuevo_nombre]
+
+- chmod
+
+- ln
+
+- touch
+
+- rmdir
+
+- man
+
+- diff
+
+- sudo
+
+- clear
+
+- telnet
+
+### The #define preprocessor directive (MACRO).
+
+* Para no definir constantes dentro del código, ni tener nros o textos "mágicos" en el mismo, podemos usar este acercamiento para que al C compilar el código, se reemplace lo que indiquemos en las primeras lineas con #define.
+
+ej:
+
+tenemos el código siguiente....
+```
+card deal_card(deck name)
+ {
+    for (int i=0; i > 52; i++ )
+    {
+        // deal the card
+    }
+ }
+```
+
+Podemos modificar la constante 52 de la siguiente manera...
+```
+#define DECKSIZE 52
+
+card deal_card(deck name)
+ {
+    for (int i=0; i > DECKSIZE; i++ )
+    {
+        // deal the card
+    }
+ }
+
+```
+y esto evita que tengamos "suelto" una constante dentro del código.
+
+
+`#define [variable_a_reemplazar] [valor_por_el_cual_reemplazar]`
+
+
+### Mario problem 1 -
+
+* Crear un programa que imprima una pirámide de "#" donde el usuario pueda seleccionar qué alto tendrá, y la pirámide esté alineada a la derecha, con espacios aparte de los "#".
+
+
+```
+#include <cs50.h>
+#include <stdio.h>
+
+void pyramid(int length);
+
+int main(void)
+{
+    int filpir;
+
+    do
+    {
+        filpir = get_int("ingrese la cantidad de filas de la pirámide:");
+    }
+    while (filpir <= 0 || filpir > 23);
+
+    pyramid(filpir);
+
+    printf("\n");
+    printf("Solved!\n");
+}
+
+void pyramid(int length)
+{
+    // por cada fila, imprimimos un símbolo de acuerdo a cuantas sean la mayor cantidad
+    for (int i = 0; i < length; i++) // por cada fila imprimimos
+    {
+        int fila = i + 1;
+        for (int j = 0; j < length - fila; j++)
+        {
+            printf(" ");
+        }
+        for (int k = 0; k < fila; k++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+```
+
+
+<a id="semana2"></a>
+
+## Semana 2 - Programando en C
+
+### Instalando CLang para compilar código de lenguage C / C++ y poder ejecutarlo.
+
+* Para poder compilar códigdo de C / C++ directamente desde la linea de comandos, debemos tener instalado el programa CLang, que se utiliza para dicha tarea.
+
+* Accedemos a la página oficial, [VVLM - Clang](https://clang.llvm.org/)
+y luego buscamos la sección 
+[Descargas / downloads](https://releases.llvm.org/download.html).
+
+* Esto nos lleva a la lista de software para poder elegir la versión. 
+Cada versión tiene su repositorio en github, por lo que accedemos al vínculo correspondiente a la versión, y en la lista podemos seleccionar la versión de ejecutables para descargar e instalar.  en este caso, la versión para [Winx64](https://github.com/llvm/llvm-project/releases/tag/llvmorg-18.1.6)
+
+
+### Utilizando Clang para compilar código.
+
+* Al tratar de compilar algún archivo C, CLang dará como salida un archivo de nombre `a.out` siempre.
+
+
+
+### CLI Clang arguments
+
+* -o [nuevo_nombre_del_archivo_compilado] [nombre_original_del_archivo] 
+    ej: clang -o(--output) micodigo micodigo.c
+* 
+
+
