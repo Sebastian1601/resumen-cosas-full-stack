@@ -163,7 +163,7 @@ Para eso, tenemos una lista de tipos disponibles, según los datos a guardar...
 
 >bool ==> true / false
 
->char ==> "A" / 1 / "*"  (takes up to 1 byte of data, no more)
+>char ==> 'A' / 1 / '*'  (takes up to 1 byte of data, no more) **VA SIEMPRE ENTRE COMILLAS SIMPLES!!!**
 
 >float ==> 3.14156  (works with 32 bits of data worth, so we have a 2^31 possibilites for positive and 2^32 negatives)
 
@@ -415,7 +415,7 @@ printf(" %.2f ", (float) x / y);
 
 ### The #define preprocessor directive (MACRO).
 
-* Para no definir constantes dentro del código, ni tener nros o textos "mágicos" en el mismo, podemos usar este acercamiento para que al C compilar el código, se reemplace lo que indiquemos en las primeras lineas con #define.
+* Para no definir constantes dentro del código, ni tener nros o textos "mágicos" en el mismo, podemos usar este acercamiento para que al C compilar el código, se reemplace lo que indiquemos en las primeras lineas con #define. Esto forma parte del pre-procesado del código en C.
 
 ej:
 
@@ -518,10 +518,87 @@ Cada versión tiene su repositorio en github, por lo que accedemos al vínculo c
 
 
 
-### CLI Clang arguments
+### CLI Clang arguments (soft externo para compilar codigo en C / C++ )
 
+clang:
 * -o [nuevo_nombre_del_archivo_compilado] [nombre_original_del_archivo] 
     ej: clang -o(--output) micodigo micodigo.c
-* 
+
+### Preprocessing, compiling, assembling, linking .- 
+
+- El preproceso en C, implica realizar tareas antes de iniciar el procesado del código que escribimos. Esto se define con las primeras lineas del código, que llevan un símbolo hash (**#**) para identificar que estas lineas, se ejecutarán primero para copiar prototipos, definir variables dentro del código, etc.
+
+- El Compilado sucede luego de haberse preprocesado el código, cuando ya todo está en su lugar, pero todavía en lenguaje C en este caso. El compilado es traducir el lenguaje C en **Assembly Code**.
+
+- En tercer lugar, se realiza el ensamblado, que no es más que traducir el codigo assembly en ceros y unos, que finalmente, es lo que entiende el procesador por comandos.
+
+- Finalmente, se realiza la vinculación, que no es más que considerar todos los archivos son necesarios dado el código que hay que ejecutar y vincularlos para ejecutar el mismo código que está escrito.
+
+### Debugging
+
+Para utilizar el debugger de CS50 en Visual Studio Code, que nos permite revisar el código paso a paso, e indicar puntos clave para analizar en pausa inclusive, se coloca un "breakpoint" en el código, clickeando a la izquierda de la linea en cuestión, como se ve en la imágen:
+![setting breakpoint](./resumen-cs50-python/image1.png)
 
 
+Luego, se ejecuta en la terminal el comando debug50 [nombre_del_ejecutable_C]
+
+Esto abrira la interfaz del debugger de VSC, el cual nos permite ver las variables en el SCOPE actual, sus valores, y se detendrá en el breakpoint que marcamos.
+
+aqui nos presentará con botones en la parte superior del codigo:
+
+![barra de depuración](./resumen-cs50-python/image2.png)
+
+- Los botones corresponden a las siguientes acciones:
+
+![continuar](./resumen-cs50-python/imgdebplay.png) : Este botón deja correr el código de manera normal.
+
+![step](./resumen-cs50-python/imgdebstep.png) : este botón nos permite ir linea a linea en el código.
+
+![into](./resumen-cs50-python/imgdebinto.png) : este botón nos permite, entrar en la función que estamos enfocando en el código principal ,y analizarla paso a paso.
+
+![out](./resumen-cs50-python/imgdebout.png) : Al contrario de la anterior, este botón nos permite "salir" de la función que estemos analizando internamente.
+
+![restart](./resumen-cs50-python/imgdebrestart.png) : Nos permite reiniciar la ejeción del código.
+
+![stop](./resumen-cs50-python/imgdebstop.png) : finaliza la ejecución del código de una vez.
+
+---
+
+### Estructuras de datos
+
+ARRAYS
+---
+* Para crear un array que es un conjunto de elementos del mismo tipo que se distribuyen juntos, se utiliza la siguiente sintaxis:
+
+`tipo nombre[cantidad_de_elementos_a_guardar]`
+
+ej:
+`int scores[3]`
+
+esto define un array de 3 posiciones, que guardará elementos de tipo INT.
+
+* Para acceder a dichas posiciones y guardar o leer datos, lo hacemos de la siguiente manera:
+
+scores[0] = 72;
+scores[1] = 73;
+scores[2] = 33;
+
+Cuando tenemos una función y debemos pasarle un array, se le debe pasar como parámetros, el nombre del array con los corchetes vacíos, indicándo que no sabemos qué longitud tiene, pero **SI DEBEMOS PASARLE** la longitud como 2do parámetro.
+
+- En este caso, el array es notas[], tiene una longitud de tamaño "largo". Son los únicos 2 parámetros que se pasan.
+
+ej:
+```
+float promedio(int largo, int notas[])
+{
+    float suma = 0;
+    for (int i = 0; i < largo; i++)
+    {
+        suma += notas[i];
+    }
+    float prom = suma / largo;
+    return prom;
+}
+```
+
+---
