@@ -165,6 +165,10 @@ Para eso, tenemos una lista de tipos disponibles, según los datos a guardar...
 
 >char ==> 'A' / 1 / '*'  (takes up to 1 byte of data, no more) **VA SIEMPRE ENTRE COMILLAS SIMPLES!!!**
 
+**datazo:** el motivo técnico por el cual un carácter va entre una única comilla, y un string va entre dos, es porque al alojar los bytes necesarios en memoria de un carácter, el sistema "interpreta" con comillas simples, que debe alojar un UNICO carácter, ocupando un byte unicamente.
+    Cuando alojamos un string de carácteres, estamos alojando técnicamente un array de carácteres(carácteres contiguos en memoria), podemos tener 2 o más bytes por lo tanto, el sistema utiliza una manera de "delimitar" hasta donde corresponde ese array, ubicando un \0 al final del array. E interpreta que debe hacer esto, cuando usamos las comillas dobles.
+
+
 >float ==> 3.14156  (works with 32 bits of data worth, so we have a 2^31 possibilites for positive and 2^32 negatives)
 
 >double ==> 3.14157652111323 (wotks with 64 bits of data worth,kinda like float but with double of digits after comma)
@@ -567,7 +571,7 @@ aqui nos presentará con botones en la parte superior del codigo:
 ### Estructuras de datos
 
 ARRAYS
----
+
 * Para crear un array que es un conjunto de elementos del mismo tipo que se distribuyen juntos, se utiliza la siguiente sintaxis:
 
 `tipo nombre[cantidad_de_elementos_a_guardar]`
@@ -601,4 +605,60 @@ float promedio(int largo, int notas[])
 }
 ```
 
+
+> STRING ARRAY (Caso particular)
+
+* Las variables definidas como *STRING* son casos particulares de arrays, dado que son bytes guardados uno consecuente al otro, juntos en memoria, como un array de cualquier tipo de datos.
+Normalmente, siendo un array, podemos acceder a sus datos con la notación habitual, pero la longitud, es 1 byte mayor al texto siempre, dado que la pc utiliza ese byte extra para indicar la finalización del *array string* llenándolo con 0's.
+
+- ej:
+
+```
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{//printing a word in a string, as an array of characters.
+    string s = "Hello!";
+    printf("%c%c%c%c%c%c\n", s[0], s[1], s[2], s[3], s[4], s[5]);
+    printf("----------------------------------\n");
+    printf("the same array, but interpreting each character as an integer, as ASCII code\n");
+    //put an extra interpreter and array index to see the 0 at the end of the string...:
+    printf("%i %i %i %i %i %i %i\n", s[0], s[1], s[2], s[3], s[4], s[5], s[6]);
+}
+```
+
+
 ---
+
+
+### Modificando la función principal Main
+
+* Hasta el momento hemos definido siempre la función principal llamada main con un parámetro llamado *void*, que implica que la función no toma argumentos en su ejecución, pero resulta que esto se puede modificar, para que al ejecutar la misma desde la linea de comandos, los "flags" o "argumentos" se puedan utilizar en la función misma.
+
+Estos argumentos, se toman como un array de strings, por lo tanto, como se debe hacer en C, debemos pasar una variable con la cantidad de argumentos(longitud), y el array de argumentos en sí.
+```
+int main(int argc, string argv[]){}
+```
+
+**argc** representa "argument quantity", y **argv** representa "argument vector".
+
+- ej: cuando ejecutamos un programa, aparte del nombre del mismo, podemos proveer argumentos que "cambian" la ejecución del mismo.
+
+c:> programaEnC.exe nuevo david 3500
+
+> al ejecutar una linea de este estilo, estamos pasando todo lo separado con espacios como argumento.
+En este caso, el array quedaría:
+["programaEnC", "nuevo", "david", 3500]
+y con el string argv[] podemos acceder a ellos de manera eficaz.
+
+---
+
+### Statuses 
+
+* Cando definimos la función main, normalmente le asignamos int al valor que debería retornar la misma. Cuando el software termina, nos da un nro al "salir" del programa, ya sea por error o por haber realizado la tarea para la cual se creó.
+
+
+---
+
+### Scrabble problem 1 -
