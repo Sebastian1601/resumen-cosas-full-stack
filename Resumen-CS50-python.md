@@ -662,3 +662,34 @@ y con el string argv[] podemos acceder a ellos de manera eficaz.
 ---
 
 ### Scrabble problem 1 -
+
+### Substitution problem -
+
+
+## Semana 3 - Algoritmos
+
+* Los algoritmos son estructuras que nos permiten realizar tareas repetitivas de manera más eficiente y rápida. Obviamente, al haber distintos problemas a resolver, implica que hay distintos tipos de algoritmos a utilizar.
+
+Tenemos algoritmos lineales, binarios(que dividen en dos el problema a resolver, para demorar menos tiempo), de busqueda, etc.
+
+Normalmente se mide la calidad del algoritmo con respecto al problema a resolver de la manera siguiente:
+
+"*big O notation*" (define el peor caso de busqueda, el que toma **n** pasos para obtener el resultado.)
+`O(n)`
+
+Las medidas de tiempo más habituales... **(asymtotic notation)**
+
+O(n²)
+O(n log n)
+O(n)     linear search
+O(log n) bynary search
+O(1)
+
+"*big Omega notation*" (define el mejor caso de busqueda, el que toma menos pasos para obtener el resultado)
+
+Om(n²)
+Om(n log n)
+Om(n)
+Om(log n)
+Om(1)      linear search, bynary search.
+
