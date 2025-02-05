@@ -693,3 +693,26 @@ Om(n)
 Om(log n)
 Om(1)      linear search, bynary search.
 
+
+### Tipos de algoritmos
+
+* Selection sort
+    El algoritmo de selección realiza pasadas en la lista a ordenar, comparando los n elementos con n-1 para verificar si es menor o mayor. reordenando la misma de esta manera.
+
+* Bubble sort  
+    Este algoritmo realiza n/2 pasos, comparando de 2 en 2 los valores de la lista, para verificar cuál de los 2 es menor.
+
+* Merge sort
+    Este tipo de algoritmo, divide la lista a la mitad, recurrentemente, hasta comparar 2 valores y luego recomponer la misma. "Ordenar parte izquierda, ordenar parte derecha, y luego fusionar ambas."
+
+* Shell sort
+
+* Quick sort
+
+* Comb sort
+
+* Insertion sort
+
+* Heap sort
+
+* Cocktail sort
