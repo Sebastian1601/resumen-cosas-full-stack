@@ -321,6 +321,17 @@ Se pueden definir los 4 bordes individualmente
 
 	:nth-child(n) (selecciona todo hijo de contenedor padre que cumpla con n (acepta funciones, ej. nth-child(2n-1)))
 
+	A este selector se le puede pasar funciones lineales para determinar una selección más específica de los elementos: ejemplo:
+
+	🔹 :nth-child(4) → Targets the 4th element.
+	🔹 :nth-child(even) → Selects every even element (2nd, 4th, 6th…).
+	🔹 :nth-child(odd) → Selects every odd element (1st, 3rd, 5th…).
+	🔹 :nth-child(3n) → Every 3rd element (3, 6, 9…).
+	🔹 :nth-child(3n-1) → Every 3rd element, starting from 2 (2, 5, 8…).
+	🔹 :nth-child(-n+3) → The first 3 elements only.
+	🔹 :nth-child(n+3) → Everything from the 3rd element onward.
+
+
 	:nth-last-child(n) (determina estilo al elemento que cumple con n desde el último)
 
 	:nth-last-of-type(n) (selecciona todos los elementos que son los n elementos de su padre, contando desde el último hijo)
