@@ -34,19 +34,19 @@ alt + 32 =  (espacio vacío)
 # MARKDOWN CHEATSHEET
 ==Basic Syntax==
 
-| titulo | descripcion |
-|  :---:  |  :---:   |
-|Element |	Markdown Syntax|
-|Heading |	# H1 <br>## H2 <br> ### H3 |
-|**Bold** 	 |	** bold text ** |
-|*Italic*	  |	* italicized text * |
-| >Blockquote 	|  >blockquote |
-|Ordered List 	|1. First item <br> 2. Second item <br> 3. Third item |
-|Unordered List |- First item <br>- Second item <br> - Third item|
-|Code 		|  `   code   `  |
-|Horizontal Rule |	---  |
-|Link 	| [title](https://www.example.com) |
-|Image |	![alt text](image.jpg) |
+|     titulo      |                     descripcion                      |
+| :-------------: | :--------------------------------------------------: |
+|     Element     |                   Markdown Syntax                    |
+|     Heading     |              # H1 <br>## H2 <br> ### H3              |
+|    **Bold**     |                   ** bold text **                    |
+|    *Italic*     |                 * italicized text *                  |
+|   >Blockquote   |                     >blockquote                      |
+|  Ordered List   | 1. First item <br> 2. Second item <br> 3. Third item |
+| Unordered List  |   - First item <br>- Second item <br> - Third item   |
+|      Code       |                     `   code   `                     |
+| Horizontal Rule |                         ---                          |
+|      Link       |           [title](https://www.example.com)           |
+|      Image      |                ![alt text](image.jpg)                |
 
 ==Extended Syntax==
 
