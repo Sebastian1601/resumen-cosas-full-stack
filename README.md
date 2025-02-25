@@ -5,7 +5,14 @@ https://www.digitalocean.com/community/tutorials/how-to-scrape-a-website-using-n
 patrones de diseño
 https://refactoring.guru/es/design-patterns
 
+# Indice
 
+[[##ASCII CODE| 1 - Codigo ASCII]]
+[[#MARKDOWN CHEATSHEET| 2 - Markdown File Cheatsheet]]
+
+
+---
+## ASCII CODE
 
 alt + 60 = <
 alt + 62 = >
@@ -17,22 +24,29 @@ alt + 40 = (
 alt + 41 = )
 
 alt + 35 = #
-
-alt + 92 = \ (barra invertida)
-alt + 96 = ` (backticks)
-alt + 126 = ~
-
 alt + 64 = @
+alt + 92 = \ (barra invertida)
+alt + 96 = \`  (backticks)
+alt + 126 = ~
+alt + 124 = | (or)
+alt + 155 = ø (conjunto vacio)
+alt + 157 = Ø
+alt + 158 = ×
+alt + 159 = ƒ
 
 alt + 32 =  (espacio vacío)
+
 
 *Verificar 02:26:00 del video de CSS. Propiedad POSITION porque tiene datos sobre como cambia el estado de un elemento al cual se le cambia la propiedad.
 
 *Ver la parte de Modificar y deshacer commits nuevamente, del video curso de GIT desde CERO
 *Ver GITPULL y GITFETCH
 
-# MARKDOWN CHEATSHEET
-==Basic Syntax==
+---
+
+## MARKDOWN CHEATSHEET  
+
+- Basic Syntax
 
 |     titulo      |                     descripcion                      |
 | :-------------: | :--------------------------------------------------: |
@@ -45,15 +59,15 @@ alt + 32 =  (espacio vacío)
 | Unordered List  |   - First item <br>- Second item <br> - Third item   |
 |      Code       |                     `   code   `                     |
 | Horizontal Rule |                         ---                          |
-|      Link       |           [title](https://www.example.com)           |
-|      Image      |                ![alt text](image.jpg)                |
+|      Link       |          `[title](https://www.example.com)`          |
+|      Image      |          `![alt text](./folder/image.jpg)`           |
 
-==Extended Syntax==
+- Extended Syntax
 
 These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.
 Element 	Markdown Syntax
-		Table 	| Syntax | Description |
-	|----------- | ----------- |
+| Table 	| Syntax | Description |
+|----------- | ----------- | ---- |
 		| Header | Title |
 		| Paragraph | Text |
 
@@ -92,28 +106,3 @@ Highlight 	        I need to highlight these ==very important words==.
 Subscript 		H~2~O
 
 Superscript 		X^2^ 
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

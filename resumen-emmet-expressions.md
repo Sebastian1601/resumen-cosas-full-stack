@@ -39,7 +39,7 @@ Los IDs se determinan combinando con el símbolo `#` y funcionan de una manera m
 * `<div id="hero" class="wrapper"></div>`
 
 
-## Atributos de un elemento con []
+## Atributos de un elemento con [ ]
 
 
 Podemos especificar atributos de los elementos que estamos definiendo...

@@ -1,5 +1,4 @@
-# Resumen CSS del curso de Dalto
-
+# Resumen CSS
 #### BACKGROUND (fondos de cajas)
 
  ```
