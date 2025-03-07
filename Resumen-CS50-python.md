@@ -8,9 +8,9 @@ profesor:
 David J. Malan
 malan@harvard.edu
 
-## Listado
+## Indice
 
-[Semana 1](#semana1)
+### Semana 1
 
 1 - [Usando variables en un printf()](#printfVariables)
 
@@ -24,13 +24,14 @@ malan@harvard.edu
 
 7 - [Variables](#variables)
 
-[Semana 2](#semana2)
+### Semana 2
 
 1 - [Instalando Clang para compilar código c/c++](#clanginstall)
 
 ---
 
-- bits and bytes -
+- Definición de ***bits*** and ***bytes*** -
+
 a character in compurter world is defined within a combination of zeroes and ones.
 knowing this, with 8 *bits*, you can define 256 (2^8 = 256) different characters.
 a *byte* is defined as 8 *bits*.
@@ -39,10 +40,11 @@ Later, with more bytes available, UNICODE was created, wich can map up to
 1,111,998 characters:
 17 planes × 65,536 characters per plane - 2048 surrogates - 66 noncharacters.
 
+----
 
-<a id="semana1"></a>
+## Semana 1
 
-## Semana 1 - Progarmando en C
+### Progarmando en C
 
 ### Command Line Interface basic commands
 
@@ -71,9 +73,9 @@ int main(void)
 }
 ```
 
->A tener en cuenta!==>
 
-#include <stdio.h> esta linea incluye las funciones del módulo "Standard in and out" llamado  *stdio.h*  , que normalmente viene en el lenguaje C.
+
+`#include <stdio.h>` esta linea incluye las funciones del módulo "Standard in and out" llamado  *stdio.h*  , que normalmente viene en el lenguaje C.
 
 >The statement at the start of the code #include <stdio.h> is a very special command that tells the compile that you want to use the capabilities of a library called stdio.h, a header file. This allows you, among many other things, to utilize the printf function.
 A library is a collection of code created by someone. Libraries are collections of pre-written code and functions that others have written in the past that we can utilize in our code.

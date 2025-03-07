@@ -1,11 +1,13 @@
 # Resumen CSS
 #### BACKGROUND (fondos de cajas)
 
+^8490fe
+
  ```
 shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
 ```
 
-color:  *el color del fondo*
+color:  *el color del fondo* ^33a311
 
 image:  *url(ruta de la imágen a usar)*
 
