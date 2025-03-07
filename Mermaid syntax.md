@@ -22,9 +22,6 @@ Mermaid is a JavaScript based diagramming and charting tool that uses Markdown-i
 
 ## Flowchart
 
-##### Code:
-
-mermaid
 
 ```
 graph TD;
@@ -858,9 +855,7 @@ sequenceDiagram
 
 ## Gantt diagram
 
-##### Code:
 
-mermaid
 
 ```
 gantt
@@ -906,9 +901,11 @@ migracion internet         :       des3, after des2, 10d
 
 ## Class diagram.
 
-##### Code:
 
-mermaid
+"In software engineering, a class diagram in the Unified Modeling Language (UML) is a type of static structure diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects."
+
+The class diagram is the main building block of object-oriented modeling. It is used for general conceptual modeling of the structure of the application, and for detailed modeling to translate the models into programming code. Class diagrams can also be used for data modeling. The classes in a class diagram represent both the main elements, interactions in the application, and the classes to be programmed.
+
 
 ```
 classDiagram
@@ -944,7 +941,307 @@ Class01 : int gorilla
 Class08 <--> C2: Cool label
 ```
 
+
 ---
+
+Example:
+
+```
+---
+title: Animal example
+---
+classDiagram
+    note "From Duck till Zebra"
+    Animal <|-- Duck
+    note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Fish{
+        -int sizeInFeet
+        -canEat()
+    }
+    class Zebra{
+        +bool is_wild
+        +run()
+    }
+```
+
+```mermaid
+---
+title: Animal example
+---
+classDiagram
+    note "From Duck till Zebra"
+    Animal <|-- Duck
+    note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Fish{
+        -int sizeInFeet
+        -canEat()
+    }
+    class Zebra{
+        +bool is_wild
+        +run()
+    }
+
+```
+
+### Syntax
+
+***Class***
+
+UML provides mechanisms to represent class members, such as **attributes** and **methods**, and additional information about them. A single instance of a class in the diagram contains three compartments:
+
+- The top compartment contains the **name of the class**. It is printed in bold and centered, and the first letter is capitalized. It may also contain optional annotation text describing the nature of the class.
+- The middle compartment contains the **attributes of the class**. They are left-aligned and the first letter is lowercase.
+- The bottom compartment contains **the operations the class** can execute. They are also left-aligned and the first letter is lowercase.
+
+
+### Define a class
+
+There are two ways to define a class:
+
+- Explicitly using keyword **class** like `class Animal` which would define the Animal class.
+- Via a **relationship** which defines two classes at a time along with their relationship. For instance, `Vehicle <|-- Car`.
+
+Naming convention: a class name should be composed only of alphanumeric characters (including unicode), underscores, and dashes (-).
+
+```
+classDiagram
+    class Animal
+    Vehicle <|-- Car
+```
+
+```mermaid
+classDiagram
+    class Animal
+    Vehicle <|-- Car
+    Vehicle : drive()
+    Vehicle : 4 wheels
+```
+
+### Class labels
+
+In case you need to provide a label for a class, you can use the following syntax:
+You can also use backticks to escape special characters in the label
+
+```
+classDiagram
+    class Animal["Animal with a label"]
+    class Car["Car with *! symbols"]
+    Animal --> Car
+```
+
+```mermaid
+classDiagram
+    class Animal["Animal with a label"]
+    class Car["Car with *! symbols"]
+    Animal --> Car
+```
+
+### Defining Members of a class
+
+UML provides mechanisms to represent class members such as attributes and methods, as well as additional information about them.
+
+Mermaid distinguishes between attributes and functions/methods based on if the **parenthesis** `()` are present or not. The ones with `()` are treated as functions/methods, and all others as attributes.
+
+There are two ways to define the members of a class, and regardless of whichever syntax is used to define the members, the output will still be same. The two different ways are :
+
+- Associate a member of a class using **:** (colon) followed by member name, useful to define one member at a time. For example:
+
+```
+classDiagram
+class BankAccount
+BankAccount : +String owner
+BankAccount : +BigDecimal balance
+BankAccount : +deposit(amount)
+BankAccount : +withdrawal(amount)
+```
+
+- Associate members of a class using **{}** brackets, where members are grouped within curly brackets. Suitable for defining multiple members at once. For example:
+
+```
+classDiagram
+class BankAccount{
+    +String owner
+    +BigDecimal balance
+    +deposit(amount)
+    +withdrawal(amount)
+}
+```
+
+#### Return Type
+
+Optionally you can end a method/function definition with the data type that will be returned (note: there must be a space between the final `)` and the return type). An example:
+
+```
+classDiagram
+class BankAccount{
+    +String owner
+    +BigDecimal balance
+    +deposit(amount) bool
+    +withdrawal(amount) int
+}
+```
+
+#### Generic Types
+
+Generics can be represented as part of a class definition, and for class members/return types. In order to denote an item as generic, you enclose that type within `~` (**tilde**). **Nested** type declarations such as `List<List<int>>` are supported, though generics that include a comma are currently not supported. (such as `List<List<K, V>>`)
+
+> _note_ when a generic is used within a class definition, the generic type is NOT considered part of the class name. i.e.: for any syntax which required you to reference the class name, you need to drop the type part of the definition. This also means that mermaid does not currently support having two classes with the same name, but different generic types.
+
+```
+classDiagram
+class Square~Shape~{
+    int id
+    List~int~ position
+    setPoints(List~int~ points)
+    getPoints() List~int~
+}
+
+Square : -List~string~ messages
+Square : +setMessages(List~string~ messages)
+Square : +getMessages() List~string~
+Square : +getDistanceMatrix() List~List~int~~
+```
+
+
+### Visibility
+
+To describe the visibility (or encapsulation) of an attribute or method/function that is a part of a class (i.e. a class member), optional notation may be placed before that members' name:
+
+- `+` Public
+- `-` Private
+- `#` Protected
+- `~` Package/Internal
+
+ _note_ you can also include additional _classifiers_ to a method definition by adding the following notation to the _end_ of the method, i.e.: after the `()` or after the return type:
+ 
+ - `*` Abstract e.g.: `someAbstractMethod()*` or `someAbstractMethod() int*`
+ - `$` Static e.g.: `someStaticMethod()$` or `someStaticMethod() String$`
+
+ _note_ you can also include additional _classifiers_ to a field definition by adding the following notation to the very end:
+ 
+ - `$` Static e.g.: `String someField$`
+
+### Defining Relationship
+
+A relationship is a general term covering the specific types of logical connections found on class and object diagrams.
+
+```
+[classA][Arrow][ClassB]
+```
+
+There are eight different types of relations defined for classes under UML which are currently supported:
+
+|Type|Description|
+|---|---|
+|`<\|--`|Inheritance|
+|`*--`|Composition|
+|`o--`|Aggregation|
+|`-->`|Association|
+|`--`|Link (Solid)|
+|`..>`|Dependency|
+|`..\|>`|Realization|
+|`..`|Link (Dashed)|
+
+### Labels on Relations
+
+It is possible to add label text to a relation:
+
+```
+[classA][Arrow][ClassB]:LabelText
+```
+
+Example:
+```mermaid
+classDiagram
+classA <|-- classB : implements
+classC *-- classD : composition
+classE o-- classF : aggregation
+```
+
+
+### Two-way relations
+
+Relations can logically represent an N:M association:
+
+Here is the syntax:
+
+```
+[Relation Type][Link][Relation Type]
+```
+
+Where `Relation Type` can be one of:
+
+|Type|Description|
+|---|---|
+|`<\|`|Inheritance|
+|`\*`|Composition|
+|`o`|Aggregation|
+|`>`|Association|
+|`<`|Association|
+|`\|>`|Realization|
+
+And `Link` can be one of:
+
+|Type|Description|
+|---|---|
+|--|Solid|
+|..|Dashed|
+
+
+### Define Namespace
+
+A namespace groups classes.
+
+
+```
+classDiagram
+namespace BaseShapes {
+    class Triangle
+    class Rectangle {
+      double width
+      double height
+    }
+}
+```
+
+```mermaid
+classDiagram
+namespace BaseShapes {
+    class Triangle
+    class Rectangle {
+      double width
+      double height
+    }
+}
+```
+
+
+
+----
+
+
 
 ## Git graph.
 
