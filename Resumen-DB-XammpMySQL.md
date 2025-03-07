@@ -64,9 +64,11 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
 Una entidad está definida por sus propiedades. Se representan con un óvalo.
 > Las entidades se componen por atributos simples, atributos compuestos, atributos multivalor, y atributos derivados.
 
+
+
 ## Tablas
 
- TABLA : Es una estructura de datos, organizada en filas y columnas.
+ *Tabla* : Es una estructura de datos, organizada en filas y columnas.
 
  _Campo_ : Es el nombre que tiene una columna en una base de datos.
 
@@ -89,7 +91,10 @@ Una entidad está definida por sus propiedades. Se representan con un óvalo.
 
 `default(valor)` - esto se usa en un campo para indicar que si no se pasa el valor al insertar un dato, se genere un valor "por defecto" el cual figura dentro de los paréntesis
 ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
-*esto indica que el campo idusuario, es binario de 16bits, clave primaria, y por defecto, si no le enviamos un dato al crear un registro, se genere un id universal unico(uuid), el cual se pasará a binario mediante la funcion UUID_TO_BIN() y se guardará.*
+*esto indica que el campo idusuario, es
+* binario de 16bits
+* clave primaria 
+* por defecto, si no le enviamos un dato al crear un registro, se genere un id universal unico(uuid), el cual se pasará a binario mediante la funcion UUID_TO_BIN() y se guardará.*
 
 `UUID()` : función de SQL que se usa para generar un ID Universal Unico, se utiliza la sentencia 
 `SELECT UUID();` y esto crea el valor.
@@ -98,8 +103,7 @@ ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
 
 `UNSIGNED` : determina que el valor a ingresar, debe ser positivo, sin signo ni valor negativo.
 
-
-### LAS SENTENCIAS VAN A TENER QUE GENERARSE EN ESTE ORDEN 
+### ORDEN de las sentencias para generar una consulta 
 
 (SELECT / DELETE/ UPDATE)
 
@@ -113,21 +117,20 @@ ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
 
 (LIMIT)
 
-### Sentencia para crear bases
+### Crear una base, tabla y seleccionar para usar la misma.
 
 muestra las bases de datos activas.
- `SHOW DATABASES;`
+`SHOW DATABASES;`
 
 crea la base de datos que indicamos.
- `CREATE DATABASE [nombre];`
+`CREATE DATABASE [nombre];`
 
-### Seleccionar una tabla para administrar
-
+usar la tabla de nombre [nombre_de_la_base]
 `USE [nombre_de_la_base]`
 
 ### Sentencia para crear una tabla (ya dentro de la base de datos)
 
-```
+```sql
 CREATE TABLE "[nombre]" (
  	"nombre de campo1" [tipo de campo],
   	"nombre de campo2" [tipo de campo],
@@ -143,47 +146,45 @@ CREATE TABLE "[nombre]" (
 
 tipos de datos para los campos:
 
-
 *Numéricos*
 
-|   tipo    |                    descripción                     |
-| :-------: | :------------------------------------------------: |
-|    INT    |                     num entero                     |
-|  TINYINT  |                     num entero                     |
-|  BIGINT   |                     num entero                     |
-|   FLOAT   |               num con coma flotante                |
-|   REAL    |                     num real.                      |
-|   BOOL    |                boolean(true/false)                 |
-|   DATE    |         datos en formato fecha(YYYY-MM-DD)         |
-|   TIME    |          datos en formato hora(HH:MM:SS)           |
+|   tipo    | descripción                                        |
+| :-------: | :------------------------------------------------- |
+|    INT    | num entero                                         |
+|  TINYINT  | num entero                                         |
+|  BIGINT   | num entero                                         |
+|   FLOAT   | num con coma flotante                              |
+|   REAL    | num real.                                          |
+|   BOOL    | boolean(true/false)                                |
+|   DATE    | datos en formato fecha(YYYY-MM-DD)                 |
+|   TIME    | datos en formato hora(HH:MM:SS)                    |
 | DATETIME  | datos en formato fecha y hora(YYYY-MM-DD HH:MM:SS) |
-| TIMESTAMP |   valor de los segundos pasados desde época Unix   |
-|   YEAR    |     datos del año en formato de 2 o 4 dígitos      |
-
+| TIMESTAMP | valor de los segundos pasados desde época Unix     |
+|   YEAR    | datos del año en formato de 2 o 4 dígitos          |
 
 *Carácteres*
 
-| tipo            | descripción                                                      |
-| --------------- | ---------------------------------------------------------------- |
-| DECIMAL         | datos formato decimal, con coma                                  |
+|      tipo       | descripción                                                      |
+| :-------------: | ---------------------------------------------------------------- |
+|     DECIMAL     | datos formato decimal, con coma                                  |
 | VARCHAR(nroCar) | cadenas de texto acotadas en longitud                            |
-| CHAR            | tipo de datos longitud fija de máximo 8k carácteres              |
-| TEXT            | tipo de datos texto variable en longitud de tamaño máximo de 2GB |
+|      CHAR       | tipo de datos longitud fija de máximo 8k carácteres              |
+|      TEXT       | tipo de datos texto variable en longitud de tamaño máximo de 2GB |
 
 
 *SQL unicode character y string tipo de datos.*
 
-| tipo     | descripción                               |
-| -------- | ----------------------------------------- |
-| NCHAR    | longitud fija de 4k carácteres            |
+|   tipo   | descripción                               |
+| :------: | ----------------------------------------- |
+|  NCHAR   | longitud fija de 4k carácteres            |
 | NVARCHAR | longitud variable de máximo 4k carácteres |
-| NTEXT    | longitud varibale de máximo 1Gb datos     |
+|  NTEXT   | longitud varibale de máximo 1Gb datos     |
 
 
 *SQL misc data types*
 
 | tipo | descripción                          |
-| ---- | ------------------------------------ |
+| :--: | ------------------------------------ |
 | CLOB | obj. de carácteres grandes hasta 2Gb |
 | BLOB | obj. binarios grandes                |
 | XML  | guardar datos xml                    |
@@ -192,25 +193,29 @@ tipos de datos para los campos:
 
 ### Limitaciones (o restricciones) en la definición de columnas, y tablas.
 
-- NOT NULL : indica que el campo no puede tener valor NULL al crearse o modificarse un registro.
+- **NOT NULL** : indica que el campo no puede tener valor NULL al crearse o modificarse un registro.
 
-- UNIQUE : indica que el campo será único entre los registros, aparte del id que suele ser autoincrementable.
+- **UNIQUE** : indica que el campo será único entre los registros, aparte del id que suele ser autoincrementable.
 
-- PRIMARY KEY : una combinación de NOT NULL y UNIQUE. identifica inequívocamente un registro de la tabla.
+- **PRIMARY KEY** : una combinación de NOT NULL y UNIQUE. identifica inequívocamente un registro de la tabla.
 
-- FOREIGN KEY : evita acciones que destruirían el vínculo entre tablas.
+- **FOREIGN KEY** : evita acciones que destruirían el vínculo entre tablas.
 
-- CHECK : determina que los valores en una columna satisfacen una condición específica.
+- **CHECK** : determina que los valores en una columna satisfacen una condición específica.
 
-- DEFAULT : setea un valor por defecto si no se especifica alguno en el ingreso de registro.
+- **DEFAULT** : setea un valor por defecto si no se especifica alguno en el ingreso de registro.
 
-- CREATE INDEX:
+- **CREATE INDEX**:
 
-- AUTO_INCREMENT : indica que el campo incrementará automáticamente su valor al crearse un registro.
+- **AUTO_INCREMENT** : indica que el campo incrementará automáticamente su valor al crearse un registro.
 
-Para ==agregar== una restricción a un campo, luego de creada la tabla, se puede utilizar la siguiente sintaxis
+>[!info] Información importante
+>Para agregar una restricción a un campo, luego de creada la tabla, se puede utilizar la siguiente sintaxis 
+>```
+>ALTER TABLE [nombre_de_tabla] ADD [restricción_a_agregar] (campo_al_cual_agregarle_la_restricción)
+>```
 
-`ALTER TABLE [nombre_de_tabla] ADD [restricción_a_agregar]([campo_al_cual_agregarle_la_restricción])`
+
 
 Ejemplo:
 `ALTER TABLE users ADD UNIQUE(last_name);`
