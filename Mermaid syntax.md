@@ -1238,6 +1238,200 @@ namespace BaseShapes {
 ```
 
 
+### Cardinality / Multiplicity on relations
+
+Multiplicity or cardinality in class diagrams indicates the number of instances of one class that can be linked to an instance of the other class. For example, each company will have one or more employees (not zero), and each employee currently works for zero or one companies.
+
+Multiplicity notations are placed near the end of an association.
+
+The different cardinality options are :
+
+- `1` Only 1
+- `0..1` Zero or One
+- `1..*` One or more
+- `*`      Many
+- `n`      n (where n>1)
+- `0..n` zero to n (where n>1)
+- `1..n` one to n (where n>1)
+
+Cardinality can be easily defined by placing the text option within quotes `"` before or after a given arrow. For example:
+
+```
+[classA] "cardinality1" [Arrow] "cardinality2" [ClassB]:LabelText
+```
+
+Example:
+
+```mermaid
+classDiagram
+    Customer "1" --> "*" Ticket
+    Student "1" --> "1..*" Course
+    Galaxy --> "many" Star : Contains
+```
+
+
+### Annotations on classes
+
+It is possible to annotate classes with markers to provide additional metadata about the class. This can give a clearer indication about its nature. Some common annotations include:
+
+- `<<Interface>>` To represent an Interface class
+- `<<Abstract>>` To represent an abstract class
+- `<<Service>>` To represent a service class
+- `<<Enumeration>>` To represent an enum
+
+Annotations are defined within the opening `<<` and closing `>>`. There are two ways to add an annotation to a class, and either way the output will be same:
+
+- In a **_separate line_** after a class is defined:
+
+```
+classDiagram
+class Shape
+<<interface>> Shape
+Shape : noOfVertices
+Shape : draw()
+```
+
+- In a **_nested structure_** along with the class definition:
+
+```mermaid
+classDiagram
+class Shape{
+    <<interface>>
+    noOfVertices
+    draw()
+}
+class Color{
+    <<enumeration>>
+    RED
+    BLUE
+    GREEN
+    WHITE
+    BLACK
+}
+```
+
+
+### Setting the direction of the diagram
+
+With class diagrams you can use the direction statement to set the direction in which the diagram will render:
+
+```
+classDiagram
+  direction RL
+  class Student {
+    -idCard : IdCard
+  }
+  class IdCard{
+    -id : int
+    -name : string
+  }
+  class Bike{
+    -id : int
+    -name : string
+  }
+  Student "1" --o "1" IdCard : carries
+  Student "1" --o "1" Bike : rides
+```
+
+```mermaid
+classDiagram
+  direction RL
+  class Student {
+    -idCard : IdCard
+  }
+  class IdCard{
+    -id : int
+    -name : string
+  }
+  class Bike{
+    -id : int
+    -name : string
+  }
+  Student "1" --o "1" IdCard : carries
+  Student "1" --o "1" Bike : rides
+```
+
+
+### Interaction
+
+It is possible to bind a click event to a node. The click can lead to either a javascript callback or to a link which will be opened in a new browser tab. **Note**: This functionality is disabled when using `securityLevel='strict'` and enabled when using `securityLevel='loose'`.
+
+You would define these actions on a separate line after all classes have been declared.
+```
+action className "reference" "tooltip"
+click className call callback() "tooltip"
+click className href "url" "tooltip"
+```
+
+
+- _action_ is either `link` or `callback`, depending on which type of interaction you want to have called
+- _className_ is the id of the node that the action will be associated with
+- _reference_ is either the url link, or the function name for callback.
+- (_optional_) tooltip is a string to be displayed when hovering over element (note: The styles of the tooltip are set by the class .mermaidTooltip.)
+- note: callback function will be called with the nodeId as parameter.
+
+### Notes
+
+It is possible to add notes on the diagram using `note "line1\nline2"`. A note can be added for a specific class using `note for <CLASS NAME> "line1\nline2"`.
+
+```
+classDiagram
+    note "This is a general note"
+    note for MyClass "This is a note for a class"
+    class MyClass{
+    }
+```
+
+```mermaid
+classDiagram
+    note "This is a general note"
+    note for MyClass "This is a note for a class"
+    class MyClass{
+    }
+```
+
+URL Link:
+```
+classDiagram
+class Shape
+link Shape "https://www.github.com" "This is a tooltip for a link"
+class Shape2
+click Shape2 href "https://www.github.com" "This is a tooltip for a link"
+```
+
+Callback:
+```
+classDiagram
+class Shape
+callback Shape "callbackFunction" "This is a tooltip for a callback"
+class Shape2
+click Shape2 call callbackFunction() "This is a tooltip for a callback"
+```
+
+
+Script:
+```js
+<script>
+  const callbackFunction = function () {
+    alert('A callback was triggered');
+  };
+</script>
+```
+
+
+Example:
+```
+classDiagram
+    class Class01
+    class Class02
+    callback Class01 "callbackFunction" "Callback tooltip"
+    link Class02 "https://www.github.com" "This is a link"
+    class Class03
+    class Class04
+    click Class03 call callbackFunction() "Callback tooltip"
+    click Class04 href "https://www.github.com" "This is a link"
+```
+
 
 ----
 
