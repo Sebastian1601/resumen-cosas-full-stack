@@ -1,4 +1,4 @@
-# Emmet shorthands ---
+## Emmet shorthands ---
 > los shorthands Emmet se entienden como una manera de escribir código más resumida y con mayor rapidéz que escribir el código normal. Esto acelera el flujo de trabajo al diseñar páginas web.
 
 referencias:
@@ -9,7 +9,8 @@ referencias:
 
 > Con Emmet se puede crear rápidamente una plantilla HTML ingresando el shorthand "!" en el inicio del archivo.
 
-### ! : estructura de archivo HTML básica.
+###  estructura de archivo HTML básica.
+
 > Ingresando el símbolo `!` y presionando `enter` habilita la estructura inicial de un archivo HTML.
 
 

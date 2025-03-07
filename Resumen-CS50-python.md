@@ -12,7 +12,7 @@ malan@harvard.edu
 
 ### Semana 1
 
-1 - [Usando variables en un printf()](#printfVariables)
+1 - [[#Command Line Interface basic commands|Basic Command line interface commands]]
 
 2 - [Carácteres de escape](#escapecharacters)
 
@@ -48,23 +48,26 @@ Later, with more bytes available, UNICODE was created, wich can map up to
 
 ### Command Line Interface basic commands
 
-* `cd`, for changing our current directory (folder)
-* `cp`, for copying files and directories
-* `ls`, for listing files in a directory
-* `mkdir`, for making a directory
-* `mv`, for moving (renaming) files and directories
-* `rm`, for removing (deleting) files
-* `rmdir`, for removing (deleting) directories
-* `code [archivo1.ext]`, creates the file and opens it to edit on VSC.
+|      command       |                     description                      |
+| :----------------: | :--------------------------------------------------: |
+|         cd         |     for changing our current directory (folder)      |
+|         cp         |          for copying files and directories           |
+|         ls         |           for listing files in a directory           |
+|       mkdir        |                for making a directory                |
+|         mv         |   for moving (and renaming) files and directories    |
+|         rm         |            for removing (deleting) files             |
+|       rmdir        |         for removing (deleting) directories          |
+| code [archivo.ext] | creates a file named archivo.ext and opens it in VSC |
+
 
 C specific commands for Visual Studio Code.
-* `code [archivo2.c]`, creates a C language file to write commands in it.
+
 * `make [archivo2]`,  compiles the file "archivo2.c" to be able to excecute it by the command line.
 * `./archivo2`, executes the file "archivo2.c" compiled.
 
 ### C file structure.
 
-```
+```c
 #include <stdio.h>
 
 int main(void)
@@ -73,14 +76,13 @@ int main(void)
 }
 ```
 
-
-
+> [!info] Información Importante!
 `#include <stdio.h>` esta linea incluye las funciones del módulo "Standard in and out" llamado  *stdio.h*  , que normalmente viene en el lenguaje C.
 
->The statement at the start of the code #include <stdio.h> is a very special command that tells the compile that you want to use the capabilities of a library called stdio.h, a header file. This allows you, among many other things, to utilize the printf function.
+The statement at the start of the code `#include <stdio.h>` is a very special command that tells the compile that you want to use the capabilities of a library called stdio.h, a header file. This allows you, among many other things, to utilize the *printf* function.
 A library is a collection of code created by someone. Libraries are collections of pre-written code and functions that others have written in the past that we can utilize in our code.
 You can read about all the capabilities of this library on the [Manual Pages](https://manual.cs50.io/). The Manual Pages provide a means by which to better understand what various commands do and how they function.
-It turns out that CS50 has its own library called cs50.h. There are numerous functions that are included that provide training wheels while you get started in C:
+It turns out that CS50 has its own library called ***cs50.h***. There are numerous functions that are included that provide training wheels while you get started in C:
 
 `int main (void) { //... }` define la función principal que se ejecutará al usar el script:
 * int indica que la función, debería "retornar" un valor *INTEGER* (int)
@@ -88,16 +90,18 @@ It turns out that CS50 has its own library called cs50.h. There are numerous fun
 * (void) indica que la función no recibe parámetros, por lo tanto, es "vacía".
 
 `printf("hello, world\n");`
-* printf es una función que muestra en consola lo que hay dentro de los paréntesis.(el texto VA SI O SI ENTRE COMILLAS DOBLES, NO SIMPLES!!!!)
-* \n genera que luego del mensaje, se realice un "salto de linea" para seguir imprimiendo o posicionar el prompt ahi.
+* `printf` es una función que muestra en consola lo que hay dentro de los paréntesis.(el texto VA SI O SI ENTRE COMILLAS DOBLES, NO SIMPLES!!!!)
+* `\n` genera que luego del mensaje, se realice un "salto de linea" para seguir imprimiendo o posicionar el prompt ahi.
 
-> :warning EL PUNTO Y COMA SON MUY IMPORTANTES EN LAS DECLARACIONES EN EL LENGUAJE C!!!
+> [!warning] CUIDADO! 
+> EL PUNTO Y COMA SON MUY IMPORTANTES EN LAS DECLARACIONES EN EL LENGUAJE C!!!
 
-<a id="escapecharacters"></a>
+---
+
 ### Escape characters
 
 Muchas veces vamos a querer "imprimir en pantalla" caracteres especiales, como:
-"", `, \\\
+`"" , \\\`
 
 Para eso tenemos el carácter de "escape" \ (barra invertida).
 
@@ -107,15 +111,15 @@ Para eso tenemos el carácter de "escape" \ (barra invertida).
 
 `\"`  print a double quote
 
-` \` `  print a single quote
+` \`  print a single quote
 
 `\\`  print a backslash
 
->CS50 functions:
+### CS50 specific functions ( they only work if you include cs50.h library)
 
 `get_char` , solicita el usuario ingrese un único carácter.
 
-`get_double` , 
+`get_double` , solicita el ingreso de un nro con coma del doble de datos que un float. 
 
 `get_float` , solicita el ingreso de un nro con coma flotante(decimal).
 
@@ -128,7 +132,7 @@ Para eso tenemos el carácter de "escape" \ (barra invertida).
 <a id="printfVariables"></a>
 ### Usando variables dentro de un printf.
 
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -141,23 +145,25 @@ int main(void)
 
 * aqui se agrega en `#include <cs50.h>` la librería de comandos creada por el curso CS50 para su implementación más simple.
 
-* The `get_string` function is used to get a string from the user. Then, the variable answer is passed to the printf function. %s tells the printf function to prepare itself to receive a string.
+* The `get_string` function is used to get a string from the user. Then, the variable answer is passed to the printf function. `%s` tells the printf function to prepare itself to receive a string.
 
 * the variable answer is string type, so to use it at `printf(" ")`, you should use the correct placeholder `%s`, and then, separated, pass the variable `answer` as a second argument.
 
+---
 
-<a id="especificadoresdeformato"></a>
-#### FORMAT SPECIFIERS
+### FORMAT SPECIFIERS
 
-* %d or %i	|_________ int	
-* %f or %F	|_________ float	
-* %lf	    |_________ double	
-* %c	    |_________ char	
-* %s        |_________ string
-* %li       |_________ long
+| character | type                 |
+| :-------: | :--: |
+| %d or %i  | integer              |
+| %f or %F  | float                |
+|    %lf    | double float         |
+|    %c     | single character     |
+|    %s     | string(using cs50.h) |
+|    %li    | long integer         |
 
+---
 
-<a id="tipodedatos"></a>
 ### Tipos de datos.
 
 Como C es un lenguaje de tipado fuerte, debemos declarar el tipo de datos que vamos a guardar en las variables, cuando las instanciamos.
@@ -167,50 +173,49 @@ Para eso, tenemos una lista de tipos disponibles, según los datos a guardar...
 
 >char ==> 'A' / 1 / '*'  (takes up to 1 byte of data, no more) **VA SIEMPRE ENTRE COMILLAS SIMPLES!!!**
 
-**datazo:** el motivo técnico por el cual un carácter va entre una única comilla, y un string va entre dos, es porque al alojar los bytes necesarios en memoria de un carácter, el sistema "interpreta" con comillas simples, que debe alojar un UNICO carácter, ocupando un byte unicamente.
-    Cuando alojamos un string de carácteres, estamos alojando técnicamente un array de carácteres(carácteres contiguos en memoria), podemos tener 2 o más bytes por lo tanto, el sistema utiliza una manera de "delimitar" hasta donde corresponde ese array, ubicando un \0 al final del array. E interpreta que debe hacer esto, cuando usamos las comillas dobles.
+**datazo:** el motivo técnico por el cual un *carácter* va entre una única comilla, y un *string* va entre dos, es porque al alojar los bytes necesarios en memoria de un carácter, el sistema "interpreta" con comillas simples, que debe alojar un UNICO carácter, ocupando un byte unicamente.
+
+>[!info] Información importante!
+>Cuando alojamos un string de carácteres, estamos alojando técnicamente un array de carácteres(carácteres contiguos en memoria), podemos tener 2 o más bytes por lo tanto, el sistema utiliza una manera de "delimitar" hasta donde corresponde ese array, ubicando un \0 al final del array. E interpreta que debe hacer esto, cuando usamos las comillas dobles.
 
 
->float ==> 3.14156  (works with 32 bits of data worth, so we have a 2^31 possibilites for positive and 2^32 negatives)
+float = 3.14156
+ - (works with 32 bits of data worth, so we have a 2^31 possibilites for positive and 2^32 negatives)
 
->double ==> 3.14157652111323 (wotks with 64 bits of data worth,kinda like float but with double of digits after comma)
+double = 3.14157652111323 
+- (wotks with 64 bits of data worth,kinda like float but with double of digits after comma)
 
->int ==> 23520
+int = 23520
 
->long ==> 35.130.520.122
+long = 35.130.520.122
 
->string ==> "Ernest" / "Daniel" / "Library".
+string = "Ernest" / "Daniel" / "Library".
 
-> VOID its a special type (not data type, you cant create a variable type void) that means null or empty.
+***VOID*** its a special type (not data type, you can't create a variable type void) that means null or empty.
 
-
-<a id="condicionales"></a>
+---
 ### Condicionales (IF /WHILE /DO WHILE /FOR IN /SWITCH)
 
 EN C se pueden evaluar condiciones, y según la veracidad o no de estas, ejecutar cierto código. A esto se lo llama '*condicionales*'.
 
-> Condicional IF 
+### Condicional IF 
 
-*IF (condicion es verdadera)*
-
-*{*
-
-    //se ejecuta esto
-
-*} ELSE* 
-
+Sintaxis
+```c
+if (condicion es verdadera)
 {
-
-    //si la condicion no es verdadera, se ejecuta esto  
-
+    //se ejecuta esto
+} ELSE
+{
+//si la condicion no es verdadera, se ejecuta esto  
 }
-
+```
 
 ---
 
 EJEMPLOS:
 
-```
+```c
 if (x < y)
 {
     printf("x is less than y\n");
