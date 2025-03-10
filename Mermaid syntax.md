@@ -1433,6 +1433,84 @@ classDiagram
 ```
 
 
+### Styling[​](https://mermaid.js.org/syntax/classDiagram.html#styling)
+
+#### Styling a node[​](https://mermaid.js.org/syntax/classDiagram.html#styling-a-node)
+
+It is possible to apply specific styles such as a thicker border or a different background color to an individual node using the `style` keyword.
+
+Note that notes and namespaces cannot be styled individually but do support themes.
+
+```
+classDiagram
+  class Animal
+  class Mineral
+  style Animal fill:#f9f,stroke:#333,stroke-width:4px
+  style Mineral fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+```
+
+
+```mermaid
+classDiagram
+  class Animal
+  class Mineral
+  style Animal fill:#f9f,stroke:#333,stroke-width:4px
+  style Mineral fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+```
+
+#### Classes
+
+More convenient than defining the style every time is to define a class of styles and attach this class to the nodes that should have a different look.
+
+A class definition looks like the example below:
+```
+classDef className fill:#f9f,stroke:#333,stroke-width:4px;
+```
+
+
+Also, it is possible to define style to multiple classes in one statement:
+```
+classDef firstClassName,secondClassName font-size:12pt;
+```
+
+Attachment of a class to a node is done as per below:
+```
+cssClass "nodeId1" className;
+```
+
+It is also possible to attach a class to a list of nodes in one statement:
+```
+cssClass "nodeId1,nodeId2" className;
+```
+
+
+A shorter form of adding a class is to attach the classname to the node using the `:::` operator:
+```
+classDiagram
+    class Animal:::someclass
+    classDef someclass fill:#f96
+```
+
+
+```
+classDiagram
+    class Animal:::someclass {
+        -int sizeInFeet
+        -canEat()
+    }
+    classDef someclass fill:#f96
+```
+
+
+#### Default class
+
+If a class is named default it will be applied to all nodes. Specific styles and classes should be defined afterwards to override the applied default styling.
+
+```
+classDef default fill:#f9f,stroke:#333,stroke-width:4px;
+```
+
+
 ----
 
 
@@ -1493,18 +1571,314 @@ mermaid
 ```
 
 
+### Adding custom commit id[​](https://mermaid.js.org/syntax/gitgraph.html#adding-custom-commit-id)
+
+For a given commit you may specify a custom ID at the time of declaring it using the `id` attribute, followed by `:` and your custom value within a `""` quote. For example: `commit id: "your_custom_id"`
+
+Let us see how this works with the help of the following diagram:
+
+```
+    gitGraph
+       commit id: "Alpha"
+       commit id: "Beta"
+       commit id: "Gamma"
+```
+
+```mermaid
+    gitGraph
+       commit id: "Alpha"
+       commit id: "Beta"
+       commit id: "Gamma"
+```
+
+### Modifying commit type[​](https://mermaid.js.org/syntax/gitgraph.html#modifying-commit-type)
+
+In Mermaid, a commit can be of three type, which render a bit different in the diagram. These types are:
+
+- `NORMAL` : Default commit type. Represented by a solid circle in the diagram
+- `REVERSE` : To emphasize a commit as a reverse commit. Represented by a crossed solid circle in the diagram.
+- `HIGHLIGHT` : To highlight a particular commit in the diagram. Represented by a filled rectangle in the diagram.
+
+For a given commit you may specify its type at the time of declaring it using the `type` attribute, followed by `:` and the required type option discussed above. 
+
+For example: `commit type: HIGHLIGHT`
+
+Let us see how these different commit type look with the help of the following diagram:
+
+```
+    gitGraph
+       commit id: "Normal"
+       commit
+       commit id: "Reverse" type: REVERSE
+       commit
+       commit id: "Highlight" type: HIGHLIGHT
+       commit
+```
+
+```mermaid
+    gitGraph
+       commit id: "Normal"
+       commit
+       commit id: "Reverse" type: REVERSE
+       commit
+       commit id: "Highlight" type: HIGHLIGHT
+       commit
+```
+### Adding Tags[​](https://mermaid.js.org/syntax/gitgraph.html#adding-tags)
+
+For a given commit you may decorate it as a **tag**, similar to the concept of tags or release version in git world. You can attach a custom tag at the time of declaring a commit using the `tag` attribute, followed by `:` and your custom value within `""` quote. 
+For example: `commit tag: "your_custom_tag"`
+
+```
+    gitGraph
+       commit
+       commit id: "Normal" tag: "v1.0.0"
+       commit
+       commit id: "Reverse" type: REVERSE tag: "RC_1"
+       commit
+       commit id: "Highlight" type: HIGHLIGHT tag: "8.8.4"
+       commit
+```
+
+```mermaid
+    gitGraph
+       commit
+       commit id: "Normal" tag: "v1.0.0"
+       commit
+       commit id: "Reverse" type: REVERSE tag: "RC_1"
+       commit
+       commit id: "Highlight" type: HIGHLIGHT tag: "8.8.4"
+       commit
+```
+
+In this example, we have given custom tags to the commits. Also, see how we have combined all these attributes in a single commit declaration. You can mix-match these attributes as you like.
+
+### Create a new branch
+
+In Mermaid, in-order to create a new branch, you make use of the `branch` keyword. You also need to provide a name of the new branch. The name has to be unique and cannot be that of an existing branch. A branch name that could be confused for a keyword must be quoted within `""`. Usage examples: `branch develop`, `branch "cherry-pick"`
+
+When Mermaid, reads the `branch` keyword, it creates a new branch and sets it as the current branch. Equivalent to you creating a new branch and checking it out in Git world.
+
+Let see this in an example:
+```
+    gitGraph
+       commit
+       commit
+       branch develop
+       commit
+       commit
+       commit
+```
+
+```mermaid
+    gitGraph
+       commit
+       commit
+       branch develop
+       commit
+       commit
+       commit
+```
+
+>[!tip] In this example, see how we started with default `main` branch, and pushed two commits on that. Then we created the `develop` branch, and all commits afterwards are put on the `develop` branch as it became the current branch
+
+### Checking out an existing branch
+
+In Mermaid, in order to switch to an existing branch, you make use of the `checkout` keyword. You also need to provide a name of an existing branch. If no branch is found with the given name, it will result in console error. Usage example: `checkout develop`
+
+When Mermaid, reads the `checkout` keyword, it finds the given branch and sets it as the current branch. Equivalent to checking out a branch in the Git world.
+
+Let see modify our previous example:
+```
+    gitGraph
+       commit
+       commit
+       branch develop
+       commit
+       commit
+       commit
+       checkout main
+       commit
+       commit
+```
+
+```mermaid
+    gitGraph
+       commit
+       commit
+       branch develop
+       commit
+       commit
+       commit
+       checkout main
+       commit
+       commit
+
+```
+In this example, see how we started with default `main` branch, and pushed two commits on that. Then we created the `develop` branch, and all three commits afterwards are put on the `develop` branch as it became the current branch. After this we made use of the `checkout` keyword to set the current branch as `main`, and all commit that follow are registered against the current branch, i.e. `main`.
+
+### Merging two branches
+
+In Mermaid, in order to merge or join to an existing branch, you make use of the `merge` keyword. You also need to provide the name of an existing branch to merge from. If no branch is found with the given name, it will result in console error. Also, you can only merge two separate branches, and cannot merge a branch with itself. In such case an error is throw.
+
+Usage example: `merge develop`
+
+When Mermaid, reads the `merge` keyword, it finds the given branch and its head commit (the last commit on that branch), and joins it with the head commit on the **current branch**. Each merge results in a **_merge commit_**, represented in the diagram with **filled double circle**.
+
+Let us modify our previous example to merge our two branches:
+
+```
+    gitGraph
+       commit
+       commit
+       branch develop
+       commit
+       commit
+       commit
+       checkout main
+       commit
+       commit
+       merge develop
+       commit
+       commit
+```
+
+```mermaid
+    gitGraph
+       commit
+       commit
+       branch develop
+       commit
+       commit
+       commit
+       checkout main
+       commit
+       commit
+       merge develop
+       commit
+       commit
+```
+
+In this example, see how we started with default `main` branch, and pushed two commits on that. Then we created the `develop` branch, and all three commits afterwards are put on the `develop` branch as it became the current branch. After this we made use of the `checkout` keyword to set the current branch as `main`, and all commits that follow are registered against the current branch, i.e. `main`. After this we merge the `develop` branch onto the current branch `main`, resulting in a merge commit. Since the current branch at this point is still `main`, the last two commits are registered against that.
+
+You can also decorate your merge with similar attributes as you did for the commit using:
+
+- `id`--> To override the default ID with custom ID
+- `tag`--> To add a custom tag to your merge commit
+- `type`--> To override the default shape of merge commit. Here you can use other commit type mentioned earlier.
+
+### Cherry Pick commit from another branch
+
+Similar to how 'git' allows you to cherry-pick a commit from **another branch** onto the **current** branch, Mermaid also supports this functionality. You can also cherry-pick a commit from another branch using the `cherry-pick` keyword.
+
+To use the `cherry-pick` keyword, you must specify the id using the `id` attribute, followed by `:` and your desired commit id within a `""` quote. For example:
+
+`cherry-pick id: "your_custom_id"`
+
+Here, a new commit representing the cherry-pick is created on the current branch, and is visually highlighted in the diagram with a **cherry** and a tag depicting the commit id from which it is cherry-picked from.
+
+A few important rules to note here are:
+
+1. You need to provide the `id` for an existing commit to be cherry-picked. If given commit id does not exist it will result in an error. For this, make use of the `commit id:$value` format of declaring commits. See the examples from above.
+2. The given commit must not exist on the current branch. The cherry-picked commit must always be a different branch than the current branch.
+3. Current branch must have at least one commit, before you can cherry-pick, otherwise it will cause an error is throw.
+4. When cherry-picking a merge commit, providing a parent commit ID is mandatory. If the parent attribute is omitted or an invalid parent commit ID is provided, an error will be thrown.
+5. The specified parent commit must be an immediate parent of the merge commit being cherry-picked.
+
+Let see an example:
+```
+    gitGraph
+        commit id: "ZERO"
+        branch develop
+        branch release
+        commit id:"A"
+        checkout main
+        commit id:"ONE"
+        checkout develop
+        commit id:"B"
+        checkout main
+        merge develop id:"MERGE"
+        commit id:"TWO"
+        checkout release
+        cherry-pick id:"MERGE" parent:"B"
+        commit id:"THREE"
+        checkout develop
+        commit id:"C"
+```
+
+```mermaid
+    gitGraph
+        commit id: "ZERO"
+        branch develop
+        branch release
+        commit id:"A"
+        checkout main
+        commit id:"ONE"
+        checkout develop
+        commit id:"B"
+        checkout main
+        merge develop id:"MERGE"
+        commit id:"TWO"
+        checkout release
+        cherry-pick id:"MERGE" parent:"B"
+        commit id:"THREE"
+        checkout develop
+        commit id:"C"
+```
+
+## Customizing main branch name
+
+Sometimes you may want to customize the name of the main/default branch. You can do this by using the `mainBranchName` keyword. By default its value is `main`. You can set it to any string using directives.
+
+Usage example:
+```
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'MetroLine1'}} }%%
+      gitGraph
+        commit id:"NewYork"
+        commit id:"Dallas"
+        branch MetroLine2
+        commit id:"LosAngeles"
+        commit id:"Chicago"
+        commit id:"Houston"
+        branch MetroLine3
+        commit id:"Phoenix"
+        commit type: HIGHLIGHT id:"Denver"
+        commit id:"Boston"
+        checkout MetroLine1
+        commit id:"Atlanta"
+        merge MetroLine3
+        commit id:"Miami"
+        commit id:"Washington"
+        merge MetroLine2 tag:"MY JUNCTION"
+        commit id:"Boston"
+        commit id:"Detroit"
+        commit type:REVERSE id:"SanFrancisco"
+```
 
 
+```mermaid
+%%{init: { 'logLevel': 'debug', 'theme': 'dark', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'MetroLine1'}} }%%
+      gitGraph
+        commit id:"NewYork"
+        commit id:"Dallas"
+        branch MetroLine2
+        commit id:"LosAngeles"
+        commit id:"Chicago"
+        commit id:"Houston"
+        branch MetroLine3
+        commit id:"Phoenix"
+        commit type: HIGHLIGHT id:"Denver"
+        commit id:"Boston"
+        checkout MetroLine1
+        commit id:"Atlanta"
+        merge MetroLine3
+        commit id:"Miami"
+        commit id:"Washington"
+        merge MetroLine2 tag:"MY JUNCTION"
+        commit id:"Boston"
+        commit id:"Detroit"
+        commit type:REVERSE id:"SanFrancisco"
+```
+Look at the imaginary railroad map created using Mermaid. Here, we have changed the default main branch name to `MetroLine1`.
 
-
-
-
-
-
-
-
-
-
-
-
-
+----

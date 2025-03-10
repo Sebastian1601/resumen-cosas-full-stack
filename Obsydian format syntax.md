@@ -418,7 +418,7 @@ Common characters to escape
 
 ---
 
-# Callouts
+## Callouts
 
 Use callouts to include additional content without breaking the flow of your notes.
 
@@ -546,5 +546,38 @@ sequenceDiagram
 
 ---
 
+## Math
 
+You can add math expressions to your notes using [MathJax](http://docs.mathjax.org/en/latest/basic/mathjax.html) and the LaTeX notation.
+
+To add a MathJax expression to your note, surround it with double dollar signs (`$$`).
+
+``` 
+$$
+\begin{vmatrix}a & b\\
+c & d
+\end{vmatrix}=ad-bc
+$$
+```
+
+Ejemplo:
+$$
+\begin{vmatrix}a & b\\
+c & d
+\end{vmatrix}=ad-bc
+$$
+
+You can also inline math expressions by wrapping it in `$` symbols.
+
+`$e^{2i\pi} = 1$.`
+
+$e^{2i\pi} = 1$.
+
+----
+
+## Add a tag to a note 
+
+To create a tag, enter a hash symbol (`#`) in the editor, followed by a keyword. For example, `#meeting`.
+
+----
 
