@@ -54,25 +54,25 @@ Este símbolo se usa para "escapar" el siguiente caracter de la expresión de bu
 | \f | representa un salto de página |
 | \v | tabulación vertical |
 
-|caracteres mas usados| que valida|
-|---|---|
-| \d | representa un dígito del 0 al 9|
-| \D | representa cualquier caracter QUE NO SEA un dígito del 0 al 9|
-| \w | representa CUALQUIER caracter ALFANUMERICO |
-| \W | representa cualquier caracter QUE NO SEA alfanumérico |
-| \s | representa un espacio en blanco |
-| \S | representa cualquier caracter QUE NO SEA un espacio en blanco   |
+| caracteres mas usados | que valida                                                    |
+| --------------------- | ------------------------------------------------------------- |
+| \d                    | representa un dígito del 0 al 9                               |
+| \D                    | representa cualquier caracter QUE NO SEA un dígito del 0 al 9 |
+| \w                    | representa CUALQUIER caracter ALFANUMERICO                    |
+| \W                    | representa cualquier caracter QUE NO SEA alfanumérico         |
+| \s                    | representa un espacio en blanco                               |
+| \S                    | representa cualquier caracter QUE NO SEA un espacio en blanco |
 
-|caracteres de posicion| que valida |
-|---|---|
-|^ | representa el inicio de un string |
-| $ | representa el final de un string |
-| \A | representa el inicio de la cadena, no caracter sino POSICION|
-| \Z | representa el final de la cadena, no caracter sino POSICION|
-| \b | representa la posición de una palabra, limitado por espacios en blanco, puntuacion, o por el inicio/final de una cadena|
-| \B | marca la posición entre dos caracteres alfanuméricos, o dos NO ALFANUMERICOS|
-|\Q y \E| se interpreta como LITERAL todo lo indicado entre las marcas|
-|\b | representa el inicio o fin de un patrón regular determinando los límites|
+| caracteres de posicion | que valida                                                                                                              |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| ^                      | representa el inicio de un string                                                                                       |
+| $                      | representa el final de un string                                                                                        |
+| \A                     | representa el inicio de la cadena, no caracter sino POSICION                                                            |
+| \Z                     | representa el final de la cadena, no caracter sino POSICION                                                             |
+| \b                     | representa la posición de una palabra, limitado por espacios en blanco, puntuacion, o por el inicio/final de una cadena |
+| \B                     | marca la posición entre dos caracteres alfanuméricos, o dos NO ALFANUMERICOS                                            |
+| \Q y \E                | se interpreta como LITERAL todo lo indicado entre las marcas                                                            |
+| \b                     | representa el inicio o fin de un patrón regular determinando los límites                                                |
 
 
 

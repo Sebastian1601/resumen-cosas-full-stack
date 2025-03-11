@@ -7,7 +7,7 @@ Para instalar NodeJS, nos dirigimos a la página oficial
 Vamos a buscar la versión correspondiente al hardware que estemos corriendo y elegir la versión (LTS) long term support. que son las versiones a las que más soporte le dan sin implementar cambios muy significativos.
 
 
-## La manera recomendada, es utilizar ciertas apps, para poder manejar las distintas versiones que podemos instalar, y correr los programas dependiendo de cada version que querramos utilizar.
+>[!important] La manera recomendada, es utilizar ciertas apps, para poder manejar las distintas versiones que podemos instalar, y correr los programas dependiendo de cada version que querramos utilizar.
 
 Para esto, necesitamos de 3 aplicaciones requerídas. Windows Terminal (WSL), RUST, y Fast Node Manager (fnm).
 fast node manager (https://github.com/Schniz/fnm)
@@ -19,7 +19,7 @@ fast node manager (https://github.com/Schniz/fnm)
 - esto finalmente indicará que se instaló fnm, para verificarlo, cerrar y reabrir la terminal.
 - al finalizar, podemos poner
 
-              fnm --version
+`fnm --version`
 
   y esto debería resultar en la versión instalada de fnm.
 
@@ -33,12 +33,12 @@ fast node manager (https://github.com/Schniz/fnm)
  
 ---
 
-> ⚠️ Hay entornos de Windows que pueden no estar configurados para ciertas acciones de los lenguajes o códigos.
+>[!warning]  Hay entornos de Windows que pueden no estar configurados para ciertas acciones de los lenguajes o códigos.
 
 *1 Aqui veremos cómo resolver el caso en que FNM se instale, puedas descargar los paquetes de nodejs, pero aún asi, al ejecutar >node en la terminal, no reconozca el comando.
-Normalmente para esto hay que correr una linea de código al abrir la terminal, para que se reconozca el path de la instalación de node, pero si la terminal tiene desactivada la ejecución de _scripts_, esto generará que cada vez de abrir la terminal, deberás correr esa linea de código :
+Normalmente para esto hay que correr una linea de código al abrir la terminal, para que se reconozca el path de la instalación de node, pero si la terminal tiene desactivada la ejecución de **scripts** , esto generará que cada vez de abrir la terminal, deberás correr esa linea de código :
 
-    fnm env --use-on-cd | Out-String | Invoke-Expression
+`fnm env --use-on-cd | Out-String | Invoke-Expression`
 
 Para evitar esto, y que al abrir la terminal en cualquier lugar (ej. Visual studio code) no tengamos que realizar esto manualmente, se utilizan los perfiles de powershell por ej.
 Hay que crear uno, si la terminal activa no tiene uno habilitado, y agregar esa linea de código al final del perfil(si el perfil es nuevo, no va a tener nada excepto esa linea de código)
@@ -46,14 +46,15 @@ Hay que crear uno, si la terminal activa no tiene uno habilitado, y agregar esa 
 Según la página _https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4#the-profile-variable_
 
 Para crear un perfil del usuario actual de power shell:
-
-    if (!(Test-Path -Path $PROFILE)) {
-    New-Item -ItemType File -Path $PROFILE -Force
-    }
+```
+  if (!(Test-Path -Path $PROFILE)) {
+  New-Item -ItemType File -Path $PROFILE -Force
+  }
+```
 
 Para verificar si se creó correctamente y editarlo, podemos poner en la misma terminal lo siguiente:
 
-    >notepad $profile
+`notepad $profile`
 
 Esto abrirá el achivo profile en el bloc de notas para agregar la linea de código indicada en *1
 
@@ -61,11 +62,11 @@ Al guardar el archivo, si cerramos y abrimos de nuevo la terminal, podremos leer
 
 ejecutamos:
 
-    Get-ExecutionPolicy
+`Get-ExecutionPolicy`
 
 Si esto devuelve "_Restricted_" quiere decir que está prohibido ejecutar scripts desde la consola directamente. Ahí debemos cambiar con lo siguiente:
 
-    Set-ExecutionPolicy Unrestricted
+`Set-ExecutionPolicy Unrestricted`
 
 y luego de que tome los cambios, reiniciar la terminal. Al abrirla nuevamente, debería haberse ido el mensaje y podremos ejecutar directamente "node" en la terminal, y esto abrira el REPL (read eval print loop).
 A esta altura ya debería funcionar node en cualquier terminal, incluida la de Visual Studio Code, y ejecutar cualquier programa en la versión de NodeJs elegida.
@@ -81,36 +82,37 @@ Luego de esto, podemos iniciar un proyecto, creando la carpeta, un archivos por 
   esto inicia el creado del archivo package.json, que guardará información sobre nuestro proyecto, dependencias, y demás info.
 Iinicialment el archivo se ve así:
 
-    {
-    "name": "proyecto-nodejs",
-    "version": "0.0.1",
-    "description": "primer proyecto orientado a practicar nodejs",
-    "main": "src/server.js",
-    "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "console": "echo 'hola mundo desde scripts'"
-    },
-    "author": "David Giordano",
-    "license": "ISC",
-    "devDependencies": {
-    "nodemon": "^3.1.3"
-    }
-    }
-
+```json
+   {
+   "name": "proyecto-nodejs",
+   "version": "0.0.1",
+   "description": "primer proyecto orientado a practicar nodejs",
+   "main": "src/server.js",
+   "scripts": {
+   "start": "node src/server.js",
+   "dev": "nodemon src/server.js",
+   "console": "echo 'hola mundo desde scripts'"
+   },
+   "author": "David Giordano",
+   "license": "ISC",
+   "devDependencies": {
+   "nodemon": "^3.1.3"
+   }
+   }
+```
 la mayoría de campos se explican solos, pero los de scripts, son campos que pretenden determinar qué se ejecuta al escribir en la consola por ej:
 
     npm run dev
 
 esto iniciará en la terminal la linea de código escrita en esa propiedad del objeto, o sea 
-> src/server.js  // esto inicia nuestro codigo de servidor en server.js
+`src/server.js  // esto inicia nuestro codigo de servidor en server.js`
 
 
 el comando:
 
-      npm start
+` npm start`
 
-> automáticamente inicia nuestra ruta descripta, normalmente se usa para iniciar el codigo, para pruebas, demostración, etc.
+automáticamente inicia nuestra ruta descripta, normalmente se usa para iniciar el codigo, para pruebas, demostración, etc.
 
 
       npm run
@@ -143,41 +145,42 @@ https://www.npmjs.com/package/express
 
   Se utiliza en su mayoría para instalar herramientas de la linea de comandos (mocha, browserify, gulp, etc).
 
+>[!info] 
 > $ npm install --global [nombre_del_modulo]
-> $ npm i -g [nombre_del_modulo]
+ >$ npm i -g [nombre_del_modulo]
 
 
 #### Instalar una versión específica de un módulo de nodejs
 
-> $ npm install nombre_del_paquete@3.3.0
+>[!info] $ npm install nombre_del_paquete@3.3.0
 
 #### Instalar la última versión de un módulo.
 
-> $ npm install nombre_del_paquete@latest
+>[!info] $ npm install nombre_del_paquete@latest
 
 #### Instalar un módulo como dependencia 
 
    Si se desea guardar la referencia a los módulos dentro de package.json.
 
-> $ npm i --save nombre_del_paquete
+>[!info] $ npm i --save nombre_del_paquete
 
 o su forma corta…
 
-> $ npm i -S nombre_del_paquete
+>[!info] $ npm i -S nombre_del_paquete
 
 #### Instalar módulo como dependencia de desarrollo.
 
    Si se desea instalar una dependencia o devDependency.
 
-> $ npm i --save-dev nombre_del_paquete
+>[!info] $ npm i --save-dev nombre_del_paquete
 
 o su forma corta…
 
-> $ npm i -D nombre_del_paquete
+>[!info] $ npm i -D nombre_del_paquete
 
 
 
-    ⚠️ Por default, npm agregará ^ cuando se utilice --save. El símbolo ^ es peligroso ya que mantiene actualizada la instalación con la última versión disponible de la librería. Por ello es echar mano de una versión exacta. 
+>[!warning] Por default, npm agregará ^ cuando se utilice --save. El símbolo ^ es peligroso ya que mantiene actualizada la instalación con la última versión disponible de la librería. Por ello es echar mano de una versión exacta. 
 
 #### Instalar una versión exacta del módulo.
 
@@ -224,7 +227,7 @@ Por último, actualizaciones al primer dígito significa que se agregó nueva fu
 
 El _caret_ ^ al frente de cada versión de los módulos, indica que ese módulo se actualizará cada vez que se lance una nueva versión. En caso de no querer esto, que será la mayoría de veces, se borra el caret y esto evitará la posibilidad de actualizar el módulo automáticamente.
 
-> ⚠️ TENER EN CUENTA ESTO AL MOMENTO DE USAR MODULOS Y MANEJAR EL PACKAGE.JSON
+>[!warning] TENER EN CUENTA ESTO AL MOMENTO DE USAR MODULOS Y MANEJAR EL PACKAGE.JSON
 
 
 ---
@@ -260,38 +263,46 @@ normalmente, vamos a importar muchas funciones, objetos, de distintos módulos, 
 
 Estos archivos se verían por ej asi:
 
-_funciones.js_ =>
-
-    const getTitle = ()=> 'Curso de node js por sergie code'; //defino la funcion getTitle
+***FUNCIONES***
+ 
+```node
+const getTitle = ()=> 'Curso de node js por sergie code'; //defino la funcion getTitle
 
     const getAuthor = (author) => `EL auto del curso es ${author}`; //defino la funcion getAuthor
 
     module.exports = {  //con esta linea, exporto ambas.
     getTitle, 
     getAuthor
-    }
+}
+```
 
 y el archivo de objetos muy similar:
 
-_objetos.js_ =>
-
-    const Curso = {    //defino el objeto o clase por ejemplo.
-    nombre:'Curso de node js',
-    autor:'Sergie Code'
-    }
-    
-    module.exports = {  //exporto similar a las funciones.
-    Curso
-    }
+***OBJETOS***
+```node
+ const Curso = {    //defino el objeto o clase por ejemplo.
+ nombre:'Curso de node js',
+ autor:'Sergie Code'
+ }
+   
+  module.exports = {  //exporto similar a las funciones.
+  Curso
+   }
+```
 
 Entonces, para importar estos datos desde otro archivo, por ej. index.js, podemos realizar lo siguiente:
 
-    const (nombre de la constante) = require('./funciones.js');
-    const (nombre de la constante) = require('./objetos.js');
+```node
+const (nombre de la constante) = require('./funciones.js');
+const (nombre de la constante) = require('./objetos.js');
+```
 
 esto nos habilita a usar funciones y objetos importados de otros archivos con la siguiente sintaxis:
 
-    console.log([nombre de la constante].getTitle()); //esto devolvería la leyenda 'Curso de node js por sergie code'.
+```node
+console.log([nombre de la constante].getTitle()); //esto devolvería la leyenda 'Curso de node js por sergie code'.
+```
+
 
 ---
 
@@ -301,39 +312,45 @@ Para desestructurar esto, y poder escribir directamente el nombre de la función
 
     const { Curso } = require('./objetos');
 
-> Notar como los nombres de los archivos no lleva la extensión js dado que se da por sentado que son archivos js.
+>[!warning] Notar como los nombres de los archivos no lleva la extensión js dado que se da por sentado que son archivos js.
 
 
-⚠️ La manera de importar se ha actualizado, y se utiliza una manera más moderna. Pero el proyecto debe cumplir con ciertas condiciones.
+>[!warning] La manera de importar se ha actualizado, y se utiliza una manera más moderna. Pero el proyecto debe cumplir con ciertas condiciones.
 
 1 - La descipción del proyecto, debe indicar que el tipo de app es "module".
-
-      "name": "proyecto-nodejs",
-      "version": "0.0.1",
-      "description": "primer proyecto orientado a practicar nodejs",
-      "main": "src/server.js",
-      ------"type" : "module",----
+```node
+ "name": "proyecto-nodejs",
+ "version": "0.0.1",
+ "description": "primer proyecto orientado a practicar nodejs",
+ "main": "src/server.js",
+  ------"type" : "module",----
+```
 
 2 - La sintaxis para importar es la siguiente:
-> Notar que se agregan las extensiones de ambos archivos al importar...  
-    
-    import { getAuthor, getTitle } from './funciones.js';
-    import { Curso } from './objetos.js';
 
+Notar que se agregan las extensiones de ambos archivos al importar...  
+```node   
+import { getAuthor, getTitle } from './funciones.js';
+import { Curso } from './objetos.js';
+```
 
 3 - La forma de exportar en el archivo de orígen de la exportación varía de la siguiente manera:
-> Se le agrega la palabra reservada 'export' delante de la definición de la función.
 
-    export const getTitle = ()=> 'Curso de node js por sergie code'; //defino la funcion getTitle
-    export const getAuthor = (author) => `EL auto del curso es ${author}`; //defino la funcion getAuthor
+>[!important] Se le agrega la palabra reservada 'export' delante de la definición de la función.
+
+```node
+export const getTitle = ()=> 'Curso de node js por sergie code'; //defino la funcion getTitle
+export const getAuthor = (author) => `EL auto del curso es ${author}`; //defino la funcion getAuthor
+```
 
 y el objeto igual:
 
-    export const Curso = {    //defino el objeto o clase por ejemplo.
-                  nombre:'Curso de node js',
-                  autor:'Sergie Code'
-                  };
-
+```node
+ export const Curso = {    //defino el objeto o clase por ejemplo.
+   nombre:'Curso de node js',
+   autor:'Sergie Code'
+   };
+```
 
 ---
 
@@ -364,31 +381,28 @@ Para leer el directorio actual, se pueden utilizar algunos métodos básicos.
 
 ### process.cwd() 
 Este método nos devuelve la ruta al directorio actual del proceso. Si el proceso se ejecuta en 
-> c:\gitwork\proyectos\proyecto1\app.js
+`c:\gitwork\proyectos\proyecto1\app.js`
 
 ...el metodo nos devuelve la siguiente ruta:
-> "c:\gitworkproyectos\proyecto1\
+ `c:\gitworkproyectos\proyecto1\`
 
 
 ### import.meta.url()
 Este método nos devuelve la ruta con file incluido, al archivo donde se ejecuta, independientemente del arbol de subcarpetas que posea el proyecto.
 Si el proyecto tiene la estructura:
-> c:\gitwork\proyectos\proyecto1\main\utils\app.js
+`c:\gitwork\proyectos\proyecto1\main\utils\app.js`
 
 ...el metodo devolverá la misma ruta URL completa:
->file:////c:/gitwork/proyectos/proyecto1/main/utils/app.js
+`file:////c:/gitwork/proyectos/proyecto1/main/utils/app.js`
 
 ---
-
-### Modulos Nativos
-
-### Path
+### path
 
 Este módulo nos permite manejar con facilidad las rutas relativas y absolutas usadas en los proyectos. Permite determinar rutas según el sistema operativo, y permitir mucha más compatibilidad con nuestro proyecto.
 
 Principales métodos:
 
-> path.basename([ruta_al_archivo]):
+`path.basename([ruta_al_archivo]):`
    * Devuelve el nombre del archivo incluyendo la extensión en la ruta dada.
    * Se le puede pasar un segundo argumento para eliminar la extensión del archivo en el resultado.
   
@@ -398,54 +412,56 @@ const ruta = "/users/documentos/archivo.txt"
 console.log(path.basename(ruta, '.txt'))   //esto devuelve "archivo"
 ```
 
-> path.dirname([ruta_al_archivo])
+`path.dirname([ruta_al_archivo])`
    * Devuelve el directorio de la ruta, EXCLUYENDO el nombre del archivo.
+
 ej:
-```
+```node
 const ruta = "/users/documentos/archivo1.png"
 console.log(path.dirname(ruta))   //esto devuelve "/users/documentos"
 ```
 
-> path.extname([ruta_al_archivo])
-   * Devuelve la extension del archivo pasado como argumento, incluyendo el punto.
+`path.extname([ruta_al_archivo])`
+* Devuelve la extension del archivo pasado como argumento, incluyendo el punto.
+
 ej:
-```
+```node
 const ruta = "/users/documentos/archivo1.png"
 console.log(path.extname(ruta))   //esto devuelve ".png"
 ```
 
-> path.join([argumento1, argumento2, argumento3])
+`path.join([argumento1, argumento2, argumento3])`
 
   * Este metodo normaliza las rutas, y une en una sola cadena, la ruta conformada por _argumento1_, _argumento2_ y _argumento3_ con su separador correspondiente de acuerdo al sistema operativo usado.
   
   ej:
-```
+```node
 const ruta = path.join('users', 'documentos', 'archivo1.png')
 console.log(ruta) // esto devolverá "/users/documentos/archivo1.png"
 ```
 
-> path.resolve([arg1, arg2, ..., argN])
+`path.resolve([arg1, arg2, ..., argN])`
 
    * Construye una ruta absoluta a partir de una secuencia de segmentos con arg1, arg2, etc.
    * Si no se especifica un directorio inicial, toma _process.cwd()_(directorio de trabajo actual) como base.
 
 
-```
+```node
 const rutaAbsoluta = path.resolve('documentos', 'archivo1.txt')
 console.log(rutaAbsoluta) //esto devuelve 'ruta/actual/documentos/archivo1.txt'
 ```
 
-> path.normalize([ruta_al_archivo])
+`path.normalize([ruta_al_archivo])`
  
  * Normaliza una rura, resolviendo elementos como . y .. y eliminando separadores redundantes en la misma.
 
 ej:
-```
+```node
 const ruta = '/usuarios//documentos/./archivo.txt'
 console.log(path.normalize(ruta)) //esto devuelve '/usuarios/documentos/archivo.txt'
 ```
 
-> path.isAbsolute([ruta_al_archivo])
+` path.isAbsolute([ruta_al_archivo])`
 
 * Devuelve _true_ si la ruta es absoluta, o _false_ si es relativa.
 
@@ -455,26 +471,23 @@ console.log(path.isAbsolute('/usuarios/documentos')); // true
 console.log(path.isAbsolute('documentos/archivo.txt')); // false
 ```
 
-> path.relative([argumento1-FROM, argumento2-TO])
-
+`path.relative([argumento1-FROM, argumento2-TO])`
 * Este método calcula la ruta relativa, entre los 2 argumentos pasados, indicando la secuencia de directorios para pasar de una a la otra.
 
 ej:
-
-```
+```node
 const ruta1 = '/usuarios/documentos';
 const ruta2 = '/usuarios/fotos';
 console.log(path.relative(ruta1, ruta2)); // '../fotos'
 ```
 
-> path.parse() y path.format()
+`path.parse() y path.format()`
+* El método `path.parse([ruta])` convierte una ruta pasada como argumento, a un objeto con las propiedades `root`, `dir`, `base`, `name` y `ext`.
 
-* El método path.parse([ruta]) convierte una ruta pasada como argumento, a un objeto con las propiedades `root`, `dir`, `base`, `name` y `ext`.
-
-* El método path.format(objRuta) construye un string con los datos de un objeto con las propiedades indicadas anteriormente.
+* El método `path.format(objRuta)` construye un string con los datos de un objeto con las propiedades indicadas anteriormente.
   
 
-```
+```node
 const ruta = '/usuarios/documentos/archivo.txt';
 const objRuta = path.parse(ruta);
 console.log(objRuta);

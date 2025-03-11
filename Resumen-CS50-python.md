@@ -14,7 +14,7 @@ malan@harvard.edu
 
 1 - [[#Command Line Interface basic commands|Basic Command line interface commands]]
 
-2 - [Carácteres de escape](#escapecharacters)
+2 - [[#Escape characters|Carácteres de escape]]
 
 4 - [Especificadores de formato](#especificadoresdeformato)
 
