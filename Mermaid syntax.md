@@ -1824,7 +1824,7 @@ Let see an example:
         commit id:"C"
 ```
 
-## Customizing main branch name
+### Customizing main branch name
 
 Sometimes you may want to customize the name of the main/default branch. You can do this by using the `mainBranchName` keyword. By default its value is `main`. You can set it to any string using directives.
 
@@ -1880,3 +1880,31 @@ Usage example:
 Look at the imaginary railroad map created using Mermaid. Here, we have changed the default main branch name to `MetroLine1`.
 
 ----
+
+## Entity Relationship Diagrams[​](https://mermaid.js.org/syntax/entityRelationshipDiagram.html#entity-relationship-diagrams)
+
+An entity–relationship model (or ER model) describes interrelated things of interest in a specific domain of knowledge. A basic ER model is composed of entity types (which classify the things of interest) and specifies relationships that can exist between entities (instances of those entity types)
+
+
+Note that practitioners of ER modelling almost always refer to _entity types_ simply as _entities_. For example the `CUSTOMER` entity _type_ would be referred to simply as the `CUSTOMER` entity. This is so common it would be inadvisable to do anything else, but technically an entity is an abstract _instance_ of an entity type, and this is what an ER diagram shows - abstract instances, and the relationships between them. This is why entities are always named using singular nouns.
+
+EJEMPLO:
+```
+---
+title: Order example
+---
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+```
+
+```mermaid
+---
+title: Order example
+---
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+```
