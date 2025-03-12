@@ -1517,7 +1517,6 @@ classDef default fill:#f9f,stroke:#333,stroke-width:4px;
 
 ## Git graph.
 
-##### Code:
 
 commit id:"12345"
 commit tag:"algun tag"
@@ -1525,7 +1524,6 @@ branch (nombre de nueva rama)
 checkout (nombre de la rama a seguir)
 commit type:[HIGHLIGHT / REVERSE / NORMAL]
 
-mermaid
 
 ```
     gitGraph

@@ -74,8 +74,15 @@ configurar para que la versiòn abreviada del hash de cada commit, sea de x díg
 
 `rm -r (nombre de la carpeta a eliminar, junto con sus archivos)` : (elimina archivos y carpetas todo junto
 
-### Area de trabajo ---> Area de Staging ---> REPOSITORIO 
 
+```mermaid
+flowchart LR;
+	A["Area de trabajo"]
+	B["Area de Staging"]
+	C["Repositorio Local"]
+	A-->B
+	B-->C
+```
 
 ---
 
@@ -182,7 +189,7 @@ este comando revertirá los cambios del commit indicado, pero no creará un nuev
 
 `git branch -r` : muestra todas las **ramas locales y remotas registradas** (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
 
->:warning: para actualizar esas referencias que quizás están erróneas, se usa 
+>[!warning] para actualizar esas referencias que quizás están erróneas, se usa 
 `git fetch --prune`
 
 
@@ -235,10 +242,18 @@ EN EL CASO DE QUERER RECUPERAR UN COMMIT BORRADO CON RESET --HARD, si tenemos el
 
 Esto suele suceder cuando se trabaja en una rama, desde un punto B de la rama principal, y antes de fusionar la rama con el principal, se da que la rama principal tuvo modificaciones. 
 
-		                rama1 ---- rama1(2)
-    	           /                   \
-	    	      /                     \
-	ain------main(2) ----main(3)------ (main + rama1(2)) = Conflicto Posible
+```mermaid
+gitGraph
+commit id:"0001"
+commit id:"0002"
+branch rama1
+	commit id:"0101"
+	commit id:"0102"
+checkout main
+commit id:"0003"
+merge rama1 tag: "main + rama1 = posible conflicto"
+```
+
 
 Abriendo el editor de Visual Studio Code permite seleccionar qué código va a quedar seleccionado y se realiza el commit desde ahi directamente.
 Se pueden aceptar cambios de una rama, de otra, ambas, o seleccionando la opción más conveniente de cada una.
@@ -259,7 +274,8 @@ VER la última actualización de cada rama
  
  ---
  
- .GITIGNORE 
+
+### .GITIGNORE 
 
  esto define qué archivos GIT debe ignorar al momento de buscar para commitear. y solo funciona para archivos que **NUNCA** se han guardado en un commit, si el archivo ya se subió se crea un archivo .gitignore
 
@@ -309,9 +325,20 @@ Ver la lista de alias asignado:
 ## GIT HUB (Repositorios Remotos) 
 
 
-   Área de trabajo --> STAGING --> REPOSITORIO LOCAL --> REPOSITORIO EN LINEA
-        a		                   b	                    	c                            		D
-
+```mermaid
+flowchart LR
+A["Area de
+trabajo"]
+B["Area de
+Staging"]
+C["Repositorio
+Local"]
+D["Repositorio
+Online"]
+A-->B
+B-->C
+C-->D
+```
 
 ### CREAR Y CONFIGURAR REPOSITORIO REMOTO
 
@@ -458,7 +485,8 @@ However, sometimes you just want to keep the commits. One way to prevent the err
  `git stash clear`
 
 
-## GIT FETCH ---------------------------------------------------------------------------------------------
+## GIT FETCH 
+
 esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del mismo nombre para poder	verificar los cambios, y en todo caso, sumarlos a nuestro repo local. Luego de ejecutar el fetch, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
 
    `git switch --detach origin/main (esto genera que se trate como temporal) `
@@ -478,25 +506,25 @@ esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del 
 `git switch -c [nombre de la rama para mantener el fetch_HEAD]`
 
 - Si ahora usamos `git branch` podemos ver ambas ramas, y hacer un merge, o seguir trabajando en una u otra.
-## Migrar repositorio local a uno remoto ------------------------------------------------------------------
+## Migrar repositorio local a uno remoto
 
-   Luego de crear un repositorio en Github, mediante Git hay que hacer
+Luego de crear un repositorio en Github, mediante Git hay que hacer
 
-  	git remote add [nombre de referencia del repo remoto] [dirección http del repositorio remoto creado]
+`git remote add [nombre de referencia del repo remoto] [dirección http del repositorio remoto creado]`
 
-   ej:  	
-   			
-      git remote add origin https://github.com/Sebastian1601/Codoacodo-tp-nodejs.git
-      
-   luego se comanda
-  				
-      		git branch -M main
-   y finalmente
+ej:
+   
+`git remote add origin https://github.com/Sebastian1601/Codoacodo-tp-nodejs.git`
 
-    		git push -u origin main
+luego se comanda
+`git branch -M main`
+
+y finalmente
+
+`git push -u origin main`
 
 
-## RAMAS REMOTAS ----------------------------------------------------------------------------------------
+## RAMAS REMOTAS
 
 * Para ver las ramas remotas que tiene trackeadas el repo local, se ejecuta
   `git branch -a`
@@ -509,12 +537,13 @@ esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del 
   esto elimina las referencias que no existan en el remoto localmente.
   
  
-# FORK --------------------------------------------------------------------------------------------------
-   Un fork es una copia de un repositorio remoto en nuestro repositorio remoto. Cuando queremos duplicar algun proyecto del que podemos copiarnos.
-   Al hacerlo, queda en nuestro repo, y se hace el commit para "guardarlo" por primera vez.
+### FORK
+
+Un fork es una copia de un repositorio remoto en nuestro repositorio remoto. Cuando queremos duplicar algun proyecto del que podemos copiarnos.
+Al hacerlo, queda en nuestro repo, y se hace el commit para "guardarlo" por primera vez.
 
 
-# PULL REQUEST --------------------------------------------------------------------------------------------
+### PULL REQUEST
 
 esto se da cuando hacemos un fork, y guardamos un repositorio que no es nuestro en el repo online.
 queremos subirla de nuevo al repo remoto copia del proyecto de alguien más.
@@ -523,6 +552,6 @@ cuando ya tenemos cargado en el repo online nuestro el repo local del fork, tene
 Ahi se verifica que se pueda fusionar ambos repos, y luego se agregan los datos sobre titulo y descripción del pull request.
 
 
-# ERROR AL USAR GIT LOG (queda la lista de commits y luego dice log file: y no sale de esa pantalla.)
+>[!warning] ERROR AL USAR GIT LOG (queda la lista de commits y luego dice log file: y no sale de esa pantalla.)
 
-	al registrar este error, hay que presionar ESC, y luego la tecla "Q"
+Al registrar este error, hay que presionar ESC, y luego la tecla "Q"

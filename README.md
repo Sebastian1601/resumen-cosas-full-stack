@@ -66,36 +66,36 @@ alt + 32 =  (espacio vacío)
 
 These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.
 Element 	Markdown Syntax
-| Table 	| Syntax | Description |
-|----------- | ----------- | ---- |
-		| Header | Title |
-		| Paragraph | Text |
 
-        Fenced Code Block
-		 	```
-			{
-			  "firstName": "John",
-			  "lastName": "Smith",
- 			 "age": 25
-			}
-			```
+| Table     | Syntax | Description |
+| --------- | ------ | ----------- |
+| Header    | Title  |             |
+| Paragraph | Text   |             |
+Fenced Code Block
+```
+{
+ "firstName": "John",
+ "lastName": "Smith",
+ "age": 25
+}
+```
 
 Footnote 	         Here's a sentence with a footnote. [^1]
-		
-		        [^1]: This is the footnote.
+[^1]: This is the footnote.
 
 Heading ID 	        
 ### My Great Heading { # custom-id}
 
 Definition List 	
 term
-			: definition
+	: definition
 
 Strikethrough 		~~ The world is flat. ~~
 
-Task List 		- [x] Write the press release
-			- [ ] Update the website
-			- [ ] Contact the media
+Task List
+ - [x] Write the press release
+ - [ ] Update the website
+ - [ ] Contact the media
 
 Emoji
 (see also Copying and Pasting Emoji) 	
