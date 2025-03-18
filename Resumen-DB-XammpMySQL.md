@@ -57,13 +57,12 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
  ---
 
  
-# Entidad:
-   - Es una representación de algo. 
-   - Para representarlos se utiliza la *Notación de chen*.
-   - Para representarlas, se utiliza un sustantivo dentro de un cuadrado.
-Una entidad está definida por sus propiedades. Se representan con un óvalo.
-> Las entidades se componen por atributos simples, atributos compuestos, atributos multivalor, y atributos derivados.
-
+>[!info] Entidad:
+>- Es una representación de algo.
+>- Para representarlos se utiliza la *Notación de chen*.
+>- Para representarlas, se utiliza un sustantivo dentro de un cuadrado.
+> -  Una entidad está definida por sus propiedades. Se representan con un óvalo.
+> - Las entidades se componen por atributos simples, atributos compuestos, atributos multivalor, y atributos derivados.
 
 
 ## Tablas
@@ -78,18 +77,18 @@ Una entidad está definida por sus propiedades. Se representan con un óvalo.
 
   Al definir un campo, tenemos que definir qué tipo de datos va a almacenar.
   Existen varios tipos de datos, los más utilizados son:
-- Varchar (cantidad de digitos hasta 255 máximo)
-- Integer (nro.entero)
-- Text    (texto libre / ocupa más espacio en la base) 
-- Blob    (archivos binarios varios, imágenes, videos, etc)
-- Real    (nros con coma flotante, porcentajes, etc) más rápido, menos precisión en los nros.
-- Decimal (cant nro entero, cant nro decimal) decimales, por ej decimal(1,1) = 9,3 pero NO 10,1
-- Numeric (nros matemáticos precisos) de cualquier tamaño
-- BINARY (datos binarios, por ejemplo los UUID())
+- *Varchar* (cantidad de digitos hasta 255 máximo)
+- *Integer* (nro.entero)
+- *Text*    (texto libre / ocupa más espacio en la base) 
+- *Blob*    (archivos binarios varios, imágenes, videos, etc)
+- *Real*    (nros con coma flotante, porcentajes, etc) más rápido, menos precisión en los nros.
+- *Decimal* (cant nro entero, cant nro decimal) decimales, por ej decimal(1,1) = 9,3 pero NO 10,1
+- *Numeric* (nros matemáticos precisos) de cualquier tamaño
+- *BINARY* (datos binarios, por ejemplo los UUID())
 ---
-### OPCIONES ESPECIALES DE LOS CAMPOS.
+### Opciones especiales de los campos.
 
-`default(valor)` - esto se usa en un campo para indicar que si no se pasa el valor al insertar un dato, se genere un valor "por defecto" el cual figura dentro de los paréntesis
+`default (valor)` - esto se usa en un campo para indicar que si no se pasa el valor al insertar un dato, se genere un valor "por defecto" el cual figura dentro de los paréntesis
 ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
 *esto indica que el campo idusuario, es
 * binario de 16bits
@@ -103,21 +102,21 @@ ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
 
 `UNSIGNED` : determina que el valor a ingresar, debe ser positivo, sin signo ni valor negativo.
 
-### ORDEN de las sentencias para generar una consulta 
+### Oden de las sentencias para generar una consulta 
 
-(SELECT / DELETE/ UPDATE)
+1- (SELECT / DELETE/ UPDATE)
 
-(CONDICION WHERE) 
+2- (CONDICION WHERE) 
 
-(GROUP BY)
+3- (GROUP BY)
 
-(HAVING -solo se usa si usamos group by-)
+4- (HAVING -solo se usa si usamos group by-)
 
-(ORDER BY)
+5- (ORDER BY)
 
-(LIMIT)
+6- (LIMIT)
 
-### Crear una base, tabla y seleccionar para usar la misma.
+### Creación de base, tabla y uso.
 
 muestra las bases de datos activas.
 `SHOW DATABASES;`
@@ -128,8 +127,8 @@ crea la base de datos que indicamos.
 usar la tabla de nombre [nombre_de_la_base]
 `USE [nombre_de_la_base]`
 
-### Sentencia para crear una tabla (ya dentro de la base de datos)
 
+>[!tip] Sentencia para crear una tabla (ya dentro de la base de datos)
 ```sql
 CREATE TABLE "[nombre]" (
  	"nombre de campo1" [tipo de campo],
@@ -142,11 +141,11 @@ CREATE TABLE "[nombre]" (
        )
 ```
 
-### Propiedades habituales de los capos definidos en la tabla
+#### Propiedades habituales de los capos definidos en la tabla
 
-tipos de datos para los campos:
+Tipos de datos para los campos:
 
-*Numéricos*
+**Numéricos**
 
 |   tipo    | descripción                                        |
 | :-------: | :------------------------------------------------- |
@@ -162,7 +161,7 @@ tipos de datos para los campos:
 | TIMESTAMP | valor de los segundos pasados desde época Unix     |
 |   YEAR    | datos del año en formato de 2 o 4 dígitos          |
 
-*Carácteres*
+**Carácteres**
 
 |      tipo       | descripción                                                      |
 | :-------------: | ---------------------------------------------------------------- |
@@ -172,7 +171,7 @@ tipos de datos para los campos:
 |      TEXT       | tipo de datos texto variable en longitud de tamaño máximo de 2GB |
 
 
-*SQL unicode character y string tipo de datos.*
+**SQL unicode character y string tipo de datos.**
 
 |   tipo   | descripción                               |
 | :------: | ----------------------------------------- |
@@ -181,7 +180,7 @@ tipos de datos para los campos:
 |  NTEXT   | longitud varibale de máximo 1Gb datos     |
 
 
-*SQL misc data types*
+**SQL misc data types**
 
 | tipo | descripción                          |
 | :--: | ------------------------------------ |
@@ -191,7 +190,7 @@ tipos de datos para los campos:
 | JSON | guardar datos en formato Json        |
 
 
-### Limitaciones (o restricciones) en la definición de columnas, y tablas.
+#### Limitaciones (o restricciones) en la definición de columnas, y tablas.
 
 - **NOT NULL** : indica que el campo no puede tener valor NULL al crearse o modificarse un registro.
 
@@ -258,7 +257,7 @@ ingresar un registro de usuario en la tabla 'usuarios'
 
 > Se pueden generar un insert con varios registros, de la siguiente manera:
 
- ```
+ ```sql
 insert into usuarios (nombre, apellido, edad) 
     values  ('Claudia', 'Caceres','44'),
 	    	('Daiana','Congregado','17'),
@@ -268,7 +267,7 @@ insert into usuarios (nombre, apellido, edad)
 
 > Se puede insertar un registro, o varios, y generar una consulta justamente luego del insert, separando las declaraciones con ; (punto y coma).
 
- ```
+ ```sql
 insert into usuarios (nombre, apellido, edad)
  values ('lucas', 'dalto', 21);
  select * from usuarios
@@ -421,13 +420,13 @@ UPDATE "tabla" SET "campo1" = "valor1", "campo2" = "valor2"
 
 Se utilizan para armar busquedas con 2 condiciones, o varias posibilidades.
 
-AND / OR / NOT
+**AND / OR / NOT**
 
-AND : si se cumplen ambas, hay resultados =>
+**AND** : si se cumplen ambas, hay resultados =>
 
 `SELECT "nombre de campo" FROM "nombre de tabla" WHERE "condicion1" AND "condicion2"`
 
-OR : si se cumple una de las dos, hay resultados =>
+**OR** : si se cumple una de las dos, hay resultados =>
 
 `SELECT "nombre de campo" FROM "nombre de tabla" WHERE "condicion1" OR "condicion2"`
 
@@ -435,7 +434,7 @@ OR : si se cumple una de las dos, hay resultados =>
 Se pueden sumar condiciones a la busqueda, y separar con paréntesis () para aplicar ciertas condiciones juntas a otras.
 
 ej:
-```
+```sql
 SELECT * FROM Products
 WHERE Price < 20    OR CategoryID = 6 AND SupplierID = 6
 [1er condicion] [ ------ 2da condicion ------- ]
@@ -443,13 +442,13 @@ WHERE Price < 20    OR CategoryID = 6 AND SupplierID = 6
 
 Separando con paréntesis, podemos ejecutar de la siguiente manera las condiciones:
 
-```
+```sql
 SELECT * FROM Products
 WHERE (Price < 20 OR CategoryID = 6) AND SupplierID = 6
 [---- 1er condicion----]      [ 2da condicion ]
 ```
  
-NOT : Invertir la condición a evaluar
+**NOT** : Invertir la condición a evaluar
 
 nos devuelve resultados donde se obtienen los registos que NO SON condicion uno o dos.
 SE UTILIZA HABITUALMENTE ANTES DE UN OPERADOR.
@@ -468,13 +467,15 @@ Se utiliza para "limitar" la cantidad de resultados en la consulta.
 
 ej:
 
-```
+```sql
 SELECT * from Customers WHERE
 CustomerID > 50 and NOT Country = 'Germany'
 LIMIT 5 //esto limita a 5 resultados en la consulta(que devuelve muchos más)
 ```
 
+
  ## Operador NOT y != (distinto de) 
+ 
  - La diferencia entre estos dos operadores, es el tipo de clase de cada uno.
    	NOT es un operador lógico.
    	!=  es un operador de comparación.
