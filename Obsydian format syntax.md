@@ -517,7 +517,7 @@ Content | Content | Content
 
 ## Diagram 
 
-You can add diagrams and charts to your notes, using [Mermaid](). Mermaid supports a range of diagrams, such as flow charts, sequence diagrams, and timelines.
+You can add diagrams and charts to your notes, using [[Mermaid syntax|Mermaid]]. Mermaid supports a range of diagrams, such as flow charts, sequence diagrams, and timelines.
 
 >[!Tip] You can also try Mermaid's [Live Editor](https://mermaid-js.github.io/mermaid-live-editor) to help you build diagrams before you include them in your notes.
 

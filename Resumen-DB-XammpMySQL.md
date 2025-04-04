@@ -211,7 +211,7 @@ tipos de datos para los campos:
 
 >[!info] Información importante
 >Para agregar una restricción a un campo, luego de creada la tabla, se puede utilizar la siguiente sintaxis 
->```
+>```sql
 >ALTER TABLE [nombre_de_tabla] ADD [restricción_a_agregar] (campo_al_cual_agregarle_la_restricción)
 >```
 
@@ -241,10 +241,12 @@ Mostrar todos los datos de la tabla 'usuarios'
 - *         : símbolo que significa "todo",
 - from   : desde,
 - users  : es el nombre de la tabla donde buscar.
+
+
 ---
 ### Sentencia de ingreso de un registro
 
-ingresar un registro de usuario en la tabla 'usuarios'
+ingresar un registro de usuario en la tabla **usuarios**
 
 `insert into usuarios (nombre, apellido, edad) values ('Juan', 'Giordano', '21')`
 
@@ -258,7 +260,7 @@ ingresar un registro de usuario en la tabla 'usuarios'
 
 > Se pueden generar un insert con varios registros, de la siguiente manera:
 
- ```
+ ```sql
 insert into usuarios (nombre, apellido, edad) 
     values  ('Claudia', 'Caceres','44'),
 	    	('Daiana','Congregado','17'),
@@ -268,7 +270,7 @@ insert into usuarios (nombre, apellido, edad)
 
 > Se puede insertar un registro, o varios, y generar una consulta justamente luego del insert, separando las declaraciones con ; (punto y coma).
 
- ```
+```sql
 insert into usuarios (nombre, apellido, edad)
  values ('lucas', 'dalto', 21);
  select * from usuarios
@@ -278,11 +280,14 @@ insert into usuarios (nombre, apellido, edad)
 
 se ingresa la sentencia 
 
-    select campo1, campo2, ..., campon from tabla1
+```sql
+SELECT campo1, campo2, ..., campon FROM tabla1
+```
 
 ej:
-
-    select nombre, edad, apellido from usuarios
+```sql
+SELECT nombre, edad, apellido FROM usuarios
+```
 
 ---
 ## Identificadores
@@ -292,9 +297,9 @@ ej:
  Normalmente los identificadores _"primarios"_ es un campo especial que se utilizan para ubicar uno y solo un registro en toda la base de datos.
 
  
-Los identificadores _"Foráneos"_  son campos de una tabla que hacen referencia a _'identificadores primarios'_ de otra tabla, para establecer una relación entre los registros.
+Los identificadores **"Foráneos"**  son campos de una tabla que hacen referencia a **'identificadores primarios'** de otra tabla, para establecer una relación entre los registros.
 
-> ⚠️ Una tabla puede tener muchos identificadores foráneos(FK), haciendo referencia a PK(claves primarias) de otras tablas, pero SOLO puede tener una PK
+>[!warning] ⚠️ Una tabla puede tener muchos identificadores foráneos(FK), haciendo referencia a PK(claves primarias) de otras tablas, pero SOLO puede tener una PK
 
 
 # Sentencias de busquedas intermedias
@@ -309,18 +314,28 @@ otro ej:
 
 `select LastName AS Apellidos, FirstName as Nombre from employees`
 
-- Realizar "funciones" en una busqueda:
+### Realizar "**funciones**" en una busqueda:
 
 `select price as precioOriginal, price*2 as precioDoble from Products`
 
-> nótese que se multiplica por 2 los datos del campo price, y se asignan con el alias preciodoble, desde la tabla productos.
+>[!warning] nótese que se multiplica por 2 los datos del campo price, y se asignan con el alias preciodoble, desde la tabla productos.
 
 
 
-- Ordenar busquedas de manera descendente y ascendente (order by ==campo== ASC / DESC)
+### ORDER BY
 
-      SELECT * FROM Products ORDER BY price
+Esta sentencia ordena los resultados según la columna **price** de manera ascendente.
+```sql
+SELECT * FROM Products ORDER BY price ASC
+```
 
+La siguiente sentencia ordena de mayor precio al menor segú la columna **price**
+```sql
+SELECT * FROM Products ORDER BY price DESC
+```
+
+
+***TIPO DE ORDEN según el tipo de dato.***
 
 | tipo de dato          | Orden Ascendente |
 | --------------------- | ---------------- |
@@ -331,57 +346,70 @@ otro ej:
 | letras                |                  |
 | blob                  | no hay orden     |
 
-  
-#### NULLS FIRST, NULLS LAST Al ordenar los datos se puede determinar que se muestren los elementos con campos NULLS al principio con FIRST, o al final con LAST, dependiendo de qué orden se elija.
+#### ORDER BY campo1, campo2, ... campon== 
 
-  ej:
-  
-	  SELECT * FROM Products ORDER BY ProductName DESC NULLS FIRST
-
-  
-#### RANDOM () También exite la función RANDOM() que al no especificar un campo de orden, ordena al azar los elementos en el resultado de la lista. ESTO SIRVE TAMBIEN PARA REALIZAR una misma busqueda varias veces pero variando los elementos presentados que cumplen las condiciones evaluadas.
-
- ej:
-
- 	SELECT * FROM Products ORDER BY RANDOM()
-
-  
-#### ==ORDER BY campo1, campo2, ... campon== 
 Realizando una busqueda y ordenando de 2 maneras el resultado:
-
-`SELECT FROM "nom tabla" ORDER BY "campo1", "campo2", ...`
+`SELECT FROM "nombre_tabla" ORDER BY "campo1", "campo2", ...`
 
 ej:
-
 `SELECT FROM Products ORDER BY ProductName, ProductID`
   
   > esto devuelve la lista ordenada primero por el nombre de los productos, y luego por su ID si es que hay productos con el mismo nombre.
   
+  
+### NULLS FIRST, NULLS LAST
 
-#### DISTINCT
-Seleccionar una lista de elementos "únicos" ordenados por ProductName:
-esto genera que si en una busqueda común, obtuviera 2 o más registros que tuviesen el mismo "nombre de campo", con esta sentencia figuraría solamente uno.
+Al ordenar los datos se puede determinar que se muestren los elementos con campos **NULLS** al principio con **FIRST**, o al final con **LAST**, dependiendo de qué orden se elija.
 
-`SELECT DISTINCT "nombre de campo" FROM "nom de tabla" `
+ej:
+  
+```sql
+SELECT * FROM Products ORDER BY ProductName DESC NULLS FIRST
+```
+
+  
+### RANDOM () 
+
+También exite la función `RANDOM()` que al no especificar un campo de orden, ordena al azar los elementos en el resultado de la lista. ESTO SIRVE TAMBIEN PARA REALIZAR una misma busqueda varias veces pero variando los elementos presentados que cumplen las condiciones evaluadas.
 
 ej:
 
-`SELECT DISTINCT ProductName from Products ORDER BY ProductName`
+```sql
+SELECT * FROM Products ORDER BY RANDOM()
+```
 
-#### WHERE Condición para las selecciones.
+### DISTINCT
+
+Dado que la keyword `DISTINCT`  removerá ciegamente filas duplicadas, vamos a aprender más adelante como descartar duplicados basados en columnas específicas, usando grouping y la claúsula  `GROUP BY`
+
+>[!important] la cláusula DISTINCT va ubicada al seleccionar la columna, luego del SELECT
+
+```sql
+SELECT DISTINCT "nombre_de_campo" FROM "nombre_de_tabla" 
+```
+
+ejemplo:
+
+```sql
+SELECT DISTINCT ProductName from Products ORDER BY ProductName
+```
+
+### WHERE
  
  Esta condicion puede obtener registros de acuerdo a lo que indicamos luego del where
 `SELECT "nombre del campo" FROM "nombre de tabla" WHERE "condicion"`
 
 ej:
 
-`select productname from products WHERE productID = 14`
+```sql
+SELECT productname FROM products WHERE productID = 14
+```
 
+###  DELETE
 
-  		
-####  DELETE sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
+>[!warning] sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
 
-   Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
+   Esta sentencia borra los registros donde se cumpla la condicion, ***¡SIEMPRE VA SEGUIDA DE UN WHERE!***
 
 `DELETE FROM "tabla a obterner los datos" WHERE "condicion"`
 
@@ -389,29 +417,30 @@ ej:
  `DELETE from Products where ProductId >= 79;`
 
 
-#### UPDATE
-sentencia para ==actualizar==  una tabla o registro.
+### UPDATE
 
-Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
+sentencia para actualizar  una tabla o registro.
+
+Se utiliza para actualizar datos sobre registros ya ingresados. Se debe **SIEMPRE** evaluar una condicion para no actualizar **TODOS** los campos del mismo nombre seteado.
 
 
+```sql
+UPDATE "nombre_tabla" SET campo a actualizar = "valor a ingresar" WHERE condicion a evaluar para encontrar el campo a modificar
 ```
-UPDATE "nom tabla" SET "campo a actualizar" = "valor a ingresar" WHERE "condicion a evaluar para encontrar el campo a modificar"
-```
 
-ej:
+ejemplo:
 
-```
+```sql
 UPDATE Products SET ProductName = "salchichas chichas" 
  	WHERE ProductID = 40
 ```
 
 
-ej2:
+ejemplo 2:
 
-```
-UPDATE "tabla" SET "campo1" = "valor1", "campo2" = "valor2" 
-  	WHERE "condicion para encontrar el registro o registros"
+```sql
+UPDATE "nombre_tabla" SET campo1 = "valor1", campo2 = "valor2" 
+  	WHERE condicion para encontrar el registro o registros
 ```
    	
 
@@ -463,18 +492,32 @@ Esto devuelve registros donde el país NO ES 'USA' y NO ES 'Argentina'.
 > El NOT se puede pensar en SQL como poner un eventoA 'Distinto' eventoB.
 
 
-#### LIMIT
+### LIMIT
+
 Se utiliza para "limitar" la cantidad de resultados en la consulta.
 
-ej:
-
-```
+ejemplo:
+```sql
 SELECT * from Customers WHERE
 CustomerID > 50 and NOT Country = 'Germany'
 LIMIT 5 //esto limita a 5 resultados en la consulta(que devuelve muchos más)
 ```
 
- ## Operador NOT y != (distinto de) 
+
+### OFFSET
+The `LIMIT` will reduce the number of rows to return, and the optional `OFFSET` will specify where to begin counting the number rows from.
+
+```sql
+SELECT columna1, columna2, etc 
+FROM mitabla
+WHERE condicion(es)
+ORDER BY columnaN ASC/DESC
+LIMIT cantidadaMostrar
+OFFSET cantidaddesdedondeempezar
+```
+
+### Operador NOT y != (distinto de) 
+ 
  - La diferencia entre estos dos operadores, es el tipo de clase de cada uno.
    	NOT es un operador lógico.
    	!=  es un operador de comparación.
@@ -482,7 +525,7 @@ LIMIT 5 //esto limita a 5 resultados en la consulta(que devuelve muchos más)
    Pueden llegar a dar los mismos resultados, pero la sintaxis es distinta y los resultados pueden resultar diferentes.
 
 
-#### BETWEEN 
+### BETWEEN 
    Se utiliza para especificar un rango de busqueda, incluido los límites en la busqueda.
 Claramente el valor1 debe ser menor al valor2 y del mismo tipo de dato compatible. Por ej:
 
@@ -494,51 +537,52 @@ Tambien maneja datos de _Fechas_:
 
 `SELECT * FROM [tablas] WHERE [campo] BETWEEN 'fecha1' and 'fecha2'`
 
-#### LIKE
+### LIKE
 Se utiliza para buscar y filtrar patrones de texto en campos. Existen cómodines para las busquedas, y la cantidad depende de la base de datos, por ej Postgres maneja muchos más comodines con busquedas de texto.
 
 ej:
-
-`SELECT * FROM customers WHERE CustomerName LIKE 'Antonio Moreno Taquería'`
+```sql
+SELECT * FROM customers WHERE CustomerName LIKE 'Antonio Moreno Taquería'
+```
 
 - Dentro del operador like, se usan los comodines "%" y "_" .
 
- ==(%)== : indica que puede haber más texto(cantidad indefinida) antes o después de donde se ubica en el término de la condición.
+	==(%)== : indica que puede haber más texto(cantidad indefinida) antes o después de donde se ubica en el término de la condición.
+	ej:
+	```sql
+SELECT * FROM customers WHERE CustomerName LIKE '%r'`
+```
 
-ej:
+	 Esto significa y devuelve los registros donde el nombre del cliente, termine con "r", pero antes puede tener cualquier otra cosa el campo.
 
-		SELECT * FROM customers WHERE CustomerName LIKE '%r'
+	==( _ ) ==: 
+	El guión bajo indica que en su lugar, puede haber un caracter, pero especificando que en ese lugar hay ***UN SOLO*** carácter (no puede haber más)
+
+	ej:
+	```sql
+SELECT * FROM customers WHERE CustomerName LIKE 'Fu___' (3 underdash)
+``` 
   
-  > Esto significa y devuelve los registros donde el nombre del cliente, termine con "r", pero antes puede tener cualquier otra cosa el campo.
+ Esto devolveria Fulle, Fully, Furia, etc.
 
-==( _ ) ==: 
-el guión bajo indica que en su lugar, puede haber un caracter, pero especificando que en ese lugar hay UN SOLO carácter (no puede haber más)
-
-ej:
-
-	SELECT * FROM customers WHERE CustomerName LIKE 'Fu___' (3 underdash)
- 
- > Esto devolveria Fulle, Fully, Furia, etc.
-
-
-#### ISNULL o ISNOTNULL
+### ISNULL o ISNOTNULL
    Esto evalua si el campo es _null_ o es _notnull_
 
 
-#### IN : operador
+### IN (operador)
 
   Esto puede evaluar si el campo indicado, posee algunos de los valores pasados entre paréntesis.
 
-```
+```sql
 SELECT * FROM "nombre de tabla" WHERE "campo1" IN ("valor1", "valor2", ..., "valorN")
 ```
 
 ej:
+```sql
+SELECT * FROM products WHERE CategoryID IN (2, 3)
+```
 
-`SELECT * FROM products WHERE CategoryID IN (2, 3)`
-
- > Esto devuelve los productos donde la categoría de cada uno es 2 o es 3.
- 
+Esto devuelve los productos donde la categoría de cada uno es 2 o es 3.
 
 ## Funciones y más  
 
