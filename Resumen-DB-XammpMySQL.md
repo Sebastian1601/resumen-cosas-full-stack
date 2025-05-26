@@ -56,7 +56,29 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
  - Luego de instalado el browser, ya se puede abrir para manejar desde ahi las bases.
  ---
 
- 
+## MySQL
+
+#### Tipos de cláusulas
+
+Al trabajar con lenguaje SQL, tenemos que tener en cuenta los distintos tipos de comandos que podemos ejecutar.
+Se agrupan en 5 grandes conjuntos.
+
+- DDL [Data Definition Language]
+	CREATE | DROP | ALTER | TRUNCATE
+
+- DQL [Dat Query Language]
+	SELECT
+
+- DML [Data Manipulation Language]
+	INSERT | UPDATE | DELETE | EXPLAIN CALL
+
+- DCL [Data Control Language]
+	COMMIT | SAVEPOINT | ROLLBACK
+
+- TCL [Transaction Control Language]
+	GRANT | REVOKE
+
+
 >[!info] Entidad:
 >- Es una representación de algo.
 >- Para representarlos se utiliza la *Notación de chen*.
@@ -102,19 +124,55 @@ ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
 
 `UNSIGNED` : determina que el valor a ingresar, debe ser positivo, sin signo ni valor negativo.
 
-### Oden de las sentencias para generar una consulta 
+### Oden de las sentencias para generar una consulta (query)
 
-1- (SELECT / DELETE/ UPDATE)
+Cada consulta comienza por determinar los datos que necesitamos en la base, y luego, filtrarlos en algo que pueda ser procesado y entendido lo más rápido posible. Gracias a que cada parte de la query es ejecutada secuencialmente, es importante entender el orden de ejecución asi uno puede saber qué datos están disponibles en qué momento.
 
-2- (CONDICION WHERE) 
+Una query completa, tiene la siguiente sintaxis
 
-3- (GROUP BY)
+```sql
+Complete SELECT query
 
-4- (HAVING -solo se usa si usamos group by-)
+`SELECT DISTINCT column, AGG_FUNC(_column_or_expression_), … 
+FROM mytable 
+JOIN another_table 
+ON mytable.column = another_table.column 
+WHERE _constraint_expression_ 
+GROUP BY column 
+HAVING _constraint_expression_ 
+ORDER BY _column_ ASC/DESC 
+LIMIT _count_ 
+OFFSET _COUNT_;`
+```
 
-5- (ORDER BY)
+#### Orden de ejecución de los distintos pasos de la query.
 
-6- (LIMIT)
+1. FROM y JOIN's
+	La cláusula FROM y subsecuentemente JOIN, son las primeras en ejecutarse para determinar el total de los datos a trabajar (*por eso al hacer un join, en el select ya se pueden definir todos los campos necesarios a "traer" de ambas tablas*) 
+	Esto incluye subconsultas, y puede causar que temporalmente se construyan tablas "ocultas" conteniendo todas las filas y columnas de las tablas siendo "unidas".
+
+2. WHERE
+	Una vez que tenemos todos los datos de la consulta, se aplica la condición del WHERE individualmente a cada registro, y los que no satisfacen la misma, son desechados. Cada una de las condiciones puede acceder a datos requeridos inicialmente en el FROM. Los **ALIASES** del SELECT generalmente no son accesibles en la mayoría de bases de datos, dado que pueden incluir expresiones dependientes de partes que la consulta quizás todavia no haya ejecutado.
+
+3. GROUP BY
+	Los registros resultantes que efectivamente cumplieron la condicion del WHERE son agrupados basados en valores comúnes de la columna especificada en el GROUP BY. Como resultado, habrán una cantidad de filas única como los valores únicos que tienen la columna indicada. I**MPLICITAMENTE, esto significa que deberías usar esto SOLO cuando tienes funciones de agregación en la consulta**.
+
+4. HAVING
+	Si la consulta tiene una cláusula GROUP BY, entonces las condiciones en el HAVING son aplicadas a los grupos de filas, y se descartan los grupos que no satisfacen la condición.
+	ALIASES no son accesibles tampoco desde este punto, como en el WHERE.
+
+5. SELECT
+	Finalmente, cualquier expresión en la parte SELECT es ejecutada y computada.
+
+6. DISTINCT 
+	De las filas resultantes luego de todo lo anterior, las duplicadas serán descartadas.
+
+7. ORDER BY
+	Si una cláusula ORDER BY está escrita, las filas restantes son ordenadas de manera ASCENDETE(por defecto) o DESCENDENTE de acuerdo a la misma.
+	*AQUI SI SE PUEDE REFERENCIAR una columna por su alias, dado que ya el select se ha ejecutado.*
+
+8. LIMIT / OFFSET
+	Finalmente, las filas resultantes que caigan fuera del rango indicado por el LIMIT y el OFFSET son descartadas, dejando el resultante final de registros para mostrar como resultado.
 
 ### Creación de base, tabla y uso.
 
@@ -122,7 +180,7 @@ muestra las bases de datos activas.
 `SHOW DATABASES;`
 
 crea la base de datos que indicamos.
-`CREATE DATABASE [nombre];`
+`CREATE SCHEMA IF NOT EXISTS [nombre];`
 
 usar la tabla de nombre [nombre_de_la_base]
 `USE [nombre_de_la_base]`
@@ -140,6 +198,19 @@ CREATE TABLE "[nombre]" (
    PRIMARY KEY("nombre de campoX", AUTOINCREMENT)
        )
 ```
+
+
+Para ver la estructura de una tabla, se usa la sentencia 
+```sql
+DESCRIBE [nombre de base].(nombre de tabla);
+```
+
+Ejemplo:
+```sql
+DESCRIBE twitter_db.tabla_usuarios;
+```
+
+
 
 #### Propiedades habituales de los capos definidos en la tabla
 
@@ -199,10 +270,33 @@ Tipos de datos para los campos:
 - **PRIMARY KEY** : una combinación de NOT NULL y UNIQUE. identifica inequívocamente un registro de la tabla.
 
 - **FOREIGN KEY** : evita acciones que destruirían el vínculo entre tablas.
+	Las Foreign Key aseguran que el valor ingresado en el campo determinado como foreign key, exista en el campo al que hacen referencia.
+	Ejemplo:
+```sql
+CREATE TABLE followers (
+	follower_id int not null,
+    following_id int not null,
+    Foreign key(follower_id) REFERENCES users(user_id),
+    Foreign key(following_id) REFERENCES users(user_id),
+    Primary Key(follower_id, following_id)
+    );
+	```
+
+Esto nos asegura que lo que se ingresa en follower_id como following_id, es un valor que existe en el campo user_id de la tabla Users.-
 
 - **CHECK** : determina que los valores en una columna satisfacen una condición específica.
+	Ejemplo:
+	
+	```sql
+	CREATE TABLE seguidores (
+	  id SERIAL PRIMARY KEY,
+	  follower_id INT NOT NULL,
+	  following_id INT NOT NULL,
+	  CONSTRAINT evitar_self_follow CHECK (follower_id <> following_id)
+	);``` 
+	Esto evita que ambos valores en la tabla sean iguales, evitando que un usuario sea su propio seguidor. 
 
-- **DEFAULT** : setea un valor por defecto si no se especifica alguno en el ingreso de registro.
+- **DEFAULT(valor o función)** : setea un valor por defecto si no se especifica alguno en el ingreso de registro.
 
 - **CREATE INDEX**:
 
@@ -214,10 +308,9 @@ Tipos de datos para los campos:
 >ALTER TABLE [nombre_de_tabla] ADD [restricción_a_agregar] (campo_al_cual_agregarle_la_restricción)
 >```
 
-
-
 Ejemplo:
 `ALTER TABLE users ADD UNIQUE(last_name);`
+
 
 Para ==eliminar== una restricción a un campo, luego de creado, se utiliza la siguiente sintaxis:
 
@@ -361,6 +454,9 @@ ej:
 Seleccionar una lista de elementos "únicos" ordenados por ProductName:
 esto genera que si en una busqueda común, obtuviera 2 o más registros que tuviesen el mismo "nombre de campo", con esta sentencia figuraría solamente uno.
 
+>[!important] ESTO SE APLICA A TODOS LOS CAMPOS QUE COLOQUEMOS EN EL SELECT!
+>Si quisieramos realizar la busqueda con un solo campo afectado por distinct, deberiamos realizar una subconsulta, o usar el group by.
+
 `SELECT DISTINCT "nombre de campo" FROM "nom de tabla" `
 
 ej:
@@ -382,11 +478,23 @@ ej:
 
    Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
 
-`DELETE FROM "tabla a obterner los datos" WHERE "condicion"`
+```sql
+DELETE FROM "tabla_donde_estan_los_datos" WHERE "condicion"
+```
 
  ej:
- `DELETE from Products where ProductId >= 79;`
+```sql
+DELETE from Products where ProductId >= 79;
+```
 
+#### TRUNCATE TABLE
+
+Esta sentencia no borra los registros como delete, sino que elimina la tabla y la vuelve a crear sin registro alguno, es más eficiente, más rápida que delete.
+
+El comando es básico:
+```sql
+TRUNCATE TABLE (nombre_de_tabla_a_borrar_completa)
+```
 
 #### UPDATE
 sentencia para ==actualizar==  una tabla o registro.
@@ -394,13 +502,15 @@ sentencia para ==actualizar==  una tabla o registro.
 Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
 
 
-```
-UPDATE "nom tabla" SET "campo a actualizar" = "valor a ingresar" WHERE "condicion a evaluar para encontrar el campo a modificar"
+```sql
+UPDATE "nombre_tabla"
+SET "campo a actualizar" = "valor a ingresar" 
+WHERE "condicion a evaluar para encontrar el campo o campos a modificar"
 ```
 
 ej:
 
-```
+```sql
 UPDATE Products SET ProductName = "salchichas chichas" 
  	WHERE ProductID = 40
 ```
@@ -408,9 +518,11 @@ UPDATE Products SET ProductName = "salchichas chichas"
 
 ej2:
 
-```
-UPDATE "tabla" SET "campo1" = "valor1", "campo2" = "valor2" 
-  	WHERE "condicion para encontrar el registro o registros"
+```sql
+UPDATE "tabla" 
+SET "campo1" = "valor1",
+	"campo2" = "valor2" 
+WHERE "condicion para encontrar el registro o registros"
 ```
    	
 
@@ -502,7 +614,7 @@ ej:
 
 `SELECT * FROM customers WHERE CustomerName LIKE 'Antonio Moreno Taquería'`
 
-- Dentro del operador like, se usan los comodines "%" y "_" .
+- Dentro del operador like, se usan los comodines "%" y " _ " .
 
  ==(%)== : indica que puede haber más texto(cantidad indefinida) antes o después de donde se ubica en el término de la condición.
 
@@ -523,7 +635,10 @@ ej:
 
 
 #### ISNULL o ISNOTNULL
+
    Esto evalua si el campo es _null_ o es _notnull_
+	Esto serviría para analizar casos en donde los campos no tienen NINGUN tipo de dato, y esto generaría que al analizar los datos, los resultados no den como nos esperamos.
+	Ej: Si contamos todos los campos con valores enteros, y luego sacamos un promedio, un valor 0 haría una diferencia en el calculo final, distinto a eliminar los registros con valores NULL para la cuenta de la cantidad. 
 
 
 #### IN : operador
@@ -541,10 +656,10 @@ ej:
  > Esto devuelve los productos donde la categoría de cada uno es 2 o es 3.
  
 
-## Funciones y más  
+## AGGREGATE FUNCTIONS y más  
 
 #### COUNT (campo a contar)
-Cuenta qué cantidad de registros tengo en el campo indicado.
+Cuenta qué cantidad de registros tengo en un grupo si no se especifica un campo en particular, Sino, cuenta los números de registros que NO TIENEN NULL como valor en la columna especificada.
 ej:
 
 `SELECT COUNT(FirstName) AS Cantidad_de_nombres FROM Employees`
@@ -557,6 +672,16 @@ Cuenta qué cantidad suma todos los valores de una columna.
 ej:
 
 `SELECT SUM(price) AS Suma_total FROM Products`
+
+>[!note] Si necesito sumar 2 campos de los registros, siempre que sean numéricos, se puede usar el operador + con los nombres de los campos.
+
+ej:
+
+```sql
+SELECT id, nombre, valor1 + valor2 as TOTAL 
+FROM Productos
+ORDER BY TOTAL DESC;
+```
 
 #### AVG (campo a calcular promedio)
 Cuenta y reporta el promedio de todos los valores de los registros del campo indicado.
@@ -580,7 +705,13 @@ Ej:
 
 `SELECT *, Min(Price) FROM Products`
 
-> Esto genera una tabla de un registro con el valor minimo en el campo "Price"
+> Esto genera una tabla de UN SOLO registro con el valor minimo en el campo "Price"
+
+#### MAX (campo a evaluar máximo)
+
+`SELECT *, Max(Price) FROM Products`
+
+> Esto genera una tabla de UN SOLO registro con el valor máximo en el campo "Price"
 
 #### GROUP BY 
 Este operador agrupa según el campo definido, cada elemento único del campo.
@@ -615,15 +746,17 @@ GROUP BY SupplierID
 HAVING promedio > 40
 ```
 
+
+
 #### No se puede aplicar una función de agregación al resultado de otra función de agregación.
 
 ## SUBCONSULTAS (relacionar tablas)
 
-Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, pero se pueden utilizar en un SELECT, dentro de un WHERE, HAVING.
+Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, pero se pueden utilizar en un **SELECT**, dentro de un **WHERE**, **HAVING**.
 
 Ej:
 
-```
+```sql
 SELECT productID, quantity,
 (select productname from products where orderDetails.productID = ProductID) as Nombre from OrderDetails
 ```
@@ -634,7 +767,7 @@ SELECT productID, quantity,
 
 ej de subconsulta:
 
-```
+```sql
 SELECT productID, SUM(quantity) AS TotalVendido,
 (select productName FROM Products WHERE productID = OD.productID) AS NombreProducto,
 (select Price FROM Products WHERE productID = OD.productID) AS Precio,
@@ -654,8 +787,8 @@ GROUP BY ProductID
 - Donde la _sc_ Precio sea mayor a 40,
 - Agrupar por ProductID.
 
-
-#### JOIN
+---
+#### JOINS
 
 Existen varios tipos de JOIN. siendo los mismos:
 
@@ -686,19 +819,24 @@ Con un **cross join** sin condición( *where* ) quedaría lo siguiente de result
 
 >***No tiene sentido.***
 
-#### INNER JOIN 
-(o join a secas) Devuelve la intersección de datos, o dicho de otra manera, los datos de la tabla A que coinciden con datos de la tabla B)
+#### INNER JOIN (la intersección de los datos)
+(o join a secas) Devuelve la intersección de datos, o dicho de otra manera, los datos de la tabla A que coinciden con datos de la tabla B).
+Al crear y redactar el INNER JOIN, en el SELECT, podemos seleccionar campos de las *n - tablas* que vayamos a vincular.
+Luego va la sentencia del ON, y lo que queremos que relacione(normalmente son *primary keys*) 
 
 - SI queremos unir los resultados de la busqueda de 2 tablas podemos realizar lo siguiente:
 
-		SELECT * FROM [Employees] e INNER JOIN [Orders] o
-  		ON e.EmployeeID = o.EmployeeID
+```sql
+SELECT * FROM [Employees] e INNER JOIN [Orders] o
+ON e.EmployeeID = o.EmployeeID
+```
+
 
   El "ON" actua de Where cuando utilizamos JOINs
   > Esto devuelve todos los registros, tanto de los empleados, como de las ordenes emparejados por el employee ID que es una Primary Key en Employees y una Foreign Key en Orders.
 
   
-#### LEFT JOIN Es una busqueda que devuelve todos los datos solicitados de la tabla A, y los datos de la tabla B que COINCIDEN con A.
+#### LEFT JOIN Es una busqueda que devuelve TODOS los datos solicitados de la tabla A, y los datos de la tabla B que COINCIDEN con A.
 
 	select firstname AS nombre, Reward as Recompensa, Month as Mes from Rewards r
 	left join Employees e on e.EmployeeID = r.EmployeeID
@@ -711,6 +849,9 @@ Se usa el UNION para unir dos consultas, normalmente left y right.
 
 y esto da el resultado de la busqueda cruzada.
 
+>[!important] Los términos LEFT OUTER JOIN, IRGHT OUTER JOIN Y FULL OUTER JOIN son mantenidos por la compatibilidad con SQL-92, pero las consultas dichas son equivalentes a LEFT JOIN, RIGHT JOIN y FULL JOIN respectivamente.
+
+---
 ## Cardinalidad
    La cardinalidad define qué tipo de relaciones une a las tablas, normalmente pueden haber distintas relaciones entre tablas, siendo las siguientes:
 
