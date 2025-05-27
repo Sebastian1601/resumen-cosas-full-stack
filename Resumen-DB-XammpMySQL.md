@@ -133,7 +133,7 @@ Una query completa, tiene la siguiente sintaxis
 ```sql
 Complete SELECT query
 
-`SELECT DISTINCT column, AGG_FUNC(_column_or_expression_), … 
+SELECT DISTINCT column, AGG_FUNC(_column_or_expression_), … 
 FROM mytable 
 JOIN another_table 
 ON mytable.column = another_table.column 
@@ -142,7 +142,7 @@ GROUP BY column
 HAVING _constraint_expression_ 
 ORDER BY _column_ ASC/DESC 
 LIMIT _count_ 
-OFFSET _COUNT_;`
+OFFSET _COUNT_;
 ```
 
 #### Orden de ejecución de los distintos pasos de la query.
@@ -155,7 +155,7 @@ OFFSET _COUNT_;`
 	Una vez que tenemos todos los datos de la consulta, se aplica la condición del WHERE individualmente a cada registro, y los que no satisfacen la misma, son desechados. Cada una de las condiciones puede acceder a datos requeridos inicialmente en el FROM. Los **ALIASES** del SELECT generalmente no son accesibles en la mayoría de bases de datos, dado que pueden incluir expresiones dependientes de partes que la consulta quizás todavia no haya ejecutado.
 
 3. GROUP BY
-	Los registros resultantes que efectivamente cumplieron la condicion del WHERE son agrupados basados en valores comúnes de la columna especificada en el GROUP BY. Como resultado, habrán una cantidad de filas única como los valores únicos que tienen la columna indicada. I**MPLICITAMENTE, esto significa que deberías usar esto SOLO cuando tienes funciones de agregación en la consulta**.
+	Los registros resultantes que efectivamente cumplieron la condicion del WHERE son agrupados basados en valores comúnes de la columna especificada en el GROUP BY. Como resultado, habrán una cantidad de filas única como los valores únicos que tienen la columna indicada. **IMPLICITAMENTE, esto significa que deberías usar esto SOLO cuando tienes funciones de agregación en la consulta**.
 
 4. HAVING
 	Si la consulta tiene una cláusula GROUP BY, entonces las condiciones en el HAVING son aplicadas a los grupos de filas, y se descartan los grupos que no satisfacen la condición.
@@ -415,7 +415,7 @@ otro ej:
 
 
 
-### ORDER BY
+#### ORDER BY
 
 Esta sentencia ordena los resultados según la columna **price** de manera ascendente.
 ```sql
@@ -439,8 +439,6 @@ SELECT * FROM Products ORDER BY price DESC
 | letras                |                  |
 | blob                  | no hay orden     |
 
-#### ORDER BY campo1, campo2, ... campon== 
-
 Realizando una busqueda y ordenando de 2 maneras el resultado:
 `SELECT FROM "nombre_tabla" ORDER BY "campo1", "campo2", ...`
 
@@ -450,7 +448,7 @@ ej:
   > esto devuelve la lista ordenada primero por el nombre de los productos, y luego por su ID si es que hay productos con el mismo nombre.
   
   
-### NULLS FIRST, NULLS LAST
+#### NULLS FIRST, NULLS LAST
 
 Al ordenar los datos se puede determinar que se muestren los elementos con campos **NULLS** al principio con **FIRST**, o al final con **LAST**, dependiendo de qué orden se elija.
 
@@ -461,7 +459,7 @@ SELECT * FROM Products ORDER BY ProductName DESC NULLS FIRST
 ```
 
   
-### RANDOM () 
+#### RANDOM () 
 
 También exite la función `RANDOM()` que al no especificar un campo de orden, ordena al azar los elementos en el resultado de la lista. ESTO SIRVE TAMBIEN PARA REALIZAR una misma busqueda varias veces pero variando los elementos presentados que cumplen las condiciones evaluadas.
 
@@ -471,11 +469,10 @@ ej:
 SELECT * FROM Products ORDER BY RANDOM()
 ```
 
-### DISTINCT
+#### DISTINCT
 
 Dado que la keyword `DISTINCT`  removerá ciegamente filas duplicadas, vamos a aprender más adelante como descartar duplicados basados en columnas específicas, usando grouping y la claúsula  `GROUP BY`
 
-#### DISTINCT
 Seleccionar una lista de elementos "únicos" ordenados por ProductName:
 esto genera que si en una busqueda común, obtuviera 2 o más registros que tuviesen el mismo "nombre de campo", con esta sentencia figuraría solamente uno.
 
@@ -483,16 +480,34 @@ esto genera que si en una busqueda común, obtuviera 2 o más registros que tuvi
 >Si quisieramos realizar la busqueda con un solo campo afectado por distinct, deberiamos realizar una subconsulta, o usar el group by.
 
 ```sql
-SELECT DISTINCT "nombre_de_campo" FROM "nombre_de_tabla" 
+SELECT DISTINCT "nombre_de_campo" FROM "nombre_de_tabla";
 ```
 
 ejemplo:
 
 ```sql
-SELECT DISTINCT ProductName from Products ORDER BY ProductName
+SELECT DISTINCT ProductName from Products ORDER BY ProductName;
 ```
 
-### WHERE
+---
+#### CONCAT 
+
+La función CONCAT(valor1, valor2, .., valorn) se puede utilizar para concatenar valores de registros creando resultados que no figuran de manera inicial en la base de datos.
+
+sintáxis
+```sql
+SELECT CONCAT(expresion1, expresion2, ..., expresionN) FROM table1;
+```
+
+A su vez, en los distintos motores puede haber una sintaxis particular con símbolos( || ó + , etc) para realizar dicha función, ej.
+```sql
+SELECT expresion1 || expresion2 || expresionN FROM table1;
+```
+
+>[!note] Si alguna de las expresiones pasadas como parámetros tiene valor NULL, toda la función arrojará NULL.
+
+---
+#### WHERE
  
  Esta condicion puede obtener registros de acuerdo a lo que indicamos luego del where
 `SELECT "nombre del campo" FROM "nombre de tabla" WHERE "condicion"`
@@ -503,8 +518,7 @@ ej:
 SELECT productname FROM products WHERE productID = 14
 ```
 
-
-  		
+---  		
 ####  DELETE sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
 
    Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
@@ -518,6 +532,7 @@ DELETE FROM "tabla_donde_estan_los_datos" WHERE "condicion"
 DELETE from Products where ProductId >= 79;
 ```
 
+---
 #### TRUNCATE TABLE
 
 Esta sentencia no borra los registros como delete, sino que elimina la tabla y la vuelve a crear sin registro alguno, es más eficiente, más rápida que delete.
@@ -605,7 +620,7 @@ Esto devuelve registros donde el país NO ES 'USA' y NO ES 'Argentina'.
 > El NOT se puede pensar en SQL como poner un eventoA 'Distinto' eventoB.
 
 
-### LIMIT
+#### LIMIT
 
 Se utiliza para "limitar" la cantidad de resultados en la consulta.
 
@@ -618,7 +633,7 @@ LIMIT 5 //esto limita a 5 resultados en la consulta(que devuelve muchos más)
 
 
 
-### OFFSET
+#### OFFSET
 The `LIMIT` will reduce the number of rows to return, and the optional `OFFSET` will specify where to begin counting the number rows from.
 
 ```sql
@@ -630,7 +645,7 @@ LIMIT cantidadaMostrar
 OFFSET cantidaddesdedondeempezar
 ```
 
-### Operador NOT y != (distinto de) 
+#### Operador NOT y != (distinto de) 
  
  - La diferencia entre estos dos operadores, es el tipo de clase de cada uno.
    	NOT es un operador lógico.
@@ -639,7 +654,7 @@ OFFSET cantidaddesdedondeempezar
    Pueden llegar a dar los mismos resultados, pero la sintaxis es distinta y los resultados pueden resultar diferentes.
 
 
-### BETWEEN 
+#### BETWEEN 
    Se utiliza para especificar un rango de busqueda, incluido los límites en la busqueda.
 Claramente el valor1 debe ser menor al valor2 y del mismo tipo de dato compatible. Por ej:
 
@@ -651,7 +666,7 @@ Tambien maneja datos de _Fechas_:
 
 `SELECT * FROM [tablas] WHERE [campo] BETWEEN 'fecha1' and 'fecha2'`
 
-### LIKE
+#### LIKE
 Se utiliza para buscar y filtrar patrones de texto en campos. Existen cómodines para las busquedas, y la cantidad depende de la base de datos, por ej Postgres maneja muchos más comodines con busquedas de texto.
 
 ej:
@@ -679,14 +694,14 @@ SELECT * FROM customers WHERE CustomerName LIKE 'Fu___' (3 underdash)
  Esto devolveria Fulle, Fully, Furia, etc.
 
 
-#### ISNULL o ISNOTNULL
+##### ISNULL o ISNOTNULL
 
    Esto evalua si el campo es _null_ o es _notnull_
 	Esto serviría para analizar casos en donde los campos no tienen NINGUN tipo de dato, y esto generaría que al analizar los datos, los resultados no den como nos esperamos.
 	Ej: Si contamos todos los campos con valores enteros, y luego sacamos un promedio, un valor 0 haría una diferencia en el calculo final, distinto a eliminar los registros con valores NULL para la cuenta de la cantidad. 
 
 
-### IN (operador)
+#### IN (operador)
 
   Esto puede evaluar si el campo indicado, posee algunos de los valores pasados entre paréntesis.
 
@@ -712,19 +727,25 @@ ej:
 
 `SELECT COUNT(FirstName) AS Cantidad_de_nombres FROM Employees`
 
-#### SUM(campo a sumar)
+#### SUM(campo a sumar o condición que debe cumplir un campo para sumarse)
 Cuenta qué cantidad suma todos los valores de una columna.
-
 `SELECT SUM("campo a sumar") FROM "nombre de tabla"`
 
 ej:
-
 `SELECT SUM(price) AS Suma_total FROM Products`
+
+ej con condición:
+Esto sumaría la cantidad total de registros de hombres como de mujeres para la tabla "pacientes".
+```sql
+	SELECT SUM(Genero = "Masculino") as CantHombres,
+	       SUM(Genero = "Femenino") as CantMujeres
+	       FROM pacientes;
+
+```
 
 >[!note] Si necesito sumar 2 campos de los registros, siempre que sean numéricos, se puede usar el operador + con los nombres de los campos.
 
 ej:
-
 ```sql
 SELECT id, nombre, valor1 + valor2 as TOTAL 
 FROM Productos
@@ -798,6 +819,32 @@ HAVING promedio > 40
 
 #### No se puede aplicar una función de agregación al resultado de otra función de agregación.
 
+## FUNCIONES DE FECHA (date)
+
+Las funciones de fecha se aplican a campos de tipo date, datetime, timestamp, etc.
+#### YEAR()
+Retorna la parte del año en los campos de tipo fecha.
+
+Si el campo fecha1 = 2010-11-23 entonces
+```sql
+YEAR(fecha1) -- devolverá el valor 2010, para por ej. usar en una condición.
+```
+#### MONTH()
+Retorna el valor del mes en los campos de tipo fecha.
+
+#### DAY()
+Retorna el valor del día en campos de tipo fecha.
+
+#### CURRENT_TIMESTAMP
+esta funcion que va sin parámetros, devuelve la fecha y hora actuales al segundo.
+
+Ej:
+```sql
+SELECT current_timestamp; -- devolverá, por ej 2025-05-27 13:51:56
+```
+
+
+---
 ## SUBCONSULTAS (relacionar tablas)
 
 Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, pero se pueden utilizar en un **SELECT**, dentro de un **WHERE**, **HAVING**.
@@ -898,6 +945,38 @@ Se usa el UNION para unir dos consultas, normalmente left y right.
 y esto da el resultado de la busqueda cruzada.
 
 >[!important] Los términos LEFT OUTER JOIN, IRGHT OUTER JOIN Y FULL OUTER JOIN son mantenidos por la compatibilidad con SQL-92, pero las consultas dichas son equivalentes a LEFT JOIN, RIGHT JOIN y FULL JOIN respectivamente.
+
+---
+
+#### UNION
+
+El operador *UNION* es usado para combinar el set resultado de dos o más busquedas *SELECT*.
+
+Esto conlleva ciertas "restricciones" al momento de "unir" los datos resultantes.
+- Todas las busquedas *SELECT* en *UNION* deben tener el mismo nro de columnas resultantes.
+- Dichas columnas deben tener el mismo *data type*.
+- Las columnas en cada uno de los SELECT deben estar en el mismo orden.
+
+Sintaxis UNION:
+```sql
+SELECT nombre_columna(s) FROM tabla1
+UNION
+SELECT nombre_columna(s) FROM tabla2;
+```
+
+
+El operador UNION *selecciona solamente valores distintos por defecto*. Para permitir valores duplicados, se usa UNION ALL.
+
+Sintaxis UNION ALL:
+```sql
+SELECT columna(s) FROM tabla1
+UNION ALL
+SELECT columna(s) FROM tabla2;
+```
+
+>[!important] NOTA:
+>Los nombres de las columnas en el resultado final, son usualmente las columnas definidas en el primer SELECT.
+
 
 ---
 ## Cardinalidad
