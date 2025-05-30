@@ -147,31 +147,31 @@ OFFSET _COUNT_;`
 
 #### Orden de ejecución de los distintos pasos de la query.
 
-1. FROM y JOIN's
+1. **FROM y JOIN's**
 	La cláusula FROM y subsecuentemente JOIN, son las primeras en ejecutarse para determinar el total de los datos a trabajar (*por eso al hacer un join, en el select ya se pueden definir todos los campos necesarios a "traer" de ambas tablas*) 
 	Esto incluye subconsultas, y puede causar que temporalmente se construyan tablas "ocultas" conteniendo todas las filas y columnas de las tablas siendo "unidas".
 
-2. WHERE
+2. **WHERE**
 	Una vez que tenemos todos los datos de la consulta, se aplica la condición del WHERE individualmente a cada registro, y los que no satisfacen la misma, son desechados. Cada una de las condiciones puede acceder a datos requeridos inicialmente en el FROM. Los **ALIASES** del SELECT generalmente no son accesibles en la mayoría de bases de datos, dado que pueden incluir expresiones dependientes de partes que la consulta quizás todavia no haya ejecutado.
 
-3. GROUP BY
+3. **GROUP BY**
 	Los registros resultantes que efectivamente cumplieron la condicion del WHERE son agrupados basados en valores comúnes de la columna especificada en el GROUP BY. Como resultado, habrán una cantidad de filas única como los valores únicos que tienen la columna indicada. I**MPLICITAMENTE, esto significa que deberías usar esto SOLO cuando tienes funciones de agregación en la consulta**.
 
-4. HAVING
+4. **HAVING**
 	Si la consulta tiene una cláusula GROUP BY, entonces las condiciones en el HAVING son aplicadas a los grupos de filas, y se descartan los grupos que no satisfacen la condición.
 	ALIASES no son accesibles tampoco desde este punto, como en el WHERE.
 
-5. SELECT
+5. **SELECT**
 	Finalmente, cualquier expresión en la parte SELECT es ejecutada y computada.
 
-6. DISTINCT 
+6. **DISTINCT** 
 	De las filas resultantes luego de todo lo anterior, las duplicadas serán descartadas.
 
-7. ORDER BY
+7. **ORDER BY**
 	Si una cláusula ORDER BY está escrita, las filas restantes son ordenadas de manera ASCENDETE(por defecto) o DESCENDENTE de acuerdo a la misma.
 	*AQUI SI SE PUEDE REFERENCIAR una columna por su alias, dado que ya el select se ha ejecutado.*
 
-8. LIMIT / OFFSET
+8. **LIMIT / OFFSET**
 	Finalmente, las filas resultantes que caigan fuera del rango indicado por el LIMIT y el OFFSET son descartadas, dejando el resultante final de registros para mostrar como resultado.
 
 ### Creación de base, tabla y uso.
@@ -261,7 +261,7 @@ Tipos de datos para los campos:
 | JSON | guardar datos en formato Json        |
 
 
-#### Limitaciones (o restricciones) en la definición de columnas, y tablas.
+#### Limitaciones (CONSTRAINS) en la definición de columnas, y tablas.
 
 - **NOT NULL** : indica que el campo no puede tener valor NULL al crearse o modificarse un registro.
 
@@ -309,20 +309,27 @@ Esto nos asegura que lo que se ingresa en follower_id como following_id, es un v
 >```
 
 Ejemplo:
-`ALTER TABLE users ADD UNIQUE(last_name);`
+```sql
+ALTER TABLE users ADD UNIQUE(last_name);
+```
 
 
 Para ==eliminar== una restricción a un campo, luego de creado, se utiliza la siguiente sintaxis:
 
-`ALTER TABLE [nombre_tabla] DROP INDEX [nombre_campo_a_eliminar_restricciones]`
+```sql
+ALTER TABLE [nombre_tabla] DROP INDEX [nombre_campo_a_eliminar_restricciones]
+```
 
 Ejemplo:
 `ALTER TABLE users DROP INDEX last_name;`
 
 *Para ==eliminar== una restricción de ==PRIMARY KEY== en un campo ya creado se usa:
 
-`ALTER TABLE [nombre_de_tabla] DROP PRIMARY KEY;`
+```sql
+ALTER TABLE [nombre_de_tabla] DROP PRIMARY KEY;
+```
 
+---
 
 ### Sentencias de busqueda inicial
 
@@ -740,7 +747,7 @@ HAVING funciona como un WHERE pero va luego del _GROUP BY_ y se utiliza como una
 
 ej:
 
-```
+```sql
 SELECT supplierID, ROUND(AVG(price)) AS promedio FROM Products
 GROUP BY SupplierID
 HAVING promedio > 40
@@ -752,13 +759,14 @@ HAVING promedio > 40
 
 ## SUBCONSULTAS (relacionar tablas)
 
-Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, pero se pueden utilizar en un **SELECT**, dentro de un **WHERE**, **HAVING**.
+Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, pero se pueden utilizar en un **SELECT**, dentro de un **WHERE**, **HAVING, FROM**.
 
 Ej:
 
+Aqui utilizamos la subconsulta dentro del SELECT, seleccionando una tabla que relaciona elementos de las tablas *orderDetails* y *products*.
 ```sql
 SELECT productID, quantity,
-(select productname from products where orderDetails.productID = ProductID) as Nombre from OrderDetails
+(SELECT productname FROM products WHERE orderDetails.productID = ProductID) AS Nombre FROM OrderDetails
 ```
  
 > Esta consulta obtiene el _productID_ y _Quantity_ de la tabla **OrderDetails** pero aparte, con la subconsulta, busca también los _ProductName_ donde el ProductID de la tabla Products es igual al ProductID de la tabla OrderDetails.
@@ -786,6 +794,21 @@ GROUP BY ProductID
 - DESDE [OrderDetails] alias OD
 - Donde la _sc_ Precio sea mayor a 40,
 - Agrupar por ProductID.
+
+#### WITH
+
+Las subconsultas también se pueden definir antes de iniciar el select, con la cláusula
+	*WITH* (nombre de la tabla temporal) *AS* (aqui vamos a definir la subconsulta que nos devuelve resultados para nuestra tabla temporal)
+
+Ejemplo: Es uno trivial ya que se pueden definir el nombre de las columnas en el mismo SELECT inicial, pero de esta manera, se crea una tabla temporal con dichos nombres, y luego se selecciona todo de nuevo de ella. 
+```sql
+WITH datos_pacientes AS (
+  SELECT patient_id AS id_paciente,
+  first_name AS nombre,
+  last_name AS apellido
+  FROM patients)
+  SELECT * FROM datos_pacientes;
+```
 
 ---
 #### JOINS
@@ -820,9 +843,9 @@ Con un **cross join** sin condición( *where* ) quedaría lo siguiente de result
 >***No tiene sentido.***
 
 #### INNER JOIN (la intersección de los datos)
-(o join a secas) Devuelve la intersección de datos, o dicho de otra manera, los datos de la tabla A que coinciden con datos de la tabla B).
-Al crear y redactar el INNER JOIN, en el SELECT, podemos seleccionar campos de las *n - tablas* que vayamos a vincular.
-Luego va la sentencia del ON, y lo que queremos que relacione(normalmente son *primary keys*) 
+(o join a secas) Devuelve la intersección de datos, o dicho de otra manera, los datos de la tabla A que coinciden con datos de la tabla B, *sin valores NULL*).
+Al crear y redactar el *INNER JOIN*, en el *SELECT*, podemos seleccionar campos de las *n - tablas* que vayamos a vincular.
+Luego va la sentencia del *ON*, y lo que queremos que relacione(normalmente son *primary keys*) 
 
 - SI queremos unir los resultados de la busqueda de 2 tablas podemos realizar lo siguiente:
 
@@ -834,22 +857,53 @@ ON e.EmployeeID = o.EmployeeID
 
   El "ON" actua de Where cuando utilizamos JOINs
   > Esto devuelve todos los registros, tanto de los empleados, como de las ordenes emparejados por el employee ID que es una Primary Key en Employees y una Foreign Key en Orders.
-
   
-#### LEFT JOIN Es una busqueda que devuelve TODOS los datos solicitados de la tabla A, y los datos de la tabla B que COINCIDEN con A.
+#### LEFT JOIN
 
-	select firstname AS nombre, Reward as Recompensa, Month as Mes from Rewards r
-	left join Employees e on e.EmployeeID = r.EmployeeID
+> Es una busqueda que devuelve TODOS los datos solicitados de la tabla A, y los datos de la tabla B que COINCIDEN con A (por definición, permite valores null cuando no hay cruce entre los datos usados para relacionar).
 
-#### RIGHT JOIN es una busqueda que devuelve todos los datos solicitados de la tabla B, y los datos de la tabla A que coinciden con B.
+```sql
+SELECT firstname AS nombre, Reward AS Recompensa, Month AS Mes 
+FROM Rewards r
+LEFT JOIN Employees e ON e.EmployeeID = r.EmployeeID
+```
 
-#### FULL JOIN es una union de LEFT JOIN y RIGHT JOIN, pero evitando los duplicados.
+#### RIGHT JOIN
 
-Se usa el UNION para unir dos consultas, normalmente left y right.
+>Es una busqueda que devuelve todos los datos solicitados de la tabla B, y los datos de la tabla A que coinciden con B. nuevamente, permite valores null cuando hay datos de B que no tienen su relación con A.
+
+#### FULL JOIN
+
+es una union de LEFT JOIN y RIGHT JOIN, pero evitando los duplicados.
+
+Se usa el **UNION** para unir dos consultas, normalmente left y right.
 
 y esto da el resultado de la busqueda cruzada.
 
->[!important] Los términos LEFT OUTER JOIN, IRGHT OUTER JOIN Y FULL OUTER JOIN son mantenidos por la compatibilidad con SQL-92, pero las consultas dichas son equivalentes a LEFT JOIN, RIGHT JOIN y FULL JOIN respectivamente.
+>[!important] Los términos LEFT OUTER JOIN, RIGHT OUTER JOIN Y FULL OUTER JOIN son mantenidos por la compatibilidad con SQL-92, pero las consultas dichas son equivalentes a LEFT JOIN, RIGHT JOIN y FULL JOIN respectivamente.
+
+#### Funciones con JOIN
+
+Al utilizar JOINs, podemos usar ciertas cláusulas que permiten la mejor lectura de la consulta para evitar tener que estar repitiendo datos.
+
+*USING* : esta cláusula se usa cuando usamos un JOIN con otra tabla, y tanto en la tabla A como en la B, existe *una columna con el mismo nombre y tipo de datos en ella*, los cuales queremos usar para unir los resultados. 
+
+En vez de colocar 
+```sql
+SELECT * FROM tablaA
+JOIN tablaB
+ON tablaA.id = tablaB.id;
+```
+
+Podemos usar la siguiente sintaxis
+```sql
+SELECT * FROM tablaA
+JOIN tablaB
+USING (id); -- esta linea equivale a decir que el campo id de una sea igual al id de la otra.
+```
+
+![[./img/joins.png# border]]
+
 
 ---
 ## Cardinalidad
@@ -873,20 +927,26 @@ Los índices ayudan a que las busquedas sean más eficientes y rápidas. Están 
 
 - Indice ordinario (permite campos duplicados y vacíos)
 
-`CREATE INDEX "nombre del indice" ON "nombre de tabla" (campo a indexar)`
+```sql
+CREATE INDEX "nombre del indice" ON "nombre de tabla" (campo a indexar)`
+```
   
 
  - Indice compuesto
    Para crear un índice compuesto, de 2 campos que no deberían tener datos repetidos, dado que normalmente son únicos por naturaleza, pero aún asi no son *Primary Keys* podemos realizar lo siguiente:
 
-`CREATE UNIQUE INDEX "nombre del indice" ON "nombre de tabla" (campo1, campo2)`
+```sql
+CREATE UNIQUE INDEX "nombre del indice" ON "nombre de tabla" (campo1, campo2)
+```
 
 La conjunción de los datos de estos 2 campos, crearían un virtual "campo único" donde la composición de sus valores, daría un resultado único, por lo tanto, actuaría como una primary key sin serlo.
 El término *INDEX* genera que el campo índice no pueda tener valores repetidos, la misma tabla no permitiría INSERTARLOS
 
 ej:
 
-`CREATE UNIQUE INDEX "nombre" ON Employees (LastName, FirstName).`
+```sql
+CREATE UNIQUE INDEX "nombre" ON Employees (LastName, FirstName)
+```
 
  - Esto genera que los campos LastName y FirstName compuestos, no acepten datos duplicados. 
   
@@ -900,7 +960,7 @@ ej:
 
 ---
 
-## Crear "VISTAS"
+## VISTAS
 
   Las vistas se definen mediante las busquedas SQL que se realizan, obteniendo campos específicos con ciertas condiciones, o sea, podemos nombrar como "vista" a una "tabla resultado de una sentencia SQL".
 
