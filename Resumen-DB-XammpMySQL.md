@@ -58,7 +58,7 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
 
 ## MySQL
 
-#### Tipos de cláusulas
+### Tipos de cláusulas
 
 Al trabajar con lenguaje SQL, tenemos que tener en cuenta los distintos tipos de comandos que podemos ejecutar.
 Se agrupan en 5 grandes conjuntos.
@@ -87,7 +87,7 @@ Se agrupan en 5 grandes conjuntos.
 > - Las entidades se componen por atributos simples, atributos compuestos, atributos multivalor, y atributos derivados.
 
 
-## Tablas
+### Tablas
 
  *Tabla* : Es una estructura de datos, organizada en filas y columnas.
 
@@ -111,7 +111,12 @@ Se agrupan en 5 grandes conjuntos.
 ### Opciones especiales de los campos.
 
 `default (valor)` - esto se usa en un campo para indicar que si no se pasa el valor al insertar un dato, se genere un valor "por defecto" el cual figura dentro de los paréntesis
-ej: `IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))`
+
+ejemplo:
+```sql
+IDusuario BINARY(16) PRIMARY KEY DEFAULT(UUID_TO_BIN(UUID))
+```
+
 *esto indica que el campo idusuario, es
 * binario de 16bits
 * clave primaria 
@@ -154,7 +159,7 @@ OFFSET _COUNT_;
 2. **WHERE**
 	Una vez que tenemos todos los datos de la consulta, se aplica la condición del WHERE individualmente a cada registro, y los que no satisfacen la misma, son desechados. Cada una de las condiciones puede acceder a datos requeridos inicialmente en el FROM. Los **ALIASES** del SELECT generalmente no son accesibles en la mayoría de bases de datos, dado que pueden incluir expresiones dependientes de partes que la consulta quizás todavia no haya ejecutado.
 
-3. GROUP BY
+3. **GROUP BY**
 	Los registros resultantes que efectivamente cumplieron la condicion del WHERE son agrupados basados en valores comúnes de la columna especificada en el GROUP BY. Como resultado, habrán una cantidad de filas única como los valores únicos que tienen la columna indicada. **IMPLICITAMENTE, esto significa que deberías usar esto SOLO cuando tienes funciones de agregación en la consulta**.
 
 4. **HAVING**
@@ -176,14 +181,27 @@ OFFSET _COUNT_;
 
 ### Creación de base, tabla y uso.
 
-muestra las bases de datos activas.
-`SHOW DATABASES;`
+muestra las bases de datos existentes.
+```sql
+SHOW DATABASES;
+```
 
 crea la base de datos que indicamos.
-`CREATE SCHEMA IF NOT EXISTS [nombre];`
+```sql
+CREATE SCHEMA IF NOT EXISTS nombre_de_la_base;
+```
 
-usar la tabla de nombre [nombre_de_la_base]
-`USE [nombre_de_la_base]`
+usar la tabla llamada *nombre_de_la_base*
+```sql
+USE nombre_de_la_base
+```
+
+ver qué base de datos está seleccionada
+```sql
+SELECT DATABASE();
+```
+
+
 
 
 >[!tip] Sentencia para crear una tabla (ya dentro de la base de datos)
@@ -199,6 +217,11 @@ CREATE TABLE "[nombre]" (
        )
 ```
 
+
+Para ver las tablas dentro de la base seleccionada
+```sql
+SHOW TABLES;
+```
 
 Para ver la estructura de una tabla, se usa la sentencia 
 ```sql
@@ -335,7 +358,9 @@ ALTER TABLE [nombre_de_tabla] DROP PRIMARY KEY;
 
 Mostrar todos los datos de la tabla 'usuarios'
  
- `select * from users` 
+ ```sql
+SELECT * FROM users
+```
 - select : selecciona,
 - *         : símbolo que significa "todo",
 - from   : desde,
@@ -347,7 +372,11 @@ Mostrar todos los datos de la tabla 'usuarios'
 
 ingresar un registro de usuario en la tabla **usuarios**
 
-`insert into usuarios (nombre, apellido, edad) values ('Juan', 'Giordano', '21')`
+```sql
+INSERT INTO usuarios (nombre, apellido, edad) 
+VALUES 
+('Juan', 'Giordano', '21')
+```
 
 - insert : ingresá,
 - into : en la siguiente tabla,
@@ -360,20 +389,19 @@ ingresar un registro de usuario en la tabla **usuarios**
 > Se pueden generar un insert con varios registros, de la siguiente manera:
 
  ```sql
- ```sql
-insert into usuarios (nombre, apellido, edad) 
-    values  ('Claudia', 'Caceres','44'),
-	    	('Daiana','Congregado','17'),
-		    ('Ariel','Berneto','25'),
-		    ('Juan Jose','Campagnolo','37')
+INSERT INTO usuarios (nombre, apellido, edad) 
+VALUES ('Claudia', 'Caceres','44'),
+	   ('Daiana','Congregado','17'),
+       ('Ariel','Berneto','25'),
+       ('Juan Jose','Campagnolo','37')
 ```
 
 > Se puede insertar un registro, o varios, y generar una consulta justamente luego del insert, separando las declaraciones con ; (punto y coma).
 
 ```sql
-insert into usuarios (nombre, apellido, edad)
- values ('lucas', 'dalto', 21);
- select * from usuarios
+INSERT INTO usuarios (nombre, apellido, edad)
+ VALUES ('lucas', 'dalto', 21);
+ SELECT * FROM usuarios
 ```
 
 ### Seleccionar ciertos campos de la tabla
@@ -389,8 +417,62 @@ ej:
 SELECT nombre, edad, apellido FROM usuarios
 ```
 
+---  		
+####  DELETE sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
+
+   Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
+
+```sql
+DELETE FROM "tabla_donde_estan_los_datos" WHERE "condicion"
+```
+
+ ej:
+```sql
+DELETE from Products where ProductId >= 79;
+```
+
 ---
-## Identificadores
+#### TRUNCATE TABLE
+
+Esta sentencia no borra los registros como delete, sino que elimina la tabla y la vuelve a crear sin registro alguno, es más eficiente, más rápida que delete.
+
+El comando es básico:
+```sql
+TRUNCATE TABLE (nombre_de_tabla_a_borrar_completa)
+```
+
+#### UPDATE
+sentencia para ==actualizar==  una tabla o registro.
+
+Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
+
+
+```sql
+UPDATE "nombre_tabla"
+SET "campo a actualizar" = "valor a ingresar" 
+WHERE "condicion a evaluar para encontrar el campo o campos a modificar"
+```
+
+ejemplo:
+
+```sql
+UPDATE Products SET ProductName = "salchichas chichas" 
+ 	WHERE ProductID = 40
+```
+
+
+ejemplo 2:
+
+```sql
+UPDATE "tabla" 
+SET "campo1" = "valor1",
+	"campo2" = "valor2" 
+WHERE "condicion para encontrar el registro o registros"
+```
+   	
+
+---
+### Identificadores
  Son datos específicos que se utilizan para identificar inequívocamente a un único registro.
 
  existen identificadores **"primarios"** y **"foráneos"**.
@@ -402,7 +484,7 @@ Los identificadores **"Foráneos"**  son campos de una tabla que hacen referenci
 >[!warning] ⚠️ Una tabla puede tener muchos identificadores foráneos(FK), haciendo referencia a PK(claves primarias) de otras tablas, pero SOLO puede tener una PK
 
 
-# Sentencias de busquedas intermedias
+### Sentencias de busquedas intermedias
 
 - `as` Asignar _Alias_ al nombre de un campo. (as)
 
@@ -447,13 +529,23 @@ SELECT * FROM Products ORDER BY price DESC
 | blob                  | no hay orden     |
 
 Realizando una busqueda y ordenando de 2 maneras el resultado:
-`SELECT FROM "nombre_tabla" ORDER BY "campo1", "campo2", ...`
+```sql
+SELECT FROM "nombre_tabla" ORDER BY "campo1", "campo2", ...
+```
 
 ej:
-`SELECT FROM Products ORDER BY ProductName, ProductID`
+```sql
+SELECT * FROM Products ORDER BY ProductName, ProductID
+```
   
   > esto devuelve la lista ordenada primero por el nombre de los productos, y luego por su ID si es que hay productos con el mismo nombre.
-  
+
+Se pueden ordenar mediante diferentes columnas, y también en diferentes direcciones.
+Por ejemplo, queremos ordenar por **ProductName** *ascendente*, y luego, dentro de esa organización, por **ProductID** *descendentemente.*
+
+```sql
+SELECT * FROM Products ORDER BY ProductName, ProductID DESC;
+```
   
 #### NULLS FIRST, NULLS LAST
 
@@ -525,59 +617,6 @@ ej:
 SELECT productname FROM products WHERE productID = 14
 ```
 
----  		
-####  DELETE sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
-
-   Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
-
-```sql
-DELETE FROM "tabla_donde_estan_los_datos" WHERE "condicion"
-```
-
- ej:
-```sql
-DELETE from Products where ProductId >= 79;
-```
-
----
-#### TRUNCATE TABLE
-
-Esta sentencia no borra los registros como delete, sino que elimina la tabla y la vuelve a crear sin registro alguno, es más eficiente, más rápida que delete.
-
-El comando es básico:
-```sql
-TRUNCATE TABLE (nombre_de_tabla_a_borrar_completa)
-```
-
-#### UPDATE
-sentencia para ==actualizar==  una tabla o registro.
-
-Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
-
-
-```sql
-UPDATE "nombre_tabla"
-SET "campo a actualizar" = "valor a ingresar" 
-WHERE "condicion a evaluar para encontrar el campo o campos a modificar"
-```
-
-ejemplo:
-
-```sql
-UPDATE Products SET ProductName = "salchichas chichas" 
- 	WHERE ProductID = 40
-```
-
-
-ejemplo 2:
-
-```sql
-UPDATE "tabla" 
-SET "campo1" = "valor1",
-	"campo2" = "valor2" 
-WHERE "condicion para encontrar el registro o registros"
-```
-   	
 
 ---
 
@@ -726,7 +765,7 @@ SELECT * FROM products WHERE CategoryID IN (2, 3)
  > Esto devuelve los productos donde la categoría de cada uno es 2 o es 3.
  
 
-## AGGREGATE FUNCTIONS y más  
+### AGGREGATE FUNCTIONS y más  
 
 #### COUNT (campo a contar)
 Cuenta qué cantidad de registros tengo en un grupo si no se especifica un campo en particular, Sino, cuenta los números de registros que NO TIENEN NULL como valor en la columna especificada.
@@ -826,7 +865,7 @@ HAVING promedio > 40
 
 #### No se puede aplicar una función de agregación al resultado de otra función de agregación.
 
-## FUNCIONES DE FECHA (date)
+### FUNCIONES DE FECHA (date)
 
 Las funciones de fecha se aplican a campos de tipo date, datetime, timestamp, etc.
 #### YEAR()
@@ -842,6 +881,9 @@ Retorna el valor del mes en los campos de tipo fecha.
 #### DAY()
 Retorna el valor del día en campos de tipo fecha.
 
+#### CURRENT_DATE()
+Retorna la fecha actual, sin horario. ej: 2025-11-16
+
 #### CURRENT_TIMESTAMP
 esta funcion que va sin parámetros, devuelve la fecha y hora actuales al segundo.
 
@@ -852,7 +894,7 @@ SELECT current_timestamp; -- devolverá, por ej 2025-05-27 13:51:56
 
 
 ---
-## SUBCONSULTAS (relacionar tablas)
+### SUBCONSULTAS (relacionar tablas)
 
 Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, pero se pueden utilizar en un **SELECT**, dentro de un **WHERE**, **HAVING, FROM**.
 
@@ -971,6 +1013,8 @@ LEFT JOIN Employees e ON e.EmployeeID = r.EmployeeID
 
 es una union de LEFT JOIN y RIGHT JOIN, pero evitando los duplicados.
 
+
+#### UNION
 Se usa el **UNION** para unir dos consultas, normalmente left y right.
 
 y esto da el resultado de la busqueda cruzada.
@@ -1093,14 +1137,42 @@ CREATE UNIQUE INDEX "nombre" ON Employees (LastName, FirstName)
 
 - Para crear una vista:
 
-CREATE VIEW "nombre de la vista" AS "consulta sql que devuelve la vista de columnas seleccionadas"
+```sql
+CREATE VIEW (nombre de la vista) AS
+(consulta sql que devuelve la vista de columnas seleccionadas)
+```
 
 - Para eliminar una vista, se corre:
 
-DROP VIEW IF EXIST "nombre de la vista".
+```sql
+DROP VIEW IF EXIST (nombre de la vista).
+```
+
+
+- Para usar una vista en concreto:
+```sql
+SELECT * FROM (nombre de vista);
+```
+
 
 ---
+## USUARIOS
 
+Cada usuario que se loguea en la base de datos, debe tener los permisos correspondientes, y aparte, el motor de la base de datos, registra desde qué servidor se está conectando. Esto queda identificado en su mismo usuario, siendo el mismo
+$$\text{user@server}$$
+por ejemplo, el usuario root se conecta desde el servidor local, y al usar la sentencia para identificarlo, será
+- **root@localhost**
+
+Para identificar el usuario que estamos usando podemos usar una sentencia SQL justamente.
+
+```sql
+SELECT USER();
+```
+
+
+
+
+---
 ## BLOQUEOS Y TRANSACCIONES
 
 Esto se refiere al concepto de que las bases de datos deben tener seguridad de los datos consultados modificados al momento de realizarze los cambios.
