@@ -56,6 +56,14 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
  - Luego de instalado el browser, ya se puede abrir para manejar desde ahi las bases.
  ---
 
+## INSTALACION DE MYSQL
+
+Se instala server y workbench para tener una interfaz para administrar las bases.
+También está la linea de comandos mysql que es basicamente lo mismo que el workbench pero en linea de código.
+
+
+---
+
 ## MySQL
 
 ### Tipos de cláusulas
@@ -1168,6 +1176,11 @@ Para identificar el usuario que estamos usando podemos usar una sentencia SQL ju
 ```sql
 SELECT USER();
 ```
+
+
+---
+
+## TRIGGERS
 
 
 
