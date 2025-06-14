@@ -187,7 +187,7 @@ OFFSET _COUNT_;
 8. **LIMIT / OFFSET**
 	Finalmente, las filas resultantes que caigan fuera del rango indicado por el LIMIT y el OFFSET son descartadas, dejando el resultante final de registros para mostrar como resultado.
 
-### Creación de base, tabla y uso.
+### CREATE SCHEMA (Creación de base, tabla y uso)
 
 muestra las bases de datos existentes.
 ```sql
@@ -225,6 +225,33 @@ CREATE TABLE "[nombre]" (
        )
 ```
 
+
+Las tablas también se pueden crear desde sentencias SELECT, utilizando los mismos tipos de datos que tienen esas columnas definidas en el SELECT, como en una vista *(Una vista es como un "alias" para llamar un SELECT predefinido con un nombre )* inclusive.
+
+Ej:
+
+```sql
+CREATE TABLE Auditoria_Principal AS 
+SELECT *, 
+    '' AS audit_accion,
+    CURRENT_TIMESTAMP AS audit_fecha
+FROM v_Audit_Principal
+WHERE 1 = 0; -- solo la estructura
+```
+
+Este ejemplo indica que vamos a crear una tabla a partir de el resultado que da la vista predefinida como "*v_Audit_Principal*", y aparte, 2 columnas más, una sin datos como *audit_accion*, y la otra con la fecha y hora actual, como *audit_fecha* y luego va el *FROM* que siempre se utiliza al usar una vista ya definida.
+Esto hace que, aparte de todas las columnas que trae la vista al ejecutarse, se agreguen 2 columnas con los nombres indicados: *audit_accion* y *audit_fecha*. 
+Los valores que tengan esas columnas no van a importar, dado que el *WHERE* final, *indica un absurdo*, lo cual genera que la vista *no traiga ningún dato* y la tabla esté vacía excepto por su estructura.
+
+En este caso por ejemplo, habría que modificar dicha tabla luego de creada, para asignar el tipo de datos que van a tener *audit_accion* y *audit_fecha* y eso lo hacemos con la sentencia ALTER TABLE que veremos más adelante, de la siguiente manera:
+
+```sql
+ALTER TABLE Audit_Principal
+MODIFY COLUMN audit_accion VARCHAR(10),
+MODIFY COLUMN audit_fecha TIMESTAMP;
+```
+
+---
 
 Para ver las tablas dentro de la base seleccionada
 ```sql
@@ -333,6 +360,47 @@ Esto nos asegura que lo que se ingresa en follower_id como following_id, es un v
 
 - **AUTO_INCREMENT** : indica que el campo incrementará automáticamente su valor al crearse un registro.
 
+
+---
+### ALTER TABLE (realizar modificaciones de estructura en una tabla)
+
+Las siguientes sentencias nos permiten modificar la tabla en más de una manera, se pueden agregar, quitar o modificar columnas, y se pueden agregar, quitar o modificar propiedades de las columnas y datos.
+
+#### ADD keyword
+```sql
+ALTER table_name
+ADD column_name datatype;
+```
+
+Toda modificaciones de la estructura de la tabla, se realiza con la sentencia ALTER [nombre de tabla a modificar] y luego las palabras claves para definir qué es lo que vamos a hacer.
+
+ADD : indica que se va a agregar una columna más a la tabla indicada.
+
+ejemplo:
+```sql
+ALTER tabla1 ADD columna8 varchar(100);
+```
+
+#### DROP COLUMN keyword
+
+La palabra clave DROP de la sentencia ALTER indica que vamos a disponer de una columna completa.(*hay sistemas de bases de datos que no permiten la eliminación de una columna en particular*)
+
+```sql
+ALTER tabla1 DROP COLUMN columna8;
+```
+
+#### MODIFY COLUMN keyword
+
+La sentencia MODIFY COLUMN nos permite, indicando la columna que queremos modificar, cambiar los tipos de datos de una columna.
+
+ejemplo:
+```sql
+ALTER tabla1 MODIFY COLUMN columna8 INT UNIQUE;
+```
+
+
+#### Agregar una constraint a una columna ya definida
+
 >[!info] Información importante
 >Para agregar una restricción a un campo, luego de creada la tabla, se puede utilizar la siguiente sintaxis 
 >```sql
@@ -344,6 +412,7 @@ Ejemplo:
 ALTER TABLE users ADD UNIQUE(last_name);
 ```
 
+#### Eliminar una constraint a una columna ya definida
 
 Para ==eliminar== una restricción a un campo, luego de creado, se utiliza la siguiente sintaxis:
 
@@ -352,7 +421,9 @@ ALTER TABLE [nombre_tabla] DROP INDEX [nombre_campo_a_eliminar_restricciones]
 ```
 
 Ejemplo:
-`ALTER TABLE users DROP INDEX last_name;`
+```sql
+ALTER TABLE users DROP INDEX last_name;
+```
 
 *Para ==eliminar== una restricción de ==PRIMARY KEY== en un campo ya creado se usa:
 
@@ -362,7 +433,7 @@ ALTER TABLE [nombre_de_tabla] DROP PRIMARY KEY;
 
 ---
 
-### Sentencias de busqueda inicial
+### SELECT (Sentencias de busqueda inicial)
 
 Mostrar todos los datos de la tabla 'usuarios'
  
@@ -374,9 +445,22 @@ SELECT * FROM users
 - from   : desde,
 - users  : es el nombre de la tabla donde buscar.
 
+#### Seleccionar ciertos campos de la tabla
+
+se ingresa la sentencia 
+
+```sql
+SELECT campo1, campo2, ..., campon FROM tabla1
+```
+
+ej:
+```sql
+SELECT nombre, edad, apellido FROM usuarios
+```
+
 
 ---
-### Sentencia de ingreso de un registro
+### INSERT (Sentencia de ingreso de un registro)
 
 ingresar un registro de usuario en la tabla **usuarios**
 
@@ -412,21 +496,9 @@ INSERT INTO usuarios (nombre, apellido, edad)
  SELECT * FROM usuarios
 ```
 
-### Seleccionar ciertos campos de la tabla
-
-se ingresa la sentencia 
-
-```sql
-SELECT campo1, campo2, ..., campon FROM tabla1
-```
-
-ej:
-```sql
-SELECT nombre, edad, apellido FROM usuarios
-```
 
 ---  		
-####  DELETE sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
+###  DELETE sentencia para borrar la seleccion( ⚠️ o todo! CUIDADO ⚠️)
 
    Esta sentencia borra los registros donde se cumpla la condicion, ¡SIEMPRE VA SEGUIDA DE UN WHERE!
 
@@ -440,7 +512,7 @@ DELETE from Products where ProductId >= 79;
 ```
 
 ---
-#### TRUNCATE TABLE
+### TRUNCATE TABLE (borrar datos de una tabla completa, sin eliminar la misma)
 
 Esta sentencia no borra los registros como delete, sino que elimina la tabla y la vuelve a crear sin registro alguno, es más eficiente, más rápida que delete.
 
@@ -449,7 +521,7 @@ El comando es básico:
 TRUNCATE TABLE (nombre_de_tabla_a_borrar_completa)
 ```
 
-#### UPDATE
+### UPDATE ( actualizar datos de un registro )
 sentencia para ==actualizar==  una tabla o registro.
 
 Se utiliza para actualizar datos sobre registros ya ingresados. Se debe SIEMPRE evaluar una condicion para no actualizar TODOS los campos del mismo nombre seteado.
