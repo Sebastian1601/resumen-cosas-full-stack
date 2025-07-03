@@ -162,6 +162,8 @@ int main(void)
 |    %s     | string(using cs50.h) |
 |    %li    | long integer         |
 
+Al escribir y representar datos desde una variable, si tenemos por ejemplo, caracteres, y en vez de usar el fs(**format specifier**) %c, usamos %i, de integer, nos devolverá el valor numérico ASCII del carácter.
+
 ---
 
 ### Tipos de datos.
@@ -179,17 +181,17 @@ Para eso, tenemos una lista de tipos disponibles, según los datos a guardar...
 >Cuando alojamos un string de carácteres, estamos alojando técnicamente un array de carácteres(carácteres contiguos en memoria), podemos tener 2 o más bytes por lo tanto, el sistema utiliza una manera de "delimitar" hasta donde corresponde ese array, ubicando un \0 al final del array. E interpreta que debe hacer esto, cuando usamos las comillas dobles.
 
 
-float = 3.14156
- - (works with 32 bits of data worth, so we have a 2^31 possibilites for positive and 2^32 negatives)
+**float** = 3.14156
+ - (works with 32 bits of data worth, so we have a $2^{31}$ possibilites for positive and $2^{32}$ negatives)
 
-double = 3.14157652111323 
+**double** = 3.14157652111323 
 - (wotks with 64 bits of data worth,kinda like float but with double of digits after comma)
 
-int = 23520
+**int** = 23520
 
-long = 35.130.520.122
+**long** = 35.130.520.122
 
-string = "Ernest" / "Daniel" / "Library".
+**string** = "Ernest" / "Daniel" / "Library".
 
 ***VOID*** its a special type (not data type, you can't create a variable type void) that means null or empty.
 
@@ -228,7 +230,7 @@ else
 
 * Condicional con 3 posibilidades (se establece otro if con la condición en el primer ELSE)
 
-```
+```c
 if (x < y)
 {
     printf("x is less than y\n");
@@ -248,17 +250,13 @@ else
 > Condicional WHILE
 
 * Este loop se ejecuta no importa la cantidad de veces siempre y cuando la condición establecida sea verdadera. Dada la estructura, PUEDE NO EJECUTARSE en absoluto.
-
-*WHILE (condición)*
-
-*{*
-
+```c
+while (condición)
+{
     //haz esto
-
     IMPORTANTE:dentro del bloque debería haber un contrlador que haga variar en algún momento la condición que se evalúa.
-
-*}*
-
+}
+```
 
 ---
 
@@ -266,13 +264,13 @@ else
 
 * Este condicional es similar al WHILE, con la diferencia de que se ejecutará el código dentro del bloque SI O SI una vez, y luego se evaluará la condición establecida.
 
-*DO*
 
-*{*
-
+```c
+do
+{
     //bloque de código a ejecutar.
-
-*} WHILE (condición)*
+} while (condición)
+```
 
 ---
 
@@ -280,44 +278,38 @@ else
 
 * Este condicional sirve cuando tenemos una limitada cantidad de casos posibles que queremos manejar, y posiblemente no manejar otra cantidad de posibilidades, con una excepción.
 
-
-**switch (condicion)**
-
-**{**
-
-   **case a:**
+```c
+switch (condicion)
+{
+   case a:
       
       //bloque a ejecutar
       break;
-  
-   **case b:**
+   case b:
       
       //bloque a ejecutar
       break;
-  
-   **case c:**
+   case c:
       
       //bloque a ejecutar
       break;
-  
-   **default:**
+   default:
       
     //bloque por defecto, cuando la condición es igual a un valor no anticipado
-
-**}**
-
+}
+```
 
 > Condicional ternario
 
 * Este condicional es un if más directo, que devuelve automáticamente valores.
 
-```
+```c
 (condicion) ? //ejecutar si verdadero : ejecutar si falso ;
 ```
 
 ó
 
-```
+```c
 int x = (condicion)
     ? ejec. si verdadero
     : ejec. si falso ;
@@ -361,18 +353,18 @@ El problema viene que estamos tratando el resultado como un int, (por eso el %i 
 
 Para resolver esto, podemos inicialmente cambiar el tipo de datos que estamos recibiendo o inicializando, de la siguiente manera..
 
-```
-*float x = 5;*
+```c
+float x = 5;
 
-*float y = 2;*
+float y = 2;
 
-*printf( "%f", x / y);*
+printf( "%f", x / y);
 ```
 
 > Esto resuelve algunos de nuestros problemas con respecto a los resultados a mostrar y manejar, sin embargo, sabiendo que los números con coma suelen poder tener una gran cantidad de dígitos o incluso infinita, y la limitación por bytes para representar un número, se plantea que en computación existe una **Imprecisión de coma flotante** debido a la imposibilidad de representar fielmente dichos nros.
 
 Otra manera que tenemos de manejar nuestros resultados es la siguiente:
-```
+```c
 int x = 5;
 
 int y = 2;
@@ -383,6 +375,7 @@ printf(" %.2f ", (float) x / y);
 `%.2f` esto significa que tenemos un placeholder de un valor %f (float), pero que aparte, queremos representar 2 dígitos luego de la coma solamente (.2). Esto nos permite tener un mayor control sobre qué resultado se mostrará.
 
 `(float x / y)` ingresar entre paréntesis un nuevo tipo de datos, permite "cambiarlo al vuelo" tratando el resultado de x/y como un valor float, para que coincida con la representación en la función printf(). 
+
 
 #### Command line in unix systems.
 
@@ -424,14 +417,14 @@ printf(" %.2f ", (float) x / y);
 
 - telnet
 
-### The #define preprocessor directive (MACRO).
+### The `#define` preprocessor directive (MACRO).
 
-* Para no definir constantes dentro del código, ni tener nros o textos "mágicos" en el mismo, podemos usar este acercamiento para que al C compilar el código, se reemplace lo que indiquemos en las primeras lineas con #define. Esto forma parte del pre-procesado del código en C.
+* Para no definir constantes dentro del código, ni tener nros o textos "mágicos" en el mismo, podemos usar este acercamiento para que al C compilar el código, se reemplace lo que indiquemos en las primeras lineas con `#define`. Esto forma parte del pre-procesado del código en C.
 
 ej:
 
 tenemos el código siguiente....
-```
+```c
 card deal_card(deck name)
  {
     for (int i=0; i > 52; i++ )
@@ -442,7 +435,7 @@ card deal_card(deck name)
 ```
 
 Podemos modificar la constante 52 de la siguiente manera...
-```
+```c
 #define DECKSIZE 52
 
 card deal_card(deck name)
@@ -465,7 +458,7 @@ y esto evita que tengamos "suelto" una constante dentro del código.
 * Crear un programa que imprima una pirámide de "#" donde el usuario pueda seleccionar qué alto tendrá, y la pirámide esté alineada a la derecha, con espacios aparte de los "#".
 
 
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -537,13 +530,19 @@ clang:
 
 ### Preprocessing, compiling, assembling, linking .- 
 
-- El preproceso en C, implica realizar tareas antes de iniciar el procesado del código que escribimos. Esto se define con las primeras lineas del código, que llevan un símbolo hash (**#**) para identificar que estas lineas, se ejecutarán primero para copiar prototipos, definir variables dentro del código, etc.
+- El **preproceso** en C, implica realizar tareas antes de iniciar el procesado del código que escribimos. Esto se define con las primeras lineas del código, que llevan un símbolo hash (**#**) para identificar que estas lineas, se ejecutarán primero para copiar prototipos, definir variables dentro del código, etc.
 
-- El Compilado sucede luego de haberse preprocesado el código, cuando ya todo está en su lugar, pero todavía en lenguaje C en este caso. El compilado es traducir el lenguaje C en **Assembly Code**.
+- El **Compilado** sucede luego de haberse preprocesado el código, cuando ya todo está en su lugar, pero todavía en lenguaje C en este caso. El compilado es traducir el lenguaje C en **Assembly Code**.
 
-- En tercer lugar, se realiza el ensamblado, que no es más que traducir el codigo assembly en ceros y unos, que finalmente, es lo que entiende el procesador por comandos.
+- En tercer lugar, se realiza el **ensamblado**, que no es más que traducir el codigo assembly en ceros y unos, que finalmente, es lo que entiende el procesador por comandos.
 
-- Finalmente, se realiza la vinculación, que no es más que considerar todos los archivos son necesarios dado el código que hay que ejecutar y vincularlos para ejecutar el mismo código que está escrito.
+- Finalmente, se realiza la **vinculación**, que no es más que considerar todos los archivos son necesarios dado el código que hay que ejecutar y vincularlos para ejecutar el mismo código que está escrito.
+
+EL código iniciado con el "#" (símbolo hash), es una *directiva de preproceso*. Esto significa que, el compilador, al leer esto, va a copiar y reemplazar esa linea, por lo indicado en la misma. En nuestro caso, cuando ponemos el código
+```c
+#include <stdio.h>
+```
+estamos indicando que el prepocesador incluya todos los prototipos de la libreria **stdio.h** al inicio de nuestro programa.(para tener las funciones del archivo disponibles.)
 
 ### Debugging
 
@@ -594,12 +593,12 @@ scores[0] = 72;
 scores[1] = 73;
 scores[2] = 33;
 
-Cuando tenemos una función y debemos pasarle un array, se le debe pasar como parámetros, el nombre del array con los corchetes vacíos, indicándo que no sabemos qué longitud tiene, pero **SI DEBEMOS PASARLE** la longitud como 2do parámetro.
+Cuando tenemos una **función** y debemos pasarle un **array**, se le debe pasar como parámetros, el nombre del array con los corchetes vacíos, indicándo que no sabemos qué longitud tiene, pero **SI DEBEMOS PASARLE** la longitud como 2do parámetro.
 
-- En este caso, el array es notas[], tiene una longitud de tamaño "largo". Son los únicos 2 parámetros que se pasan.
+- En este caso, el array es `notas[]`, tiene una longitud de tamaño "largo". Son los únicos 2 parámetros que se pasan.
 
 ej:
-```
+```c
 float promedio(int largo, int notas[])
 {
     float suma = 0;
@@ -620,7 +619,7 @@ Normalmente, siendo un array, podemos acceder a sus datos con la notación habit
 
 - ej:
 
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -635,6 +634,13 @@ int main(void)
 }
 ```
 
+### NUL carácter
+
+Este carácter indica en un array, que ha finalizado el mismo. Una cadena de caracteres(un string), se representa con un array de carácteres, por lo que para saber donde termina, se usa un extra byte, para pone el carácter `\0` indicándo que ha finalizado. (*esto implican las comillas dobles en pc, que todo lo que va dentro, finaliza con el carácter NUL, indicando que la cadena ha terminado*).
+
+![[./resumen-cs50-python/memoryallocation.png]]
+
+Las comillas simples implican que lo que va dentro, es un único carácter, que ocupa solamente 1 byte.
 
 ---
 
@@ -644,7 +650,7 @@ int main(void)
 * Hasta el momento hemos definido siempre la función principal llamada main con un parámetro llamado *void*, que implica que la función no toma argumentos en su ejecución, pero resulta que esto se puede modificar, para que al ejecutar la misma desde la linea de comandos, los "flags" o "argumentos" se puedan utilizar en la función misma.
 
 Estos argumentos, se toman como un array de strings, por lo tanto, como se debe hacer en C, debemos pasar una variable con la cantidad de argumentos(longitud), y el array de argumentos en sí.
-```
+```c
 int main(int argc, string argv[]){}
 ```
 
@@ -652,7 +658,7 @@ int main(int argc, string argv[]){}
 
 - ej: cuando ejecutamos un programa, aparte del nombre del mismo, podemos proveer argumentos que "cambian" la ejecución del mismo.
 
-c:> programaEnC.exe nuevo david 3500
+`c:> programaEnC.exe nuevo david 3500`
 
 > al ejecutar una linea de este estilo, estamos pasando todo lo separado con espacios como argumento.
 En este caso, el array quedaría:

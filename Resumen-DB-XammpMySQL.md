@@ -78,7 +78,7 @@ Se agrupan en 5 grandes conjuntos.
 	SELECT
 
 - DML [Data Manipulation Language]
-	INSERT | UPDATE | DELETE | EXPLAIN CALL
+	INSERT | UPDATE | DELETE | EXPLAIN | CALL
 
 - DCL [Data Control Language]
 	COMMIT | SAVEPOINT | ROLLBACK
