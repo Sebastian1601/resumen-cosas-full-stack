@@ -181,17 +181,21 @@ Para eso, tenemos una lista de tipos disponibles, según los datos a guardar...
 >Cuando alojamos un string de carácteres, estamos alojando técnicamente un array de carácteres(carácteres contiguos en memoria), podemos tener 2 o más bytes por lo tanto, el sistema utiliza una manera de "delimitar" hasta donde corresponde ese array, ubicando un \0 al final del array. E interpreta que debe hacer esto, cuando usamos las comillas dobles.
 
 
-**float** = 3.14156
+**float** [4 BYTES] = 3.14156
  - (works with 32 bits of data worth, so we have a $2^{31}$ possibilites for positive and $2^{32}$ negatives)
 
-**double** = 3.14157652111323 
+**double** [8 BYTES] = 3.14157652111323 
 - (wotks with 64 bits of data worth,kinda like float but with double of digits after comma)
 
-**int** = 23520
+**long** [8 BYTES] = 35.130.520.122
 
-**long** = 35.130.520.122
+**int**  [4 BYTES]= 23520
 
-**string** = "Ernest" / "Daniel" / "Library".
+**string** [? BYTES] = "Ernest" / "Daniel" / "Library".
+
+**char** [1 BYTE] = 'c', 'g'. A single char which takes only 1 byte to represent.
+
+**bool** [1 BYTE] = Boolean type of data. It uses 1 byte(8 bits)
 
 ***VOID*** its a special type (not data type, you can't create a variable type void) that means null or empty.
 
@@ -576,7 +580,7 @@ aqui nos presentará con botones en la parte superior del codigo:
 
 ### Estructuras de datos
 
-ARRAYS
+#### Arreglos (o arrays)
 
 * Para crear un array que es un conjunto de elementos del mismo tipo que se distribuyen juntos, se utiliza la siguiente sintaxis:
 
@@ -669,8 +673,22 @@ y con el string argv[] podemos acceder a ellos de manera eficaz.
 
 ### Statuses 
 
-* Cando definimos la función main, normalmente le asignamos int al valor que debería retornar la misma. Cuando el software termina, nos da un nro al "salir" del programa, ya sea por error o por haber realizado la tarea para la cual se creó.
+* Cando definimos la función main, normalmente le asignamos **int** al valor que debería retornar la misma. Cuando el software termina, nos da un nro al "salir" del programa, ya sea por error o por haber realizado de manera correcta la tarea para la cual se creó.
 
+Estos números se pueden ver, al menos en la consola misma, con el comando `echo $?`.
+
+- 0 Cero se utiliza para indicar suceso correcto, o en otras palabras, que el programa terminó correctamente realizando las tareas.
+- 1 o cualquier otro número, se indica para catalogar un tipo de error, obviamente esto va documentado para saber qué significa tal número.
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int main(int argc, string argv[])
+{
+
+}
+```
 
 ---
 
