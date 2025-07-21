@@ -708,35 +708,39 @@ Tenemos algoritmos lineales, binarios(que dividen en dos el problema a resolver,
 
 Normalmente se mide la calidad del algoritmo con respecto al problema a resolver de la manera siguiente:
 
-"*big O notation*" (define el peor caso de busqueda, el que toma **n** pasos para obtener el resultado.)
-`O(n)`
+>[!tip] "*big O notation*" (define el peor caso de busqueda, el que toma **n** pasos para obtener el resultado.)
+**O(n)**
 
 Las medidas de tiempo más habituales... **(asymtotic notation)**
 
-O(n²)
-O(n log n)
-O(n)     linear search
-O(log n) bynary search
-O(1)
+Este tipo de medidas de tiempo, analizan el PEOR CASO POSIBLE, donde cuando buscamos algo , nos toma $n^2, n*log\ n, n, log\ n$ pasos para encontrarlo.
+- O(n²)
+- O(n log n)
+- O(n)     linear search
+- O(log n) bynary search
+- O(1)
 
 "*big Omega notation*" (define el mejor caso de busqueda, el que toma menos pasos para obtener el resultado)
 
-Om(n²)
-Om(n log n)
-Om(n)
-Om(log n)
-Om(1)      linear search, bynary search.
+$O$ (n²)
+$O$ (n log n)
+$O$ (n)
+$O$ (log n)
+$O$ (1)      linear search, bynary search.
 
+"*Theta notation*" (define cuando el mejor y el peor casos dan la misma cantidad de pasos)
+
+$\theta (n)$ 
 
 ### Tipos de algoritmos
 
-* Selection sort
+* **Selection sort**
     El algoritmo de selección realiza pasadas en la lista a ordenar, comparando los n elementos con n-1 para verificar si es menor o mayor. reordenando la misma de esta manera.
 
-* Bubble sort  
+* **Bubble sort**  
     Este algoritmo realiza n/2 pasos, comparando de 2 en 2 los valores de la lista, para verificar cuál de los 2 es menor.
 
-* Merge sort
+* **Merge sort**
     Este tipo de algoritmo, divide la lista a la mitad, recurrentemente, hasta comparar 2 valores y luego recomponer la misma. "Ordenar parte izquierda, ordenar parte derecha, y luego fusionar ambas."
 
 * Shell sort
