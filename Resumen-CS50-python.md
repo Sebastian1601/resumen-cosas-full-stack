@@ -28,6 +28,9 @@ malan@harvard.edu
 
 1 - [Instalando Clang para compilar código c/c++](#clanginstall)
 
+### Semana 3
+1. [[#Semana 3 - Algoritmos]] 
+
 ---
 
 - Definición de ***bits*** and ***bytes*** -
