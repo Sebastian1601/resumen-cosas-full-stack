@@ -714,11 +714,11 @@ Normalmente se mide la calidad del algoritmo con respecto al problema a resolver
 Las medidas de tiempo más habituales... **(asymtotic notation)**
 
 Este tipo de medidas de tiempo, analizan el PEOR CASO POSIBLE, donde cuando buscamos algo , nos toma $n^2, n*log\ n, n, log\ n$ pasos para encontrarlo.
-- O(n²)
-- O(n log n)
-- O(n)     linear search
-- O(log n) bynary search
-- O(1)
+- $O(n²)$
+- $O(n\ log\ n)$
+- $O(n)$     linear search
+- $O(log\ n)$ bynary search
+- $O(1)$
 
 "*big Omega notation*" (define el mejor caso de busqueda, el que toma menos pasos para obtener el resultado)
 

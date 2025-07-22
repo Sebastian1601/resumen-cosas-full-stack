@@ -1,4 +1,12 @@
 
+
+referencia: [SOLID Design Principles Every JavaScript Deveveloper Should Know](https://jsdev.space/solid-design-principles/)
+
+[[#1. Single Responsibility Principle (SRP)| 1. Principio de Responsabilidad Unica]]
+[[#2. Open/Closed Principle (OCP)| 2. Principio de Apertura/Cierre]]
+[[#3. Liskov Substitution Principle (LSP)| 3. Principio de substitución de Liskov]]
+[[#4. Interface Segregation Principle (ISP)| 4. ]]
+
 Los principios SOLID son guías que ayudan a los programadores a seguir un camino en común, para poder crear código más legible, escalable y mantenible.
 
 Estos 5 principios, nos permiten orientar el código para hacerlo escalable. Los principios SOLID introducidos por **Robert C. Martin**, son 5 reglas escenciales que ayudan a los desarrolladores a organizar mejor el código, reducir bugs y facilitar posibles modificaciones futuras.
@@ -171,4 +179,255 @@ class Pinguino extends Pajaro {
 		throw new Error("Pinguinos no pueden volar!");
 	}
 }
+
+function hacerVolarAlPajaro(pajaro1) {
+	pajaro1.volar();
+}
+
+const pajaroGenerico = new Pajaro();
+const pinguino = new Pinguino();
+
+hacerVolarAlPajaro(pajaroGenerico); // 'Volando'
+hacerVolarAlPajaro(pinguino); // Tira ERROR!(Pinguinos no pueden volar) 
 ```
+
+
+>[!failure] Qué está mal?
+>- la clase Pingüino hereda de Pajaro, pero sobreescribe el método '*volar( )*' de una manera que rompe las espectativas de lo que devuelve el método.
+>- La función *hacerVolarAlPajaro( )* asume que cualquier *Pajaro* puede volar, pero eso no es verdad para todas las **subclases**.
+>- Esto viola el principio LSP
+
+Esto se resuelve diseñando la estructura de herencia sobre el comportamiento...
+
+```js
+class Pajaro {
+	ponerHuevo(){
+	console.log('Poniendo un huevo');
+	}
+}
+
+class PajaroVolador extends Pajaro {
+	volar() {
+		console.log('Volando');
+	}
+}
+
+class Pinguino extends Pajaro {
+	nadar() {
+		console.log('Nadando');
+	}
+}
+
+class Gorrion extends PajaroVolador {}
+
+function hacerVolarAlPajaro(pajaro) {
+	pajaro.volar();
+}
+
+const gorrion = new Gorrion();
+hacerVolarAlPajaro(gorrion); // Volando
+
+```
+
+
+>[!success] Por qué esto es indudablemente mejor?
+>- Una clase separada entre Pajaro y PajaroVolador asegura que solo Pajaros Voladores se pasen en la función *HacerVolarAlPajaro( )*
+>-  Un Pinguino es un pájaro, pero no es esperado que vuele.
+>- Subclases no rompen el funcionamiento y expectativa seteada por las clases padres.
+
+
+Notas claves sobre el **LSP** :
+ - No sobreescribas metodos en subclases solamente para tirar errores o cambiar el comportamiento drásticamente.
+ - Usa interfaces (incluso informalmente, via *duck typing*) para forzar un comportamiento consistente.
+ - Diseña alrededor de las posibilidades, no tipos. - Justamente, como separamos las clases *PajaroVolador* de *Pajaro*.
+
+##### 4. Interface Segregation Principle (ISP)
+
+Este principio declara que:
+
+"**Los Clientes no deberían estar forzados a depender de interfaces que no utilizan.** "
+
+Esto, al menos en Javascript, significa que, no hagas que funciones, clases, u objetos implementen cosas que no necesitan. Esto implica que, "rompe" interfaces multipropósitos grandes en otras más pequeñas y específicas para un rol.
+
+Mal ejemplo:
+
+```js
+class Maquina {
+	imprimir() {
+		throw new Error('No implementado');	
+	}
+	escaner() {
+		throw new Error('No implementado');
+	}
+	fax() {
+		throw new Error('No implementado');
+	}
+}
+
+class ImpresoraVieja extends Maquina {
+	imprimir() {
+		console.log('Imprimiendo...');
+	}
+}
+
+//escanear() y fax() no soportados.
+```
+
+>[!failure] Qué está mal?
+>- *ImpresoraVieja* debe implementar *Maquina*, pero solo soporta el método *imprimir()*
+>- Está forzada a heredar métodos (escanear y fax) que no utiliza.
+>- Esto puede inducir a errores, confusiones,  y errores de runtime.
+
+Buen ejemplo:
+
+```js
+class Impresora {
+	imprimir() {
+		console.log('Imprimiendo...');
+	}
+}
+
+class Escaner {
+	escanear() {
+		console.log('Escaneando...');
+	}
+}
+
+class maquinaFax {
+	fax() {
+		console.log('Faxing...');
+	}
+}
+
+class ImpresoraModerna {
+constructor() {
+	this.impresora = new Impresora();
+	this.escaner = new Escaner();
+	this.maquinaFax = new maquinaFax();
+}
+
+imprimir() {
+	this.impresora.imprimir();
+}
+
+escanear() {
+	this.escaner.escanear();
+}
+
+maquinaFax() {
+	this.maquinaFax.fax();1
+}
+}
+
+class ImpresoraBasica {
+constructor() {
+this.impresora = new impresora();
+}
+
+imprimir() {
+	this.impresora.imprimir();
+}
+}
+
+```
+
+>[!success] Por qué es mejor?
+>- Las funciones son modulares, cada interfaz es pequeña y enfocada en su tarea.
+>- *ImpresoraBasica* solo depende de las características que soporta.
+>- *ImpresoraModerna* tiene capacidades sin ser obligada a heredar métodos no relacionados con su funcionamiento.
+>- Ninguna clase es forzada a heredar e implementar más de lo que necesita.
+
+
+##### 5. Dependency Inversion Principle (DIP)
+
+Módulos de alto nivel no deben depender de módulos de bajo nivel. Ambos deberían depender de abstracciones. Las abstracciones no deberían depender de los detalles. Los detalles deberían depender de las abstracciones.
+
+En español:
+
+Tu lógica de negocio principal (código de alto nivel) no debería estar enlazada a los detalles de implementación (*código de bajo nivel como APIs, bases de datos, etc*). En vez de eso, ambos deberían confiar en las interfaces o abstracciones.
+Esto promueve la flexibilidad, el testeo, y la separación de finalidades.
+
+Un ejemplo de lo que no se debería hacer.
+
+```js
+class MiBaseSQL {
+	guardar(data) {
+		console.log('Guardando data a mysql:', data);
+	}
+}
+
+class ServicioUsuario {
+	constructor() {
+		this.db = new miBaseSQL();
+	}
+
+	registrarUsuario(user){
+		this.db.guardar(user);
+	}
+}
+```
+
+>[!failure] Qué está mal aqui?
+>- *ServicioUsuario* está enlazado estrechamente a *MiBaseSQL*
+>- No puedes intercambiar las bases de datos ( cambiar a MongoDB o una API) sin modificar ServicioUsuario.
+>- Más dificil de testear - mocking MiBaseSQL requeriría editar la lógica central.
+
+
+Buen ejemplo:
+
+```js
+//abstraccion
+class BaseDatos {
+	guardar(data) {
+		throw new Error('no implementado');
+	}
+}
+
+//implementación a bajo nivel
+class MiBaseDatosSQL extends BaseDatos{
+	guardar(data){
+		console.log('Guardando data a MySQL:', data);
+	}
+}
+
+//otra implementacion
+class BaseDatosEnMemoria extends BaseDatos {
+	constructor() {
+		super();
+		this.data = [];
+	}
+	guardar(data) {
+		this.data.push(data);
+		console.log('Guardada en memoria: ', data);
+	}
+}
+
+//modulo de alto nivel dependiente de la abstraccion
+class ServicioUsuario {
+	constructor(basedatos) {
+		this.db = basedatos;	
+	}
+	registrarUsuario(user){
+		this.db.guardar(user);
+	}
+}
+```
+
+**USO**:
+
+```js
+//1. se crea la instancia de base de datos a usar...
+const datab = new MiBaseDatosSQL(); // o new BaseDatosEnMemoria()
+
+//2. Se pasa la instancia de base de datos al crear otra instancia de servicioUsuario
+const servicio_usuario = new ServicioUsuario(datab); //se le pasa la base de datos activa
+
+//3. se guarda el usuario, de igual manera, independientemente de qué base de datos  hayamos instanciado.
+servicio_usuario.registrarUsuario({ nombre: 'Claudia'});
+```
+
+
+1. Cuales son los principios SOLID?
+	SOLID es un acrónimo para cinco principios orientados a diseño de objetos.
+
+
