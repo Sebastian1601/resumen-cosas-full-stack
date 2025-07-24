@@ -565,19 +565,18 @@ aqui nos presentará con botones en la parte superior del codigo:
 
 ![barra de depuración](./resumen-cs50-python/image2.png)
 
-- Los botones corresponden a las siguientes acciones:
 
-![continuar](./resumen-cs50-python/imgdebplay.png) : Este botón deja correr el código de manera normal.
+Los botones corresponden a las siguientes acciones:
 
-![step](./resumen-cs50-python/imgdebstep.png) : este botón nos permite ir linea a linea en el código.
+|                                                     |                                                                                                                      |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| ![continuar](./resumen-cs50-python/imgdebplay.png)  | Este botón deja correr el código de manera normal.                                                                   |
+| ![step](./resumen-cs50-python/imgdebstep.png)       | Este botón nos permite ir linea a linea en el código.                                                                |
+| ![into](./resumen-cs50-python/imgdebinto.png)       | Este botón nos permite, entrar en la función que estamos enfocando en el código principal ,y analizarla paso a paso. |
+| ![out](./resumen-cs50-python/imgdebout.png)         | Al contrario de la anterior, este botón nos permite "salir" de la función que estemos analizando internamente.       |
+| ![restart](./resumen-cs50-python/imgdebrestart.png) | Nos permite reiniciar la ejeción del código.                                                                         |
+| ![stop](./resumen-cs50-python/imgdebstop.png)       | Finaliza la ejecución del código de una vez.                                                                         |
 
-![into](./resumen-cs50-python/imgdebinto.png) : este botón nos permite, entrar en la función que estamos enfocando en el código principal ,y analizarla paso a paso.
-
-![out](./resumen-cs50-python/imgdebout.png) : Al contrario de la anterior, este botón nos permite "salir" de la función que estemos analizando internamente.
-
-![restart](./resumen-cs50-python/imgdebrestart.png) : Nos permite reiniciar la ejeción del código.
-
-![stop](./resumen-cs50-python/imgdebstop.png) : finaliza la ejecución del código de una vez.
 
 ---
 
@@ -732,13 +731,49 @@ $O$ (1)      linear search, bynary search.
 
 $\theta (n)$ 
 
-### Tipos de algoritmos
+### Tipos de algoritmos - Busquedas
 
-* **Selection sort**
-    El algoritmo de selección realiza pasadas en la lista a ordenar, comparando los n elementos con n-1 para verificar si es menor o mayor. reordenando la misma de esta manera.
+- **Linear Search**
+	*Condiciones iniciales*: no tiene.-
+	El objetivo de los algoritmos de búsqueda es comparar elemento a elemento para encontrar el elemento de valor igual al que estamos buscando.
+	En el caso de la "busqueda lineal", esto implica iniciar la búsqueda en el *primer elemento* de un array, y comparar ese elemento con el elemento buscado. 
+	Si coinciden, la busqueda termina.
+	Si no coinciden, pasamos al siguiente elemento y volvemos a comparar.
+	Esto se repite hasta que encontramos el elemento o iteramos sobre TODOS los elementos del array.
+
+- **Binary Search**
+	*Condiciones iniciales*: los valores deben estar ordenados de menor a mayor.
+	Este algoritmo necesita de que los elementos del algoritmo estén ordenados.
+	Esto permite que el algoritmo divida la cantidad de valores del array original por la mitad, y evalúe si el valor que estamos buscando es menor que el valor de la mitad, si es mayor que dicho valor o si es exactamente el valor buscado.
+	Esto es recursivo, dado que al dividir por la mitad el array original, creamos un subarray donde podemos aplicar la misma lógica. Dividimos por la mitad el subarray, y verificamos si el valor que buscamos es menor que la mitad del valor medio del subarray, si es mayor, o si és dicho valor.
+	Esto disminuye considerablemente la cantidad de pasos necesarios para encontrar un valor en dichos procedimientos.
+	**DETALLE IMPORTANTE: si en un punto, el punto de inicio es mayor al punto de fin, esto indica que el subarray es de tamaño 0, y si es asi, y todavia no encontramos nuestro valor, quiere decir que el valor NO EXISTE en el array original.**
+	En Pseudocódigo:
+		Repetir hasta que el *(sub)array* sea de *tamaño 0*:
+		calcular el índice como el punto medio del (sub)array actual.
+		Si el *valor buscado* está en este valor de *índice*, parar.
+		Si el *valor buscado* es *menor* al valor ubicado en *indice*, repetir cambiando el *punto final* al valor (indice que encontramos - 1).
+		Si el *valor buscado* es *mayor* al valor ubicado en *indice*, repetir cambiando el *punto inicial* al valor (indice encontrado + 1).
+
+
+* **Selection sort** $\Theta (n^2)$
+    El algoritmo de selección realiza pasadas en la lista a ordenar, obteniendo el menor valor entre todos, y reubicándolo en el primer lugar de los elementos *no-ordenados*.
+    Se aclara que se ubica dentro de los elementos no-ordenados dado que, al mover el primer menor valor al principio del array, este se puede considerar "ordenado", por lo que no se tiene en cuenta para la próxima pasada.
+    En Pseudocódigo:
+		Repetir hasta que no queden elementos sin ordenar:
+		Buscar en la parte no-ordenada del array, el menor valor.
+		Intercambiar este menor valor con el primer valor de la parte no-ordenada.
 
 * **Bubble sort**  
     Este algoritmo realiza n/2 pasos, comparando de 2 en 2 los valores de la lista, para verificar cuál de los 2 es menor.
+    La idea es mover los valores más grandes entre 2 al "final" del array, escalando de a uno el indice y comparando el valor actual y el siguiente. Si no están en orden, se intercambian los lugares de estos dos valores, y se sigue con el siguiente indice. Para que esto funcione, debemos realizar esto hasta que no se registre ningún "cambio" entre los valores, para así determinar que el array está "ordenado" (si se recorre una sola vez no queda totalmente ordenado).
+    Esto tiene una mejora, al tener el valor más grande "al final", no es necesario que lo contemplemos en un nuevo recorrido si es que tenemos que hacerlo.
+    En Pseudocódigo:
+	    Setear una variable "contador de intercambios" a un valor distinto de 0.
+	    Repetir hasta que el "contador de intercambios" sea 0
+	    Resetear "contador de intercambios" a 0
+	    Verificar cada par de valores adyacentes
+	    Si no están en orden de valores, intercambiar entre ellos y sumar uno al "contador de intercambios"
 
 * **Merge sort**
     Este tipo de algoritmo, divide la lista a la mitad, recurrentemente, hasta comparar 2 valores y luego recomponer la misma. "Ordenar parte izquierda, ordenar parte derecha, y luego fusionar ambas."
@@ -754,3 +789,8 @@ $\theta (n)$
 * Heap sort
 
 * Cocktail sort
+
+**Comparación de los métodos de ordenamiento**
+
+[Comparison Sorting Visualization](https://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
+
