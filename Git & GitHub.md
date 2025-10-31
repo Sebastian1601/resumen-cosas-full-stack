@@ -652,3 +652,20 @@ git fetch origin ramaAlternativa
 git merge origin/ramaAlternativa
 ```
 
+
+## Chequear a qué rama remota estamos siguiente con la rama local activa
+
+Para verificar qué rama remota estamos trackeando (en el caso de que no se correspondan los nombres, por esto no conviene lo mencionado en el punto anterior) podemos hacer, parados en la rama local en cuestión, el siguiente código
+
+```bash
+git branch -vv
+```
+
+Esto nos devolverá, si estamos siguiente a una rama en particular, lo siguiente
+
+```bash
+* main a75bc2d [origin/main: ahead 23, behind 1] Add files via upload
+```
+
+esto significa que nuestra rama *main*, marcada con el símbolo asterisco, está trackeando a la rama en el remoto llamada *origin*, de nombre *main* también (en este caso, esto puede variar.) y que la misma está adelante de la rama remota main por 23 commits, y detrás por 1.
+
