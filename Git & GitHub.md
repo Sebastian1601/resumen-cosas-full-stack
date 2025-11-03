@@ -555,3 +555,117 @@ Ahi se verifica que se pueda fusionar ambos repos, y luego se agregan los datos 
 >[!warning] ERROR AL USAR GIT LOG (queda la lista de commits y luego dice log file: y no sale de esa pantalla.)
 
 Al registrar este error, hay que presionar ESC, y luego la tecla "Q"
+
+
+## Traer repos remotos a locales cuando una clonación desde GitHub no trae los repos automaticamente.
+
+Esto puede pasar si es que la rama **main** del repo que estamos clonando no contiene nada, y tampoco figuran commits en ella, pero SI posee ramas donde hay commits realizados.
+
+Primero, vemos que si clonamos un repo remoto y figura vacío localmente, vemos si figura con algún commit inicial con lo siguiente
+
+```bash
+git log --oneline -5
+```
+
+esto nos devolverá una pantalla de resultados de commits si es que la rama y el repo tienen alguna. Sino, devolverá una sola linea.
+
+```bash
+875f755 (HEAD -> main, origin/main, origin/HEAD) Initial commit
+```
+
+Esto quiere decir que existe solamente el commit inicial de cuando se creo el repositorio. -nada más.
+
+Si vemos esto, podemos chequear si el repo remoto tiene ramas donde estén trabajando en vez de la main, y eso lo vemos con 
+
+```bash
+ git remote -v
+```
+
+ese comando nos mostrará todas las ramas locales y remotas que existan en el repo.
+
+```bash
+  main*
+  remotes/origin/CreacionClienteFuncionandoOK
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/Unificacion-de-proyecto
+  remotes/origin/main
+  remotes/origin/master
+  remotes/origin/unificacion-de-proyecto
+  remotes/origin/unificacionConBaseFuncional
+```
+
+Esto indica que existen varias ramas remotas y probablemente, como la main está vacía, se esté trabajando en las otras el proyecto o implementaciones completo.
+
+Para traer una *rama remota* en particular , a la rama *main* o cualquier otra rama en cuestión, debemos ejecutar lo siguiente, estando parados en la rama local en la que vamos a traer toda la info...
+
+```bash
+//estando para en main...
+git switch main
+git reset --hard origin/[rama a copiar en la rama en la que estamos parados]
+```
+
+esto implica que vamos a hacer un reset hard en la rama en la que estamos parados, en este caso "*main*" con todo el contenido de la rama remota origin/[rama].
+
+
+>[!danger] IMPORTANTE
+>Esto no implica que lo que se cambie en la rama remota ***origin/ramaCopiada*** se va a trackear en la rama main local nuestra!
+
+### Setear que una rama local trackee(detecte actualizaciones) una rama de nombre distinto remotamente
+
+***Tenemos 2 casos***
+
+- Si queremos que una rama local ya creada y con commits por ejemplo, trackee una rama remota que no comparte el mismo nombre remotamente, se puede realizar con el siguiente código, aunque NO ES RECOMENDABLE...
+
+```bash
+git branch --set-upstream-to = origin/ramaAtrackear ramaLocal
+```
+
+Luego, si haces un *git status* debería mostrar algo así como
+
+```vbnet
+Your branch is up to date with "origin/ramaATrackear"
+```
+
+- Si no tenemos la rama creada, y queremos crearla y al mismo tiempo explicitar a qué rama remota seguirá, entonces hacemos
+
+```bash
+git checkout -b main origin/ramaATrackear
+```
+
+Esto creará una rama de nombre "*main*" que automaticamente trackeará a la rama remota "*ramaATrackear*"
+
+>[!important] IMPORTANTE
+>esto rompe con la convención estandar:
+>La rama local **main** ya no representará **origin/main**, sino otra en **origin/ramaAlternativa**
+>Por eso conviene hacerlo sólo si sabés bien lo que querés lograr, o si estás intergrando contenido desde otra rama remota de manera controlada.
+
+
+##### Alternativa más segura
+
+Este modo implica traer los datos remotos de cierta ***ramaAlternativa*** y fusionarlos con la rama en cuestión local que quieras, pero sin cambiar el tracking de la rama local a la remota.
+
+estando parados en una rama local main por ej...
+```bash
+git switch main
+
+git fetch origin ramaAlternativa
+git merge origin/ramaAlternativa
+```
+
+
+## Chequear a qué rama remota estamos siguiente con la rama local activa
+
+Para verificar qué rama remota estamos trackeando (en el caso de que no se correspondan los nombres, por esto no conviene lo mencionado en el punto anterior) podemos hacer, parados en la rama local en cuestión, el siguiente código
+
+```bash
+git branch -vv
+```
+
+Esto nos devolverá, si estamos siguiente a una rama en particular, lo siguiente
+
+```bash
+* main a75bc2d [origin/main: ahead 23, behind 1] Add files via upload
+```
+
+esto significa que nuestra rama *main*, marcada con el símbolo asterisco, está trackeando a la rama en el remoto llamada *origin*, de nombre *main* también (en este caso, esto puede variar.) y que la misma está adelante de la rama remota main por 23 commits, y detrás por 1.
+
