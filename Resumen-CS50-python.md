@@ -198,7 +198,7 @@ Para eso, tenemos una lista de tipos disponibles, según los datos a guardar...
 
 **char** [1 BYTE] = 'c', 'g'. A single char which takes only 1 byte to represent.
 
-**bool** [1 BYTE] = Boolean type of data. It uses 1 byte(8 bits)
+**bool** [1 BYTE] = Boolean type of data. It uses 1 byte(8 bits) (*true / false*)
 
 ***VOID*** its a special type (not data type, you can't create a variable type void) that means null or empty.
 
@@ -336,6 +336,66 @@ En C, al declarar las variables, debemos indicar qué tipo de dato almacenarán.
 `int contador = 0;`
 
 >Esto significa que el tipo de dato guardado en la variable será INTeger, que el nombre de la variable será *contador*, y que el valor al inicializarla será 0.
+
+
+### Estructuras de datos
+
+Al tener los tipos de datos primitivos mencionados, nos preguntamos si podremos definir otros tipos de datos, a partir de los que vienen con C por definición. La respuesta es que si, podemos definir "estructuras" con una combinación de los tipos de datos que necesitemos. 
+Estas estructuras se asemejan a lo que llamamos "objetos" en otros tipos de lenguajes.
+
+Para definir una nueva estructuras, tenemos las siguientes palabras claves:
+*typedef struct*
+{
+[tipo de dato]  [nombre];
+[tipo de dato]  [nombre];
+.
+.
+.
+[tipo de dato]  [nombre];
+} [nombre de la estructura]
+
+esto nos permite crear luego, una variable, con nuestro tipo de datos, donde en ella podemos guardar en sus "propiedades" lo que necesitemos.
+
+ejemplo
+```c
+#include <stdio.h>
+
+typedef struct
+{
+	string nombre;
+	int edad;
+	bool casado;
+} Empleado
+```
+Aqui, acabamos de definir la estructura "**Empleado**", que contiene las propiedades *nombre*, *edad* y si es *casado* como propiedad booleana.
+
+para acceder a estas propiedades y leer o guardar datos, lo hacemos con la notación de punto.
+
+**nombre.propiedad = valor;**
+
+Ej:
+
+Empleado.nombre = "David"
+
+---
+
+### Definiendo constantes
+
+Para definir constantes en nuestro código (el cual c no nos permite cambiar en nuestro código, por eso la definición de constante) podemos hacerlo luego de declarar las librerías que utilizaremos en el código, con la sintaxis siguiente:
+
+```c
+#include <stdio.h>
+
+#define MAX 10
+
+int main(void)
+{
+//codigo
+}
+```
+ 
+esto quiere decir que puedo utilizar el nombre MAX para indicar que esa variable valerá 10 en todo el código, y sin posibilidad de cambio.
+
 
 
 ---
@@ -793,4 +853,31 @@ $\theta (n)$
 **Comparación de los métodos de ordenamiento**
 
 [Comparison Sorting Visualization](https://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
+
+
+
+## Semana 4 - Memoria
+
+Agregamos dos operadores más al lenguaje C, los cuales son
+
+| operador | utilización                                                                          |
+| -------- | ------------------------------------------------------------------------------------ |
+| &        | Provee la dirección de "algo" guardado en la memoria                                 |
+| *        | Le indica al compilador, que debe ir a la ubicación en memoria.                      |
+| %p       | esto permite imprimir la dirección de la variable pasada como parámetro en printf( ) |
+Un **pointer**  es una variable que guarda "*la dirección en memoria*" de algo.
+
+Agregamos también a la sintaxis, `%p` el cual nos permite ver la dirección de memoria de la variable indicada con `&variable`
+
+Ejemplo:
+```c
+#include <stdio.h>
+
+int main(void){
+	int n = 50;
+	printf("%p \n", &n);
+}
+```
+
+Esto nos permitira ver en pantalla, mediante printf, el valor guardado en la ubicación de memoria de la variable "n".
 

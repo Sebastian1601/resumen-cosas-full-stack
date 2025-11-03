@@ -446,7 +446,7 @@ The easiest way to prevent the fatal: refusing to merge unrelated histories erro
 However, sometimes you just want to keep the commits. One way to prevent the error is to create a brand new branch, pull your required code in, and then manually merge your local branch into your main flow.
 
 
-## GIT STASH (guardar temporalmente los cambios realizados en el area de trabajo sin commitear)------------------------------------------------------------------
+## GIT STASH (guardar temporalmente los cambios realizados en el area de trabajo sin commitear)
 
 `git stash save "(MENSAJE PARA EL STASH-como un commit)"` 
 
