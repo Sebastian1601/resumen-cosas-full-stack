@@ -374,7 +374,7 @@ function fancyAlert(arg) {
 }
 ```
 
-Obsidian uses Prism for syntax highlighting. For more information, [[supportedLanguages-Obsidian|read the file about supported languages.]]
+Obsidian uses Prism for syntax highlighting. For more information, [[obsidian-supportedLanguages|read the file about supported languages.]]
 
 ---
 
@@ -517,7 +517,7 @@ Content | Content | Content
 
 ## Diagram 
 
-You can add diagrams and charts to your notes, using [Mermaid](). Mermaid supports a range of diagrams, such as flow charts, sequence diagrams, and timelines.
+You can add diagrams and charts to your notes, using [[Mermaid syntax|Mermaid]]. Mermaid supports a range of diagrams, such as flow charts, sequence diagrams, and timelines.
 
 >[!Tip] You can also try Mermaid's [Live Editor](https://mermaid-js.github.io/mermaid-live-editor) to help you build diagrams before you include them in your notes.
 
@@ -580,4 +580,200 @@ $e^{2i\pi} = 1$.
 To create a tag, enter a hash symbol (`#`) in the editor, followed by a keyword. For example, `#meeting`.
 
 ----
+
+## Math code
+
+***índices***
+
+| ------ resultado ------- | ------ código ------- |
+| :----------------------: | :-------------------: |
+|        $x^1_{ij}$        |     `$x^1_{ij}$`      |
+|          $x_1$           |        `$x_1$`        |
+|          $x^1$           |        `$x^1$`        |
+
+***Raíces***
+
+| ------ resultado ------ |  ------ código -------   |
+| :---------------------: | :----------------------: |
+| $\sqrt{2};\sqrt[n]{3}$  | `$\sqrt{2};\sqrt[n]{3}$` |
+
+***Fracciones***
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|    $\frac{a-1}{b-1}$    |  `$\frac{a-1}{b-1}$`  |
+
+***Puntos suspensivos***
+
+| ------ resultado ------ | ------ código -------  |
+| :---------------------: | :--------------------: |
+|     $1,2,\ldots,n$      |    `$1,2,\ldots,n$`    |
+|  $x_1+x_2+\cdots+x_n$   | `$x_1+x_2+\cdots+x_n$` |
+
+***Vectores***
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|    $\vec{a},\vec{b}$    |  `$\vec{a},\vec{b}$`  |
+
+***Operaciones Integrales***
+
+|   ------ resultado ------   |     ------ código -------     |
+| :-------------------------: | :---------------------------: |
+| $\int_0^1 {x^2} \,{\rm d}x$ | `$\int_0^1 {x^2} \,{\rm d}x$` |
+
+***Límites***
+
+|          ------ resultado ------          |                                          ------ código -------                                          |
+| :---------------------------------------: | :-----------------------------------------------------------------------------------------------------: |
+| $$\lim_{n \to +\infty} \frac{1}{n(n+1)}$$ | `$$ \lim_{n \to +\infty} \frac{1}{n(n+1)}$$`<br>Usando dos símbolos `$$` la ecuacion se hace más grande |
+
+***Sumatorias***
+
+|     ------ resultado ------     |       ------ código -------       |
+| :-----------------------------: | :-------------------------------: |
+| $$\sum_{i=1}^n \frac{1}{i^2}$$  | `$$\sum_{i=1}^n \frac{1}{i^2}$$`  |
+| $$\prod_{i=1}^n \frac{1}{i^2}$$ | `$$\prod_{i=1}^n \frac{1}{i^2}$$` |
+|     $$\bigcup_{i=1}^{2} R$$     |     `$$\bigcup_{i=1}^{2} R$$`     |
+|     $$\bigcap_{i=1}^{2} R$$     |     `$$\bigcap_{i=1}^{2} R$$`     |
+
+***Sistema de funciones***
+
+|                                     ------ resultado ------                                      |                                   ------ código -------                                    |
+| :----------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
+| <br>$$f(n)=\begin{cases} n/2,&\text{if $n$ is even}\\3n+1,&\text{if $n$ is odd}\end{cases}$$<br> | `$$f(n)=\begin{cases} n/2,&\text{if $n$ is even}\\3n+1,&\text{if $n$ is odd}\end{cases}$$` |
+
+$$f(n)=\begin{cases} 2x+1=180\\5x+4=4y\\3x+y=\frac{1}{x}\end{cases}$$
+
+
+***Operadores Relacionales***
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|        $\times$         |      `$\times$`       |
+|          $\pm$          |        `$\pm$`        |
+|         $\div$          |        `\div`         |
+|         $\cdot$         |        `\cdot`        |
+|         $\circ$         |       `$\circ$`       |
+|      $\bigotimes$       |     `\bigotimes`      |
+|       $\bigoplus$       |      `\bigoplus`      |
+|       $\bigodot$        |      `\bigodot`       |
+|         $\mid$          |        `\mid`         |
+|         $\ast$          |        `\ast`         |
+|         $\sum$          |        `\sum`         |
+|     $\sum_{i=0}^n$      |   `$\sum_{i=0}^n$`    |
+|         $\prod$         |       `$\prod$`       |
+|     $\prod_{i=0}^n$     |   `$\prod_{i=0}^n$`   |
+|        $\coprod$        |      `$\coprod$`      |
+|           $<$           |         `$<$`         |
+|         $\leq$          |       `$\leq$`        |
+|         $\not<$         |       `$\not<$`       |
+|           $>$           |         `$>$`         |
+|         $\geq$          |       `$\geq$`        |
+|         $\not>$         |       `$\not>$`       |
+|         $\neq$          |       `$\neq$`        |
+|        $\approx$        |      `$\approx$`      |
+|        $\equiv$         |      `$\equiv$`       |
+
+***Operadores lógicos y de conjuntos***
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|       $\emptyset$       |     `$\emptyset$`     |
+|      $\not\subset$      |    `$\not\subset$`    |
+|          $\in$          |        `$\in$`        |
+|        $\notin$         |      `$\notin$`       |
+|        $\subset$        |       `\subset`       |
+|       $\subseteq$       |     `$\subseteq$`     |
+|        $\supset$        |      `$\supset$`      |
+|       $\supseteq$       |     `$\supseteq$`     |
+|        $\bigcup$        |      `$\bigcup$`      |
+|        $\bigcap$        |      `$\bigcap$`      |
+|        $\bigvee$        |      `$\bigvee$`      |
+|       $\bigwedge$       |     `$\bigwedge$`     |
+|       $\biguplus$       |     `$\biguplus$`     |
+
+***Logaritmos***
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|       $\log_3 9$        |     `$\log_3 9$`      |
+|         $\lg15$         |       `$\lg15$`       |
+|         $\ln3$          |       `$\ln3$`        |
+$$\log_2 543 = $$
+
+***Operadores trigonométricos***
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|         $\sin$          |       `$\sin$`        |
+|         $\cos$          |       `$\cos$`        |
+|         $\tan$          |       `$\tan$`        |
+|         $\csc$          |       `$\csc$`        |
+|         $\sec$          |       `$\sec$`        |
+|         $\cot$          |       `$\cot$`        |
+|       $30^\circ$        |     `$30^\circ$`      |
+|         $\bot$          |       `$\bot$`        |
+|       $\angle A$        |     `$\angle A$`      |
+
+***Cálculo***
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|         $\int$          |       `$\int$`        |
+|         $\iint$         |       `$\iint$`       |
+|        $\iiint$         |      `$\iiint$`       |
+|         $\oint$         |       `$\oint$`       |
+|        $\prime$         |      `$\prime$`       |
+|        $\infty$         |      `$\infty$`       |
+|        $\nabla$         |      `$\nabla$`       |
+
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|       $\because$        |     `$\because$`      |
+|      $\therefore$       |    `$\therefore$`     |
+|        $\forall$        |      `$\forall$`      |
+|        $\exists$        |      `$\exists$`      |
+|         $\sim$          |       `$\sim$`        |
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|       $\hat{xy}$        |          ``           |
+|      $\tilde{xy}$       |                       |
+|       $\check{x}$       |                       |
+|       $\grave{x}$       |                       |
+|     $\widehat{xyz}$     |                       |
+|    $\widetilde{xyz}$    |                       |
+|       $\breve{y}$       |                       |
+|       $\acute{y}$       |                       |
+
+***Operaciones polinómicas***
+
+|             ------ resultado ------              |               ------ código -------                |
+| :----------------------------------------------: | :------------------------------------------------: |
+|                 $\fbox{a+b+c+d}$                 |                 `$\fbox{a+b+c+d}$`                 |
+|            $\overleftarrow{a+b+c+d}$             |            `$\overleftarrow{a+b+c+d}$`             |
+|            $\overrightarrow{a+b+c+d}$            |            `$\overrightarrow{a+b+c+d}$`            |
+|          $\overleftrightarrow{a+b+c+d}$          |          `$\overleftrightarrow{a+b+c+d}$`          |
+|            $\underleftarrow{a+b+c+d}$            |            `$\underleftarrow{a+b+c+d}$`            |
+|           $\underrightarrow{a+b+c+d}$            |           `$\underrightarrow{a+b+c+d}$`            |
+|         $\underleftrightarrow{a+b+c+d}$          |         `$\underleftrightarrow{a+b+c+d}$`          |
+|               $\overline{a+b+c+d}$               |               `$\overline{a+b+c+d}$`               |
+|              $\underline{a+b+c+d}$               |              `$\underline{a+b+c+d}$`               |
+|          $\overbrace{a+b+c+d}^{Sample}$          |          `$\overbrace{a+b+c+d}^{Sample}$`          |
+|         $\underbrace{a+b+c+d}_{Sample}$          |         `$\underbrace{a+b+c+d}_{Sample}$`          |
+|  $\overbrace{a+\underbrace{b+c}_{1.0}+d}^{2.0}$  |  `$\overbrace{a+\underbrace{b+c}_{1.0}+d}^{2.0}$`  |
+| $\underbrace{a\cdot a\cdots a}_{b\text{ times}}$ | `$\underbrace{a\cdot a\cdots a}_{b\text{ times}}$` |
+|                                                  |                                                    |
+
+Símbolos flecha
+
+| ------ resultado ------ | ------ código ------- |
+| :---------------------: | :-------------------: |
+|          $\to$          |        `$\to$`        |
+|       $\implies$        |     `$\implies$`      |
+|      $\impliedby$       |    `$\impliedby$`     |
+|        $\mapsto$        |      `$\mapsto$`      |
+|         $\iff$          |       `$\iff$`        |
 
