@@ -162,7 +162,6 @@ luego del commit y no se guardaron, no van a estar en el archivo restaurado)
 
 
 ### VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
-### GIT Revert
 
 `Git revert` es similar a git reset, pero el enfoque es ligeramente diferente. En lugar de eliminar todos los commit a su paso, la reversión SÓLO deshace un único commit, devolviéndote a los archivos organizados antes del commit.
 
@@ -188,7 +187,7 @@ Esto sólo eliminará los cambios asociados a este hash de commit y no afectará
 este comando revertirá los cambios del commit indicado, pero no creará un nuevo commit, para que se puedan verificar y decidir si se commitean asi como están o se agregan más cambios.
 
 
-## Ramas / Branches
+## Ramas locales / Branches
 
 **T**ener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
 
