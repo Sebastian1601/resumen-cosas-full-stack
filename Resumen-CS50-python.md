@@ -458,7 +458,7 @@ y esto evita que tengamos "suelto" una constante dentro del código.
 * Crear un programa que imprima una pirámide de "#" donde el usuario pueda seleccionar qué alto tendrá, y la pirámide esté alineada a la derecha, con espacios aparte de los "#".
 
 
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -592,7 +592,7 @@ Cuando tenemos una función y debemos pasarle un array, se le debe pasar como pa
 - En este caso, el array es notas[], tiene una longitud de tamaño "largo". Son los únicos 2 parámetros que se pasan.
 
 ej:
-```
+```c
 float promedio(int largo, int notas[])
 {
     float suma = 0;
@@ -608,12 +608,12 @@ float promedio(int largo, int notas[])
 
 > STRING ARRAY (Caso particular)
 
-* Las variables definidas como *STRING* son casos particulares de arrays, dado que son bytes guardados uno consecuente al otro, juntos en memoria, como un array de cualquier tipo de datos.
+* Las variables definidas como **STRING** son casos particulares de arrays, dado que son bytes guardados uno consecuente al otro, juntos en memoria, como un array de cualquier tipo de datos.
 Normalmente, siendo un array, podemos acceder a sus datos con la notación habitual, pero la longitud, es 1 byte mayor al texto siempre, dado que la pc utiliza ese byte extra para indicar la finalización del *array string* llenándolo con 0's.
 
 - ej:
 
-```
+```c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -637,7 +637,7 @@ int main(void)
 * Hasta el momento hemos definido siempre la función principal llamada main con un parámetro llamado *void*, que implica que la función no toma argumentos en su ejecución, pero resulta que esto se puede modificar, para que al ejecutar la misma desde la linea de comandos, los "flags" o "argumentos" se puedan utilizar en la función misma.
 
 Estos argumentos, se toman como un array de strings, por lo tanto, como se debe hacer en C, debemos pasar una variable con la cantidad de argumentos(longitud), y el array de argumentos en sí.
-```
+```c
 int main(int argc, string argv[]){}
 ```
 
