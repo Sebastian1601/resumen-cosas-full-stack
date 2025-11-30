@@ -125,6 +125,18 @@ ejemplo:
 
 `git commit -a`
 
+### Buenas practicas en los mensajes
+Las buenas prácticas en los mensajes de Git se pueden iniciar con ciertas palabras claves que nos indican en mayor medida qué fue lo que se hizo.
+
+feat: nueva característica
+
+fix: se corrige un bug
+
+tweak: pequeños cambios en el código.
+
+copy: Actualizado boton de inicio.
+
+refactor: se refactorizó el código de x función o módulo.
 ### Ver Datos y Hash De Los Commits
 
 `git log` 
