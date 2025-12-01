@@ -150,6 +150,18 @@ Elimina todos los archivos agregados actualmente al area de Staging
 
 `git commit -a`
 
+### Buenas practicas en los mensajes
+Las buenas prácticas en los mensajes de Git se pueden iniciar con ciertas palabras claves que nos indican en mayor medida qué fue lo que se hizo.
+
+feat: nueva característica
+
+fix: se corrige un bug
+
+tweak: pequeños cambios en el código.
+
+copy: Actualizado boton de inicio.
+
+refactor: se refactorizó el código de x función o módulo.
 ### Ver Datos y Hash De Los Commits
 
 `git log` 
@@ -175,7 +187,6 @@ luego del commit y no se guardaron, no van a estar en el archivo restaurado)
 
 
 ### VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
-### GIT Revert
 
 `Git revert` es similar a git reset, pero el enfoque es ligeramente diferente. En lugar de eliminar todos los commit a su paso, la reversión SÓLO deshace un único commit, devolviéndote a los archivos organizados antes del commit.
 
@@ -201,7 +212,7 @@ Esto sólo eliminará los cambios asociados a este hash de commit y no afectará
 este comando revertirá los cambios del commit indicado, pero no creará un nuevo commit, para que se puedan verificar y decidir si se commitean asi como están o se agregan más cambios.
 
 
-## Ramas / Branches
+## Ramas locales / Branches
 
 **T**ener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
 
@@ -471,7 +482,7 @@ The easiest way to prevent the fatal: refusing to merge unrelated histories erro
 However, sometimes you just want to keep the commits. One way to prevent the error is to create a brand new branch, pull your required code in, and then manually merge your local branch into your main flow.
 
 
-## GIT STASH (guardar temporalmente los cambios realizados en el area de trabajo sin commitear)------------------------------------------------------------------
+## GIT STASH (guardar temporalmente los cambios realizados en el area de trabajo sin commitear)
 
 `git stash save "(MENSAJE PARA EL STASH-como un commit)"` 
 
