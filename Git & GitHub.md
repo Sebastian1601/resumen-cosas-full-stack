@@ -1,41 +1,50 @@
 # GIT & GITHUB
 
+Indice
+
+[[#Configuración inicial]]
+[[#Repositorios]]
+
+
+
+
 ## Configuración inicial
 
-- existen distintos scopes de configuración, local, global, y system.
+Al iniciar Git, hay opciones que es recomendable configurar de manera global, sistema y si es necesario, local también. Al iniciar un cambio en la configuración, podemos indicar que tipo será, de la siguiente manera
 
-Podemos acceder a las mismas con el comando 
 `git config --(local/global/system)`
 
-`--local`  realiza cambios para ese repositorio en particular
+`--local`  realiza cambios para ese repositorio en particular (por defecto si no se especifica) Por ejemplo, queremos usar un nombre de usuario distinto para un repositorio específico.
+
 `--global`  realiza cambios para todos los repos en ese equipo.
+
 `--system`  realiza cambios para todo el sistema.
 
- limpiar consola git
+###### limpiar consola git
 `clear`
 
- ver la lista de configuraciones globales
+###### Ver la lista de configuraciones globales
 `git config --global --list`
 
-configurando el nombre global de usuario en git
+###### Configurando el nombre global de usuario en git
 `git config --global user.name "Davidejemplo"`
 
-configurando mail
+######  Configurando mail
 `git config --global user.email "davidseba.giordano@gmail.com"`
 
 
-Configurar el editor(visual studio code) para mensajes
+###### Configurar el editor(visual studio code) para mensajes
 `git config --global core.editor "code --wait"`
-`(visual studio code)  --(esto genera que se confirmen los cambios cuando se cierre el editor de codigos)`
+(visual studio code)  El `--wait` genera que se confirmen los cambios cuando se cierre el editor de codigos.
 
-configurar colores de interfaz
+###### Configurar colores de interfaz
 `git config --global color.ui true`
 
 
-importante para evitar problemas a futuro con el texto (funciona solo en windows)
+###### Importante para evitar problemas a futuro con el texto (funciona solo en windows)
 `git config --global core.autocrlf true (carriage return line feed)`
 
-configurar para que la versiòn abreviada del hash de cada commit, sea de x dígitos (normalmente 10)
+###### Configurar para que la versión abreviada del hash de cada commit, sea de x dígitos (normalmente 10)
 `git config --global core.abbrev X`
 
 ---
@@ -46,34 +55,45 @@ configurar para que la versiòn abreviada del hash de cada commit, sea de x díg
 ---
 
 ## Repositorios
-### comandos basicos del shell
+### Comandos basicos del shell (linea de comandos)
 
-`cd (nombre entrar carpeta)` 	: entrar a una carpeta.
+Acceder a una carpeta:
+`cd (nombre entrar carpeta)` 
 
-`cd ../` 				:(volver para atrás un nivel en el directorio) (es lo mismo poner cd ..)
+Volver un nivel afuera de donde estamos parados:
+`cd ../` 
 
-`mkdir (nombre de carpeta)`	:(crea una carpeta en el directorio actual)
+Crear una carpeta en el directorio actual
+`mkdir (nombre de carpeta)`
 
-`rmdir (nombre de la carpeta)`	:(borra una carpeta del directorio actual con el nombre)
+Borrar una carpeta del directorio actual
+`rmdir (nombre de la carpeta)`
 
-`rm (nombre del archivo)`		:(remueve el archivo indicado localmente)
+Borrar archivo
+`rm (nombre del archivo)`
 
-`dir`				:(lista contenido de directorio actual)
+Listar contenido del directorio actual
+`dir`
 
-`ls`				:(lista de archivos)
+`ls`
 
-`ls -l`				:(lista de archivos como lista efectiva)
+`ls -l`
 
-`ls -lh`				:(lista de archivos)
+`ls -lh`
 
-`touch (nombre de archivo.ext)`	:(crear un archivo nuevo)
+Crear archivo nuevo
+`touch (nombre de archivo.ext)`
 
-`cp (nombre del archivo a copiar) (nombre del directorio donde queremos copiarlo)`   :copia archivos
+Copiar archivos
+`cp (nombre del archivo a copiar) (nombre del directorio donde queremos copiarlo)`
 
-`mv (directorio del archivo/nombre de archivo.ext) (directorio a donde queremos mover el archivo)` :mueve archivos
+Mover archivos
+`mv (directorio del archivo/nombre de archivo.ext) (directorio a donde queremos mover el archivo)`
 
-`rm -r (nombre de la carpeta a eliminar, junto con sus archivos)` : (elimina archivos y carpetas todo junto
+Elimina carpeta con archivos, todo junto
+`rm -r (nombre de la carpeta a eliminar, junto con sus archivos)`
 
+---
 
 ```mermaid
 flowchart LR;
@@ -88,30 +108,35 @@ flowchart LR;
 
 ## INICIALIZAR EL REPOSITORIO LOCAL
 
-`git init`  (esto inicializa la carpeta como repositorio local)
+Antes de comenzar a guardar versiones de los archivos, se debe inicializar una carpeta como un repositorio mediante el comando:
+`git init` 
 
 ### Agregar archivos al area de STAGING
 
- `git add .`  (agrega TODOS los archivos de la carpeta al area de staging)
+Agregar todos los archivos al area de staging 
+ `git add .` 
 
+Agregar un archivo específico al area de staging
  `git add (nombre del archivo uno por uno)`
 
-ejemplo:
-
- ``` git add index.html image.jpg readme.txt```
-
+>[!example] ejemplo:
+ git add index.html image.jpg readme.txt
 
 ### Ver estado de la carpeta, commits, etc del repo. (muestra qué archivo se va a subir al repo)
 
 `git status`
 
+existe otra forma de verificar los archivos de una manera más corta.
+
+`git status -s`
 ### Sacar archivo del area de STAGING
 
 `git rm --cached (nombre del archivo)`
 
 `git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)`
 
-`git reset`  :elimina todos los archivos del area de staging
+Elimina todos los archivos agregados actualmente al area de Staging
+`git reset` 
 
 ---
 ### Realizar Commit 
@@ -487,7 +512,7 @@ However, sometimes you just want to keep the commits. One way to prevent the err
 
 ## GIT FETCH 
 
-esto descarga los cambios en el repo Origin/Main, y crea una rama temporal, del mismo nombre para poder	verificar los cambios, y en todo caso, sumarlos a nuestro repo local. Luego de ejecutar el fetch, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
+esto descarga las actualizaciones y nuevos commits que se hayan realizado desde la última vez que se verifico en la rama donde se está aplicando e identifica si existen nuevos cambios o no en dicha rama **PERO NO LAS SINCRONIZA** sino que crea una rama temporal, del mismo nombre para poder	verificar los cambios, *y en todo caso*, sumarlos a nuestro repo local. Luego de ejecutar el *fetch*, debemos "pasar" a la rama temporal que se suele llamar (origin/main) para verificar los cambios hechos, mediante el siguiente comando:
 
    `git switch --detach origin/main (esto genera que se trate como temporal) `
    
@@ -522,6 +547,38 @@ luego se comanda
 y finalmente
 
 `git push -u origin main`
+
+## OTRA MANERA DE MIGRAR UN REPO LOCAL A UNO REMOTO
+
+Teniendo archivos ya en el repo local, creamos una nueva rama a partir de la main y vamos a tener en dos ramas locales, el mismo estado del proyecto.
+
+Luego, te pasas a la rama main local, y de ahi se setea como track la rama main remota creada de cero, con
+```bash
+git remote add origin (dirección del repo remoto)
+```
+
+y luego, haces un *fetch* para confirmar el track y verificar los cambios de la rama main remota, que nos arrojará datos.
+
+```bash
+git fetch
+```
+
+finalmente, se hace un reseteo de la rama main local, para traer los datos de la rama remota (que normalmente son el archivo Readme y .gitignore)
+```bash
+git reset --hard origin/main
+```
+
+Esto deja la rama local main, sincronizada con la rama remota.
+A partir de ahi, se hace un merge de la rama main con la rama copia que habiamos hecho antes de arrancar, forzando que los archivos sean distintos con *--allow-unrelated-histories* y finalmente se hace un push para actualizar la rama remota main.
+```bash
+// en main
+git merge (ramaAlternativaACoopiarEnMain) --allow-unrelated-histories
+```
+
+```bash
+git push -u origin main
+```
+Ahi ambos repos están sincronizados.
 
 
 ## RAMAS REMOTAS
