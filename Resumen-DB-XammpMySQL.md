@@ -215,13 +215,13 @@ SELECT DATABASE();
 >[!tip] Sentencia para crear una tabla (ya dentro de la base de datos)
 ```sql
 CREATE TABLE "[nombre]" (
- 	"nombre de campo1" [tipo de campo],
+ 	"nombre de campo1" [tipo de campo] AUTO_INCREMENT,
   	"nombre de campo2" [tipo de campo],
         .			                  ,	
   		.			                  ,
     	.	      		              ,
    "nombre de campoN" [tipo de campo],
-   PRIMARY KEY("nombre de campoX", AUTOINCREMENT)
+   PRIMARY KEY(nombre de campoX)
        )
 ```
 
@@ -359,6 +359,82 @@ Esto nos asegura que lo que se ingresa en follower_id como following_id, es un v
 - **CREATE INDEX**:
 
 - **AUTO_INCREMENT** : indica que el campo incrementará automáticamente su valor al crearse un registro.
+
+---
+
+### DAR PERMISOS A UN USUARIO X para modificar la base
+
+Cuano se instala el motor de base de datos, e inicias, creas un usuario y password con *total acceso* a todo en el motor, lo que se llama un Admin. Sin embargo, habrá ocasiones que deberás otorgar acceso a la base de datos a otra persona sin otorgarle el control total.
+
+En ese caso, podrás crear un usuario con permisos distintos y menores a un usuario *root*, asi poder determinar qué y qué no pueden hacer estos usuarios.
+
+#### CREAR USUARIO
+Para crear un usuario y contraseña primero ejecutamos la siguiente linea
+```sql
+CREATE USER 'nuevo_usuario'@'server' IDENTIFIED BY 'contraseña';
+```
+
+Esto creará el usuario *nuevo_usuario* que se logueará con la clave *contraseña*.
+
+#### OTORGAR TODOS LOS PRIVILEGIOS
+
+Para brindar privilegios especiales a un usuario, usamos el comando GRANT con los niveles de privilegios.
+
+ej: Para brindar TODOS los privilegios al usuario recién creado:
+```sql
+GRANT ALL PRIVILEGES ON *.* TO 'nuevo_usuario'@'localhost';
+```
+
+Pero para aplicar los privilegios desde ese momento (dado que sino, hay que reiniciar el motor de la base de datos) debemos hacer:
+```sql
+FLUSH PRIVILEGES;
+```
+
+Con esto el usuario 'nuevo_usuario' tiene todos los privilegios de un root.
+
+#### ASIGNAR PRIVILEGIOS POR USUARIO
+
+Para asignar ciertos privilegios al usuario, debemos especificar qué tipos de comandos puede ejecutar y en qué tabla o base directamente.
+por ej:
+```sql
+GRANT CREATE, SELECT ON base.tablas TO
+'nombre_usuario'@'server';
+```
+
+esto significa que el usuario '*nombre_usuario*' en el server '*server*' puede crear y seleccionar en *tablas* perteneciente a la base de datos de nombre *base*.
+
+#### ELIMINAR USUARIO
+
+Para eliminar un usuario se utiliza el comando *DROP*
+```sql
+DROP USER 'nombre_usuario'@'server';
+```
+
+
+>[!important] Importante
+>Luego de hacer los cambios, recuerda hacer el **FLUSH PRIVILEGES;**
+
+#### VERIFICAR PRIVILEGIOS DE UN USUARIO
+
+Para verificar qué privilegios tiene un usuario en particular, podemos realizar lo siguiente:
+
+```sql
+SHOW GRANTS FOR 'nombre_usuario'@'server';
+```
+
+El resultado de esto será algo así:
+
+```sql
+| Grants for root@localhost                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
++---------------------------------------------------------------------------+
+| GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, SHUTDOWN, PROCESS, FILE, REFERENCES, INDEX, ALTER, SHOW DATABASES, SUPER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER, CREATE TABLESPACE, CREATE ROLE, DROP ROLE ON *.* TO `root`@`localhost` WITH GRANT OPTION                                                                                                                                                                                                                                                                                                                                                                                     |
+
+| GRANT APPLICATION_PASSWORD_ADMIN,AUDIT_ABORT_EXEMPT,AUDIT_ADMIN,AUTHENTICATION_POLICY_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTION_ADMIN,CLONE_ADMIN,CONNECTION_ADMIN,ENCRYPTION_KEY_ADMIN,FIREWALL_EXEMPT,FLUSH_OPTIMIZER_COSTS,FLUSH_STATUS,FLUSH_TABLES,FLUSH_USER_RESOURCES,GROUP_REPLICATION_ADMIN,GROUP_REPLICATION_STREAM,INNODB_REDO_LOG_ARCHIVE,INNODB_REDO_LOG_ENABLE,PASSWORDLESS_USER_ADMIN,PERSIST_RO_VARIABLES_ADMIN,REPLICATION_APPLIER,REPLICATION_SLAVE_ADMIN,RESOURCE_GROUP_ADMIN,RESOURCE_GROUP_USER,ROLE_ADMIN,SENSITIVE_VARIABLES_OBSERVER,SERVICE_CONNECTION_ADMIN,SESSION_VARIABLES_ADMIN,SET_USER_ID,SHOW_ROUTINE,SYSTEM_USER,SYSTEM_VARIABLES_ADMIN,TABLE_ENCRYPTION_ADMIN,TELEMETRY_LOG_ADMIN,XA_RECOVER_ADMIN ON *.* TO `root`@`localhost` WITH GRANT OPTION |
+| GRANT PROXY ON ``@`` TO `root`@`localhost` WITH GRANT OPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
++------------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+```
+
 
 
 ---

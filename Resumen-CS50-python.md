@@ -8,13 +8,13 @@ profesor:
 David J. Malan
 malan@harvard.edu
 
-## Indice
+## Listado
 
-### Semana 1
+[Semana 1](#semana1)
 
-1 - [[#Command Line Interface basic commands|Basic Command line interface commands]]
+1 - [Usando variables en un printf()](#printfVariables)
 
-2 - [[#Escape characters|Carácteres de escape]]
+2 - [Carácteres de escape](#escapecharacters)
 
 4 - [Especificadores de formato](#especificadoresdeformato)
 
@@ -24,17 +24,13 @@ malan@harvard.edu
 
 7 - [Variables](#variables)
 
-### Semana 2
+[Semana 2](#semana2)
 
 1 - [Instalando Clang para compilar código c/c++](#clanginstall)
 
-### Semana 3
-1. [[#Semana 3 - Algoritmos]] 
-
 ---
 
-- Definición de ***bits*** and ***bytes*** -
-
+- bits and bytes -
 a character in compurter world is defined within a combination of zeroes and ones.
 knowing this, with 8 *bits*, you can define 256 (2^8 = 256) different characters.
 a *byte* is defined as 8 *bits*.
@@ -43,34 +39,30 @@ Later, with more bytes available, UNICODE was created, wich can map up to
 1,111,998 characters:
 17 planes × 65,536 characters per plane - 2048 surrogates - 66 noncharacters.
 
-----
 
-## Semana 1
+<a id="semana1"></a>
 
-### Progarmando en C
+## Semana 1 - Progarmando en C
 
 ### Command Line Interface basic commands
 
-|      command       |                     description                      |
-| :----------------: | :--------------------------------------------------: |
-|         cd         |     for changing our current directory (folder)      |
-|         cp         |          for copying files and directories           |
-|         ls         |           for listing files in a directory           |
-|       mkdir        |                for making a directory                |
-|         mv         |   for moving (and renaming) files and directories    |
-|         rm         |            for removing (deleting) files             |
-|       rmdir        |         for removing (deleting) directories          |
-| code [archivo.ext] | creates a file named archivo.ext and opens it in VSC |
-
+* `cd`, for changing our current directory (folder)
+* `cp`, for copying files and directories
+* `ls`, for listing files in a directory
+* `mkdir`, for making a directory
+* `mv`, for moving (renaming) files and directories
+* `rm`, for removing (deleting) files
+* `rmdir`, for removing (deleting) directories
+* `code [archivo1.ext]`, creates the file and opens it to edit on VSC.
 
 C specific commands for Visual Studio Code.
-
+* `code [archivo2.c]`, creates a C language file to write commands in it.
 * `make [archivo2]`,  compiles the file "archivo2.c" to be able to excecute it by the command line.
 * `./archivo2`, executes the file "archivo2.c" compiled.
 
 ### C file structure.
 
-```c
+```
 #include <stdio.h>
 
 int main(void)
@@ -79,13 +71,14 @@ int main(void)
 }
 ```
 
-> [!info] Información Importante!
-`#include <stdio.h>` esta linea incluye las funciones del módulo "Standard in and out" llamado  *stdio.h*  , que normalmente viene en el lenguaje C.
+>A tener en cuenta!==>
 
-The statement at the start of the code `#include <stdio.h>` is a very special command that tells the compile that you want to use the capabilities of a library called stdio.h, a header file. This allows you, among many other things, to utilize the *printf* function.
+#include <stdio.h> esta linea incluye las funciones del módulo "Standard in and out" llamado  *stdio.h*  , que normalmente viene en el lenguaje C.
+
+>The statement at the start of the code #include <stdio.h> is a very special command that tells the compile that you want to use the capabilities of a library called stdio.h, a header file. This allows you, among many other things, to utilize the printf function.
 A library is a collection of code created by someone. Libraries are collections of pre-written code and functions that others have written in the past that we can utilize in our code.
 You can read about all the capabilities of this library on the [Manual Pages](https://manual.cs50.io/). The Manual Pages provide a means by which to better understand what various commands do and how they function.
-It turns out that CS50 has its own library called ***cs50.h***. There are numerous functions that are included that provide training wheels while you get started in C:
+It turns out that CS50 has its own library called cs50.h. There are numerous functions that are included that provide training wheels while you get started in C:
 
 `int main (void) { //... }` define la función principal que se ejecutará al usar el script:
 * int indica que la función, debería "retornar" un valor *INTEGER* (int)
@@ -93,18 +86,16 @@ It turns out that CS50 has its own library called ***cs50.h***. There are numero
 * (void) indica que la función no recibe parámetros, por lo tanto, es "vacía".
 
 `printf("hello, world\n");`
-* `printf` es una función que muestra en consola lo que hay dentro de los paréntesis.(el texto VA SI O SI ENTRE COMILLAS DOBLES, NO SIMPLES!!!!)
-* `\n` genera que luego del mensaje, se realice un "salto de linea" para seguir imprimiendo o posicionar el prompt ahi.
+* printf es una función que muestra en consola lo que hay dentro de los paréntesis.(el texto VA SI O SI ENTRE COMILLAS DOBLES, NO SIMPLES!!!!)
+* \n genera que luego del mensaje, se realice un "salto de linea" para seguir imprimiendo o posicionar el prompt ahi.
 
-> [!warning] CUIDADO! 
-> EL PUNTO Y COMA SON MUY IMPORTANTES EN LAS DECLARACIONES EN EL LENGUAJE C!!!
+> :warning EL PUNTO Y COMA SON MUY IMPORTANTES EN LAS DECLARACIONES EN EL LENGUAJE C!!!
 
----
-
+<a id="escapecharacters"></a>
 ### Escape characters
 
 Muchas veces vamos a querer "imprimir en pantalla" caracteres especiales, como:
-`"" , \\\`
+"", `, \\\
 
 Para eso tenemos el carácter de "escape" \ (barra invertida).
 
@@ -114,15 +105,15 @@ Para eso tenemos el carácter de "escape" \ (barra invertida).
 
 `\"`  print a double quote
 
-` \`  print a single quote
+` \` `  print a single quote
 
 `\\`  print a backslash
 
-### CS50 specific functions ( they only work if you include cs50.h library)
+>CS50 functions:
 
 `get_char` , solicita el usuario ingrese un único carácter.
 
-`get_double` , solicita el ingreso de un nro con coma del doble de datos que un float. 
+`get_double` , 
 
 `get_float` , solicita el ingreso de un nro con coma flotante(decimal).
 
@@ -135,7 +126,7 @@ Para eso tenemos el carácter de "escape" \ (barra invertida).
 <a id="printfVariables"></a>
 ### Usando variables dentro de un printf.
 
-```c
+```
 #include <cs50.h>
 #include <stdio.h>
 
@@ -148,27 +139,23 @@ int main(void)
 
 * aqui se agrega en `#include <cs50.h>` la librería de comandos creada por el curso CS50 para su implementación más simple.
 
-* The `get_string` function is used to get a string from the user. Then, the variable answer is passed to the printf function. `%s` tells the printf function to prepare itself to receive a string.
+* The `get_string` function is used to get a string from the user. Then, the variable answer is passed to the printf function. %s tells the printf function to prepare itself to receive a string.
 
 * the variable answer is string type, so to use it at `printf(" ")`, you should use the correct placeholder `%s`, and then, separated, pass the variable `answer` as a second argument.
 
----
 
-### FORMAT SPECIFIERS
+<a id="especificadoresdeformato"></a>
+#### FORMAT SPECIFIERS
 
-| character | type                 |
-| :-------: | :--: |
-| %d or %i  | integer              |
-| %f or %F  | float                |
-|    %lf    | double float         |
-|    %c     | single character     |
-|    %s     | string(using cs50.h) |
-|    %li    | long integer         |
+* %d or %i	|_________ int	
+* %f or %F	|_________ float	
+* %lf	    |_________ double	
+* %c	    |_________ char	
+* %s        |_________ string
+* %li       |_________ long
 
-Al escribir y representar datos desde una variable, si tenemos por ejemplo, caracteres, y en vez de usar el fs(**format specifier**) %c, usamos %i, de integer, nos devolverá el valor numérico ASCII del carácter.
 
----
-
+<a id="tipodedatos"></a>
 ### Tipos de datos.
 
 Como C es un lenguaje de tipado fuerte, debemos declarar el tipo de datos que vamos a guardar en las variables, cuando las instanciamos.
@@ -178,53 +165,50 @@ Para eso, tenemos una lista de tipos disponibles, según los datos a guardar...
 
 >char ==> 'A' / 1 / '*'  (takes up to 1 byte of data, no more) **VA SIEMPRE ENTRE COMILLAS SIMPLES!!!**
 
-**datazo:** el motivo técnico por el cual un *carácter* va entre una única comilla, y un *string* va entre dos, es porque al alojar los bytes necesarios en memoria de un carácter, el sistema "interpreta" con comillas simples, que debe alojar un UNICO carácter, ocupando un byte unicamente.
-
->[!info] Información importante!
->Cuando alojamos un string de carácteres, estamos alojando técnicamente un array de carácteres(carácteres contiguos en memoria), podemos tener 2 o más bytes por lo tanto, el sistema utiliza una manera de "delimitar" hasta donde corresponde ese array, ubicando un \0 al final del array. E interpreta que debe hacer esto, cuando usamos las comillas dobles.
+**datazo:** el motivo técnico por el cual un carácter va entre una única comilla, y un string va entre dos, es porque al alojar los bytes necesarios en memoria de un carácter, el sistema "interpreta" con comillas simples, que debe alojar un UNICO carácter, ocupando un byte unicamente.
+    Cuando alojamos un string de carácteres, estamos alojando técnicamente un array de carácteres(carácteres contiguos en memoria), podemos tener 2 o más bytes por lo tanto, el sistema utiliza una manera de "delimitar" hasta donde corresponde ese array, ubicando un \0 al final del array. E interpreta que debe hacer esto, cuando usamos las comillas dobles.
 
 
-**float** [4 BYTES] = 3.14156
- - (works with 32 bits of data worth, so we have a $2^{31}$ possibilites for positive and $2^{32}$ negatives)
+>float ==> 3.14156  (works with 32 bits of data worth, so we have a 2^31 possibilites for positive and 2^32 negatives)
 
-**double** [8 BYTES] = 3.14157652111323 
-- (wotks with 64 bits of data worth,kinda like float but with double of digits after comma)
+>double ==> 3.14157652111323 (wotks with 64 bits of data worth,kinda like float but with double of digits after comma)
 
-**long** [8 BYTES] = 35.130.520.122
+>int ==> 23520
 
-**int**  [4 BYTES]= 23520
+>long ==> 35.130.520.122
 
-**string** [? BYTES] = "Ernest" / "Daniel" / "Library".
+>string ==> "Ernest" / "Daniel" / "Library".
 
-**char** [1 BYTE] = 'c', 'g'. A single char which takes only 1 byte to represent.
+> VOID its a special type (not data type, you cant create a variable type void) that means null or empty.
 
-**bool** [1 BYTE] = Boolean type of data. It uses 1 byte(8 bits) (*true / false*)
 
-***VOID*** its a special type (not data type, you can't create a variable type void) that means null or empty.
-
----
+<a id="condicionales"></a>
 ### Condicionales (IF /WHILE /DO WHILE /FOR IN /SWITCH)
 
 EN C se pueden evaluar condiciones, y según la veracidad o no de estas, ejecutar cierto código. A esto se lo llama '*condicionales*'.
 
-### Condicional IF 
+> Condicional IF 
 
-Sintaxis
-```c
-if (condicion es verdadera)
-{
+*IF (condicion es verdadera)*
+
+*{*
+
     //se ejecuta esto
-} ELSE
+
+*} ELSE* 
+
 {
-//si la condicion no es verdadera, se ejecuta esto  
+
+    //si la condicion no es verdadera, se ejecuta esto  
+
 }
-```
+
 
 ---
 
 EJEMPLOS:
 
-```c
+```
 if (x < y)
 {
     printf("x is less than y\n");
@@ -237,7 +221,7 @@ else
 
 * Condicional con 3 posibilidades (se establece otro if con la condición en el primer ELSE)
 
-```c
+```
 if (x < y)
 {
     printf("x is less than y\n");
@@ -257,13 +241,17 @@ else
 > Condicional WHILE
 
 * Este loop se ejecuta no importa la cantidad de veces siempre y cuando la condición establecida sea verdadera. Dada la estructura, PUEDE NO EJECUTARSE en absoluto.
-```c
-while (condición)
-{
+
+*WHILE (condición)*
+
+*{*
+
     //haz esto
+
     IMPORTANTE:dentro del bloque debería haber un contrlador que haga variar en algún momento la condición que se evalúa.
-}
-```
+
+*}*
+
 
 ---
 
@@ -271,13 +259,13 @@ while (condición)
 
 * Este condicional es similar al WHILE, con la diferencia de que se ejecutará el código dentro del bloque SI O SI una vez, y luego se evaluará la condición establecida.
 
+*DO*
 
-```c
-do
-{
+*{*
+
     //bloque de código a ejecutar.
-} while (condición)
-```
+
+*} WHILE (condición)*
 
 ---
 
@@ -285,38 +273,44 @@ do
 
 * Este condicional sirve cuando tenemos una limitada cantidad de casos posibles que queremos manejar, y posiblemente no manejar otra cantidad de posibilidades, con una excepción.
 
-```c
-switch (condicion)
-{
-   case a:
+
+**switch (condicion)**
+
+**{**
+
+   **case a:**
       
       //bloque a ejecutar
       break;
-   case b:
+  
+   **case b:**
       
       //bloque a ejecutar
       break;
-   case c:
+  
+   **case c:**
       
       //bloque a ejecutar
       break;
-   default:
+  
+   **default:**
       
     //bloque por defecto, cuando la condición es igual a un valor no anticipado
-}
-```
+
+**}**
+
 
 > Condicional ternario
 
 * Este condicional es un if más directo, que devuelve automáticamente valores.
 
-```c
+```
 (condicion) ? //ejecutar si verdadero : ejecutar si falso ;
 ```
 
 ó
 
-```c
+```
 int x = (condicion)
     ? ejec. si verdadero
     : ejec. si falso ;
@@ -336,66 +330,6 @@ En C, al declarar las variables, debemos indicar qué tipo de dato almacenarán.
 `int contador = 0;`
 
 >Esto significa que el tipo de dato guardado en la variable será INTeger, que el nombre de la variable será *contador*, y que el valor al inicializarla será 0.
-
-
-### Estructuras de datos
-
-Al tener los tipos de datos primitivos mencionados, nos preguntamos si podremos definir otros tipos de datos, a partir de los que vienen con C por definición. La respuesta es que si, podemos definir "estructuras" con una combinación de los tipos de datos que necesitemos. 
-Estas estructuras se asemejan a lo que llamamos "objetos" en otros tipos de lenguajes.
-
-Para definir una nueva estructuras, tenemos las siguientes palabras claves:
-*typedef struct*
-{
-[tipo de dato]  [nombre];
-[tipo de dato]  [nombre];
-.
-.
-.
-[tipo de dato]  [nombre];
-} [nombre de la estructura]
-
-esto nos permite crear luego, una variable, con nuestro tipo de datos, donde en ella podemos guardar en sus "propiedades" lo que necesitemos.
-
-ejemplo
-```c
-#include <stdio.h>
-
-typedef struct
-{
-	string nombre;
-	int edad;
-	bool casado;
-} Empleado
-```
-Aqui, acabamos de definir la estructura "**Empleado**", que contiene las propiedades *nombre*, *edad* y si es *casado* como propiedad booleana.
-
-para acceder a estas propiedades y leer o guardar datos, lo hacemos con la notación de punto.
-
-**nombre.propiedad = valor;**
-
-Ej:
-
-Empleado.nombre = "David"
-
----
-
-### Definiendo constantes
-
-Para definir constantes en nuestro código (el cual c no nos permite cambiar en nuestro código, por eso la definición de constante) podemos hacerlo luego de declarar las librerías que utilizaremos en el código, con la sintaxis siguiente:
-
-```c
-#include <stdio.h>
-
-#define MAX 10
-
-int main(void)
-{
-//codigo
-}
-```
- 
-esto quiere decir que puedo utilizar el nombre MAX para indicar que esa variable valerá 10 en todo el código, y sin posibilidad de cambio.
-
 
 
 ---
@@ -420,18 +354,18 @@ El problema viene que estamos tratando el resultado como un int, (por eso el %i 
 
 Para resolver esto, podemos inicialmente cambiar el tipo de datos que estamos recibiendo o inicializando, de la siguiente manera..
 
-```c
-float x = 5;
+```
+*float x = 5;*
 
-float y = 2;
+*float y = 2;*
 
-printf( "%f", x / y);
+*printf( "%f", x / y);*
 ```
 
 > Esto resuelve algunos de nuestros problemas con respecto a los resultados a mostrar y manejar, sin embargo, sabiendo que los números con coma suelen poder tener una gran cantidad de dígitos o incluso infinita, y la limitación por bytes para representar un número, se plantea que en computación existe una **Imprecisión de coma flotante** debido a la imposibilidad de representar fielmente dichos nros.
 
 Otra manera que tenemos de manejar nuestros resultados es la siguiente:
-```c
+```
 int x = 5;
 
 int y = 2;
@@ -442,7 +376,6 @@ printf(" %.2f ", (float) x / y);
 `%.2f` esto significa que tenemos un placeholder de un valor %f (float), pero que aparte, queremos representar 2 dígitos luego de la coma solamente (.2). Esto nos permite tener un mayor control sobre qué resultado se mostrará.
 
 `(float x / y)` ingresar entre paréntesis un nuevo tipo de datos, permite "cambiarlo al vuelo" tratando el resultado de x/y como un valor float, para que coincida con la representación en la función printf(). 
-
 
 #### Command line in unix systems.
 
@@ -484,14 +417,14 @@ printf(" %.2f ", (float) x / y);
 
 - telnet
 
-### The `#define` preprocessor directive (MACRO).
+### The #define preprocessor directive (MACRO).
 
-* Para no definir constantes dentro del código, ni tener nros o textos "mágicos" en el mismo, podemos usar este acercamiento para que al C compilar el código, se reemplace lo que indiquemos en las primeras lineas con `#define`. Esto forma parte del pre-procesado del código en C.
+* Para no definir constantes dentro del código, ni tener nros o textos "mágicos" en el mismo, podemos usar este acercamiento para que al C compilar el código, se reemplace lo que indiquemos en las primeras lineas con #define. Esto forma parte del pre-procesado del código en C.
 
 ej:
 
 tenemos el código siguiente....
-```c
+```
 card deal_card(deck name)
  {
     for (int i=0; i > 52; i++ )
@@ -502,7 +435,7 @@ card deal_card(deck name)
 ```
 
 Podemos modificar la constante 52 de la siguiente manera...
-```c
+```
 #define DECKSIZE 52
 
 card deal_card(deck name)
@@ -525,7 +458,7 @@ y esto evita que tengamos "suelto" una constante dentro del código.
 * Crear un programa que imprima una pirámide de "#" donde el usuario pueda seleccionar qué alto tendrá, y la pirámide esté alineada a la derecha, con espacios aparte de los "#".
 
 
-```c
+```
 #include <cs50.h>
 #include <stdio.h>
 
@@ -597,19 +530,13 @@ clang:
 
 ### Preprocessing, compiling, assembling, linking .- 
 
-- El **preproceso** en C, implica realizar tareas antes de iniciar el procesado del código que escribimos. Esto se define con las primeras lineas del código, que llevan un símbolo hash (**#**) para identificar que estas lineas, se ejecutarán primero para copiar prototipos, definir variables dentro del código, etc.
+- El preproceso en C, implica realizar tareas antes de iniciar el procesado del código que escribimos. Esto se define con las primeras lineas del código, que llevan un símbolo hash (**#**) para identificar que estas lineas, se ejecutarán primero para copiar prototipos, definir variables dentro del código, etc.
 
-- El **Compilado** sucede luego de haberse preprocesado el código, cuando ya todo está en su lugar, pero todavía en lenguaje C en este caso. El compilado es traducir el lenguaje C en **Assembly Code**.
+- El Compilado sucede luego de haberse preprocesado el código, cuando ya todo está en su lugar, pero todavía en lenguaje C en este caso. El compilado es traducir el lenguaje C en **Assembly Code**.
 
-- En tercer lugar, se realiza el **ensamblado**, que no es más que traducir el codigo assembly en ceros y unos, que finalmente, es lo que entiende el procesador por comandos.
+- En tercer lugar, se realiza el ensamblado, que no es más que traducir el codigo assembly en ceros y unos, que finalmente, es lo que entiende el procesador por comandos.
 
-- Finalmente, se realiza la **vinculación**, que no es más que considerar todos los archivos son necesarios dado el código que hay que ejecutar y vincularlos para ejecutar el mismo código que está escrito.
-
-EL código iniciado con el "#" (símbolo hash), es una *directiva de preproceso*. Esto significa que, el compilador, al leer esto, va a copiar y reemplazar esa linea, por lo indicado en la misma. En nuestro caso, cuando ponemos el código
-```c
-#include <stdio.h>
-```
-estamos indicando que el prepocesador incluya todos los prototipos de la libreria **stdio.h** al inicio de nuestro programa.(para tener las funciones del archivo disponibles.)
+- Finalmente, se realiza la vinculación, que no es más que considerar todos los archivos son necesarios dado el código que hay que ejecutar y vincularlos para ejecutar el mismo código que está escrito.
 
 ### Debugging
 
@@ -625,24 +552,25 @@ aqui nos presentará con botones en la parte superior del codigo:
 
 ![barra de depuración](./resumen-cs50-python/image2.png)
 
+- Los botones corresponden a las siguientes acciones:
 
-Los botones corresponden a las siguientes acciones:
+![continuar](./resumen-cs50-python/imgdebplay.png) : Este botón deja correr el código de manera normal.
 
-|                                                     |                                                                                                                      |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| ![continuar](./resumen-cs50-python/imgdebplay.png)  | Este botón deja correr el código de manera normal.                                                                   |
-| ![step](./resumen-cs50-python/imgdebstep.png)       | Este botón nos permite ir linea a linea en el código.                                                                |
-| ![into](./resumen-cs50-python/imgdebinto.png)       | Este botón nos permite, entrar en la función que estamos enfocando en el código principal ,y analizarla paso a paso. |
-| ![out](./resumen-cs50-python/imgdebout.png)         | Al contrario de la anterior, este botón nos permite "salir" de la función que estemos analizando internamente.       |
-| ![restart](./resumen-cs50-python/imgdebrestart.png) | Nos permite reiniciar la ejeción del código.                                                                         |
-| ![stop](./resumen-cs50-python/imgdebstop.png)       | Finaliza la ejecución del código de una vez.                                                                         |
+![step](./resumen-cs50-python/imgdebstep.png) : este botón nos permite ir linea a linea en el código.
 
+![into](./resumen-cs50-python/imgdebinto.png) : este botón nos permite, entrar en la función que estamos enfocando en el código principal ,y analizarla paso a paso.
+
+![out](./resumen-cs50-python/imgdebout.png) : Al contrario de la anterior, este botón nos permite "salir" de la función que estemos analizando internamente.
+
+![restart](./resumen-cs50-python/imgdebrestart.png) : Nos permite reiniciar la ejeción del código.
+
+![stop](./resumen-cs50-python/imgdebstop.png) : finaliza la ejecución del código de una vez.
 
 ---
 
 ### Estructuras de datos
 
-#### Arreglos (o arrays)
+ARRAYS
 
 * Para crear un array que es un conjunto de elementos del mismo tipo que se distribuyen juntos, se utiliza la siguiente sintaxis:
 
@@ -659,12 +587,12 @@ scores[0] = 72;
 scores[1] = 73;
 scores[2] = 33;
 
-Cuando tenemos una **función** y debemos pasarle un **array**, se le debe pasar como parámetros, el nombre del array con los corchetes vacíos, indicándo que no sabemos qué longitud tiene, pero **SI DEBEMOS PASARLE** la longitud como 2do parámetro.
+Cuando tenemos una función y debemos pasarle un array, se le debe pasar como parámetros, el nombre del array con los corchetes vacíos, indicándo que no sabemos qué longitud tiene, pero **SI DEBEMOS PASARLE** la longitud como 2do parámetro.
 
-- En este caso, el array es `notas[]`, tiene una longitud de tamaño "largo". Son los únicos 2 parámetros que se pasan.
+- En este caso, el array es notas[], tiene una longitud de tamaño "largo". Son los únicos 2 parámetros que se pasan.
 
 ej:
-```c
+```
 float promedio(int largo, int notas[])
 {
     float suma = 0;
@@ -685,7 +613,7 @@ Normalmente, siendo un array, podemos acceder a sus datos con la notación habit
 
 - ej:
 
-```c
+```
 #include <cs50.h>
 #include <stdio.h>
 
@@ -700,13 +628,6 @@ int main(void)
 }
 ```
 
-### NUL carácter
-
-Este carácter indica en un array, que ha finalizado el mismo. Una cadena de caracteres(un string), se representa con un array de carácteres, por lo que para saber donde termina, se usa un extra byte, para pone el carácter `\0` indicándo que ha finalizado. (*esto implican las comillas dobles en pc, que todo lo que va dentro, finaliza con el carácter NUL, indicando que la cadena ha terminado*).
-
-![[./resumen-cs50-python/memoryallocation.png]]
-
-Las comillas simples implican que lo que va dentro, es un único carácter, que ocupa solamente 1 byte.
 
 ---
 
@@ -716,7 +637,7 @@ Las comillas simples implican que lo que va dentro, es un único carácter, que 
 * Hasta el momento hemos definido siempre la función principal llamada main con un parámetro llamado *void*, que implica que la función no toma argumentos en su ejecución, pero resulta que esto se puede modificar, para que al ejecutar la misma desde la linea de comandos, los "flags" o "argumentos" se puedan utilizar en la función misma.
 
 Estos argumentos, se toman como un array de strings, por lo tanto, como se debe hacer en C, debemos pasar una variable con la cantidad de argumentos(longitud), y el array de argumentos en sí.
-```c
+```
 int main(int argc, string argv[]){}
 ```
 
@@ -724,7 +645,7 @@ int main(int argc, string argv[]){}
 
 - ej: cuando ejecutamos un programa, aparte del nombre del mismo, podemos proveer argumentos que "cambian" la ejecución del mismo.
 
-`c:> programaEnC.exe nuevo david 3500`
+c:> programaEnC.exe nuevo david 3500
 
 > al ejecutar una linea de este estilo, estamos pasando todo lo separado con espacios como argumento.
 En este caso, el array quedaría:
@@ -735,149 +656,11 @@ y con el string argv[] podemos acceder a ellos de manera eficaz.
 
 ### Statuses 
 
-* Cando definimos la función main, normalmente le asignamos **int** al valor que debería retornar la misma. Cuando el software termina, nos da un nro al "salir" del programa, ya sea por error o por haber realizado de manera correcta la tarea para la cual se creó.
+* Cando definimos la función main, normalmente le asignamos int al valor que debería retornar la misma. Cuando el software termina, nos da un nro al "salir" del programa, ya sea por error o por haber realizado la tarea para la cual se creó.
 
-Estos números se pueden ver, al menos en la consola misma, con el comando `echo $?`.
-
-- 0 Cero se utiliza para indicar suceso correcto, o en otras palabras, que el programa terminó correctamente realizando las tareas.
-- 1 o cualquier otro número, se indica para catalogar un tipo de error, obviamente esto va documentado para saber qué significa tal número.
-
-```c
-#include <stdio.h>
-#include <cs50.h>
-
-int main(int argc, string argv[])
-{
-
-}
-```
 
 ---
 
 ### Scrabble problem 1 -
 
-### Substitution problem -
-
-
-## Semana 3 - Algoritmos
-
-* Los algoritmos son estructuras que nos permiten realizar tareas repetitivas de manera más eficiente y rápida. Obviamente, al haber distintos problemas a resolver, implica que hay distintos tipos de algoritmos a utilizar.
-
-Tenemos algoritmos lineales, binarios(que dividen en dos el problema a resolver, para demorar menos tiempo), de busqueda, etc.
-
-Normalmente se mide la calidad del algoritmo con respecto al problema a resolver de la manera siguiente:
-
->[!tip] "*big O notation*" (define el peor caso de busqueda, el que toma **n** pasos para obtener el resultado.)
-**O(n)**
-
-Las medidas de tiempo más habituales... **(asymtotic notation)**
-
-Este tipo de medidas de tiempo, analizan el PEOR CASO POSIBLE, donde cuando buscamos algo , nos toma $n^2, n*log\ n, n, log\ n$ pasos para encontrarlo.
-- $O(n²)$
-- $O(n\ log\ n)$
-- $O(n)$     linear search
-- $O(log\ n)$ bynary search
-- $O(1)$
-
-"*big Omega notation*" (define el mejor caso de busqueda, el que toma menos pasos para obtener el resultado)
-
-$O$ (n²)
-$O$ (n log n)
-$O$ (n)
-$O$ (log n)
-$O$ (1)      linear search, bynary search.
-
-"*Theta notation*" (define cuando el mejor y el peor casos dan la misma cantidad de pasos)
-
-$\theta (n)$ 
-
-### Tipos de algoritmos - Busquedas
-
-- **Linear Search**
-	*Condiciones iniciales*: no tiene.-
-	El objetivo de los algoritmos de búsqueda es comparar elemento a elemento para encontrar el elemento de valor igual al que estamos buscando.
-	En el caso de la "busqueda lineal", esto implica iniciar la búsqueda en el *primer elemento* de un array, y comparar ese elemento con el elemento buscado. 
-	Si coinciden, la busqueda termina.
-	Si no coinciden, pasamos al siguiente elemento y volvemos a comparar.
-	Esto se repite hasta que encontramos el elemento o iteramos sobre TODOS los elementos del array.
-
-- **Binary Search**
-	*Condiciones iniciales*: los valores deben estar ordenados de menor a mayor.
-	Este algoritmo necesita de que los elementos del algoritmo estén ordenados.
-	Esto permite que el algoritmo divida la cantidad de valores del array original por la mitad, y evalúe si el valor que estamos buscando es menor que el valor de la mitad, si es mayor que dicho valor o si es exactamente el valor buscado.
-	Esto es recursivo, dado que al dividir por la mitad el array original, creamos un subarray donde podemos aplicar la misma lógica. Dividimos por la mitad el subarray, y verificamos si el valor que buscamos es menor que la mitad del valor medio del subarray, si es mayor, o si és dicho valor.
-	Esto disminuye considerablemente la cantidad de pasos necesarios para encontrar un valor en dichos procedimientos.
-	**DETALLE IMPORTANTE: si en un punto, el punto de inicio es mayor al punto de fin, esto indica que el subarray es de tamaño 0, y si es asi, y todavia no encontramos nuestro valor, quiere decir que el valor NO EXISTE en el array original.**
-	En Pseudocódigo:
-		Repetir hasta que el *(sub)array* sea de *tamaño 0*:
-		calcular el índice como el punto medio del (sub)array actual.
-		Si el *valor buscado* está en este valor de *índice*, parar.
-		Si el *valor buscado* es *menor* al valor ubicado en *indice*, repetir cambiando el *punto final* al valor (indice que encontramos - 1).
-		Si el *valor buscado* es *mayor* al valor ubicado en *indice*, repetir cambiando el *punto inicial* al valor (indice encontrado + 1).
-
-
-* **Selection sort** $\Theta (n^2)$
-    El algoritmo de selección realiza pasadas en la lista a ordenar, obteniendo el menor valor entre todos, y reubicándolo en el primer lugar de los elementos *no-ordenados*.
-    Se aclara que se ubica dentro de los elementos no-ordenados dado que, al mover el primer menor valor al principio del array, este se puede considerar "ordenado", por lo que no se tiene en cuenta para la próxima pasada.
-    En Pseudocódigo:
-		Repetir hasta que no queden elementos sin ordenar:
-		Buscar en la parte no-ordenada del array, el menor valor.
-		Intercambiar este menor valor con el primer valor de la parte no-ordenada.
-
-* **Bubble sort**  
-    Este algoritmo realiza n/2 pasos, comparando de 2 en 2 los valores de la lista, para verificar cuál de los 2 es menor.
-    La idea es mover los valores más grandes entre 2 al "final" del array, escalando de a uno el indice y comparando el valor actual y el siguiente. Si no están en orden, se intercambian los lugares de estos dos valores, y se sigue con el siguiente indice. Para que esto funcione, debemos realizar esto hasta que no se registre ningún "cambio" entre los valores, para así determinar que el array está "ordenado" (si se recorre una sola vez no queda totalmente ordenado).
-    Esto tiene una mejora, al tener el valor más grande "al final", no es necesario que lo contemplemos en un nuevo recorrido si es que tenemos que hacerlo.
-    En Pseudocódigo:
-	    Setear una variable "contador de intercambios" a un valor distinto de 0.
-	    Repetir hasta que el "contador de intercambios" sea 0
-	    Resetear "contador de intercambios" a 0
-	    Verificar cada par de valores adyacentes
-	    Si no están en orden de valores, intercambiar entre ellos y sumar uno al "contador de intercambios"
-
-* **Merge sort**
-    Este tipo de algoritmo, divide la lista a la mitad, recurrentemente, hasta comparar 2 valores y luego recomponer la misma. "Ordenar parte izquierda, ordenar parte derecha, y luego fusionar ambas."
-
-* Shell sort
-
-* Quick sort
-
-* Comb sort
-
-* Insertion sort
-
-* Heap sort
-
-* Cocktail sort
-
-**Comparación de los métodos de ordenamiento**
-
-[Comparison Sorting Visualization](https://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
-
-
-
-## Semana 4 - Memoria
-
-Agregamos dos operadores más al lenguaje C, los cuales son
-
-| operador | utilización                                                                          |
-| -------- | ------------------------------------------------------------------------------------ |
-| &        | Provee la dirección de "algo" guardado en la memoria                                 |
-| *        | Le indica al compilador, que debe ir a la ubicación en memoria.                      |
-| %p       | esto permite imprimir la dirección de la variable pasada como parámetro en printf( ) |
-Un **pointer**  es una variable que guarda "*la dirección en memoria*" de algo.
-
-Agregamos también a la sintaxis, `%p` el cual nos permite ver la dirección de memoria de la variable indicada con `&variable`
-
-Ejemplo:
-```c
-#include <stdio.h>
-
-int main(void){
-	int n = 50;
-	printf("%p \n", &n);
-}
-```
-
-Esto nos permitira ver en pantalla, mediante printf, el valor guardado en la ubicación de memoria de la variable "n".
 
