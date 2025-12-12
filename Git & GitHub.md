@@ -26,12 +26,15 @@ Al iniciar Git, hay opciones que es recomendable configurar de manera global, si
 ###### Ver la lista de configuraciones globales
 `git config --global --list`
 
+###### ver configuración y de dónde se están aplicando (loca, usuario o global)
+`git config --list --show-origin`
+
+
 ###### Configurando el nombre global de usuario en git
 `git config --global user.name "Davidejemplo"`
 
 ######  Configurando mail
 `git config --global user.email "davidseba.giordano@gmail.com"`
-
 
 ###### Configurar el editor(visual studio code) para mensajes
 `git config --global core.editor "code --wait"`
@@ -46,6 +49,18 @@ Al iniciar Git, hay opciones que es recomendable configurar de manera global, si
 
 ###### Configurar para que la versión abreviada del hash de cada commit, sea de x dígitos (normalmente 10)
 `git config --global core.abbrev X`
+
+
+###### Ver qué valor tiene cierta variable
+Para poder ver qué valores tiene asignada una variable en particular de la configuración, se puede escribir el comando que se usaría para asignar un valor, sin asignar nada, y git informará qué valor tiene.
+
+por ej. `git config init.defaultBranch` esto nos devolverá el nombre de la rama principal.
+
+---
+
+###### Ayuda
+Para solicitar ayuda sobre qué parámetros puede llevar un comando, podemos escribir en la linea de comandos `git + comando + -h`
+
 
 ---
 
@@ -119,24 +134,83 @@ Agregar todos los archivos al area de staging
 Agregar un archivo específico al area de staging
  `git add (nombre del archivo uno por uno)`
 
+Agregar archivos por extensión en particular
+`git add *.c`
+esto agregará al tracking de archivos, los archivos de extensión .c nada más. *(cualquier otro archivo, si existiese, no se agregaría al tracking)*
+
+
 >[!example] ejemplo:
- git add index.html image.jpg readme.txt
+`git add index.html image.jpg readme.txt`
 
-### Ver estado de la carpeta, commits, etc del repo. (muestra qué archivo se va a subir al repo)
 
+## CLONAR UN REPOSITORIO EXISTENTE
+Para clonar y traer un repo existente con todo su historial de commits y demás, se usa el comando git clone.
+ej: `git clone [dirección URL del repositorio remoto a clonar]`
+
+Se puede pasar un nombre de carpeta a donde ubicar el repo que estamos clonando como 2do parámetro del comando.
+ej: `git clone https://www.github.com/repo1 carpetaLocal1`
+esto traerá el repositorio remoto **repo1** a una carpeta en nuestra computadora llamada **carpetaLocal1**
+
+### VERIFICAR CAMBIOS EN LOS REPOSITORIOS
+Al ir modificando, creando y eliminando archivos, nos vamos a encontrar con que el repositorio local va a ir mostrando "cambios". Estos cambios, se pueden verificar con el comando git status
 `git status`
 
 existe otra forma de verificar los archivos de una manera más corta.
-
 `git status -s`
+
 ### Sacar archivo del area de STAGING
-
+Para sacar archivos del area de staging, puedes indicarle a GIT que **NO SIGA TRACKEANDO** el archivo (*untracked en git status*)
 `git rm --cached (nombre del archivo)`
+esto hace que al hacer git status, se muestre el archivo indicado en la parte de "**untracked files**"
+indicando que el archivo existe, pero que git no está "tomando cuenta" los cambios en el mismo.
 
+Este comando en particular, remueve el archivo del area STAGED indicado. Si hemos mandando al STAGING un archivo, lo modificamos, y luego devolvemos con este comando al WORKING DIRECTORY el mismo archivo, la versión que prevalece es la modificada por último.
 `git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)`
 
 Elimina todos los archivos agregados actualmente al area de Staging
 `git reset` 
+
+---
+### .GITIGNORE 
+
+ esto define qué archivos GIT debe ignorar al momento de buscar para commitear. y solo funciona para archivos que **NUNCA** se han guardado en un commit, si el archivo ya se subió se seguirá trackeando siempre y cuando no se elimine del tracking y esté agregado al **.gitignore** 
+
+el archivo se puede abrir con el VSC y se puede comentar dentro con el símbolo #(comentario)
+se agrega el `[nombre.ext]` del archivo a ignorar, pero se puede definir por rangos
+  	ej: *.txt / *.jpg / *.py
+   
+para excepcionar un archivo dentro del grupo de archivos definidos por ej en *.txt, se pone
+ `![nombre de archivo.txt]`
+  
+Para ignorar un directorio completo se pone
+`[nombre de carpeta]/`
+
+CONFIGURAR QUE LOS REPOS LEAN UN ARCHIVO .GITIGNORE general:
+
+  	git config --global core.excludesfile [ruta en la pc del archivo]
+ 	ej: git config --global core.excludesfile c:/generalfiles/.gitignore_global
+
+realizar comentarios dentro del gitignore: arrancar el renglón con #.
+
+```
+# ignorar todos los archivos de extensión .a
+*.a
+
+# pero sí hacer seguimiento del archivo lib.a, incluso si estás ignorando archivos de extensión .a
+!lib.a
+
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
+
+# ignore all files in any directory named build
+build/
+
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+
+# ignore all .pdf files in the doc/ directory and any of its subdirectories
+doc/**/*.pdf
+```
 
 ---
 ### Realizar Commit 
@@ -310,29 +384,6 @@ VER la última actualización de cada rama
  
  ---
  
-
-### .GITIGNORE 
-
- esto define qué archivos GIT debe ignorar al momento de buscar para commitear. y solo funciona para archivos que **NUNCA** se han guardado en un commit, si el archivo ya se subió se crea un archivo .gitignore
-
-se puede abrir con el VSC y se puede comentar dentro con el símbolo #(comentario)
-se agrega el `[nombre.ext]` del archivo a ignorar, pero se puede definir por rangos
-  	ej: *.txt / *.jpg / *.py
-   
-para excepcionar un archivo dentro del grupo de archivos definidos por ej en *.txt, se pone
- `![nombre de archivo.txt]`
-  
-Para ignorar un directorio completo se pone
-`[nombre de carpeta]/`
-
-CONFIGURAR QUE LOS REPOS LEAN UN ARCHIVO .GITIGNORE general:
-
-  	git config --global core.excludesfile [ruta en la pc del archivo]
- 	ej: git config --global core.excludesfile c:/generalfiles/.gitignore_global
-
-  
----
-
 #### ALIAS EN GIT
 Se definen como funciones que guardan todos los comandos determinados para ejecutar más simple
 
