@@ -187,6 +187,74 @@ OFFSET _COUNT_;
 8. **LIMIT / OFFSET**
 	Finalmente, las filas resultantes que caigan fuera del rango indicado por el LIMIT y el OFFSET son descartadas, dejando el resultante final de registros para mostrar como resultado.
 
+
+
+### ACCEDER AL SERVIDOR Y CREACION DE USUARIOS
+
+Al instalar el servidor de base de datos, deberemos configurar un usuario llamado `root` el cual tendrá TODOS los permisos en el servidor para hacer a su placer y necesidad lo que necesite. Esto involucra, crear, modificar, eliminar bases de datos ENTERAS, crear otros usuarios para que puedan acceder con permisos especiales, más limitados, mantener la integridad de los datos de las bases, etc.
+
+Normalmente, este superAdmin se crea al instalar la base. Si el cliente va a alojar el servidor en alguna pc propia, nosotros podemos instalarle el sistema, pero por ningún motivo, el cliente tendrá acceso a los datos del superAdmin `root`, por lo tanto, explicaremos como crear usuarios con permisos más limitados.
+
+Normalmente, si el *root* tiene acceso al servidor, puede crear nuevos usuarios, y determinar a qué bases puede dedicarse, si puede crear nuevas tablas, eliminarlas, leer datos, modificarlos, escribir nuevos, etc.
+
+Primero, podemos verificar y listar qué usuarios tiene la base creada para saber si ya existe el que vamos a crear(si el server está recién creado, habrá unos pocos usuarios del sistema.)
+
+```sql
+SELECT user, host, plugin FROM mysql.user;
+```
+
+Esto listará los datos de usuario, y host, junto con los datos de autenticación que están creados en la base de datos del servidor.
+
+Si queremos crear un nuevo usuario, podemos utilizar  sentencia muy simple pero muy poderosa.
+
+```sql
+CREATE USER IF NOT EXISTS 'AdminWork'@'localhost' 
+IDENTIFIED BY '87654321';    
+```
+
+Esto "crea" el usuario '*AdminWork*' para conectarse al servidor '*localhost*', y utilizar para ello la clave '*87654321*'
+Esto permite que si debemos permitir una conexión al servidor mysql, no sea necesario entregar el user y pass *root*, sino que ingresando como usuario '*AdminWork*' y contraseña '*87654321*', eso permitira el acceso.
+
+Si queremos eliminar algún usuario creado previamente (o verificar que no exista antes de crearlo) podemos utilizar la siguiente sentencia, siempre siendo usuario *root*
+
+```sql
+DROP USER IF EXISTS 'usuario'@'servidor';
+```
+
+Esto elimina sin preguntar el usuario indicado SI ES QUE EXISTE.
+
+Ahora, normalmente no querríamos que dicho usuario tenga acceso a TODAS las bases de datos, y que tampoco pueda eliminarlas por accidente, o cambiar datos que no deba. Por lo tanto, mysql permite darle "*permisos específicos*" sobre qué tipo de comandos puede ejecutar.
+
+Para eso tenemos la siguiente sentencia, que otorga dichos permisos explícitos al usuario indicado, y luego el comando flush privileges aplica en ese momento los nuevos permisos.
+
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER 
+ON *.* 
+TO 'AdminWork'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+La parte que dice `ON *.*` indica que estos permisos se otorgarán en *TODAS* las tablas de *TODAS* las bases creadas en dicho servidor, por lo tanto, no es muy práctico.
+Podemos llevar un paso más la restricción de dicho usuario, y limitarlo a la base que utilizará su sistema, para que solo pueda realizar dichos comandos en esa base.
+
+>[!important] IMPORTANTE
+>Podemos brindar acceso y privilegios a un usuario nuevo sobre una base que TODAVIA NO ESTE CREADA, esto permite ejecutar la creación de usuario ANTES de utilizar dicho usuario para crear la base y el resto de las tablas.
+>Este usuario, al ingresar las credenciales, tendrá acceso a crear solamente la base indicada y todos los datos internos, pero no podrá ver otras bases y datos escenciales del server dado sus permisos.
+>>
+
+
+### Verificar si existe una base de datos por query
+
+Al acceder como usuario *root* al server, en vez de abrir interfaz o incluso, listar todas las bases de datos en una tabla y buscar una por una, podemos ejecutar una sentencia que nos permite buscar por nombre las bases y verificar si se devuelve algun resultado.
+
+```sql
+SELECT COUNT(*)
+          FROM INFORMATION_SCHEMA.SCHEMATA
+          WHERE SCHEMA_NAME = "nombre_de_la_base";
+```
+
+Esto nos devolverá 1 si dicha base existe en el server, o 0 en caso contrario.
+
 ### CREATE SCHEMA (Creación de base, tabla y uso)
 
 muestra las bases de datos existentes.
@@ -201,7 +269,7 @@ CREATE SCHEMA IF NOT EXISTS nombre_de_la_base;
 
 usar la tabla llamada *nombre_de_la_base*
 ```sql
-USE nombre_de_la_base
+USE nombre_de_la_base;
 ```
 
 ver qué base de datos está seleccionada
@@ -209,8 +277,7 @@ ver qué base de datos está seleccionada
 SELECT DATABASE();
 ```
 
-
-
+---
 
 >[!tip] Sentencia para crear una tabla (ya dentro de la base de datos)
 ```sql
@@ -226,7 +293,7 @@ CREATE TABLE "[nombre]" (
 ```
 
 
-Las tablas también se pueden crear desde sentencias SELECT, utilizando los mismos tipos de datos que tienen esas columnas definidas en el SELECT, como en una vista *(Una vista es como un "alias" para llamar un SELECT predefinido con un nombre )* inclusive.
+Las tablas también se pueden crear desde sentencias *SELECT*, utilizando los mismos tipos de datos que tienen esas columnas definidas en el SELECT, como en una vista *(Una vista es como un "alias" para llamar un SELECT predefinido con un nombre )* inclusive.
 
 Ej:
 
@@ -268,9 +335,7 @@ Ejemplo:
 DESCRIBE twitter_db.tabla_usuarios;
 ```
 
-
-
-#### Propiedades habituales de los capos definidos en la tabla
+### Propiedades habituales de los capos definidos en la tabla
 
 Tipos de datos para los campos:
 
@@ -330,6 +395,8 @@ Tipos de datos para los campos:
 - **FOREIGN KEY** : evita acciones que destruirían el vínculo entre tablas.
 	Las Foreign Key aseguran que el valor ingresado en el campo determinado como foreign key, exista en el campo al que hacen referencia.
 	Ejemplo:
+	
+
 ```sql
 CREATE TABLE followers (
 	follower_id int not null,
@@ -337,22 +404,22 @@ CREATE TABLE followers (
     Foreign key(follower_id) REFERENCES users(user_id),
     Foreign key(following_id) REFERENCES users(user_id),
     Primary Key(follower_id, following_id)
-    );
-	```
-
-Esto nos asegura que lo que se ingresa en follower_id como following_id, es un valor que existe en el campo user_id de la tabla Users.-
+    );   
+```
+	
+Esto nos asegura que lo que se ingresa en *follower_id* como *following_id*, es un valor que existe en el campo *user_id* de la tabla *Users*.-
 
 - **CHECK** : determina que los valores en una columna satisfacen una condición específica.
 	Ejemplo:
-	
-	```sql
+```sql
 	CREATE TABLE seguidores (
 	  id SERIAL PRIMARY KEY,
 	  follower_id INT NOT NULL,
 	  following_id INT NOT NULL,
 	  CONSTRAINT evitar_self_follow CHECK (follower_id <> following_id)
-	);``` 
-	Esto evita que ambos valores en la tabla sean iguales, evitando que un usuario sea su propio seguidor. 
+	);
+```
+Esto evita que ambos valores en la tabla sean iguales, evitando que un usuario sea su propio seguidor. 
 
 - **DEFAULT(valor o función)** : setea un valor por defecto si no se especifica alguno en el ingreso de registro.
 
@@ -425,17 +492,15 @@ SHOW GRANTS FOR 'nombre_usuario'@'server';
 El resultado de esto será algo así:
 
 ```sql
-| Grants for root@localhost                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Grants for root@localhost
 +---------------------------------------------------------------------------+
-| GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, SHUTDOWN, PROCESS, FILE, REFERENCES, INDEX, ALTER, SHOW DATABASES, SUPER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER, CREATE TABLESPACE, CREATE ROLE, DROP ROLE ON *.* TO `root`@`localhost` WITH GRANT OPTION                                                                                                                                                                                                                                                                                                                                                                                     |
+| GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, SHUTDOWN, PROCESS, FILE, REFERENCES, INDEX, ALTER, SHOW DATABASES, SUPER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER, CREATE TABLESPACE, CREATE ROLE, DROP ROLE ON *.* TO `root`@`localhost` WITH GRANT OPTION                                   
 
 | GRANT APPLICATION_PASSWORD_ADMIN,AUDIT_ABORT_EXEMPT,AUDIT_ADMIN,AUTHENTICATION_POLICY_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTION_ADMIN,CLONE_ADMIN,CONNECTION_ADMIN,ENCRYPTION_KEY_ADMIN,FIREWALL_EXEMPT,FLUSH_OPTIMIZER_COSTS,FLUSH_STATUS,FLUSH_TABLES,FLUSH_USER_RESOURCES,GROUP_REPLICATION_ADMIN,GROUP_REPLICATION_STREAM,INNODB_REDO_LOG_ARCHIVE,INNODB_REDO_LOG_ENABLE,PASSWORDLESS_USER_ADMIN,PERSIST_RO_VARIABLES_ADMIN,REPLICATION_APPLIER,REPLICATION_SLAVE_ADMIN,RESOURCE_GROUP_ADMIN,RESOURCE_GROUP_USER,ROLE_ADMIN,SENSITIVE_VARIABLES_OBSERVER,SERVICE_CONNECTION_ADMIN,SESSION_VARIABLES_ADMIN,SET_USER_ID,SHOW_ROUTINE,SYSTEM_USER,SYSTEM_VARIABLES_ADMIN,TABLE_ENCRYPTION_ADMIN,TELEMETRY_LOG_ADMIN,XA_RECOVER_ADMIN ON *.* TO `root`@`localhost` WITH GRANT OPTION |
-| GRANT PROXY ON ``@`` TO `root`@`localhost` WITH GRANT OPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| GRANT PROXY ON ``@`` TO `root`@`localhost` WITH GRANT OPTION                                                                                                        
 +------------------------------------------------------------------------------+
 3 rows in set (0.00 sec)
 ```
-
-
 
 ---
 ### ALTER TABLE (realizar modificaciones de estructura en una tabla)

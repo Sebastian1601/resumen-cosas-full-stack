@@ -32,15 +32,25 @@ Luego con *Ctrl + P*, nos abre el menu de parenting. Ahi seleccionamos de las op
 Para organizar elementos en la ventana de *Scene Collection*, podemos agregar una *Colección* de elementos(algo así como una carpeta de elementos) desde el mismo menú de objetos.
 **Mover objetos de una colección a otra** - con el objeto u objetos seleccionados, apretamos *M* y nos abrirá una ventana donde podemos elegir a qué colección enviaremos el o los objetos seleccionados.
 
-**MODIFICADORES** - 
+## **Camara** 
+
+Fly View Mode - Activar el modo de mover la camara como un juego FPS. (wsad) - Se puede ir al submenu *View > Navigation > Fly Navigation*
+
+
+## Iluminacion
+
+Para una iluminacion real, podemos eliminar la luz que va por defecto en la escena, y agregar una luz natural desde el menú propiedades [WORLD] y luego, clickear en el punto amarillo de "*color*", y elegir Sky.
+
+
+## **MODIFICADORES** - 
 Los modificadores son funciones que se aplican al objeto seleccionado en principio en la ventana del viewport. Cuando creamos un modificador, estamos viendo como "quedaría" el objeto finalmente con el modificador aplicado, **PERO TODAVIA NO LO ESTA!** por lo que, para hacer efectivo un modificador, luego de configurado, hay que "*aplicarlo*" desde la flecha hacia abajo del menú al lado del nombre del tipo de modificador. Esto se hace en la *vista de Objetos*
 También si el modificador se está aplicando en más de un objeto a la vez, figura un nro en el lado derecho del *nombre automático* que se le asigna cuando se crean(no del nombre del tipo) 
 **PARA SEPARAR** A los objetos afectados por este nodo, si apretamos este nro con el elemento seleccionado que queremos esté aislado de los demás, los cambios hechos en ese objeto, se aplicarán SOLO a ese objeto, y no a los demás que SI comparten el modificador.
 
-*Subdivision* - divide exponencialmente una cara en 4 para aplicar detalle.
+**Subdivision** - divide exponencialmente una cara en 4 para aplicar detalle.
 	*levels viewport* -> representa en el area de trabajo
 	*Render* -> se aplica al renderizar una imagen o video.
-*Solidify* - agrega "cuerpo" a una cara de un objeto, o todo el objeto depende de la selección. 
+**Solidify** - agrega "cuerpo" a una cara de un objeto, o todo el objeto depende de la selección. 
 También con este modificador, se puede hacer que una capa "arriba" de otra, se "pegue" usando la propiedad *Edge Data*, dentro de *Solidify*, y subir el *Crease Inner* a 1. Esto hace que la parte interna no suba en curva, sino que "se pegue" a lo que esté cubriendo.
 **Simple deform** - Se utiliza para deformar el objeto seleccionado, útil para crear curvas en objetos rectos y otras propiedades más.
 
@@ -61,18 +71,40 @@ eso se puede pasar a *EDIT MODE* para modificar los vertex points.
 si selecionamos algun *vertex* y activamos el modo *Proportional Editing* con *O*, se abre un circulo que edita los vértices de la malla en proporcion a lo que toca.
 se puede agrandar o achicar con la rueda o *pageup* *pagedown*
 primero se elige un vertex. Luego se activa *O* y finalmente se aprieta *G* para mover.
-*seleccionar todos los vertices unidos por una linea en el eje X* que los une
-*ALT + click* en uno.
-Para seleccionar los vertices unidos en el eje Y, se selecciona uno, 
-*ALT + click* en el siguiente del eje Y
+
+**Seleccionar vertices de un edge completo** - *ALT + click* en uno.
+
+**Para seleccionar los vertices unidos en el eje Y**, se selecciona uno, 
+*ALT + click* en el siguiente del eje Y.
+
+**A** - seleccionar toda la malla del objeto en cuestión
+
 **Ctrl + +** - Teniendo seleccionado un eje de vertices, por ej el eje X, si apretamos Ctrl + +, esto va sumando más ejes paralelos al seleccionado.
+
 **Ctrl + -**  deselecciona ejes ya seleccionados anteriormente.
+
 **Alt + Z** - ver en tipo Rayo X el objeto, para seleccionar vertices más facil.
+
 **H** - con vértices seleccionados, este shorcut "oculta" los mismos para que no sean modificados con otras herramientas, como la de *estirar/contraer malla*
+
 **Alt + H** - Mostrar vértices ocultos con H.
-**Ctrl + B** - Crear ángulos en la cara o vértices seleccionados. Si se usa la rueda del mouse se crean más subdivisiones para el ángulo.
+
+**Ctrl + B** - [Bevel Angles] Crear ángulos en la cara o vértices seleccionados. Si se usa la *rueda del mouse* se crean más subdivisiones para el ángulo.
+
+Si tenemos dos *Edges*, y queremos aplicar el bevel hasta que estos dos bordes, "se unan", para que no se overlapeen entre si, apretamos C para activar el modo *Clamp*, y esto genera que el bevel se aplique hasta que ambos cortes de los edges se unan.
+>[!important] Importante
+>Luego de unir dos edges con bevel, podemos terminar con vertices practicamente en el mismo espacio, por unir dos edges, por lo tanto, para eliminar estos vertices duplicados, seleccionamos todo el objeto con **A**, y luego, **M** -> **Menú Merge** y seleccionamos *By Distance*. Esto elimina vértices que estén muy cerca uno de otro. 
+
+**Crear Cara** - Teniendo seleccionado al menos 3 vértices, se presiona F y esto crea una "cara" entre estos 3 puntos
+
+**SELECCIONAR "BORDES"** en vez de *vértices* en modo *Mesh editor* - Estando en modo mesh editor, presionar 2, o seleecionar el 2do modo en los 3 íconos al lado del menú de selección de modo.
+
+
+
 **/** - Aislar el elemento que estamos trabajando / volver a mostrar todos los elementos.
+
 **Ctrl + R** - inserta cortes en un objeto, inicia en 1, con la rueda del mouse se agregan más cortes. Al confirmar con click, da la opción de modificar, pero con click derecho se cancela y se aplica tal cual está.
+
 **Objeto seleccionado -> right click -> Set Origin -> Origin To Geometry** - Setear el punto de orígen de un objeto en el centro(para aplicar modificadores, etc) 
 
 Para que los elementos que modificamos con la malla, se peguen a otro modelo ya hecho debajo, debemos activar el snapping con **SHIFT + TAB** y setear la opción de *INCREMENT* a *Face Project*

@@ -585,7 +585,7 @@ esto descarga las actualizaciones y nuevos commits que se hayan realizado desde 
 `git fetch`
 - esto descarga los cambios al repo local, pero figura en la rama temporal.
 - Para revisar esa rama local, se usa
-  `git chekcout fetch_HEAD`
+  `git checkout fetch_HEAD`
 - esto mostrará la rama "temporal" con los cambios nuevos, sin aplicarlos a la rama local main.
  
 - SI QUEREMOS guardar los datos, en otra rama, para fusionar o revisarlos, realizamos
