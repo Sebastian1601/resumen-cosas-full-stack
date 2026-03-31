@@ -71,6 +71,18 @@ Si esto devuelve "_Restricted_" quiere decir que está prohibido ejecutar script
 y luego de que tome los cambios, reiniciar la terminal. Al abrirla nuevamente, debería haberse ido el mensaje y podremos ejecutar directamente "node" en la terminal, y esto abrira el REPL (read eval print loop).
 A esta altura ya debería funcionar node en cualquier terminal, incluida la de Visual Studio Code, y ejecutar cualquier programa en la versión de NodeJs elegida.
 
+Finalmente, el archivo `$profile` que se crea en powershell para cargar cada vez que se ejecuta el powershell, deberá tener las siguientes lineas al menos para que fnm funcione debidamente.
+
+`oh-my-posh init pwsh --config 'C:\Users\David\AppData\Local\Programs\oh-my-posh\themes\rudolfs-light.omp.json' | Invoke-Expression
+Import-Module -Name Terminal-Icons
+fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression
+[System.Environment]::SetEnvironmentVariable("Path", ("$HOME\AppData\Roaming\fnm\aliases\default;" + [System.Environment]::GetEnvironmentVariable("Path", "User")), "User")`
+
+la primer linea se encarga de cargar oh-my-posh si lo tienes instalado, para dejar más personalizada la interfaz de la cli.
+la segunda, carga los íconos de la terminal.
+la tercera genera que se carge las variables correctas de entorno de fnm
+la cuarta justamente carga correctamente la versión default activa de NodeJS, en las variables de entorno. sino muchas cosas no funcionan.
+
 ---
 
 ---

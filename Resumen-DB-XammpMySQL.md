@@ -242,6 +242,72 @@ Podemos llevar un paso más la restricción de dicho usuario, y limitarlo a la b
 >Este usuario, al ingresar las credenciales, tendrá acceso a crear solamente la base indicada y todos los datos internos, pero no podrá ver otras bases y datos escenciales del server dado sus permisos.
 >>
 
+#### Lista de permisos para otorgar
+
+| Permiso sobre Datos | Descripción          |
+| ------------------- | -------------------- |
+| SELECT              | Leer datos           |
+| INSERT              | Insertar registros   |
+| UPDATE              | Actualizar registros |
+| DELETE              | Eliminar registros   |
+
+| Permisos sobre estructuras | Descripción                                 |
+| -------------------------- | ------------------------------------------- |
+| CREATE                     | Crear base de datos y tablas                |
+| DROP                       | Eliminar base de datos y tablas             |
+| ALTER                      | Modificar estructura de tablas              |
+| INDEX                      | Crear y eliminar indices                    |
+| CREATE VIEW                | Crear vistas                                |
+| SHOW VIEW                  | Ver definicion de vistas                    |
+| CREATE ROUTINE             | Crear *stored procedures* y *funciones*     |
+| ALTER ROUTINE              | Modificar *stored procedures* y *funciones* |
+| TRIGGER                    | Crear y eliminar triggers                   |
+| REFERENCES                 | Crear claves foráneas (foreign keys)        |
+
+| Permisos administrativos | Descripción                           |
+| ------------------------ | ------------------------------------- |
+| CREATE USER              | Crear y eliminar usuarios             |
+| GRANT OPTION             | Otorgar sus propios permisos a otros  |
+| SUPER                    | Operaciones administrativas avanzadas |
+| PROCESS                  | Ver procesos en ejecución             |
+| RELOAD                   | Ejecutar FLUSH                        |
+| SHUTDOWN                 | Apagar servidor                       |
+| REPLICATION SLAVE        | Replicación entre servidores          |
+| REPLICATION CLIENT       | ver estado de replicación             |
+
+| Permisos sobre archivos y ejecución | Descripción                            |
+| ----------------------------------- | -------------------------------------- |
+| FILE                                | Leer y escribir archivos del servidor  |
+| EXECUTE                             | Ejecutar stored procedures y funciones |
+| EVENT                               | Crear y gestionar eventos programados  |
+| LOCK TABLES                         | bloquear tablas explícitamente         |
+| CREATE TEMPORARY TABLES             | crear tablas temporales                |
+
+Normalmente, existen combinaciones típicas al momento de otorgar permisos a un usuario de la aplicación, a un usuario que maneja la estructura de la base, a un usuario que realiza reportes solamente, etc.
+
+Usuario normal
+```mysql
+GRANT SELECT, INSERT, UPDATE, DELETE ON base.* TO 'app_user'@'server';
+```
+
+Usuario de aplicación con esctructura
+```mysql
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX, REFERENCES
+ON base.* TO 'app_admin'@'localhost';
+``` 
+
+Usuario de SOLO REPORTES
+```sql
+GRANT SELECT ON base.* TO 'app_readonly_user'@'localhost';
+``` 
+
+Usuario con TODOS los permisos sobre una base de datos (sin ser root)
+```sql
+GRANT ALL PRIVILEGES ON base.* TO 'app_superadmin'@'localhost';
+```
+
+
+
 
 ### Verificar si existe una base de datos por query
 
