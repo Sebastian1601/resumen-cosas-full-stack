@@ -72,7 +72,7 @@ Al trabajar con lenguaje SQL, tenemos que tener en cuenta los distintos tipos de
 Se agrupan en 5 grandes conjuntos.
 
 - DDL [Data Definition Language]
-	CREATE | DROP | ALTER | TRUNCATE
+	CREATE | DROP | ALTER | TRUNCATE | RENAME
 
 - DQL [Dat Query Language]
 	SELECT
@@ -86,6 +86,47 @@ Se agrupan en 5 grandes conjuntos.
 - TCL [Transaction Control Language]
 	GRANT | REVOKE
 
+![[Pasted image 20260514100932.png]]
+
+>[!important] DDL - usados para crear, modificar, eliminar tablas y sus objetos
+
+*CREATE*: Crear una **base de datos** o sus **objetos**(tabla, índice, función, vistas, procedimientos almacenados, y disparadores)
+*DROP*: Eliminar objetos de una **base de datos**
+*ALTER*: modificar la estructura de una **base de datos**
+*TRUNCATE*: remover todos los registros de una **tabla**, incluyendo el espacio reservado.
+*RENAME*: renombrar un objeto existente en la **base de datos**.
+
+>[!success] DML - usados para insertar, actualizar eliminar u obtener información de la tabla
+
+*INSERT*: Inserta registro/s en una tabla
+*UPDATE*: Actualiza información de registro/s en una tabla
+*DELETE*: Elimina registros de una tabla
+
+>[!warning] TCL - usados para manejar y controlar transacciones
+
+*BEGIN TRANSACTION*: comienza una nueva transacción.
+*COMMIT*: Guardar todos los cambios hechos durante una transacción.
+*ROLLBACK*: Deshace los cambios planeados durante una transacción.
+*SAVEPOINT*: Crea un punto de guardado dentro de la misma transacción.
+
+>[!info] DQL - usados para obtener información sobre los registros.
+
+*Select* es el único comando principal DQL, que utiliza los subparámetros indicados debajo de él. 
+*SELECT*: comando principal para traer datos que determinemos de la tabla indicada
+	*FROM*: indica la tabla de dónde traer los datos.
+	*WHERE*: se establece una condición para filtrar los datos antes de cualquier agrupación o agregación
+	*GROUP BY*: agrupa filas que tengan mismos valores de la columna especificada aqui
+	*HAVING*: Filtra los resultados en GROUP BY
+	*DISTINCT*: elimina filas duplicadas del set resultante de la búsqueda.
+	*ORDER BY*: Ordena el set resultante según la o las columnas determinadas
+	*LIMIT*: usado para limitar la cantidad de resultados retornados en la búsqueda SELECT inicial
+
+>[!example] DCL
+
+Este tipo de comandos se utiliza más que nada para revocar y otorgar permisos y control sobre las bases de datos.
+*GRANT*: asigna nuevos privilegios a una cuenta de usuario, permitiendo acceso a objetos específicos de una base, funciones, o acciones.
+
+*REVOKE*: Elimina permisos previamente otorgados de un usuario, por lo tanto, eliminando acceso a objetos, funciones, bases, etc.
 
 >[!info] Entidad:
 >- Es una representación de algo.
@@ -93,7 +134,6 @@ Se agrupan en 5 grandes conjuntos.
 >- Para representarlas, se utiliza un sustantivo dentro de un cuadrado.
 > -  Una entidad está definida por sus propiedades. Se representan con un óvalo.
 > - Las entidades se componen por atributos simples, atributos compuestos, atributos multivalor, y atributos derivados.
-
 
 ### Tablas
 
