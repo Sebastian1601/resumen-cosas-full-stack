@@ -4,147 +4,193 @@ https://www.w3schools.com/html/html_quotation_elements.asp
 
 Formatting text elements
 
-        <b> - Bold text
-        <strong> - Important text
-        <i> - Italic text
-        <em> - Emphasized text
-        <mark> - Marked text
-        <small> - Smaller text
-        <del> - Deleted text
-        <ins> - Inserted text
-        <sub> - Subscript text
-        <sup> - Superscript text                
-        <code> - se utiliza para indicar que el texto dentro, es un codigo que puede ser computable. (se suele utilizar dentro de una etiqueta <pre>)
-        <kbd> - esto define un texto con formato monospace, se usa para formatear como teclas el codigo ingresado.
-        <samp> - esto define que el texto dentro, puede ser resultado de salida de un programa de computadoras.
-
+\<b\> - Bold text
+\<strong\> - Important text
+\<i\> - Italic text
+\<em\> - Emphasized text
+\<mark\> - Marked text
+\<small\> - Smaller text
+\<del\> - Deleted text
+\<ins\> - Inserted text
+\<sub\> - Subscript text
+\<sup\> - Superscript text                
+\<code\> - se utiliza para indicar que el texto dentro, es un codigo que puede ser computable. (se suele utilizar dentro de una etiqueta \<pre\>)
+\<kbd\> - esto define un texto con formato monospace, se usa para formatear como teclas el codigo ingresado.
+\<samp\> - esto define que el texto dentro, puede ser resultado de salida de un programa de computadoras.
 # quotations
 
-    <blockquote cite="http://www.worldwildlife.org/who/index.html">
-        texto
-    </blockquote>
+\<blockquote cite="http://www.worldwildlife.org/who/index.html">
+   texto
+\</blockquote\>
 
 # abreviaciones
+```js
 
-        <abbr> texto </abbr>
+<abbr> texto </abbr>
 
-        <p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p> 
+<p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p> 
+```
 
 # información sobre autor/propietario de un documento o artículo
 
-        <address>
-            Written by John Doe.<br>
-            Visit us at:<br>
-            Example.com<br>
-            Box 564, Disneyland<br>
-            USA
-        </address> 
+```js
+<address>
+         Written by John Doe.<br>
+         Visit us at:<br>
+         Example.com<br>
+         Box 564, Disneyland<br>
+         USA
+</address> 
+```
 
-# The HTML <cite> tag defines the title of a creative work (e.g. a book, a poem, a song, a movie, a painting, a sculpture, etc.).
+# The HTML \<cite\> tag defines the title of a creative work (e.g. a book, a poem, a song, a movie, a painting, a sculpture, etc.).
 
 
-         <p><cite>The Scream</cite> by Edvard Munch. Painted in 1893.</p> 
+```js
+<p><cite>The Scream</cite> by Edvard Munch. Painted in 1893.</p> 
+```
 
+# The HTML \<bdo\> tag is used to override the current text direction:
 
-# The HTML <bdo> tag is used to override the current text direction:
-
-         <bdo dir="rtl">This text will be written from right to left</bdo> 
-
+```js
+<bdo dir="rtl">This text will be written from right to left</bdo> 
+```
 
 # COMENTARIOS en html 
-        <!-- Write your comments here -->  (se puede usar multilinea)
+
+```js
+  <!-- Write your comments here -->  (se puede usar multilinea)
+```
+
+## VINCULAR archivos externos al HTML 
+
+```js
+<head>
+    ...
+    <link rel="stylesheet" href="styles.css">
+    ...
+</head>
+```
 
 
+ **ICONOS**
+```js
 
-# VINCULAR CSS EXTERNO, ICONOS O SCRIPTS PARA EL HTML -------------------------------------------------------
-    CSS --
-        <head>
-        ...
-          <link rel="stylesheet" href="styles.css">
-        ...
-        </head>
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+```
 
+**SCRIPTS**
+```js
+<script src="myscript.js">
+```
 
-    ICONOS --
+## VINCULOS
 
-         <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+```html
+<a href="https://www.w3schools.com/" target="_blank" >Visit W3Schools! </a> 
+```
 
-    SCRIPTS --
+**Atributos:**
+*href*: 
+- dirección web a vincular (www.google.com)/ mailto: [dirección de mail para enviar correo] 
+- \#id del elemento a enfocar con el hipervínculo
 
-        
-        <script src="myscript.js">
+*target*: `_self / _blank / _parent / _top`
+*title*: texto que apaercerá cuando se pose el mouse sobre el vínculo 
+*download*:  especifica qué archivo se descargará al clickear el vinculo
 
+accesskey
+class
+contenteditable
+data-* 
+dir
+draggable
+enterkeyhint
+hidden / id / inert / inputmode / lang / popover / spellcheck / style / tabindex / title / translate...
 
-# VINCULOS ---------------------------------------------------------------------------------------------------
+## ATRIBUTOS de EVENTOS HTML
+`onafterprint = funcion()` 
+script que se corre luego de que se imprime el documento.
 
-     <a href="https://www.w3schools.com/" target="_blank">Visit W3Schools!</a> 
+`onbeforeprint = funcion()` 
+script que se corre antes de que se imprime el documento.
 
-    atributos:
-            *href=" dirección web a vincular / mailto: [dirección de mail para enviar correo] / #(id del elemento a enfocar con el vínculo)"
+`onbeforeunload = func()`
+script que se corre antes de que el documento sea descargado.
 
-            *target=" _self / _blank / _parent / _top "
-            *title=" [texto que apaercerá cuando se pose el mouse sobre el vínculo] " 
-            *download=" [especifica qué archivo se descargará al clickear el vinculo] "
+`onerror = func()`
+script que se corre cuando se registra un error.
 
-            *accesskey / class / contenteditable / data-* / dir / draggable / enterkeyhint /
-            hidden / id / inert / inputmode / lang / popover / spellcheck / style / tabindex / title / translate.
+`onhaschange = func()`
+script que se corre cuando se registran cambios en la paret de vinculo de la url.
+  
+`onload = func()`
+script que se corre una vez el documento ha sido cargado.
 
-# ATRIBUTOS de EVENTOS HTML
-            *onafterprint="funcion()" script que se corre luego de que se imprime el documento.
+ejemplo:
+```html
+<body onload="func()">
+```
+  
+## HTML tags que soportan eventos
 
-            *onbeforeprint="funcion()" script que se corre antes de que se imprime el documento.
+| tag      | descripción       |     |
+| -------- | ----------------- | --- |
+| body     |                   |     |
+| frame    |                   |     |
+| frameset |                   |     |
+| iframe   |                   |     |
+| img      |                   |     |
+| input    | sólo type="image" |     |
+| link     |                   |     |
+| script   |                   |     |
+| style    |                   |     |
 
-            *onbeforeunload="func()"  script que se corre antes de que el documento sea descargado.
+`onresize = func()`
+script que se corre cuando se detecta el resize de la ventana actual.
 
-            *onerror="func()"        script que se corre cuando se registra un error.
+## IMAGENES
 
-            *onhaschange="func()"    script que se corre cuando se registran cambios en la paret de vinculo de la url.
-        
-            *onload="func()"         script que se corre una vez el documento ha sido cargado. ej <body onload="func ()">
-                tags supported : <body>, <frame>, <frameset>, <iframe>, <img>, <input type="image">, <link>, <script> and <style>
+`<img src = " (ruta o dirección web de la imágen.ext) " alt=" (texto a mostrar si la imágen no carga) ">`
+esrtuctura básica de la etiqueta que representa una imágen en una página web html.
 
-            *onresize="func()"       script que se corre cuando se detecta el resize de la ventana actual.
+`loading=" eager / lazy`
+define si se carga inmediatamente o si se espera hasta que ciertas condiciones se cumplan.`
 
+`<picture>`
+contenedor que define el uso de varias imágenes \<picture\>
 
-# IMAGENES -------------------------------------------------------------------------------------------------------
+### Definir un mapa dentro de una imágen para que sea vínculo
 
-        <img src=" (ruta o dirección web de la imágen.ext) " alt=" (texto a mostrar si la imágen no carga) ">
+`<img src="(imágen a usar)" alt="(texto alternativo)" usemap="#workmap">`
 
-                *loading=" eager / lazy "  *define si se carga inmediatamente o si se espera hasta que ciertas condiciones se cumplan.
+```html
+<map name="workmap">
+    <area shape="rect" coords="34,44,270,350" alt="Computer"
+    href="computer.htm">
+    <area shape="rect" coords="x1,y1,x2,y2" alt="Phone" href="(vinculo a donde dirigir)">
+    <area shape="circle" coords="337,300,44" alt="Coffee"
+    href="coffee.htm">
+</map> 
+```
 
-        <picture> contenedor que define el uso de varias imágenes </picture>
+shape = [rect / circle / poly / default]
+- *rect* : defines a rectangular region (se define poniendo coordenadas para formar el cuadrado desde la parte superior izquierda, hacia la parte inferior derecha)
+- *circle* : defines a circular region (se define posicionando la coordenada del centro del circulo, y luego definiendo el RADIO(distancia del centro al extremo))
+- *poly* : defines a polygonal region (se define marcando todos los pares de coordenadas de la forma que se quiere definir)
+- *default* : defines the entire region
 
+### Definir varias imágenes a mostrar según una regla de ancho de la página.
 
-## definir un mapa dentro de una imágen para que sea vínculo
+```html
+<picture>
+    <source media="(min-width: 650px)" srcset="img_food.jpg">
+    <source media="(min-width: 465px)" srcset="img_car.jpg">
+    <img src="img_girl.jpg">
+</picture> 
+```
 
-        <img src="(imágen a usar)" alt="(texto alternativo)" usemap="#workmap">
-
-        <map name="workmap">
-          <area shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
-          <area shape="rect" coords="x1,y1,x2,y2" alt="Phone" href="(vinculo a donde dirigir)">
-          <area shape="circle" coords="337,300,44" alt="Coffee" href="coffee.htm">
-        </map> 
-
-                shape="       "
-                        rect - defines a rectangular region (se define poniendo coordenadas para formar el 
-                                cuadrado desde la parte superior izquierda, hacia la parte inferior derecha)
-                        circle - defines a circular region (se define posicionando la coordenada del centro
-                                del circulo, y luego definiendo el RADIO(distancia del centro al extremo))
-                        poly - defines a polygonal region (se define marcando todos los pares de coordenadas 
-                                de la forma que se quiere definir)
-                        default - defines the entire region
-
-##definir varias imágenes a mostrar según una regla de ancho de la página.
-
-        <picture>
-              <source media="(min-width: 650px)" srcset="img_food.jpg">
-              <source media="(min-width: 465px)" srcset="img_car.jpg">
-              <img src="img_girl.jpg">
-        </picture> 
-
-# TABLAS EN HTML ----------------------------------------------------------------------------------------------
-
-
+## Tablas
 Las tablas se generan definiendo la fila y dentro de esta, las celdas de datos una por una. luego la siguente fila, y asi.
 
      <table>
