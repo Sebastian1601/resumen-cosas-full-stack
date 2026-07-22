@@ -234,91 +234,101 @@ ejemplo de tabla con el header que ocupa 2 columnas:
 </table> 
 
 
-# LISTAS definidas y no definidas
+## LISTAS definidas y no definidas
 
-las listas se suelen usar mucho para crear barras de navegación.
-##lista no ordenada
-     
-    <ul> (unordered list)
-        <li> Coffe </li> (list item)
-        <li> Tea </li>
-        <li> milk </li>
-    </ul>
+Ls listas se suelen usar mucho para crear barras de navegación. Permiten listar elementos u opciones determinando un orden implícito ya por definición.
+### No ordenada
+```html
+<ul> (unordered list)
+    <li> Coffe </li> (list item)
+    <li> Tea </li>
+    <li> milk </li>
+</ul>
+``` 
 
-en css se define el stilo del marcador de cada item
-    list-style-type: disc / circle / square / none
+**css** define el estilo del marcador de cada item
+ *list-style-type*: [disc / circle / square / none]
 
-## lista ordenada
+### lista ordenada
 
-    <ol>
-        <li> uno </li>
-        <li> dos </li>
-        <li> tres </li>
-    </ol>
+```html
+<ol>
+    <li> uno </li>
+    <li> dos </li>
+    <li> tres </li>
+</ol>
+```
+  
+ATRIBUTOS html:
+*reversed*
+*start="x"* define el nro inicial de una lista ordenada
+*type="(1/A/a/I/i)"*
 
-    ATRIBUTOS:
-    *reversed
-    *star="x" define el nro inicial de una lista ordenada
-    *type="(1/A/a/I/i)"
+Ej: 
+```html
+<ol reversed start = "10" type = "A">
+	<li> uno </li>
+	<li> dos </li>
+	<li> tres </li>
+</ol>
+```
 
+### lista de definición
 
-## lista de definición
+```html
+<dl>
+    <dt> cafe </dt>
+    <dd> liquido negro caliente </dd>
+</dl>
+```
 
-    <dl>
-        <dt> cafe </dt>
-            <dd> liquido negro caliente </dd>
-    </dl>
-
-
-
-# IFRAMES -----------------------------------------------------------------------------------------------------
+## IFRAMES 
 
 se utiliza para ubicar un documento dentro del documento html.
 
-        <iframe src=" (ruta del archivo o página) " title= " (descripcion breve) "> </iframe>
+```html
+<iframe src=" (ruta del archivo o página) " title= " (descripcion breve) "> </iframe>
+```
 
-
-
-se puede usar un Iframe para abrir un vínculo que tengas definido en la página principal.
-agregando el atributo name al iframe, y targeteando al name en el <a>
+Se puede usar un Iframe para abrir un vínculo que tengas definido en la página principal.
+Agregando el atributo name al iframe, y targeteando al name en el \<a\>
 
 ej:
-         <iframe src="demo_iframe.htm" name="iframe_a" title="Iframe Example"></iframe>
+```html
+<iframe src="demo_iframe.htm" name="iframe_a" title="Iframe Example">
+</iframe>
 
-         <p><a href="https://www.w3schools.com" target="iframe_a">W3Schools.com</a></p> 
+<p>
+	<a href="https://www.w3schools.com" target="iframe_a">W3Schools.com</a>
+</p> 
+```
 
+## LA ETIQUETA META
 
+La etiqueta <meta> normalmente se usa para especificar el conjunto de carácteres, descripción de la página, palabras claves, autor del documento, y especificaciones del viewport.
 
+La metadata no será mostrada en la página, pero es usada por los navegadores (para por ej, indicar cómo se mostrará el contenido, o se recargará la página, etc.), por los motores de busquedas, y otros servicios de la web.
+Ejemplos:
 
-# LA ETIQUETA META
+Define the character set used:
+     <meta charset="UTF-8">
 
+Define keywords for search engines:
+     <meta name="keywords" content="HTML, CSS, JavaScript">
 
-The <meta> element is typically used to specify the character set, page description, keywords, author of the document, and viewport settings.
+Define a description of your web page:
+     <meta name="description" content="Free Web tutorials">
 
-The metadata will not be displayed on the page, but is used by browsers (how to display content or reload page), by search engines (keywords), and other web services.
-Examples:
+Define the author of a page:
+     <meta name="author" content="John Doe">
 
-        Define the character set used:
-        <meta charset="UTF-8">
+Refresh document every 30 seconds:
+    <meta http-equiv="refresh" content="30">
 
-        Define keywords for search engines:
-        <meta name="keywords" content="HTML, CSS, JavaScript">
+Setting the viewport to make your website look good on all devices:
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        Define a description of your web page:
-        <meta name="description" content="Free Web tutorials">
-
-        Define the author of a page:
-        <meta name="author" content="John Doe">
-
-        Refresh document every 30 seconds:
-        <meta http-equiv="refresh" content="30">
-
-        Setting the viewport to make your website look good on all devices:
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-# FORMULARIOS ----------------------------------------------------------------------------------------------------------
-
+## FORMULARIOS
 
 existe una etiquea especial para crear formularios
 

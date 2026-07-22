@@ -684,7 +684,7 @@ ALTER TABLE [nombre_de_tabla] DROP PRIMARY KEY;
 
 Mostrar todos los datos de la tabla 'usuarios'
  
- ```sql
+```sql
 SELECT * FROM users
 ```
 - select : selecciona,
@@ -727,7 +727,7 @@ VALUES
 
 > Se pueden generar un insert con varios registros, de la siguiente manera:
 
- ```sql
+```sql
 INSERT INTO usuarios (nombre, apellido, edad) 
 VALUES ('Claudia', 'Caceres','44'),
 	   ('Daiana','Congregado','17'),
@@ -1050,29 +1050,27 @@ ej:
 
 	==(%)== : indica que puede haber más texto(cantidad indefinida) antes o después de donde se ubica en el término de la condición.
 	ej:
-	```sql
+```sql
 SELECT * FROM customers WHERE CustomerName LIKE '%r'`
 ```
 
-	 Esto significa y devuelve los registros donde el nombre del cliente, termine con "r", pero antes puede tener cualquier otra cosa el campo.
+ Esto significa y devuelve los registros donde el nombre del cliente, termine con "r", pero antes puede tener cualquier otra cosa el campo.
 
-	==( _ ) ==: 
+==( _ ) ==: 
 	El guión bajo indica que en su lugar, puede haber un caracter, pero especificando que en ese lugar hay ***UN SOLO*** carácter (no puede haber más)
 
-	ej:
-	```sql
+ej:
+```sql
 SELECT * FROM customers WHERE CustomerName LIKE 'Fu___' (3 underdash)
 ``` 
   
- Esto devolveria Fulle, Fully, Furia, etc.
-
+ Esto devolveria **Fulle**, **Fully**, **Furia**, etc.
 
 ##### ISNULL o ISNOTNULL
 
    Esto evalua si el campo es _null_ o es _notnull_
 	Esto serviría para analizar casos en donde los campos no tienen NINGUN tipo de dato, y esto generaría que al analizar los datos, los resultados no den como nos esperamos.
 	Ej: Si contamos todos los campos con valores enteros, y luego sacamos un promedio, un valor 0 haría una diferencia en el calculo final, distinto a eliminar los registros con valores NULL para la cuenta de la cantidad. 
-
 
 #### IN (operador)
 
@@ -1090,7 +1088,6 @@ SELECT * FROM products WHERE CategoryID IN (2, 3)
 `SELECT * FROM products WHERE CategoryID IN (2, 3)`
 
  > Esto devuelve los productos donde la categoría de cada uno es 2 o es 3.
- 
 
 ### AGGREGATE FUNCTIONS y más  
 
@@ -1227,7 +1224,7 @@ Las _Subconsultas_ no alteran las bases de datos, por lo tanto son solo SELECT, 
 
 Ej:
 
-Aqui utilizamos la subconsulta dentro del SELECT, seleccionando una tabla que relaciona elementos de las tablas *orderDetails* y *products*.
+Aqui utilizamos la subconsulta dentro del *SELECT*, seleccionando una tabla que relaciona elementos de las tablas *orderDetails* y *products*.
 ```sql
 SELECT productID, quantity,
 (SELECT productname FROM products WHERE orderDetails.productID = ProductID) AS Nombre FROM OrderDetails
@@ -1236,9 +1233,7 @@ SELECT productID, quantity,
 > Esta consulta obtiene el _productID_ y _Quantity_ de la tabla **OrderDetails** pero aparte, con la subconsulta, busca también los _ProductName_ donde el ProductID de la tabla Products es igual al ProductID de la tabla OrderDetails.
    La SUBCONSULTA va entre paréntesis.
 
-
-ej de subconsulta:
-
+**Ejemplo de subconsulta**
 ```sql
 SELECT productID, SUM(quantity) AS TotalVendido,
 (select productName FROM Products WHERE productID = OD.productID) AS NombreProducto,
@@ -1252,11 +1247,11 @@ GROUP BY ProductID
 > Esta sentencia, va a unir resultados de 2 tablas, unidas por el productID de ambas.
 
 - seleccionar el productID, y la SUMA de Cantidad como totalvendido de OrderDetails
-- _sc_(seleccionar ProductName de tabla Productos donde ProductID = ProductID de  orderdetails) y presentalo como NombreProducto,
-- _sc_(seleccionar Price de tabla Productos donde productID = ProductID de OrderDetails) y presentalo como Precio,
-- _sc_(SUMA(Cantidad)) multiplicado (Seleccionar Price de Products donde PoductID = ProductID de OrderDetails)) y presentarlo como TotalGanado,
+- _subconsulta_(seleccionar ProductName de tabla Productos donde ProductID = ProductID de  orderdetails) y presentalo como NombreProducto,
+- _subconsulta_(seleccionar Price de tabla Productos donde productID = ProductID de OrderDetails) y presentalo como Precio,
+- _subconsulta_(SUMA(Cantidad)) multiplicado (Seleccionar Price de Products donde PoductID = ProductID de OrderDetails)) y presentarlo como TotalGanado,
 - DESDE [OrderDetails] alias OD
-- Donde la _sc_ Precio sea mayor a 40,
+- Donde la _subconsulta_ Precio sea mayor a 40,
 - Agrupar por ProductID.
 
 #### WITH
@@ -1280,6 +1275,17 @@ WITH datos_pacientes AS (
 Existen varios tipos de JOIN. siendo los mismos:
 
 inner Join / Left Join / Right Join / Cross Join
+
+Al referirse a left y righ, etc, nos estamos refiriendo a la relación de las tablas mediante el operador JOIN.
+
+Ejemplo:
+```sql
+SELECT * 
+FROM empleados LEFT JOIN departamento
+WHERE empleados.ID = departamento.ID
+GROUP BY departamento.nombre;
+```
+Esto significa que entre la unión de *empleados* y *departamento*, el left será empleados justamente porque está **ANTES** de la otra tabla departamento con la que los comparamos.
 
 #### CROSS JOIN 
 Realizar un producto cartesiano de las tablas.
@@ -1324,22 +1330,28 @@ ON e.EmployeeID = o.EmployeeID
   
 #### LEFT JOIN
 
-> Es una busqueda que devuelve TODOS los datos solicitados de la tabla A, y los datos de la tabla B que COINCIDEN con A (por definición, permite valores null cuando no hay cruce entre los datos usados para relacionar).
+> Es una busqueda que devuelve **TODOS** los datos solicitados de la tabla A, y los datos de la tabla B que COINCIDEN con A (por definición, permite valores null cuando no hay cruce entre los datos usados para relacionar).
 
 ```sql
 SELECT firstname AS nombre, Reward AS Recompensa, Month AS Mes 
-FROM Rewards r
-LEFT JOIN Employees e ON e.EmployeeID = r.EmployeeID
+FROM Rewards r LEFT JOIN Employees e 
+ON e.EmployeeID = r.EmployeeID
 ```
 
 #### RIGHT JOIN
 
 >Es una busqueda que devuelve todos los datos solicitados de la tabla B, y los datos de la tabla A que coinciden con B. nuevamente, permite valores null cuando hay datos de B que no tienen su relación con A.
 
+Esto claramente es lo mismo que invertir el orden de relación de las tablas que usamos en el *LEFT JOIN* y usar justamente el mismo *LEFT JOIN*, el resultado será el mismo.
 #### FULL JOIN
 
 es una union de LEFT JOIN y RIGHT JOIN, pero evitando los duplicados.
 
+#### NATURAL JOIN
+
+un NATURAL JOIN se utiliza para unir automáticamente los campos que tienen el mismo nombre en ambas tablas utilizadas, por lo que los resultados serán los mismos que un INNER JOIN sin necesidad de establecer la condición usando *ON* o *USING*.
+
+NO SE RECOMIENDA usar dado que si se inserta una nueva columna con el mismo nombre a una tabla más adelante, la consulta cambiará su comportamiento de forma imprevista y fallará o dará datos erróneos.
 
 #### UNION
 Se usa el **UNION** para unir dos consultas, normalmente left y right.
@@ -1526,6 +1538,13 @@ para asegurar las transacciones realizadas en la base de datos, como métodos de
 
 ----
 [[#Indice|Volver al indice ▲]]
+
+
+---
+
+## CS50 SQL
+
+
 
 
 

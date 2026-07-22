@@ -424,10 +424,10 @@ printf(" %.2f ", (float) x / y);
 ej:
 
 tenemos el código siguiente....
-```
+```c
 card deal_card(deck name)
  {
-    for (int i=0; i > 52; i++ )
+    for (int i = 0; i > 52; i++ )
     {
         // deal the card
     }
@@ -435,7 +435,7 @@ card deal_card(deck name)
 ```
 
 Podemos modificar la constante 52 de la siguiente manera...
-```
+```c
 #define DECKSIZE 52
 
 card deal_card(deck name)
@@ -445,13 +445,10 @@ card deal_card(deck name)
         // deal the card
     }
  }
-
 ```
 y esto evita que tengamos "suelto" una constante dentro del código.
 
-
 `#define [variable_a_reemplazar] [valor_por_el_cual_reemplazar]`
-
 
 ### Mario problem 1 -
 
