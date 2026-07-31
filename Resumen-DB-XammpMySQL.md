@@ -54,6 +54,10 @@ y en ese archivo, modificamos con la nueva clave la siguiente parte en 'YourPass
  - Buscamos la versión según nuestra pc.
       `(DB Browser for SQLite - Standard installer for 64-bit Windows)`
  - Luego de instalado el browser, ya se puede abrir para manejar desde ahi las bases.
+
+SQLite es un gestor de bases de datos pequeñas que se puede utilizar de manera local, y siempre y cuando no se disparen la cantidad de registros. No es un sistema para ser utilizado de manera masiva o con conexión a varios usuarios, si bien implementa la mayoría de metodos de MySql y demás gestores, es muy básico y se enfoca principalmente en el manejo local monousuario.
+
+
  ---
 
 ## INSTALACION DE MYSQL
@@ -65,6 +69,27 @@ También está la linea de comandos mysql que es basicamente lo mismo que el wor
 ---
 
 ## MySQL
+
+Qué es una base de datos?
+Es un conjunto de datos organizado, donde se pueden crear, modificar, actualizar, consultar y eliminar datos.
+
+## DataBaseManageSystems DBMS
+Son los sistemas que permiten realizar todas las acciones previamente mencioadas, algunos ejemplos son
+- MySQL
+- Oracle
+- PostgreSQL
+- SQLite
+
+Mientras Oracle es un sistema de pago, donde obtienes ayuda para crear y administrar tu base de datos, los demás son gratis, open-source pero quedas a cargo de implementar TODO en tu db.
+Algunas db serán más pesadas y correrán más lento, pero tendrán más features para el manejo de informacion.
+
+## SQL
+
+Un lenguaje que podemos usar para crear, leer, actualizar y eliminar datos
+
+## Query
+
+Una query es una pregunta *específica* sobre los datos de una base de datos.
 
 ### Tipos de cláusulas
 
@@ -386,6 +411,8 @@ MODIFY COLUMN audit_fecha TIMESTAMP;
 
 ---
 
+## Ver info de tablas y detalles de las mismas desde una query
+
 Para ver las tablas dentro de la base seleccionada
 ```sql
 SHOW TABLES;
@@ -644,13 +671,24 @@ ALTER TABLE [nombre_de_tabla] DROP PRIMARY KEY;
 
 Mostrar todos los datos de la tabla 'usuarios'
  
- ```sql
-SELECT * FROM users
+```sql
+SELECT * FROM "users"
 ```
 - select : selecciona,
 - *         : símbolo que significa "todo",
 - from   : desde,
 - users  : es el nombre de la tabla donde buscar.
+
+>[!important] Convención en cómo escribir y referirse a tablas, strings y números en una consulta SQL
+>Normalmente, al escribir una consulta, podríamos hacerlo en minúscula, referirnos a las tablas sin comillas, y a los strings igual, pero por la convención general de uso:
+>
+>- los comandos SQL deben ir en mayúscula (SELECT, UPDATE, FROM, WHERE, ...etc) 
+>- nos referimos a las tablas entre comillas dobles ("tabla1")
+>- nos referimos a los strings de comparación por ej. en comillas simples ( 'string1' )
+>- los números van directamente como se escriben, sin comillas.
+>
+>Ejemplo: SELECT * FROM "tabla1" WHERE "name" = 'valorRegistro1'
+
 
 #### Seleccionar ciertos campos de la tabla
 
@@ -687,7 +725,7 @@ VALUES
 
 > Se pueden generar un insert con varios registros, de la siguiente manera:
 
- ```sql
+```sql
 INSERT INTO usuarios (nombre, apellido, edad) 
 VALUES ('Claudia', 'Caceres','44'),
 	   ('Daiana','Congregado','17'),
@@ -756,9 +794,11 @@ SET "campo1" = "valor1",
 	"campo2" = "valor2" 
 WHERE "condicion para encontrar el registro o registros"
 ```
+
    	
 
 ---
+
 ### Identificadores
  Son datos específicos que se utilizan para identificar inequívocamente a un único registro.
 
@@ -825,7 +865,7 @@ ej:
 SELECT * FROM Products ORDER BY ProductName, ProductID
 ```
   
-  > esto devuelve la lista ordenada primero por el nombre de los productos, y luego por su ID si es que hay productos con el mismo nombre.
+  > esto devuelve la lista ordenada primero por el nombre de los productos, y luego por su ID *SI EXISTEN* productos con el mismo nombre.
 
 Se pueden ordenar mediante diferentes columnas, y también en diferentes direcciones.
 Por ejemplo, queremos ordenar por **ProductName** *ascendente*, y luego, dentro de esa organización, por **ProductID** *descendentemente.*
@@ -1001,38 +1041,46 @@ Tambien maneja datos de _Fechas_:
 
 #### LIKE
 Se utiliza para buscar y filtrar patrones de texto en campos. Existen cómodines para las busquedas, y la cantidad depende de la base de datos, por ej Postgres maneja muchos más comodines con busquedas de texto.
+Tener en cuenta que *LIKE* es *case-insensitive* mientras que una query con el operador `=` devolvería registros con el string *exactamente igual* (mayúsculas y minúsculas) al operando luego del operador `=`.
 
 ej:
 
 `SELECT * FROM customers WHERE CustomerName LIKE 'Antonio Moreno Taquería'`
 
-- Dentro del operador like, se usan los comodines "%" y " _ " .
+- Dentro del operador like, se usan los comodines `%` y  `_` .
 
-	==(%)== : indica que puede haber más texto(cantidad indefinida) antes o después de donde se ubica en el término de la condición.
+	`%` : indica que puede haber más texto(cantidad indefinida) antes o después de donde se ubica en el término de la condición.
 	ej:
-	```sql
+
+```sql
 SELECT * FROM customers WHERE CustomerName LIKE '%r'`
 ```
 
-	 Esto significa y devuelve los registros donde el nombre del cliente, termine con "r", pero antes puede tener cualquier otra cosa el campo.
+ Esto significa y devuelve los registros donde el nombre del cliente, termine con "r", pero antes puede tener cualquier otra cosa el campo.
 
-	==( _ ) ==: 
+==( _ ) ==: 
 	El guión bajo indica que en su lugar, puede haber un caracter, pero especificando que en ese lugar hay ***UN SOLO*** carácter (no puede haber más)
 
-	ej:
-	```sql
+ej:
+```sql
 SELECT * FROM customers WHERE CustomerName LIKE 'Fu___' (3 underdash)
 ``` 
   
  Esto devolveria Fulle, Fully, Furia, etc.
 
 
-##### ISNULL o ISNOTNULL
+##### IS NULL o IS NOT NULL
 
    Esto evalua si el campo es _null_ o es _notnull_
 	Esto serviría para analizar casos en donde los campos no tienen NINGUN tipo de dato, y esto generaría que al analizar los datos, los resultados no den como nos esperamos.
 	Ej: Si contamos todos los campos con valores enteros, y luego sacamos un promedio, un valor 0 haría una diferencia en el calculo final, distinto a eliminar los registros con valores NULL para la cuenta de la cantidad. 
 
+```sql
+SELECT "nombre", "apellido" FROM "estudiantes"
+WHERE "telefono" IS NOT NULL;
+```
+
+Esto devolverá una lista de registros de *nombre* y *apellido* de **estudiantes**, donde el teléfono **TENGA** un valor asignado. Los registros de estudiantes que no tengan un valor en la columna *teléfono*, no serán devueltos en el resultado.
 
 #### IN (operador)
 
@@ -1093,7 +1141,7 @@ Sintaxis:
 `SELECT AVG (campo a promediar) FROM "nombre de tabla"`
 
 #### ROUND (campo a calcular)
-Cuenta y calcula el redondeo de un valor con coma flotante a su entero más cercano.
+Cuenta y calcula el redondeo de un valor con coma flotante a su entero más cercano. Se puede usar alrededor como wrapper de AVG para obtener el promedio de una columna, y luego redondearlo a la cantidad de decimales que indiquemos.
 
 Sintaxis:
 
@@ -1101,7 +1149,7 @@ Sintaxis:
 
 Ej:
 
-`SELECT ROUND (AVG(Price), 2) FROM Products`
+`SELECT ROUND(AVG(Price), 2) FROM Products`
 
 #### MIN (campo a evaluar mínimo)
 

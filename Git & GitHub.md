@@ -382,9 +382,16 @@ VER la última actualización de cada rama
 
  esto abre el editor para resolver codigo o dejar el mensaje de commit del merging
  
+ 
+### DIVERGENCIA ENTRE LAS RAMAS
+
+Puede suceder que si hemos estado trabajando en el proyecto, creado commits locales, cuando querramos integrar con la rama remota, la misma también haya tenido commits desde que le hicimos pull para trabajar en la nuestra, entonces eso se llama **divergencia entre las ramas**. 
+Para resolver esto, Podemos directamente hacer un **pull** verificando los conflictos que puedan generarse al integrar las 2 ramas con cambios y luego hacer un **push** con el proyecto mezclado, podemos hacer un rebase.
+
  ---
  
 #### ALIAS EN GIT
+
 Se definen como funciones que guardan todos los comandos determinados para ejecutar más simple
 
  ej:
