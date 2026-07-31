@@ -7,62 +7,60 @@ un numero escrito en comillas, es tomado como un "string de texto"("cadena")
 
 ## Number.parseInt("7130") esto devuelve 7130 como número propiamente dicho.
 
-    Number.parseInt(42000$$) devuelve 42000.
 
-    Number.parseInt("Num. 2345") devuelve NaN (not a number) por lo tanto no puede convertir.
+Number.parseInt(42000\$\$) devuelve 42000.
 
-## Number.parseFloat() 
+Number.parseInt("Num. 2345") devuelve NaN (not a number) por lo tanto no puede convertir.
+
+Number.parseFloat() 
 
 devuelve un nro con coma flotante (decimal)
 
-# Operadores de asignacion
+Operadores de asignacion
 
-|Operador | Descripción    |
-|---------|----------------|
-| +       |  Suma          |
-| -       | Resta          |
-| *       | Multiplicacion |
-| **      | Exponenciación |
-| /       | Division       |
-| %       | Módulo:resto de dividir|
-| ++      | Incremento     |
-| --      | Decremento     |
-____________________________
-
+| Operador | Descripción             |
+| -------- | ----------------------- |
+| +        | Suma                    |
+| -        | Resta                   |
+| *        | Multiplicacion          |
+| **       | Exponenciación          |
+| /        | Division                |
+| %        | Módulo:resto de dividir |
+| ++       | Incremento              |
+| --       | Decremento              |
 
 ## Operadores de cadena y números.-
 
 El operador + se puede utilizar también para concaternar cadenas.
 
-ej:
-    
-        var texto1 = "Juan" ;
-        var texto2 = "Pablo" ; 
-        var textoJunto = texto1 + " " + texto2 ; 
-         
-> (se agrega + " " + para sumar un espacio vacío entre las 2 cadenas y que no quede "JuanPablo" sino "Juan Pablo")
+ejemplo:
+```javascript
+var texto1 = "Juan" ;
+var texto2 = "Pablo" ; 
+var textoJunto = texto1 + " " + texto2 ; 
+```
+(se agrega + " " + para sumar un espacio vacío entre las 2 cadenas y que no quede "JuanPablo" sino "Juan Pablo")
 
-ej2:
-
-        var texto3 = "bienvenidos a ";
-        var texto3 += "Javascript" ;
-
-
+ejemplo2:
+```javascript
+var texto3 = "bienvenidos a ";
+var texto3 += "Javascript" ;
+```
 
 ## funcion Prompt() :
 
 - Metodo de windows, permite al usuario ingresar datos con una ventana emergente.
 
-      prompt ([mensaje de texto a mostrar:string], [valor por defecto al abrir el prompt, como un placeholder]);
+prompt ([mensaje de texto a mostrar:string], [valor por defecto al abrir el prompt, como un placeholder]);
 
 ## document.write() :
 
 - comando de consola que permite escribir los datos dentro del paréntesis directamente en el HTML como texto simple, aún asi, se pueden agregar etiquetas completas para darle formato a lo escrito en el HTML.
 
-  ej:
-  
-      document.write('<div class='ejemplo'>texto a ingresar</div>');
-
+ej:
+```javascript
+  document.write('<div class='ejemplo'>texto a ingresar</div>');
+```
 
 # Operadores de comparación
 

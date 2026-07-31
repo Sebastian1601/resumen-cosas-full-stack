@@ -87,7 +87,7 @@ Incluso en pequeños proyectos de JS, SRP guía a mejor disciplina de código y 
 
 ##### 2. Open/Closed Principle (OCP)
 
-El segundo principio de SOLID, ocp, afirma lo siguiente:
+El segundo principio de *SOLID*, ocp afirma lo siguiente:
 
 "*Las entidades de software deberían estar abiertas para extensión, pero cerradas para modificación.*"
 

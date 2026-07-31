@@ -1,16 +1,13 @@
 # Resumen CSS
-#### BACKGROUND (fondos de cajas)
+## BACKGROUND (fondos de cajas)
 
-^8490fe
 
- ```
+```css
 shorthand BACKGROUND:(color) (image) (repeat) (attachment) (position)
 ```
 
-color:  *el color del fondo* ^33a311
-
+color:  *el color del fondo* 
 image:  *url(ruta de la imágen a usar)*
-
 repeat: *repite horizontal y verticalmente la imágen usada.*
   * repeat-x (la imágen se repite solo horizontalmente)
   * repeat-y (la imágen se repite solo verticalmente)
@@ -20,13 +17,11 @@ repeat: *repite horizontal y verticalmente la imágen usada.*
   * initial (setea la propiedad a valor inicial)
   * inherit (hereda la propiedad de su elemento padre)
 
-
-
-#### BORDER (bordes de una caja)
+## BORDER (bordes de una caja)
 
 > SHORTHAND border: (border-width) (border-style)[requerido siempre] (border-color)
 
-///////el shorthand no soporta definicion de más de un border width, style, color.//////////
+/////// El shorthand no soporta definicion de más de un border width, style, color.//////////
 
 * border-width: ancho del borde a marcar.(se define borde TOP, RIGHT, BOTTOM y LEFT) (de definir 2 bordes, se toma TOP/
  	BOTTOM, LEFT/RIGHT por cada valor.)
