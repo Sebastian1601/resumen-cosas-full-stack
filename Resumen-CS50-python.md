@@ -62,7 +62,7 @@ C specific commands for Visual Studio Code.
 
 ### C file structure.
 
-```
+```c
 #include <stdio.h>
 
 int main(void)
@@ -143,8 +143,6 @@ int main(void)
 
 * the variable answer is string type, so to use it at `printf(" ")`, you should use the correct placeholder `%s`, and then, separated, pass the variable `answer` as a second argument.
 
-
-<a id="especificadoresdeformato"></a>
 #### FORMAT SPECIFIERS
 
 * %d or %i	|_________ int	

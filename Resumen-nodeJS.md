@@ -1,6 +1,958 @@
+
+# Roadmap Node.js
+
+Node.js tiene una cantidad considerable de APIs propias: filesystem, streams, eventos, procesos, workers, networking, buffers, CLI, módulos, testing, etc. La documentación oficial actual las separa precisamente en esas áreas.
+
+La idea sería avanzar desde **“cómo ejecuta JavaScript Node” → “cómo interactúa con el sistema operativo” → “cómo maneja concurrencia” → “cómo construir servidores”**.
+
+## Nivel 0 — JavaScript necesario
+
+Antes de meterte profundamente con Node, deberías dominar:
+
+- `let`, `const`
+- tipos y coerción
+- objetos y arrays
+- destructuring
+- spread/rest
+- funciones
+- arrow functions
+- closures
+- clases
+- módulos
+- `map`, `filter`, `reduce`, `find`, etc.
+- excepciones
+- Promises
+- `async/await`
+- `Promise.all`
+- `Promise.allSettled`
+- callbacks
+- Event Loop a nivel conceptual
+
+Especialmente:
+
+```
+async function obtenerDatos() {
+    const resultado = await hacerAlgo();
+    return resultado;
+}
+```
+
+y entender **qué significa realmente que esa función sea asíncrona**.
+
+Esto es importante porque gran parte de Node consiste en trabajar con APIs asíncronas.
+
+---
+
+## Nivel 1 — Node.js como runtime
+
+Primero olvidaría Express, NestJS, Fastify, etc.
+
+Aprendería Node "a pelo".
+
+### 1. Ejecutar programas
+
+```
+node archivo.js
+```
+
+Aprende:
+
+- `node`
+- argumentos
+- `process`
+- código de salida
+- variables de entorno
+- `process.argv`
+- `process.env`
+- `process.stdin`
+- `process.stdout`
+- `process.stderr`
+
+Por ejemplo:
+
+```
+console.log(process.argv);
+console.log(process.env.NODE_ENV);
+```
+
+Esto te permite empezar a hacer **programas de consola reales**.
+
+---
+
+## Nivel 2 — Sistema de módulos
+
+Aquí tienes dos sistemas que debes conocer:
+
+### CommonJS
+
+```
+const fs = require("node:fs");
+module.exports = algo;
+```
+
+### ES Modules
+
+```
+import fs from "node:fs";
+export default algo;
+```
+
+Node soporta ambos sistemas.
+
+Aprende:
+
+- `require`
+- `module.exports`
+- `exports`
+- `import`
+- `export`
+- `package.json`
+- `"type": "module"`
+- `.mjs`
+- `.cjs`
+- resolución de módulos
+- módulos internos de Node con `node:`
+
+Por ejemplo, actualmente es muy habitual ver:
+
+```
+import fs from "node:fs/promises";
+```
+
+en lugar de paquetes externos.
+
+---
+
+## Nivel 3 — `package.json` y npm
+
+Esto es fundamental.
+
+Aprende:
+
+- `npm init`
+- `npm install`
+- `npm uninstall`
+- `dependencies`
+- `devDependencies`
+- `package-lock.json`
+- scripts
+- versiones
+- semver
+- paquetes locales
+- paquetes globales
+- `node_modules`
+- publicación de paquetes
+
+Por ejemplo:
+
+```
+{
+    "scripts": {
+        "start": "node src/index.js",
+        "test": "node --test"
+    }
+}
+```
+
+También entendería qué diferencia hay entre:
+
+```
+npm install
+```
+
+```
+npm install paquete
+```
+
+```
+npm install -D paquete
+```
+
+La documentación de npm considera precisamente `package.json`, dependencias, módulos y semantic versioning como conceptos centrales.
+
+---
+
+## Nivel 4 — Filesystem
+
+Este sería uno de los bloques **más importantes para lo que tú estás buscando**.
+
+Aprende:
+
+### `fs`
+
+- crear archivos
+- leer archivos
+- modificar archivos
+- eliminar archivos
+- renombrar
+- copiar
+- comprobar existencia
+- permisos
+- directorios
+
+Primero:
+
+```
+import fs from "node:fs/promises";
+```
+
+Y luego:
+
+```
+await fs.readFile(...)
+await fs.writeFile(...)
+await fs.appendFile(...)
+await fs.mkdir(...)
+await fs.readdir(...)
+await fs.rename(...)
+await fs.unlink(...)
+```
+
+Después aprende:
+
+```
+fs.stat()
+```
+
+y:
+
+```
+fs.access()
+```
+
+### Después: `path`
+
+Esto es importantísimo:
+
+```
+import path from "node:path";
+```
+
+Aprende:
+
+```
+path.join()
+path.resolve()
+path.basename()
+path.dirname()
+path.extname()
+path.parse()
+```
+
+Por ejemplo:
+
+```
+const ruta = path.join(
+    process.cwd(),
+    "data",
+    "usuarios.json"
+);
+```
+
+---
+
+## Nivel 5 — Buffers
+
+Aquí empiezas a entender algo muy importante:
+
+> Node no trabaja únicamente con strings y objetos JavaScript.
+
+Aprende:
+
+```
+Buffer
+```
+
+Por ejemplo:
+
+```
+const buffer = Buffer.from("Hola");
+
+console.log(buffer);
+```
+
+Y:
+
+```
+buffer.toString();
+```
+
+También:
+
+- encoding
+- UTF-8
+- hexadecimal
+- bytes
+- `ArrayBuffer`
+- `Uint8Array`
+
+Esto después te ayuda muchísimo para entender:
+
+- archivos
+- streams
+- sockets
+- TCP
+- imágenes
+- protocolos
+- criptografía
+
+---
+
+## Nivel 6 — Streams
+
+Este es un punto que muchos cursos de Node prácticamente ignoran.
+
+Y es un error.
+
+Aprende:
+
+- `Readable`
+- `Writable`
+- `Duplex`
+- `Transform`
+- `pipe`
+- backpressure
+
+Por ejemplo, no es lo mismo:
+
+```
+const archivo = await fs.readFile("archivoGigante.txt");
+```
+
+que leerlo mediante un stream.
+
+Para un archivo de 10 MB probablemente no importa demasiado.
+
+Pero imagina:
+
+```
+archivo de 20 GB
+```
+
+No quieres necesariamente cargar todo en RAM.
+
+Ahí aparece:
+
+```
+createReadStream()
+```
+
+y:
+
+```
+createWriteStream()
+```
+
+Los streams son una de las piezas centrales del modelo de I/O de Node.
+
+---
+
+## Nivel 7 — Eventos
+
+Aprendería:
+
+```
+EventEmitter
+```
+
+Ejemplo conceptual:
+
+```
+import EventEmitter from "node:events";
+
+const eventos = new EventEmitter();
+
+eventos.on("usuarioCreado", usuario => {
+    console.log(usuario);
+});
+
+eventos.emit("usuarioCreado", {
+    nombre: "Seiya"
+});
+```
+
+Aquí empiezas a entender mejor el estilo de programación orientado a eventos de Node.
+
+Y posteriormente vas a encontrarte esto constantemente:
+
+```
+process.on(...)
+socket.on(...)
+stream.on(...)
+server.on(...)
+```
+
+---
+
+## Nivel 8 — Event Loop y concurrencia
+
+Este debería ser un bloque importante de estudio.
+
+No simplemente:
+
+> "Node es single-threaded."
+
+Eso es demasiado simplificado.
+
+Tienes que entender:
+
+```
+JavaScript thread
+       │
+       ▼
+   Event Loop
+       │
+       ├── timers
+       ├── I/O
+       ├── callbacks
+       ├── microtasks
+       └── ...
+```
+
+Y distinguir:
+
+### I/O-bound
+
+Por ejemplo:
+
+```
+leer archivo
+consultar DB
+hacer HTTP request
+esperar socket
+```
+
+### CPU-bound
+
+Por ejemplo:
+
+```
+calcular SHA-512 millones de veces
+procesar una imagen
+comprimir enormes cantidades de datos
+calcular una simulación
+```
+
+Esto es fundamental porque **no solucionas ambos problemas de la misma manera**.
+
+---
+
+## Nivel 9 — HTTP sin Express
+
+Ahora sí.
+
+Antes de tocar Express, crea un servidor usando:
+
+```
+node:http
+```
+
+Por ejemplo:
+
+```
+import http from "node:http";
+
+const server = http.createServer((req, res) => {
+
+    res.writeHead(200, {
+        "Content-Type": "application/json"
+    });
+
+    res.end(JSON.stringify({
+        mensaje: "Hola"
+    }));
+});
+
+server.listen(3000);
+```
+
+Aprende:
+
+- request
+- response
+- headers
+- status codes
+- métodos HTTP
+- URL
+- query parameters
+- body
+- cookies
+- streams HTTP
+- keep-alive
+
+Después podrás entender mucho mejor qué está haciendo Express realmente.
+
+---
+
+## Nivel 10 — Networking
+
+Aquí ya puedes meterte más abajo.
+
+Aprende:
+
+```
+HTTP
+HTTPS
+TCP
+UDP
+DNS
+Sockets
+```
+
+Node tiene APIs para:
+
+- `node:net`
+- `node:dgram`
+- `node:dns`
+- `node:http`
+- `node:https`
+
+Esto es especialmente interesante si quieres comprender Node más allá de "hacer APIs".
+
+---
+
+## Nivel 11 — Child Processes
+
+Este es otro bloque que te recomiendo mucho.
+
+Aprende:
+
+```
+child_process
+```
+
+y especialmente:
+
+```
+spawn()
+exec()
+execFile()
+fork()
+```
+
+Por ejemplo:
+
+```
+spawn("ping", ["google.com"]);
+```
+
+Esto permite que Node lance procesos del sistema operativo.
+
+La diferencia entre `spawn`, `exec`, `execFile` y `fork` es importante; además, las versiones síncronas pueden bloquear el Event Loop.
+
+Aquí puedes construir programas interesantes:
+
+```
+Node
+ │
+ ├── ejecuta Python
+ ├── ejecuta un programa C#
+ ├── ejecuta comandos del SO
+ ├── ejecuta otro Node
+ └── recibe resultados
+```
+
+---
+
+## Nivel 12 — Worker Threads
+
+Ahora sí entraría en lo que mencionaste específicamente como **multiworkers**.
+
+Aprende:
+
+```
+node:worker_threads
+```
+
+Conceptualmente:
+
+```
+              Node process
+                   │
+        ┌──────────┴──────────┐
+        │                     │
+   Main Thread            Worker
+        │                     │
+   Event Loop             JS execution
+```
+
+Los Worker Threads permiten ejecutar JavaScript en paralelo y están pensados especialmente para trabajo intensivo de CPU; para I/O normalmente las APIs asíncronas de Node son preferibles.
+
+Aprende:
+
+- `Worker`
+- `workerData`
+- `parentPort`
+- `postMessage`
+- mensajes
+- terminación
+- errores
+- pools de workers
+- `SharedArrayBuffer`
+- `Atomics`
+
+Y algo muy importante:
+
+> **Worker Threads ≠ procesos.**
+
+Un worker es un thread dentro del proceso de Node.
+
+---
+
+## Nivel 13 — Multiproceso
+
+Después de Worker Threads:
+
+```
+worker_threads
+       ↓
+child_process
+       ↓
+cluster
+```
+
+Aquí estudias otra arquitectura:
+
+```
+             Master / Primary
+                    │
+        ┌───────────┼───────────┐
+        ▼           ▼           ▼
+      Node        Node        Node
+     process     process     process
+```
+
+Esto te ayuda a entender:
+
+- múltiples procesos
+- IPC
+- balanceo
+- aislamiento
+- procesos independientes
+- escalabilidad
+
+No necesariamente necesitas `cluster` para trabajar profesionalmente, pero **sí vale la pena conocerlo conceptualmente**.
+
+---
+
+## Nivel 14 — CLI
+
+Node también es excelente para crear herramientas de consola.
+
+Aprende:
+
+```
+process.argv
+process.stdin
+process.stdout
+readline
+```
+
+Puedes llegar a crear:
+
+```
+mi-programa crear usuario
+mi-programa listar usuarios
+mi-programa eliminar usuario 42
+```
+
+Y aquí conectarás muchos conceptos anteriores:
+
+```
+CLI
+ │
+ ├── argumentos
+ ├── filesystem
+ ├── JSON
+ ├── streams
+ ├── eventos
+ └── procesos
+```
+
+Esto encaja bastante con las cosas que ya has hecho con `readline` y `process.stdin`.
+
+---
+
+## Nivel 15 — Testing
+
+No dejaría testing para el final absoluto.
+
+Node actualmente tiene su propio:
+
+```
+node:test
+```
+
+y:
+
+```
+node:assert
+```
+
+Aprende:
+
+- unit tests
+- assertions
+- hooks
+- mocks
+- tests asíncronos
+- coverage
+- integración
+
+Node incluye actualmente un Test Runner propio en sus APIs oficiales.
+
+Después puedes aprender Jest/Vitest, pero primero entendería el concepto con las herramientas nativas.
+
+---
+
+## Nivel 16 — Debugging
+
+Aprende:
+
+```
+console
+debugger
+Node Inspector
+Chrome DevTools
+VS Code debugger
+```
+
+Especialmente:
+
+```
+debugger;
+```
+
+y ejecutar Node con las opciones de inspección.
+
+También:
+
+- stack traces
+- memory usage
+- CPU profiling
+- heap snapshots
+- performance
+
+---
+
+## Nivel 17 — Seguridad y configuración
+
+Después:
+
+- `process.env`
+- configuración por ambiente
+- secrets
+- permisos
+- `crypto`
+- hashes
+- HMAC
+- encryption
+- TLS
+- certificados
+- validación de entrada
+- sanitización
+- errores
+
+Node también dispone de APIs propias para Crypto, TLS y Permissions.
+
+---
+
+## Nivel 18 — Bases de datos
+
+Recién aquí empezaría a meter:
+
+```
+Node
+ ↓
+SQL
+ ↓
+MySQL / PostgreSQL / SQLite
+```
+
+y después:
+
+```
+ORM
+ ↓
+Prisma / TypeORM / Sequelize
+```
+
+Primero aprendería a hablar directamente con una base de datos.
+
+Porque si empiezas directamente con ORM puedes terminar sin entender qué ocurre debajo.
+
+---
+
+## Nivel 19 — Frameworks
+
+Ahora sí:
+
+### Backend HTTP
+
+- Express
+- Fastify
+
+### Frameworks más completos
+
+- NestJS
+
+### APIs
+
+- REST
+- GraphQL
+- WebSockets
+
+Y aquí tu conocimiento anterior de GraphQL te va a resultar mucho más fácil de encajar.
+
+---
+
+## Nivel 20 — Arquitectura
+
+Finalmente:
+
+```
+Node.js
+   │
+   ├── HTTP
+   ├── DB
+   ├── filesystem
+   ├── workers
+   ├── processes
+   ├── streams
+   └── networking
+```
+
+y empezar:
+
+- arquitectura por capas
+- Repository
+- Service
+- Controller
+- Dependency Injection
+- eventos
+- colas
+- caching
+- logging
+- configuración
+- graceful shutdown
+- health checks
+- observabilidad
+
+---
+
+## Cómo lo ordenaría para ti
+
+Teniendo en cuenta que ya has trabajado con JavaScript, `readline`, `process.stdin`, `fetch`, REST, GraphQL, cookies, etc., **no te haría empezar desde JavaScript básico**.
+
+Yo haría este recorrido:
+
+```
+                    NODE.JS
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+      FUNDAMENTOS               SISTEMA
+          │                         │
+     modules/npm               filesystem
+     process                   path
+     events                    buffers
+     promises                  streams
+     async/await               readline
+          │                         │
+          └────────────┬────────────┘
+                       │
+                  CONCURRENCIA
+                       │
+              ┌────────┼────────┐
+              │        │        │
+          Event Loop  Workers  Processes
+                       │        │
+                worker_threads child_process
+                                cluster
+                       │
+                       ▼
+                  NETWORKING
+                       │
+                 HTTP / TCP
+                       │
+                       ▼
+                   SERVERS
+                       │
+              http → Express
+                       │
+                       ▼
+                  DATABASES
+                       │
+                       ▼
+                 ARQUITECTURA
+```
+
+## Y hay 8 temas que yo consideraría "imprescindibles"
+
+Si tu objetivo es realmente **saber Node.js**, y no solamente poder poner en tu CV "Node.js", priorizaría:
+
+1. **Event Loop + asincronía**
+2. **Filesystem**
+3. **Streams**
+4. **Buffers**
+5. **Events / EventEmitter**
+6. **Child Processes**
+7. **Worker Threads**
+8. **HTTP / Networking**
+
+Y después:
+
+9. Testing
+10. Debugging/performance
+11. Databases
+12. Express/Fastify/NestJS
+13. Arquitectura
+
+La documentación oficial actual de Node incluso agrupa explícitamente filesystem, child processes, cluster, events, HTTP, streams, worker threads, test runner, readline, OS, net, etc., lo que da una muy buena idea de que **Node es bastante más grande que "un runtime para hacer servidores".**
+
+### Un detalle especialmente importante
+
+No estudiaría **Worker Threads antes de entender Event Loop, Promises, streams y procesos**.
+
+Porque si no, es muy fácil terminar pensando:
+
+> "Node es single-threaded → necesito workers para hacer varias cosas."
+
+La idea correcta es más cercana a:
+
+```
+             ¿Qué tipo de trabajo tengo?
+                       │
+            ┌──────────┴──────────┐
+            │                     │
+           I/O                   CPU
+            │                     │
+     async Node APIs        Worker Threads
+            │                     │
+            ▼                     ▼
+      Event Loop             paralelismo
+```
+
+Y si necesitas aislamiento de procesos o ejecutar programas externos:
+
+```
+Node
+ │
+ └── child_process
+        │
+        ├── spawn
+        ├── exec
+        ├── execFile
+        └── fork
+```
+
+Eso es una distinción arquitectónica mucho más importante que simplemente memorizar APIs.
+
+Como referencia principal, te conviene tener a mano la [documentación oficial de Node.js](https://nodejs.org/api/?utm_source=chatgpt.com) y utilizarla como índice de estudio, no solamente como manual de consulta
+
 # Instalando NodeJS y creando el primer hola mundo!.
 
-## Forma tradicional de instalar una única versión de nodejs en la pc. 
+## Forma tradicional de instalar una única versión de nodejs en la pc.
 
 Para instalar NodeJS, nos dirigimos a la página oficial
 [http://nodejs](https://nodejs.org/en) y vamos a la sección _DOWNLOADS_ y luego _Prebuilt installer_
