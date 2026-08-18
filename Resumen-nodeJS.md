@@ -1466,3 +1466,151 @@ console.log(objRuta);
 console.log(path.format(objRuta)); // '/usuarios/documentos/archivo.txt'
 ```
 
+# Coerción
+
+La coerción es el proceso implícito de cambiar de tipo un dato según sea necesario o lo más lógico de acuerdo a la necesidad.
+
+Los valores en Javascript tienen diferentes tipos, se puede tener números, cadenas de texto, objetos, booleanos, etc.
+A veces es necesario convertir de un tipo a otro dada la situación.
+
+Esta conversión de tipo puede ser explícita, dado que el programador lo necesita, o implícita si no se maneja y se deja al lenguaje manejar automáticamente según sea necesaria.
+
+La conversión implícita del tipo de dato es conocida como **coerción**, mientras que la conversión explícita se conoce como **type casting**.
+
+Hay operaciones que quizás quieras realizar en js que no son correctas en términos de tipos de datos. por ej:
+```js
+const num = 35 + "hello";
+```
+
+Aqui, estás tratando de sumar un número a una cadena de caracteres, lo cual no es posible. Sólo puedes sumar números con números, o puedes concaternar cadenas con cadenas.
+
+Si corres dicho código, al ser Javascript un lenguaje débilmente tipado, en vez de tirar un error, va a coercionar el tipo de dato de un valor para acomodarse al otro y poder realizar la operación.
+
+En este caso, al usar el símbolo + con un número y una cadena, 
+[el número es coercionado a ser una cadena] para poder concatenar ambas.
+
+```js
+const num = 35 + "hello";
+
+console.log(num);
+//35hello
+
+console.log(typeof num);
+//string
+```
+
+En este tipo de operación, con un número y una cadena, es más lógico transformar *el número en cadena*, y poder concatenarlas, que transformar una cadena en número (que al fin y al cabo, no sería un número válido) y tratar de sumarlos.
+
+```js
+console.log(String(14); // "14"
+console.log(Number(texto); // "NaN"
+```
+
+>[!important] Importante
+>Se demuestra aqui que es más lógico convertir el número a cadena que la cadena en un número que no existe entre la suma de un número y una cadena.
+
+En el caso de una multiplicación de un número con una cadena, lo más lógico sería convertir la cadena a número, dado que si usamos el asterísco como operador de multiplicación para marcar el producto, las cadenas no tienen este operador que realice algo, los números SI, por lo que es más lógico intentar multiplicarlos. Al convertir la cadena a un número, normalmente el resultado es [NaN] dado que generalmente las cadenas no se transforman a números excepto que sean números escritos como cadena. 
+Si ese es el caso, entonces se puede realizar el produco y la operación es válida.
+
+```js
+const producto = 35 * "hello";
+console.log(producto);
+// NaN
+
+//pero si es asi...
+const producto = 35 * "2";
+console.log(producto);
+// 70
+```
+
+Existen otros tipos de coerciones, un operador que suele causar coercion de manera habitual es el comparador igual [\=\=] **loose equality operator**
+
+## **El operador de igualdad simple y coercion**
+En Javascript, existen ambos operadores, igualdad simple [\=\=] y el operador de igualdad estricta [\=\=\=].
+Se suelen utilizar ambos para comparar igualdades entre valores.
+El operador de igualdad simple suele hacer un chequeo simple **SOLAMENTE DEL VALOR** contenido en los operandos a comparar. Este operador NO COMPARA TIPOS de valores, solamente los valores.
+
+Ejemplo: Si tenemos 2 variables, valor1 = 20 y  valor2 = "20", cuando se comparan con el operador de igualdad doble, el resultado es **true**.
+
+Aqui se utiliza la coerción para determinar que "20", pasado al tipo número, es 20.
+```js
+const valor1 = 20;
+const valor2 = "20";
+
+console.log(valor1 == valor2);
+//true
+```
+
+>[!warning] Cuidado!!!
+>Cuando usamos el operador de igualdad doble con valores de distintos tipos, lo primero que sucede es **coerción**.
+
+Si tenemos por ejemplo, la comparativa entre un booleano y una cadena vacía, sucede la coerción y luego se comparan dado que una cadena vacía se coerciona al valor booleano **false**
+
+Ejemplo:
+```js
+const var1 = false;
+const var2 = "";
+console.log(var1 == var2);
+//esto devuelve true
+```
+
+## El operador estricto de igualdad
+Como el funcionamiento de este operador es chequear tanto valor como tipo de dato a comparar, es imposible que suceda coerción en la comparación de valores de distinto tipo. Si el tipo a comparar es distinto, el resultado será siempre *false*
+
+```js
+const variable1 = 20
+const variable2 = "20"
+
+console.log(variable1 === variable2)
+// false
+
+const variable3 = false
+const variable4 = ""
+
+console.log(variable3 === variable4)
+// false
+```
+
+## Type Casting o conversión manual de tipos
+
+Cuando necesitamos explícitamente que un valor sea de determinado tipo, aplicamos el type casting. Esto se logra con los `type contructors` .
+
+Ejemplos:
+
+Número a string:
+```js
+const number = 30
+const numberConvert = String(number)
+
+console.log(numberConvert)
+// "30" es un string
+
+console.log(typeof numberConvert)
+// string
+```
+
+Número a booleano:
+```js
+const number = 30
+const numberConvert = Boolean(number)
+
+console.log(numberConvert)
+// true
+
+console.log(typeof numberConvert)
+// boolean
+```
+
+Booleano a String:
+```js
+const boolean = false
+const booleanConvert = String(boolean)
+
+console.log(booleanConvert)
+// "false"
+
+console.log(typeof booleanConvert)
+// string
+```
+
+
