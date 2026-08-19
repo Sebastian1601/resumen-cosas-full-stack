@@ -1,10 +1,10 @@
-# Javascript para principiantes.
 
-una variable se asigna con el operador "="
 
-si ingresamos un nro, puede no tomarse como nro.
-un numero escrito en comillas, es tomado como un "string de texto"("cadena")
 
+
+
+
+---
 ## Number.parseInt("7130") esto devuelve 7130 como número propiamente dicho.
 
 
@@ -121,28 +121,30 @@ ej:
 
 ## If condicional
 
-    if (condicion) {
-    [bloque a ejecutar si la condicion es verdadera]
-    } else {
-    [bloque a ejecutar si la condicion es falsa]
-    };
+```js
+if (condicion) {
+    bloque a ejecutar si la condicion es verdadera
+} else {
+    bloque a ejecutar si la condicion es falsa
+};
+```
+ 
+Las condiciones pueden ser más de una, donde se utilizan los operadores lógicos && y || para evaluar condiciones más complejas.
 
-
-### Las condiciones pueden ser más de una, donde se utilizan los operadores lógicos && y || para evaluar condiciones más complejas.
-
-    if (condicion1 && condicion2) {
+```js
+if (condicion1 && condicion2) {
     bloque a ejecutar si ambas son correctas
-    };
-
-
+};
+```
+  
 ## Operador Ternario
 
 > es un operador que evalua similar al if/else pero con la estructura más legible
 
-        var calificacion = nota < 5 ? "suspendido" : "aprobado";
-        console.log("estoy", calificacion);
-
-
+```js
+var calificacion = nota < 5 ? "suspendido" : "aprobado";
+console.log("estoy", calificacion);
+```
 
 ## Operador OR ||
 
@@ -163,11 +165,11 @@ El operador || evalúa de izquierda a derecha.
 Devuelve el primer valor "truthy" que encuentre.
 Si no encuentra ningún valor "truthy", devuelve el último valor evaluado.
 
-    ej:
-    const nombre = "";
-    const saludo = nombre || 'usuario anónimo' ;
-
-    console.log(saludo) // ESTO SERA IGUAL A 'usuario anónimo' ;
+```js
+const nombre = "";
+const saludo = nombre || 'usuario anónimo' ;
+console.log(saludo) // ESTO SERA IGUAL A 'usuario anónimo' ;
+```
 
 ## Operador de Coalescencia Nula (??)
 
@@ -1283,9 +1285,28 @@ Si no tiene hermano anterior, o posterior, devuelve _null_
 
 ### Metodos del DOM para agregar elementos desde JS.
 
-> https://lenguajejs.com/javascript/dom/insertar-elementos-dom/
+https://lenguajejs.com/javascript/dom/insertar-elementos-dom
 
 ---
 
 
-            
+# Windows object
+
+- Window.open() : abre una ventana con la dirección pasada como argumento. Esto devuelve la ventana abierta en si, para poder 
+
+      windows.open('direccion web a abrir');
+
+- window.closed : Devuelve _true_ o _false_ dependiendo si la ventana evaluada está abierta o cerrada.
+
+- window.close(); : Cierra la ventana indicada.
+
+- window.stop() : Detiene la carga de la ventana indicada.
+
+- alert('mensaje') : Muestra un cuadro de diálogo de alerta, con un mensaje y un botón _Aceptar_
+
+- window.print() : Abre el cuadro de diálogo de imprimir.
+
+- prompt() : Abre un cuadro de diálogo con un mensaje que solicita un ingreso de datos(_String_);
+
+- confirm() : Abre un cuadro de diálogo con un mensaje y dos botones, _aceptar_ y _cancelar_
+
