@@ -10,8 +10,8 @@ La idea sería avanzar desde **“cómo ejecuta JavaScript Node” → “cómo 
 Antes de meterte profundamente con Node, deberías dominar:
 
 - `let`, `const`
-- tipos y coerción
-- objetos y arrays
+- tipos y coerción [hecho]
+- objetos y arrays 
 - destructuring
 - spread/rest
 - funciones
@@ -1328,7 +1328,6 @@ esto se realiza creando un archivo *.env* en el proyecto, y en el mismo definien
 USER = 'david@gmail'
 PASSWORD = 'testing01'
 DBASE = mongo
-
 ```
 
 y luego, al iniciar el archivo _.js_, se usa el método:
@@ -1612,5 +1611,9 @@ console.log(booleanConvert)
 console.log(typeof booleanConvert)
 // string
 ```
+
+---
+
+# Objetos
 
 
