@@ -48,13 +48,11 @@ var texto3 += "Javascript" ;
 ```
 
 ## funcion Prompt() :
-
 - Metodo de windows, permite al usuario ingresar datos con una ventana emergente.
 
 prompt ([mensaje de texto a mostrar:string], [valor por defecto al abrir el prompt, como un placeholder]);
 
 ## document.write() :
-
 - comando de consola que permite escribir los datos dentro del paréntesis directamente en el HTML como texto simple, aún asi, se pueden agregar etiquetas completas para darle formato a lo escrito en el HTML.
 
 ej:
@@ -111,11 +109,8 @@ ej:
 |%=      | x %=y       | x = x % y  |
 |**=     | x **= y     | x = x**y   |
 
-
-
-))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-
-# ESTRUCTURAS DE CONTROL 
+---
+## ESTRUCTURAS DE CONTROL 
 
 > Condicional que evalua una condicion, y de ser verdadera, ejecuta un bloque de código, sino tiene la opción de ejecutar otro código.
 
@@ -521,6 +516,326 @@ Esto generaría que al ejecutar el método en cada instancia de Estrellita y Lol
         Estrellita.ladrar();   //mi nombre es Estrellita y ladro así! wau! wau! 
         Lola.ladrar();         //mi nombre es Lola y ladro así! wau! wau!
     
+
+
+# 1. Objetos — imprescindible
+
+## 1.1 Crear y acceder a propiedades
+Debes manejar perfectamente:
+```js
+const usuario = {
+   nombre: "Seiya",
+   edad: 25,
+   activo: true
+};
+``` 
+
+Acceso por punto:
+```js
+usuario.nombre
+```
+
+y por corchetes:
+```js
+usuario["nombre"]
+```
+
+Debes saber **cuándo necesitas cada uno**:
+```js 
+//creo variable con string "nombre"...
+const propiedad = "nombre";
+
+//e intento usar esa variable para acceder a la propiedad "nombre" de objeto usuario...
+usuario[propiedad]; // esto devuelve Seiya
+
+usuario.propiedad;  // esto devuelve undefined
+```
+**Esto es fundamental para trabajar con objetos dinámicos.**
+
+---
+## 1.2 Agregar, modificar y eliminar propiedades
+```js
+usuario.email = "seiya@email.com";
+usuario.edad = 26;
+
+delete usuario.activo;
+```
+
+También debes entender que los objetos son **dinámicos**:
+```js 
+const usuario = {};
+usuario.nombre = "Seiya";
+usuario.edad = 25;
+usuario.roles = ["admin"];
+``` 
+
+---
+# 2. Referencias y mutabilidad
+
+Esto es **obligatorio** entenderlo.
+```js
+const a = {
+   nombre: "Seiya"
+};
+
+const b = a;
+
+b.nombre = "Shiryu";
+console.log(a.nombre);
+
+//Resultado: Shiryu
+``` 
+Porque `a` y `b` apuntan al mismo objeto.
+
+Conceptualmente:
+```
+a ─────┐
+
+       ▼
+
+    { nombre: "Seiya" }
+
+       ▲
+
+       │
+
+b ─────┘
+```
+
+Esto aparece constantemente en *Node*, *React*, *APIs*, *estructuras de datos*, etc.
+
+También debes entender que:
+```js
+const usuario = {};
+``` 
+no significa que el objeto sea inmutable.
+
+Significa que **la variable no puede ser reasignada**.
+
+---
+# 3. Copiar objetos
+
+Debes conocer:
+### Spread
+const copia = {
+
+    ...usuario
+
+};
+
+Y:
+
+const actualizado = {
+
+    ...usuario,
+
+    edad: 30
+
+};
+
+Esto es fundamental.
+
+Pero también debes entender que es una **copia superficial**.
+
+const usuario = {
+
+    nombre: "Seiya",
+
+    direccion: {
+
+        ciudad: "Tokyo"
+
+    }
+
+};
+
+  
+
+const copia = {
+
+    ...usuario
+
+};
+
+  
+
+copia.direccion.ciudad = "Kyoto";
+
+También cambia:
+
+usuario.direccion.ciudad
+
+porque `direccion` sigue siendo la misma referencia.
+
+---
+
+# 4. Object destructuring
+
+Esto es obligatorio:
+
+const usuario = {
+
+    nombre: "Seiya",
+
+    edad: 25
+
+};
+
+  
+
+const { nombre, edad } = usuario;
+
+También:
+
+const {
+
+    nombre: nombreUsuario,
+
+    edad: edadUsuario
+
+} = usuario;
+
+Y valores por defecto:
+
+const {
+
+    nombre,
+
+    pais = "Japón"
+
+} = usuario;
+
+Lo vas a encontrar constantemente en Node.
+
+---
+
+# 5. Spread y rest
+
+Debes distinguirlos.
+
+### Spread
+
+Expande:
+
+const numeros = [1, 2, 3];
+
+  
+
+const otros = [...numeros, 4, 5];
+
+En objetos:
+
+const usuarioNuevo = {
+
+    ...usuario,
+
+    activo: true
+
+};
+
+### Rest
+
+Agrupa:
+
+const {
+
+    nombre,
+
+    ...resto
+
+} = usuario;
+
+Ahora:
+
+resto
+
+contiene las propiedades restantes.
+
+---
+
+# 6. Métodos esenciales de Object
+
+Estos sí o sí:
+
+Object.keys()
+
+Object.values()
+
+Object.entries()
+
+Object.fromEntries()
+
+Por ejemplo:
+
+const usuario = {
+
+    nombre: "Seiya",
+
+    edad: 25
+
+};
+
+### `Object.keys`
+
+Object.keys(usuario);
+
+["nombre", "edad"]
+
+### `Object.values`
+
+Object.values(usuario);
+
+["Seiya", 25]
+
+### `Object.entries`
+
+Object.entries(usuario);
+
+[
+
+    ["nombre", "Seiya"],
+
+    ["edad", 25]
+
+]
+
+Y entender esto te permite hacer:
+
+for (const [clave, valor] of Object.entries(usuario)) {
+
+    console.log(clave, valor);
+
+}
+
+---
+
+# 7. Propiedades y existencia
+
+Debes conocer:
+
+"nombre" in usuario
+
+y:
+
+Object.hasOwn(usuario, "nombre")
+
+También entender la diferencia entre:
+
+usuario.nombre === undefined
+
+y:
+
+Object.hasOwn(usuario, "nombre")
+
+porque una propiedad puede existir y tener:
+
+undefined
+
+como valor.
+
+
+
+
 ## String (PROPIEDADES Y MÉTODOS).
 ---
 Cuando hablamos de una variable que posee información de texto, decimos

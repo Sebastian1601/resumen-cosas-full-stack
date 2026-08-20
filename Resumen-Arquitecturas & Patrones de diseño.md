@@ -238,3 +238,13 @@ VOY POR EL MINUTO 30 del video
 
 
 ![system design](https://www.youtube.com/watch?v=oYxTTirKY8M)
+
+
+---
+---
+
+
+## Cache para el diseño de sistemas
+
+![videoCache](https://www.youtube.com/watch?v=ETvLl-8bPbo)
+
