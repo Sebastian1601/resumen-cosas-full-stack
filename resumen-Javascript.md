@@ -1,22 +1,7 @@
 
-
-
-
-
-
 ---
-## Number.parseInt("7130") esto devuelve 7130 como número propiamente dicho.
-
-
-Number.parseInt(42000\$\$) devuelve 42000.
-
-Number.parseInt("Num. 2345") devuelve NaN (not a number) por lo tanto no puede convertir.
-
-Number.parseFloat() 
-
-devuelve un nro con coma flotante (decimal)
-
-Operadores de asignacion
+# Operadores
+## Operadores de asignacion
 
 | Operador | Descripción             |
 | -------- | ----------------------- |
@@ -31,7 +16,7 @@ Operadores de asignacion
 
 ## Operadores de cadena y números.-
 
-El operador + se puede utilizar también para concaternar cadenas.
+El operador `+` se puede utilizar también para concaternar cadenas.
 
 ejemplo:
 ```javascript
@@ -47,20 +32,7 @@ var texto3 = "bienvenidos a ";
 var texto3 += "Javascript" ;
 ```
 
-## funcion Prompt() :
-- Metodo de windows, permite al usuario ingresar datos con una ventana emergente.
-
-prompt ([mensaje de texto a mostrar:string], [valor por defecto al abrir el prompt, como un placeholder]);
-
-## document.write() :
-- comando de consola que permite escribir los datos dentro del paréntesis directamente en el HTML como texto simple, aún asi, se pueden agregar etiquetas completas para darle formato a lo escrito en el HTML.
-
-ej:
-```javascript
-  document.write('<div class='ejemplo'>texto a ingresar</div>');
-```
-
-# Operadores de comparación
+## Operadores de comparación
 
 |Operador ------- | Descripción ------------|
 | ----------------|-------------------------|
@@ -73,44 +45,52 @@ ej:
 | >=              | mayor o igual que       |
 | <=              | menor o igual que       |
 |?                | operador ternario       |
+## Operadores lógicos
 
-
-# Operadores lógicos
-
-> Normalmente se utilizan con valores booleanos (true or false);
-
+Normalmente se utilizan con valores booleanos (true or false);
 
 | Operador | Descripción |
-|----------|-------------|
-|  &&      | Y lógico    |
-|  ||      |  O lógico   |
-|  !       | No lógico   |
+| -------- | ----------- |
+| &&       | Y lógico    |
+| \|\|     | O lógico    |
+| !        | No lógico   |
 
+## Operadores Prefijo y Posfijo
 
-# Operadores Prefijo y Posfijo
+| Operador | Descripción        | Ejemplo                                     |
+| -------- | ------------------ | ------------------------------------------- |
+| `i++`    | incremento posfijo | `a = i++` primero `a = i` y luego `i = i+1` |
+| `++i`    | incremento prefijo | `a = ++i` primero `i = i+1`, luego `a = i`  |
+| `i--`    | decremento posfijo | `a = i--` primero `a = i` y luego `i = i-1` |
+| `--i`    | decremento prefijo | `a = --i` primero `i = i-1` luego `a = i`   |
 
-| Operador | Descripción | Ejemplo |
-|----------|------------|---------|
-| i++      | incremento posfijo | a=i++ primero a=i y luego i=i+1|
-| ++i      | incremento prefijo| a= ++i primero i=i+1, luego a=i|
-| i--      | decremento posfijo| a= i-- primero a=i y luego i=i-1|
-| --i      | decremento prefijo| a=--i primero i=i-1 luego a=i|
+## Operadores de asignación
 
-
-# Operadores de asignación
-
-|Operador| Descripción | Equivale a |
-|--------|-------------|------------|
-| =      | x=3         | x=3        |
-|+=      | x += y      | x= x+y     |
-|-=      | x -= y      | x= x-y     |
-|*=      | x *= y      | x = x * y  |
-|/=      | x/=y        | x= x / y   |
-|%=      | x %=y       | x = x % y  |
-|**=     | x **= y     | x = x**y   |
+| Operador | Descripción | Equivale a |
+| -------- | ----------- | ---------- |
+| =        | x=3         | x=3        |
+| +=       | x += y      | x= x+y     |
+| -=       | x -= y      | x= x-y     |
+| *=       | x *= y      | x = x * y  |
+| /=       | x/=y        | x= x / y   |
+| %=       | x %=y       | x = x % y  |
+| **=      | x **= y     | x = x**y   |
 
 ---
-## ESTRUCTURAS DE CONTROL 
+# funcion Prompt()
+- Metodo de windows, permite al usuario ingresar datos con una ventana emergente.
+
+prompt ([mensaje de texto a mostrar:string], [valor por defecto al abrir el prompt, como un placeholder]);
+
+# document.write()
+- comando de consola que permite escribir los datos dentro del paréntesis directamente en el HTML como texto simple, aún asi, se pueden agregar etiquetas completas para darle formato a lo escrito en el HTML.
+
+ej:
+```javascript
+  document.write('<div class='ejemplo'>texto a ingresar</div>');
+```
+
+# ESTRUCTURAS DE CONTROL 
 
 > Condicional que evalua una condicion, y de ser verdadera, ejecuta un bloque de código, sino tiene la opción de ejecutar otro código.
 
@@ -143,9 +123,9 @@ console.log("estoy", calificacion);
 
 ## Operador OR ||
 
-> Evaluación de valores "truthy" y "falsy":
+Evaluación de valores "**truthy**" y "**falsy**":
 
-> En JavaScript, ciertos valores son considerados "truthy" (verdaderos) o "falsy" (falsos). Algunos ejemplos de valores "falsy" son:
+En JavaScript, ciertos valores son considerados "truthy" (verdaderos) o "falsy" (falsos). Algunos ejemplos de valores "falsy" son:
 * false
 * 0
 * "" (cadena vacía)
@@ -168,79 +148,77 @@ console.log(saludo) // ESTO SERA IGUAL A 'usuario anónimo' ;
 
 ## Operador de Coalescencia Nula (??)
 
-> El operador de coalescencia nula (??) se utiliza para asignar un valor por defecto cuando una variable o expresión es _null_ o _undefined_. Es útil cuando deseas asegurarte de que un valor no sea nulo ni indefinido, pero quieres permitir otros valores como 0, false, o una cadena vacía.
+El operador de **coalescencia nula (??)** se utiliza para asignar un valor por defecto cuando una variable o expresión es **null** o **undefined**. Es útil cuando deseas asegurarte de que un valor no sea nulo ni indefinido, pero quieres permitir otros valores como 0, false, o una cadena vacía.
 
-    ej:
-    const nombre = null; // TENER EN CUENTA QUE FIGURA NULL, no es lo mismo que "".
-    const saludo = nombre ?? "Anónimo"; 
-    console.log(saludo);  // "Anónimo"
+Ejemplo:
+```js
+ const nombre = null; // TENER EN CUENTA QUE FIGURA NULL, no es lo mismo que "".
+ const saludo = nombre ?? "Anónimo"; 
+ console.log(saludo);  // "Anónimo"
+```
 
+## Switch
+La estructura de control switch permite definir casos específicos a realizar en el caso de que la variable expuesta como condición sea igual a los valores que se especifican a continuación mediante los case.
 
-
-## Switch evalua cierta cantidad de posibilidades
-
-La estructura de control switch permite definir casos específicos a realizar en el caso de que la
-variable expuesta como condición sea igual a los valores que se especifican a continuación mediante los case.
-
-        var nota = 7;
-        switch (nota) {
-            case 10:
-                console.log("sobresaliente");
-                break;
-            case 9:
-                console.log("notable");
-                break;
-            case 8:
-                console.log("bien");
-                break;
-            case 7:
-                console.log("aprobado");
-                break;
-            case 6:
-                console.log("suficiente");
-                break;
-            case 5:
-            case 4:
-            case 3:
-            case 2:
-            case 1:
-            default:
-                console.log('no es un valor válido');
-                break;
-        }
-
+```js
+var nota = 7;
+switch (nota) {
+	case 10:
+		console.log("sobresaliente");
+		break;
+	case 9:
+		console.log("notable");
+		break;
+	case 8:
+		console.log("bien");
+		break;
+	case 7:
+		console.log("aprobado");
+		break;
+	case 6:
+		console.log("suficiente");
+		break;
+	case 5:
+	case 4:
+	case 3:
+	case 2:
+	case 1:
+	default:
+		console.log('no es un valor válido');
+		break;
+}
+```
 
 # Bucles e Iteraciones:
 
-### Los bucles evalúan una condición y se ejecutan si la condicion es verdadera.
+*Los bucles evalúan una condición y se ejecutan si la condicion es verdadera.*
  - Condición : el bucle evalúa la condición para saber si se genera una nueva iteración del mismo o no.
  - Iteracion : se llama así a cada repetición que se genera del bucle.
  - contador : Los bucles suelen usar una variable como **contador** para muchas tareas. la variable suele *vivir* solamente dentro del bucle.
  - Incremento : se debe incrementar la variable contator para que el bucle avance. Un bucle que no tiene un contador, generalmente depende si o si de que la condicion se cumpla o no.
  - Bucle Infinito : esto se da si la condicion nunca se cumple y si el bucle no tiene un contador.
 
-# While (estructura de control)
+## While
 
 El bucle *while* se utiliza cuando es necesario generar un bucle analizando una condición a cumplirse.
-
-        while (condicion a evaluar) {
-        bloque a ejecutar mientras la condicion sea verdadera
-        }`
-
-### Es importante que la condición en algún momento sea falsa, para terminar el bucle, sino se produce un bucle infinito, deteniendo la ejecución del resto del código js.
-
-
-# FOR (estructura de control definida - bucle finito)
+```js
+while (condicion a evaluar) {
+	bloque a ejecutar mientras la condicion sea verdadera
+}
+```
+ 
+ Es importante que la condición en algún momento sea **falsa**, para terminar el bucle, sino se produce un bucle infinito, deteniendo la ejecución del resto del código js.
+## FOR (estructura de control definida - bucle finito)
 
 Un bucle *for* depende de el valor de una variable, que automáticamente va incrementandose por lo tanto hay determinada cantidad de iteraciones del mismo.
 
-        for (let i=1 ; i <= 10; i++) {
-        bloque de código a ejecutar mientras se cumple el 2do término de la condición
-        }`
-    
-
-# *FUNCIONES*
-
+```js
+for (let i=1 ; i <= 10; i++) {
+	   bloque de código a ejecutar mientras se cumple el 2do término de la condición
+}    
+```
+ 
+# FUNCIONES
 Las funciones nos permiten agrupar líneas de código en tareas con un nombre (subprograma), para que posteriormente podamos referenciar ese
 nombre para realizar dicha tarea. Algunas razones para declarar funciones:
 
@@ -261,92 +239,90 @@ entrada
 - Declarar la función es darle un nombre a la funcion y definir qué realizará.
 - Ejecutar la función es "llamar" o "invocar" la función para que se ejecute en el punto del código donde la llamamos.
 
+>[!tip] Recomendación
 > El nombre de la función debería ser descriptivo e indicar qué tarea realiza. Deberían ser:
-    - simple, claro
-    -Representativo de la tarea que realiza la función.
-    -verbos en infinitivo, (-ar, -er, -ir)
-    -Si es más de una palabra, se usa la nomenclatura camelCase
+> - simple, claro
+> - Representativo de la tarea que realiza la función.
+> - verbos en infinitivo, (-ar, -er, -ir)
+> - Si es más de una palabra, se usa la nomenclatura camelCase
 
-### **Parámetros** 
+## **Parámetros** 
 : Los **parámetros** de la función son variables que ponemos cuando definimos la función.
-ej:
+ejemplo:
+```js
+function sumar (a, b) {
+    console.log( a+b );
+};
+```
+ 
+En este caso, los parámetros son `a` y `b`, definidos entre paréntesis al lado del nombre de la función.
+Los parámetros predeterminados se suelen inicializar con un valor por si no se pasa ningún parámetro para el mismo al invocar la función ==
 
-        function sumar (a, b) {
-        console.log( a+b );
-        };`
+```js
+function multiplicar (a, b = 1) {
+return a * b;
+}
+```
 
-> En este caso, los parámetros son a y b, definidos entre paréntesis al lado del nombre de la función.
+## **Argumentos**
+Los **argumentos** son los valores que se le pasan mediante los parámetros
 
-> Los parámetros predeterminados se suelen inicializar con un valor por si no se pasa ningún parámetro para el mismo al invocar la función ==
+let a = sumar( 7,4 );
+console.log(a); //se espera 11 como resultado
+## **Devolución de valores**
 
+Una función puede ejecutar código sin devolver nada al terminar, o puede devolver datos necesarios obtenidos durante el proceso, para posteriormente utilizarlos en otra función u otro evento. Para esto se usa *RETURN*.
 
-        function multiplicar (a, b = 1) {
-        return a * b;
-        }
+```js
+function sumar ( a, b){
+	return a+b;
+};
+``` 
 
-
-### **Argumentos**
-   : Los **argumentos** son los valores que se le pasan mediante los parámetros
-
-    let a = sumar( 7,4 );
-    console.log(a); //se espera 11 como resultado
-
-
-### Devolución de valores
- : una función puede ejecutar código sin devolver nada al terminar, o puede devolver datos necesarios obtenidos durante el proceso, para posteriormente utilizarlos en otra función u otro evento. Para esto se usa *RETURN*.
-
-    
-     function sumar ( a, b){
-     return a+b;
-     }
-
-
-> El comando *RETURN* devuelve lo necesario fuera de la función, y termina la ejecución del código, si existe más código a ejecutar luego del return, este no se realiza.
-
+> El comando **RETURN** devuelve lo necesario fuera de la función, y termina la ejecución del código, si existe más código a ejecutar luego del return, este no se realiza.
 
 ---
 
-#FUNCIONES FLECHA O 'ARROW'
+# FUNCIONES FLECHA O 'ARROW'
 
-### Las funciones flecha se utilizan para definir funciones de manera más fluida y resumida. Normalmente se asignan a una constante, para que no puedan variar ni reasignarse.
+Las funciones flecha se utilizan para definir funciones de manera más fluida y resumida. Normalmente se asignan a una constante, para que no puedan variar ni reasignarse.
 
 definicion:
+```js
+const Variable = (parámetros) => {
+bloque a ejecutar 
+};
+```
 
-    const Variable = (parámetros) => {
-    bloque a ejecutar 
-    };
-
- ---
-
-ej:
-
-    function cuadrado (x) {
+Ejemplo:
+```js
+function cuadrado (x) {
     return x*x
-    }
-    console.log(cuadrado(2))
-
+}
+console.log(cuadrado(2))
+```
 
 esto es lo mismo que lo siguiente:
-
-
-    const Cuadrado = x => x*x;
+```js
+const Cuadrado = x => x*x;
     console.log(Cuadrado(2));
+```
 
 
+## Sintaxis básica
 
-##Sintaxis básica
+- *Un parámetro. con una expresión simple, no necesita RETURN*
 
-*Un parámetro. con una expresión simple, no necesita RETURN*
+`parámetro => expresión`
 
-        parámetro => expresión
+- *Varios parámetros requieren paréntesis, con una expresión simple no necesita RETURN*
 
-*Varios parámetros requieren paréntesis, con una expresión simple no necesita RETURN*
+`(parámetro1, parámetro2, ..., parámetroN) => expresión`
 
-        (parámetro1, parámetro2, ..., parámetroN) => expresión
+- *Un parámetro con varias líneas de código necesitan llaves y RETURN*
 
-*Un parámetro con varias líneas de código necesitan llaves y RETURN*
-
-        parámetro => {
+```js
+    parámetro => {
         varios bloques de código
         .
         .
@@ -354,61 +330,65 @@ esto es lo mismo que lo siguiente:
         bloque de código;
         RETURN (a devolver)
     }
+```
 
 *Varios parámetros requieren paréntesis y varias lineas de código requieren llaves y RETURN*
 
-        (parámetro1, ...,parámetroN) => {
-        bloque de código;
-        .
-        .
-        .
-        bloque de código;
-        RETURN (a devolver)
-        }
+```js
+(parámetro1, ...,parámetroN) => {
+    bloque de código;
+    .
+    .
+    .
+    bloque de código;
+    RETURN (a devolver)
+}
+```
+
 # FUNCIONES ANÓNIMAS
 
-  Son funciones que se definen **sin nombre**, y se alojan en una variable haciendo referencia a la misma cuando queremos ejecutar la función.
+Son funciones que se definen **sin nombre**, y se alojan en una variable haciendo referencia a la misma cuando queremos ejecutar la función.
 
-      const Saludo = function (){
-            return "Hola"
-            }
+```js
+const Saludo = function (){
+    return "Hola"
+    }
 
-      const Saludo = function (nombre) {
-          var mensaje = "hola "+ nombre;
-          return mensaje;
-          }
-
-
+const Saludo = function (nombre) {
+    var mensaje = "hola "+ nombre;
+    return mensaje;
+    }
+```
+ 
 # SCOPE (alcance)
+El **scope** (alcance) determina la **accesibilidad** (visibilidad) de las variables. Define ¿en qué contexto las variables son visibles y cuándo no lo son? Una variable que no está “al alcance actual” no está disponible para su uso.
+En **JavaScript** hay dos tipos de alcance:
+● Alcance local (por ejemplo, una función)
+● Alcance global (entorno completo de JavaScript)
 
-El scope (alcance) determina la accesibilidad (visibilidad) de las variables. Define ¿en qué contexto las variables son visibles y cuándo no lo son?. Una variable que no está “al alcance actual” no está disponible para su uso.
-En JavaScript hay dos tipos de alcance:
-    ● Alcance local (por ejemplo, una función)
-    ● Alcance global (entorno completo de JavaScript)
-Las variables definidas dentro de una función no son accesibles (visibles) desde fuera. La función “crea un ámbito cerrado” que impide el acceso a una variable de su interior desde fuera de ella o desde otras funciones. 
+Las variables definidas **dentro de una función no son accesibles** (visibles) desde fuera. La función “crea un ámbito cerrado” que impide el acceso a una variable de su interior desde fuera de ella o desde otras funciones. 
 
 Si asignamos un valor a una variable que no ha sido declarada, se convertirá en una variable global. Este ejemplo declara la variable global carName, aún cuando su valor se asigna dentro de una función.
-ej:
+Ejemplo:
 
-    myFunction();
+```js
+myFunction();
     //aqui se puede usar carName
     function myFunction () {
         carName = "Wolkswagen";
     }
+```
 
-> En este concepto, declarar variables con *let* permite que la misma se utilice y "exista" solo en el ámbito donde fue creada, disponiendo de la misma una vez el código del bloque donde se definió termina de ejecutarse. Definir una variable con *var* genera que la misma esté disponible en todo el *SCOPE*, por lo que hay que ser cuidadoso al manejar los valores de la misma.
-
+En este concepto, declarar variables con *let* permite que la misma se utilice y "exista" solo en el ámbito donde fue creada, disponiendo de la misma una vez el código del bloque donde se definió termina de ejecutarse. Definir una variable con *var* genera que la misma esté disponible en todo el *SCOPE*, por lo que hay que ser cuidadoso al manejar los valores de la misma.
 # CALLBACK
 
-Se determina *"Callback"* a una función que fue pasada como parámetro de otra. 
-
+Se determina *"Callback"* a una función que se pasa como parámetro de otra, siendo posible que esta función parámetro, sea llamada dentro de la otra función, para ejecutarse cuando el código de la primer funcion llegue a cierto punto o bajo ciertas condiciones.
 # CLOSURE
 
 Un *CLOSURE* se define como una función que encierra variables en su propio ámbito.
 
 
-## OBJETOS EN JS.
-
+# OBJETOS
 Un objeto de JavaScript tiene propiedades asociadas a él. Una propiedad de un objeto se puede explicar como una variable asociada al objeto. Las propiedades de un objeto básicamente son lo mismo que las variables comunes de JavaScript, excepto por el nexo con el objeto.
 
 El objeto se puede crear mediante el operador de asignación (=), o de la manera "literal".

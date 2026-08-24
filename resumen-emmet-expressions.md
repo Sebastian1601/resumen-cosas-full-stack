@@ -9,10 +9,9 @@ referencias:
 
 > Con Emmet se puede crear rápidamente una plantilla HTML ingresando el shorthand "!" en el inicio del archivo.
 
-###  estructura de archivo HTML básica.
+## estructura de archivo HTML básica.
 
 > Ingresando el símbolo `!` y presionando `enter` habilita la estructura inicial de un archivo HTML.
-
 
 ## Etiquetas básicas
 
@@ -22,15 +21,12 @@ Para crear etiquetas básicas HTMLs, simplemente se escribe su manera shorthand,
 
 * esto también funciona para `bq` creará un `<blockquote>`, `hdr` creará un `<header>`, `ftr` hará lo mismo con un `<footer>`, `btn` para un `button` y `sect` para una `<section>`.
   
-
 ## Clases .
 
 Emmet usa la misma sintaxis para crear elementos con ciertas clases. Para definir una clase de un elemento que estamos creando, usamos la notación `[elemento].[clase]`
 
 * ej: `div.wrapper` ---> `<div class="wrapper"> </div>`
 * `h1.header.center` ---> `<h1 class="header center"></h1>` 
-  
-
 
 ## ID's #
 
@@ -51,7 +47,7 @@ Podemos especificar atributos de los elementos que estamos definiendo...
 
 ## INCLUIR CONTENIDO DENTRO DE UNA ETIQUETA (o varias) con las {}
 
-Para agregar al vuelo, mientras vamos creando la estructura con Emmet contenido, lo encerramos dentro de llaves...
+Para agregar texto al vuelo, mientras vamos creando la estructura con Emmet contenido, lo encerramos dentro de llaves...
 
 * `p{Esto es un párrafo}` creará --->
 * `<p>Esto es un párrafo</p>`
@@ -89,7 +85,8 @@ Si la estructura es muy completa, es posible que desee evitar el "escalado" y ag
 
 * `div > (header > ul > li > a) + footer > p` creará --->
   
-  ```<div>
+```html
+<div>
     <header>
         <ul>
             <li><a href=""></a></li>
@@ -98,15 +95,15 @@ Si la estructura es muy completa, es posible que desee evitar el "escalado" y ag
     <footer>
         <p></p>
     </footer>
-    </div>
-    ```
+</div>
+```
 
 ## Multiplicar la creación de elementos con  * y generar números automáticamente con $
 
 Podemos generar múltiples etiquetas con el símbolo `*` y numerar elementos en secuencia usando el signo `$`
 
 * `ul > li * 5` creará --->
- ``` 
+```html 
   <ul>
     <li></li>
     <li></li>
@@ -114,10 +111,10 @@ Podemos generar múltiples etiquetas con el símbolo `*` y numerar elementos en 
     <li></li>
     <li></li>
   </ul>
-  ```
+```
 
 * `ul > li{ ITEM $ }*3` creará --->
-```
+```html
 <ul>
     <li>ITEM 1</li>
     <li>ITEM 2</li>
@@ -126,7 +123,7 @@ Podemos generar múltiples etiquetas con el símbolo `*` y numerar elementos en 
 ```
 
 * `ul > li { ITEM $$$}*5` creará --->
-```
+```html
 <ul>
     <li>ITEM 001</li>
     <li>ITEM 002</li>
@@ -137,7 +134,7 @@ Podemos generar múltiples etiquetas con el símbolo `*` y numerar elementos en 
 ```
 * Comenzar con un número específico la numeración...
 `ul > li. item$ @ 3 *5` creará --->
-```
+```html
 <ul>
     <li class="item3"></li>
     <li class="item4"></li>
