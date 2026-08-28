@@ -51,9 +51,9 @@ Normalmente se utilizan con valores booleanos (true or false);
 
 | Operador | Descripción |
 | -------- | ----------- |
-| &&       | Y lógico    |
-| \|\|     | O lógico    |
-| !        | No lógico   |
+| `&&`     | Y lógico    |
+| `\|\|`   | O lógico    |
+| `!`      | No lógico   |
 
 ## Operadores Prefijo y Posfijo
 
@@ -68,19 +68,23 @@ Normalmente se utilizan con valores booleanos (true or false);
 
 | Operador | Descripción | Equivale a |
 | -------- | ----------- | ---------- |
-| =        | x=3         | x=3        |
-| +=       | x += y      | x= x+y     |
-| -=       | x -= y      | x= x-y     |
-| *=       | x *= y      | x = x * y  |
-| /=       | x/=y        | x= x / y   |
-| %=       | x %=y       | x = x % y  |
-| **=      | x **= y     | x = x**y   |
+| `=`      | x=3         | x=3        |
+| `+=`     | x += y      | x= x+y     |
+| `-=`     | x -= y      | x= x-y     |
+| `*=`     | x *= y      | x = x * y  |
+| `/=`     | x/=y        | x= x / y   |
+| `%=`     | x %=y       | x = x % y  |
+| `**=`    | x **= y     | x = x**y   |
 
 ---
 # funcion Prompt()
+
 - Metodo de windows, permite al usuario ingresar datos con una ventana emergente.
 
+```js
 prompt ([mensaje de texto a mostrar:string], [valor por defecto al abrir el prompt, como un placeholder]);
+```
+
 
 # document.write()
 - comando de consola que permite escribir los datos dentro del paréntesis directamente en el HTML como texto simple, aún asi, se pueden agregar etiquetas completas para darle formato a lo escrito en el HTML.
@@ -90,6 +94,47 @@ ej:
   document.write('<div class='ejemplo'>texto a ingresar</div>');
 ```
 
+
+# tipos de datos
+
+Javascript manjera lo que se llama primitivas como tipo de datos, y luego otras estructuras que responden a tipos particulares.
+Las **primitivas** son los tipos de datos más básicos que podemos utilizar en nuestro código.
+
+Todos los tipos primitivos de datos **EXCEPTO** *null* pueden ser testeados por el operador `typeof`.
+`typeof null` retorna `object` asi que hay que usar `===null` para testear un valor *null*
+
+- String
+- Number
+- Boolean
+- Undefined
+- Null
+- BigInt
+- Symbol
+
+**Null** y **undefined** no tienen wrappers de objeto.
+Conceptualmente, **undefined** indica la ausencia de valor, mientras que **null** indica la ausencia de objeto.
+
+- un retorno sin valor explicito devuelve `undefined`
+- acceder a la propiedad no existente de un objeto, devuelve `undefined`
+- la declaración de una variable sin inicializar, implicitamente la inicializa con valor `undefined`
+- muchos métodos, como Array.find() y Map.get() retornan `undefined` cuando no encuentran elementos.
+
+Number
+	Este tipo de dato es capaz de almacenar valores de punto flotante entre $2^{-1074}$ y $2^{1023} * (2 - 2^{-52})$.
+	como también números de punto flotante negativos de la misma magnitud.
+	Los enteros son representables entre $-(2^{53}-1)$ hasta $2^{53}-1$. 
+	Estos valores se pueden alcanzar con los métodos `Number.MIN_SAFE_INTEGER` y `Number.MAX_SAFE_INTEGER`.
+	Los números fuera de este rango no pueden ser representados por Javascript.
+	Se puede chequear si un número está dentro del rango seguro de representación con 
+	`Number.isSafeInteger()` 
+
+
+## NaN
+NaN es un tipo de datos especial, el cual es encontrado cuando una operación aritmética no puede ser representada como un número. Es el único valor en Javascript que **NO ES IGUAL A SI MISMO**
+
+```js
+console.log(NaN===NaN)// false
+```
 # ESTRUCTURAS DE CONTROL 
 
 > Condicional que evalua una condicion, y de ser verdadera, ejecuta un bloque de código, sino tiene la opción de ejecutar otro código.
@@ -125,20 +170,14 @@ console.log("estoy", calificacion);
 
 Evaluación de valores "**truthy**" y "**falsy**":
 
-En JavaScript, ciertos valores son considerados "truthy" (verdaderos) o "falsy" (falsos). Algunos ejemplos de valores "falsy" son:
-* false
-* 0
-* "" (cadena vacía)
-* null
-* undefined
-* NaN (Not-A-Number)
+En JavaScript, ciertos valores son considerados "truthy" (verdaderos) o "falsy" (falsos). Algunos ejemplos de valores "falsy" son: [false / 0 / "" / NaN / null / undefined]
 
-Cualquier valor distinto de los mencionados arriba se considera "truthy".
+Cualquier valor distinto de los mencionados arriba se considera "**truthy**".
 Comportamiento del operador:
 
-El operador || evalúa de izquierda a derecha.
+El operador || evalúa de izquierda a derecha los operandos.
 Devuelve el primer valor "truthy" que encuentre.
-Si no encuentra ningún valor "truthy", devuelve el último valor evaluado.
+Si no encuentra ningún valor "truthy", devuelve el operando derecho.
 
 ```js
 const nombre = "";
@@ -200,7 +239,9 @@ switch (nota) {
 
 ## While
 
-El bucle *while* se utiliza cuando es necesario generar un bucle analizando una condición a cumplirse.
+El bucle *while* se utiliza cuando es necesario generar un bucle analizando una condición a cumplirse, y no sabemos de antemano qué cantidad de iteraciones necesitaremos.
+Lleva una condición a evaluar antes de iniciar siquiera la primera iteración, por lo que es posible que ni siquiera se ejecute dada la **condicion a evaluar**
+
 ```js
 while (condicion a evaluar) {
 	bloque a ejecutar mientras la condicion sea verdadera
@@ -208,6 +249,9 @@ while (condicion a evaluar) {
 ```
  
  Es importante que la condición en algún momento sea **falsa**, para terminar el bucle, sino se produce un bucle infinito, deteniendo la ejecución del resto del código js.
+## do While
+El bucle mencionado se utiliza cuando no sabemos qué cantidad de iteraciones vamos a necesitar, pero que aparte, **ES NECESARIO QUE SE EJECUTE UNA VEZ** el codigo dentro del bloque del bucle.
+
 ## FOR (estructura de control definida - bucle finito)
 
 Un bucle *for* depende de el valor de una variable, que automáticamente va incrementandose por lo tanto hay determinada cantidad de iteraciones del mismo.
@@ -281,11 +325,41 @@ function sumar ( a, b){
 
 > El comando **RETURN** devuelve lo necesario fuera de la función, y termina la ejecución del código, si existe más código a ejecutar luego del return, este no se realiza.
 
----
+## Tipos de declaración de funciones
 
-# FUNCIONES FLECHA O 'ARROW'
+Las funciones se pueden declarar de 3 maneras distintas. Cada una con sus pros y sus contras.
+Tenemos :
+- Función declarada
+- Función expresada
+- Función flecha
 
-Las funciones flecha se utilizan para definir funciones de manera más fluida y resumida. Normalmente se asignan a una constante, para que no puedan variar ni reasignarse.
+### Función declarada
+Este modo de declarar la función es el habitual, donde declaramos que vamos a escribir una función, y ponemos un nombre, luego los parámetros, y finalmente el bloque de código.
+
+```js
+function MiFuncion (a, b){
+	if (b > 0) return a / b;
+	return "error, no se puede dividir por cero";
+};
+```
+
+En este tipo de funciones, se puede utilizar `this` para referirse a propiedades de la función.
+
+### función expresada
+La función expresada se llama así dado que creamos una variable y le asignamos una expresión, que al final terminará siendo nuestra función completa, dentro de las llaves habituales de código.
+
+```js
+const MiFuncion2 = function (a, b) {
+if (b > 0) return a / b;
+return "error, no se puede dividir por cero"
+}
+
+const resultado = MiFuncion2(6, 2);
+```
+
+### FUNCIONES FLECHA O 'ARROW'
+
+Las **funciones flecha** se utilizan para definir funciones de manera más fluida y resumida. Normalmente se asignan a una constante, para que no puedan variar ni reasignarse.
 
 definicion:
 ```js
@@ -308,8 +382,7 @@ const Cuadrado = x => x*x;
     console.log(Cuadrado(2));
 ```
 
-
-## Sintaxis básica
+#### Sintaxis básica
 
 - *Un parámetro. con una expresión simple, no necesita RETURN*
 
@@ -345,9 +418,9 @@ const Cuadrado = x => x*x;
 }
 ```
 
-# FUNCIONES ANÓNIMAS
+## FUNCIONES ANÓNIMAS
 
-Son funciones que se definen **sin nombre**, y se alojan en una variable haciendo referencia a la misma cuando queremos ejecutar la función.
+Son funciones que se definen **sin nombre**, y se alojan en una variable haciendo referencia a la misma cuando queremos ejecutar la función. Al final termina siendo una función expresada.
 
 ```js
 const Saludo = function (){
@@ -380,6 +453,34 @@ myFunction();
 ```
 
 En este concepto, declarar variables con *let* permite que la misma se utilice y "exista" solo en el ámbito donde fue creada, disponiendo de la misma una vez el código del bloque donde se definió termina de ejecutarse. Definir una variable con *var* genera que la misma esté disponible en todo el *SCOPE*, por lo que hay que ser cuidadoso al manejar los valores de la misma.
+
+# HOISTING
+
+El hoisting es una característica del motor V8 de javascript, lo que realiza es "elevar" las funciones declaradas al inicio del código, para que estén disponibles en cualquier parte de la ejecución. Esto quiere decir que si declaramos una función expresada al final de nuestro código, podemos llamar al inicio y va a funcionar siempre y cuando se cumplan las reglas de la firma de la función.
+
+Lo que recibe hoisting son:
+- las funciones declaradas
+- la declaracion de variables (**no así su asignación**)
+	- let y const: son declaradas, pero no se les asigna ningún valor, quedan en la zona muerta temporal hasta que el codigo llega a la ejecución de asignar el valor a la variable.
+	- var: son declaradas, y se les asigna el valor `undefined` hasta que se llega a su punto de asignación.
+
+Tener en cuenta dado que esto puede generar errores en variables declaradas con var (**globales**)
+
+# High Order Functions
+
+Son funciones que reciben una función como parámetro (*callback*) o que devuelven una función inclusive.
+
+```js
+const sumar = (a, b) => a + b;
+const restar = (a, b) => a - b;
+
+function calculadora (a, b, operacion){
+	return operacion(a, b);
+};
+
+const resultado = calculadora(5, 2, sumar);
+```
+
 # CALLBACK
 
 Se determina *"Callback"* a una función que se pasa como parámetro de otra, siendo posible que esta función parámetro, sea llamada dentro de la otra función, para ejecutarse cuando el código de la primer funcion llegue a cierto punto o bajo ciertas condiciones.
@@ -389,56 +490,31 @@ Un *CLOSURE* se define como una función que encierra variables en su propio ám
 
 
 # OBJETOS
-Un objeto de JavaScript tiene propiedades asociadas a él. Una propiedad de un objeto se puede explicar como una variable asociada al objeto. Las propiedades de un objeto básicamente son lo mismo que las variables comunes de JavaScript, excepto por el nexo con el objeto.
-
+Un objeto de JavaScript tiende a ser una abstracción de los objetos de la vida. Como tales, todos tienen propiedades, por ejemplo, color, cantidad de ruedas, edad, etc. También dichos objetos, poseen funciones asociadas a ese objeto en particular.
+Por ejemplo, un auto acelera, frena, toca la bocina, enciende, etc.
+Los objetos en programación son lo mismo, son estructuras que poseen propiedades y métodos.
+Una propiedad de un objeto se puede explicar como una variable asociada al objeto. Las propiedades de un objeto básicamente son lo mismo que las variables comunes de JavaScript, excepto por el nexo con el objeto.
 El objeto se puede crear mediante el operador de asignación (=), o de la manera "literal".
-ej:
+
 Manera con el operador de asignación:
+```js
+var miAuto = new Object();
 
-        var miAuto = new Object();
-
-        miAuto.marca = "wolkswagen";
-        miAuto.tipo = "automóvil";
-        miAuto.modelo = 2013;
+miAuto.marca = "wolkswagen";
+miAuto.tipo = "automóvil";
+miAuto.modelo = 2013;
+```
 
 Manera literal de crear un objeto:
+```js
+var miAuto = {
+marca:"wolkswagen",
+tipo: "automovil",
+modelo: 2013
+};
+```
 
-        var miAuto = {
-            marca:"wolkswagen",
-            tipo: "automovil",
-            modelo: 2013
-            };
-
-###También los objetos pueden tener *METODOS* (son funciones asociadas a los objetos en si):
-
-ej:
-
-            var miAuto = {
-            marca:"wolkswagen",
-            tipo: "automovil",
-            modelo: 2013,
-            datosDelVehiculo: function () {
-                return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
-            };
-            };
-
-esto permite que al nosotros invocar el método del objeto miAuto, se obtenga los 3 datos del objeto.
-
-            console.log(miAuto.datosDelVehiculo()); //esto devuelve "Este es un wolkswagen, tipo automovil, modelo 2013"
-
-
-### Los metodos pueden ser creados con otra sintaxis, ej:
-
-      var miAuto = {
-            marca:"wolkswagen",
-            tipo: "automovil",
-            modelo: 2013,
-            datosDelVehiculo () {
-                return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
-            };
-      };
-
-## Acceder a las propiedades de un objeto.
+## Propiedades
 
 Para acceder a las propiedades de un objeto hay distintas notaciones. 
 Se puede utilizar el punto; `miAuto.marca`, se puede utilizar corchetes; `miAuto['marca']`
@@ -448,55 +524,91 @@ no es un identificador válido de JS (por ejemplo, comienza con un número)
 solo se puede acceder utilizando la notación de corchetes.
 
 
-## OBJETOS | CLASES
 
- Las clases son una suerte de *molde* para crear distintas instancias de un tipo de objeto. Se usa el "*CONSTRUCTOR*" y *THIS* para asignar valores a las propiedades y metodos.
+## metodos()
+También los objetos pueden tener **METODOS** (son funciones asociadas a los objetos en si):
 
 ej:
+```js
+var miAuto = {
+	marca:"wolkswagen",
+	tipo: "automovil",
+	modelo: 2013,
+	datosDelVehiculo: function () {
+		return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
+	};
+};
+```
 
-        class Perro {
-            constructor ( _nombre, _edad, _color) {
-                this.nombre = _nombre
-                this.edad = _edad
-                this.color = _color
-                }
-            }
+esto permite que al invocar el método del objeto miAuto, se obtenga los 3 datos del objeto.
+
+```js
+console.log(miAuto.datosDelVehiculo()); //esto devuelve "Este es un wolkswagen, tipo automovil, modelo 2013"
+```
+
+**Los metodos pueden ser creados con otra sintaxis, ej:**
+
+```js
+  var miAuto = {
+            marca:"wolkswagen",
+            tipo: "automovil",
+            modelo: 2013,
+            datosDelVehiculo () {
+                return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
+            };
+      };
+```
+
+## this
+
+
+# CLASES
+ Las clases son una suerte de *molde* para crear distintas instancias de un tipo de objeto. Se usa el "*CONSTRUCTOR*" y *THIS* para asignar valores a las propiedades y metodos.
+
+ejemplo:
+```js
+class Perro {
+	constructor ( _nombre, _edad, _color) {
+		this.nombre = _nombre
+		this.edad = _edad
+		this.color = _color
+	}
+}
+```
 
 Esto permite generar un nuevo objeto con estas propiedades de la siguiente manera
+```js
+var Perro1 = new Perro ('Lola', 4, 'marrón'); 
+var Perro2 = new Perro ('Estrellita', 10, 'blanco');
+```
 
-    var Perro1 = new Perro ('Lola', 4, 'marrón'); 
-    var Perro2 = new Perro ('Estrellita', 10, 'blanco');
-
-
-## OBJETOS | CLASES | Metodos
-
-
-
-
-### OBJETOS metodo prototype
-
+## prototipos
 Cuando ya tenemos creado una clase u objeto instanciado, o varios, y queremos agregarle una propiedad para que todos los objetos ya instanciados la tengan disponible, podemos usar el método  _prototype_ 
 
 Usando la clase Perro definida arriba, podemos agregarle una propiedad a todos por igual, por ejemplo, "cantidadPatas".
 
 esto se hace mediante el metodo prototype, de la siguiente manera:
 
-        Perro.prototype.cantidadPatas = 4
+```js
+Perro.prototype.cantidadPatas = 4
+```
 
-Esto genera que si ya tenemos instanciada a "Estrellita" y "Lola", los objetos Estrellita y Lola tenga las propiedades nombre, edad, color y cantidadPatas por igual.
+Esto genera que si ya tenemos instanciada a "**Estrellita**" y "**Lola**", los objetos Estrellita y Lola tenga las propiedades nombre, edad, color y cantidadPatas por igual.
 
 Podemos también definir un método para todos los objetos por igual, de la misma manera:
 
-        Perro.prototype.ladrar = function() {
-            console.log(`mi nombre es ${this.nombre} y ladro asi! wau! wau!`);
-        };
+```js
+Perro.prototype.ladrar = function() {
+	console.log(`mi nombre es ${this.nombre} y ladro asi! wau! wau!`);
+};
+```
 
 Esto generaría que al ejecutar el método en cada instancia de Estrellita y Lola, se pueda obtener el código:
 
-        Estrellita.ladrar();   //mi nombre es Estrellita y ladro así! wau! wau! 
-        Lola.ladrar();         //mi nombre es Lola y ladro así! wau! wau!
-    
-
+```js
+Estrellita.ladrar();   //mi nombre es Estrellita y ladro así! wau! wau! 
+	Lola.ladrar();         //mi nombre es Lola y ladro así! wau! wau!
+```
 
 # 1. Objetos — imprescindible
 
