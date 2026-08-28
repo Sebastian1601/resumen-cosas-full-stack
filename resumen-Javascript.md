@@ -257,27 +257,63 @@ El bucle mencionado se utiliza cuando no sabemos qué cantidad de iteraciones va
 Un bucle *for* depende de el valor de una variable, que automáticamente va incrementandose por lo tanto hay determinada cantidad de iteraciones del mismo.
 
 ```js
-for (let i=1 ; i <= 10; i++) {
+for (let i=1; i <= 10; i++) {
 	   bloque de código a ejecutar mientras se cumple el 2do término de la condición
-}    
+};
 ```
- 
+
+## FOR...IN
+Al manejar tantos arrays y objetos en general en Javascript, tenemos dos iteradores que nos van a servir para iterar sobre las propiedades iterables de los objetos y los valores de los arrays.
+
+Para iterar sobre las propiedades de un objeto, usamos FOR IN
+
+Si definimos el objeto siguiente...
+```js
+const datos = {
+	nombre:"David",
+	edad: 42,
+	hobbies: [
+		"jugar videojuegos",
+		"futbol",
+		"ver películas"
+	]
+}
+```
+
+Luego, podemos iterar sobre los valores de estas propiedades usando la estructura for in:
+```js
+for(let propiedad in datos){
+	console.log(datos[propiedad]);
+}
+// "david", "42", ["jugar videojues", "futbol", "ver peliculas"]
+```
+
+## FOR...OF
+El metodo for of nos permite iterar sobre los valores de un **objeto iterable**, en particular los arrays que podemos definir con información dentro.
+
+NO ESTA RESTRINGIDO solamente para recorrer arrays. En Javascript existen otras estructuras que están definidas como objetos iterables.
+- Arrays [arreglos de datos]
+- Strings [cadenas de texto]
+- Maps [colecciones de pares clave-valor]
+- Sets [colecciones de valores únicos]
+- Arguments [objeto interno de las funciones]
+- NodeLists [colecciones de nodos del DOM]
 # FUNCIONES
 Las funciones nos permiten agrupar líneas de código en tareas con un nombre (subprograma), para que posteriormente podamos referenciar ese
 nombre para realizar dicha tarea. Algunas razones para declarar funciones:
 
-● Simplificación: Cuando un conjunto de instrucciones se va a usar muchas veces, se
+● *Simplificación*: Cuando un conjunto de instrucciones se va a usar muchas veces, se
 crea una función con esas instrucciones y se llama la cantidad de veces que sea
 necesario, reduciendo un programa complejo en unidades más simples.
 
-● División: Una función me permite modularizar, es decir, armar módulos. De esta
+● *División*: Una función me permite modularizar, es decir, armar módulos. De esta
 manera un equipo puede dividir el trabajo en partes. Cada integrante realiza una
 función, para luego integrarlas en un programa principal más grande.
 
-● Claridad: Usando funciones un programa gana claridad, aunque esa función solo
+● *Claridad*: Usando funciones un programa gana claridad, aunque esa función solo
 se llame una vez.
 
-● Reusabilidad: Una función es reutilizable, sólo es necesario cambiar los valores de
+● *Reusabilidad*: Una función es reutilizable, sólo es necesario cambiar los valores de
 entrada
 
 - Declarar la función es darle un nombre a la funcion y definir qué realizará.
@@ -290,12 +326,12 @@ entrada
 > - verbos en infinitivo, (-ar, -er, -ir)
 > - Si es más de una palabra, se usa la nomenclatura camelCase
 
-## **Parámetros** 
-: Los **parámetros** de la función son variables que ponemos cuando definimos la función.
+## Parámetros 
+Los **parámetros** de la función son variables que ponemos cuando definimos la función.
 ejemplo:
 ```js
 function sumar (a, b) {
-    console.log( a+b );
+    console.log( a + b );
 };
 ```
  
@@ -307,16 +343,17 @@ function multiplicar (a, b = 1) {
 return a * b;
 }
 ```
-
-## **Argumentos**
+## Argumentos
 Los **argumentos** son los valores que se le pasan mediante los parámetros
 
+```js
 let a = sumar( 7,4 );
 console.log(a); //se espera 11 como resultado
-## **Devolución de valores**
+```
+
+## Devolución de valores
 
 Una función puede ejecutar código sin devolver nada al terminar, o puede devolver datos necesarios obtenidos durante el proceso, para posteriormente utilizarlos en otra función u otro evento. Para esto se usa *RETURN*.
-
 ```js
 function sumar ( a, b){
 	return a+b;
@@ -358,8 +395,11 @@ const resultado = MiFuncion2(6, 2);
 ```
 
 ### FUNCIONES FLECHA O 'ARROW'
+Las funciones flecha se utilizan para definir funciones de manera más fluida y resumida. Normalmente se asignan a una constante, para que no puedan variar ni reasignarse.
+No hacen uso de `this` dado que no tienen un contexto definido, por lo que, dependiendo donde se defina la función flecha, `this` puede referirse a un objeto, el objeto window en el navegador, o quedar `undefined` cuando se usa en un hilo de ejecución en Nodejs.
 
-Las **funciones flecha** se utilizan para definir funciones de manera más fluida y resumida. Normalmente se asignan a una constante, para que no puedan variar ni reasignarse.
+Las funciones flecha tienen un `return` implícito si el bloque a ejecutar se puede escribir en una sola linea y sin llaves.
+Si el bloque tiene más de una linea, normalmente hay que agruparlas usando las llaves y esto evita que se use un return implícito, por lo que si necesitamos retornar algún valor, deberemos explicitarlo en el bloque.
 
 definicion:
 ```js
@@ -384,11 +424,11 @@ const Cuadrado = x => x*x;
 
 #### Sintaxis básica
 
-- *Un parámetro. con una expresión simple, no necesita RETURN*
+- Un parámetro. con una expresión simple, no necesita `RETURN`
 
 `parámetro => expresión`
 
-- *Varios parámetros requieren paréntesis, con una expresión simple no necesita RETURN*
+- Varios parámetros requieren paréntesis, con una expresión simple no necesita `RETURN`
 
 `(parámetro1, parámetro2, ..., parámetroN) => expresión`
 
@@ -482,12 +522,9 @@ const resultado = calculadora(5, 2, sumar);
 ```
 
 # CALLBACK
-
-Se determina *"Callback"* a una función que se pasa como parámetro de otra, siendo posible que esta función parámetro, sea llamada dentro de la otra función, para ejecutarse cuando el código de la primer funcion llegue a cierto punto o bajo ciertas condiciones.
+Se determina *"Callback"* a una función que se pasa como parámetro de otra, siendo posible que esta función parámetro, sea llamada dentro de la función principal, para ejecutarse cuando el código de la primer funcion llegue a cierto punto o bajo ciertas condiciones.
 # CLOSURE
-
 Un *CLOSURE* se define como una función que encierra variables en su propio ámbito.
-
 
 # OBJETOS
 Un objeto de JavaScript tiende a ser una abstracción de los objetos de la vida. Como tales, todos tienen propiedades, por ejemplo, color, cantidad de ruedas, edad, etc. También dichos objetos, poseen funciones asociadas a ese objeto en particular.
@@ -500,6 +537,8 @@ Manera con el operador de asignación:
 ```js
 var miAuto = new Object();
 
+```js
+var miAuto = new Object();
 miAuto.marca = "wolkswagen";
 miAuto.tipo = "automóvil";
 miAuto.modelo = 2013;
@@ -514,15 +553,69 @@ modelo: 2013
 };
 ```
 
-## Propiedades
+```js
+var miAuto = {
+    marca:"wolkswagen",
+    tipo: "automovil",
+    modelo: 2013
+    };
+```
+ 
+También los objetos pueden tener *METODOS* (son funciones asociadas a los objetos en si):
 
+ej:
+
+```js
+var miAuto = {
+	marca:"wolkswagen",
+	tipo: "automovil",
+	modelo: 2013,
+	datosDelVehiculo: function () {
+	return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
+	};
+};
+```
+
+esto permite que al nosotros invocar el método del objeto miAuto, se obtenga los 3 datos del objeto.
+
+```js
+console.log(miAuto.datosDelVehiculo()); //esto devuelve "Este es un wolkswagen, tipo automovil, modelo 2013"
+```
+ 
+ Los metodos pueden ser creados con otra sintaxis, ej:
+```js
+var miAuto = {
+    marca:"wolkswagen",
+    tipo: "automovil",
+    modelo: 2013,
+    datosDelVehiculo () {
+         return "Este es un " + this.marca + ", tipo " + this.tipo + ", modelo " + this.modelo
+    };
+};
+```
+
+## Acceder a las propiedades de un objeto.
 Para acceder a las propiedades de un objeto hay distintas notaciones. 
 Se puede utilizar el punto; `miAuto.marca`, se puede utilizar corchetes; `miAuto['marca']`
 
-> ⚠️ El nombre de una propiedad puede ser cualquier cadena válida de JS. Pero si
-no es un identificador válido de JS (por ejemplo, comienza con un número)
-solo se puede acceder utilizando la notación de corchetes.
+>[!warning] Cuidado!
+>El nombre de una propiedad puede ser cualquier cadena válida de JS. Pero si no es un identificador válido de JS (por ejemplo, comienza con un número) solo se puede acceder utilizando la notación de corchetes.
 
+La notación de punto para acceder a propiedades es la más habitual, dado que busca directamente el nombre de la propiedad que definimos.
+```js
+console.log(miAuto.marca); //volkswagen
+```
+devolverá lo indicado, pero qué pasa si queremos hacerlo más dinámico, y quizás utilizar propiedades que vayan cambiando a medida que vamos accediendo a sus valores? deberíamos declarar cada acceso con una linea nueva. Para estos casos, entra en juego el acceso por corchetes
+
+```js
+const propiedades = ["marca", "tipo", "modelo"];
+
+for(let a = 0; a < propiedades.length; a++){
+	console.log(`propiedad: ${propiedades[a]} = ${miAuto[propiedades[a]]}`);
+} 
+
+```
+el acceso a propiedades por corchete permite "evaluar" lo que hay dentro del corchete y luego intentar acceder al objeto, con ese valor de propiedad.
 
 
 ## metodos()
@@ -585,7 +678,7 @@ var Perro2 = new Perro ('Estrellita', 10, 'blanco');
 ## prototipos
 Cuando ya tenemos creado una clase u objeto instanciado, o varios, y queremos agregarle una propiedad para que todos los objetos ya instanciados la tengan disponible, podemos usar el método  _prototype_ 
 
-Usando la clase Perro definida arriba, podemos agregarle una propiedad a todos por igual, por ejemplo, "cantidadPatas".
+Usando la clase *Perro* definida arriba, podemos agregarle una propiedad a todos por igual, por ejemplo, "*cantidadPatas*".
 
 esto se hace mediante el metodo prototype, de la siguiente manera:
 
@@ -709,138 +802,117 @@ Significa que **la variable no puede ser reasignada**.
 
 Debes conocer:
 ### Spread
+```js
 const copia = {
-
     ...usuario
-
 };
+```
 
 Y:
 
+```js
 const actualizado = {
-
     ...usuario,
-
     edad: 30
-
 };
+```
 
 Esto es fundamental.
 
 Pero también debes entender que es una **copia superficial**.
-
+```js
 const usuario = {
-
     nombre: "Seiya",
-
     direccion: {
-
-        ciudad: "Tokyo"
-
+       ciudad: "Tokyo"
     }
-
 };
+```
 
-  
-
+```js
 const copia = {
-
     ...usuario
-
 };
-
+```
   
-
+```js
 copia.direccion.ciudad = "Kyoto";
-
+```
 También cambia:
 
+```js
 usuario.direccion.ciudad
+```
 
 porque `direccion` sigue siendo la misma referencia.
 
 ---
-
 # 4. Object destructuring
-
 Esto es obligatorio:
 
+```js
 const usuario = {
-
     nombre: "Seiya",
-
     edad: 25
-
 };
+```
 
-  
-
+```js
 const { nombre, edad } = usuario;
+```
 
 También:
 
+```js
 const {
-
     nombre: nombreUsuario,
-
     edad: edadUsuario
-
 } = usuario;
+```
 
 Y valores por defecto:
 
+```js
 const {
-
     nombre,
-
     pais = "Japón"
-
 } = usuario;
+```
 
 Lo vas a encontrar constantemente en Node.
 
 ---
-
 # 5. Spread y rest
 
-Debes distinguirlos.
-
+Debes distinguir estos operadores para saber qué hace cada uno.
 ### Spread
-
 Expande:
-
+```js
 const numeros = [1, 2, 3];
-
-  
-
 const otros = [...numeros, 4, 5];
+```
 
 En objetos:
 
+```js
 const usuarioNuevo = {
-
     ...usuario,
-
     activo: true
-
 };
+```
 
 ### Rest
 
 Agrupa:
-
+```js
 const {
-
     nombre,
-
     ...resto
-
 } = usuario;
+```
 
 Ahora:
-
 resto
-
 contiene las propiedades restantes.
 
 ---
@@ -849,55 +921,52 @@ contiene las propiedades restantes.
 
 Estos sí o sí:
 
-Object.keys()
+**Object**.keys(): Enumera las **propiedades** de un objeto definidas, no así de su prototipo.
 
-Object.values()
+**Object**.values(): enumera los **valores** de las propiedades de un objeto definidas.
 
-Object.entries()
+**Object**.entries(): Devuelve un array de arrays. Cada array contiene al primer elemento la propiedad y luego los restantes sus valores, si es que tiene más de uno.
 
-Object.fromEntries()
+**Object**.fromEntries(): dado un array de valores, convierte un objeto con el primer valor de cada array como propiedad, y el resto como valor.
 
 Por ejemplo:
-
+```js
 const usuario = {
-
     nombre: "Seiya",
-
     edad: 25
-
 };
+```
 
 ### `Object.keys`
-
+```js
 Object.keys(usuario);
-
-["nombre", "edad"]
+//["nombre", "edad"]
+```
 
 ### `Object.values`
-
+```js
 Object.values(usuario);
-
-["Seiya", 25]
+//["Seiya", 25]
+```
 
 ### `Object.entries`
-
+```js
 Object.entries(usuario);
-
+/*
 [
-
     ["nombre", "Seiya"],
-
     ["edad", 25]
-
 ]
+*/
+```
 
 Y entender esto te permite hacer:
 
+```js
 for (const [clave, valor] of Object.entries(usuario)) {
-
     console.log(clave, valor);
-
 }
+```
 
 ---
 
@@ -988,53 +1057,52 @@ existen muchos métodos para strings dado que JavaScript fue diseñado en base a
  | .lastIndexOf(**str**, *from*) | Devuelve la posición de *str*, pero indica la última posición encontrada desde *from* / devuelve -1 si no encuentra nada|
  | _string1_.localeCompare(_string2_) | Compara dos cadenas, devuelve -1, 0 si son iguales, 1 |
  | .search(**regExp**) | Devuelve el *index* al encontrar la primer coincidencia en la cadena con **regExp** / si se pasa un string se transforma a *regExp* / .match() devuelve un array de indices|
-|
- 
- 
 
 ---
 
-##TEMPLATE STRINGS
-
-Las Template Strings utilizan las comillas invertidas o backticks para
+## TEMPLATE STRINGS
+Las *Template Strings* utilizan las *comillas invertidas* o *backticks* para
 delimitar sus contenidos, en vez de las tradicionales comillas simples o
 dobles de las cadenas de texto normales.
 Las principales funcionalidades que aportan las Template Strings son:
 ● Interpolación de cadenas.
-    : La interpolación permite utilizar cualquier expresión válida de JavaScript (como por ejemplo la suma de dos variables)
+     La interpolación permite utilizar cualquier expresión válida de JavaScript (como por ejemplo la suma de dos variables)
     dentro de una cadena y obtener como resultado la cadena completa con la expresión evaluada.
     Las partes variables de una Template String se denominan placeholders y utilizan la sintaxis ${ } para diferenciarse del
     resto de la cadena.
-● Posibilidad de incluir (y evaluar) expresiones dentro de cadenas.
+● Posibilidad de *incluir (y evaluar)* expresiones dentro de cadenas.
 ● Definición de cadenas de texto en varias líneas sin tener que usar hacks.
 ● Formatear cadenas de manera avanzada.
 ● Cadenas etiquetadas.
  
 ej: 
 
-        var a = 10;
-        var b = 10;
-        console.log(`Javascript se publicó hace ${ a + b} años!`);
-
-        console.log(`Existen ${2 * (a + b)} frameworks Javascript`);
-
+```js
+var a = 10;
+var b = 10;
+console.log(`Javascript se publicó hace ${ a + b} años!`);
+console.log(`Existen ${2 * (a + b)} frameworks Javascript`);
+```
+ 
 Dentro inclusive del valor interpolado, se pueden utilizar directamente funciones.
 
 ej:
-
-        function fn () { return "este es el resultado" };
-        console.log (`Hola mundo! ${ fn () }`);
+```js
+function fn () { return "este es el resultado" };
+console.log (`Hola mundo! ${ fn () }`);
+```
 
 Incluso la sintaxis permite acceder a métodos y propiedades...
 ej:
 
-    var usuario = {nombre : "Juan Perez"};
-    console.log(`Estás hablando con ${ usuario.nombre.toUpperCase() }.`);
+```js
+var usuario = {nombre : "Juan Perez"};
+console.log(`Estás hablando con ${ usuario.nombre.toUpperCase() }.`);
+```
 
-
-
-## OBJETO MATH ------
 ---
+## OBJETO MATH 
+
 Math es un objeto que tiene propiedades y métodos para constantes y funciones matemáticas.
 
 - Math.E
@@ -1048,31 +1116,32 @@ Math es un objeto que tiene propiedades y métodos para constantes y funciones m
 
 ### Los métodos más útiles para web.
 
-| Método -----------| Descripción     |
-|-------------------|--------|
-| Math.abs(x) | Devuelve el valor absoluto de x |
-| Math.sign(x) | Devuelve el signo del número: 1 positivo, -1 negativo |
-| Math.exp(x)    | Exponenciación W. Devuelve el número *e* elevado a la *x* |
-| Math.expm1(x)  |  Equivalente a Math.exp(x) - 1 |
-| Math.max(*a*, *b*, *c*, ... , *n*)| Devuelve el número más grande de los indicados por parámetro.|
-| Math.min(*a*, *b*, *c*, ... , *n*)| Devuelve el número más pequeño dentro de los indicados |
-| Math.pow (*base*, *exp*) | Potenciación W. Devuelve el nro *base* elevado a *exp* |
-| Math.sqrt(x) | Devuelve la raíz cuadrada W de *x* |
-| Math.cbrt(x) | Devuelve la raíz cúbica W de *x* |
+| Método -----------                 | Descripción                                                   |
+| ---------------------------------- | ------------------------------------------------------------- |
+| Math.abs(*x*)                      | Devuelve el valor absoluto de x                               |
+| Math.sign(*x*)                     | Devuelve el signo del número: 1 positivo, -1 negativo         |
+| Math.exp(*x*)                      | Exponenciación W. Devuelve el número *e* elevado a la *x*     |
+| Math.expm1(*x*)                    | Equivalente a Math.exp(x) - 1                                 |
+| Math.max(*a*, *b*, *c*, ... , *n*) | Devuelve el número más grande de los indicados por parámetro. |
+| Math.min(*a*, *b*, *c*, ... , *n*) | Devuelve el número más pequeño dentro de los indicados        |
+| Math.pow (*base*, *exp*)           | Potenciación W. Devuelve el nro *base* elevado a *exp*        |
+| Math.sqrt(*x*)                     | Devuelve la raíz cuadrada W de *x*                            |
+| Math.cbrt(*x*)                     | Devuelve la raíz cúbica W de *x*                              |
 
-
-
- ### *Math.random()*
+### Math.random()
 
  Este método del objeto Math, devuelve un nro aleatorio entre 0 y 1, con 16 decimales. Si queremos usarlo para obtener un nro al azar entre los límites *a* y *b* se puede hacer lo siguiente.
 
-        let randomNro = Math.random() * (b-a);
-        let nroFinal = Math.floor (randomNro) + a;
-
+```js
+let randomNro = Math.random() * (b-a);
+let nroFinal = Math.floor (randomNro) + a;
+```
+ 
 ej: si quiero un nro al azar entre 50 y 70(no incluido):
-
-        let randomNro = Math.random() * (70 - 50);
-        let nroFinal = Math.floor (randomNro) + 50;
+```js
+let randomNro = Math.random() * (70 - 50);
+let nroFinal = Math.floor (randomNro) + 50;
+```
 
 ### metodos similares a floor:
 
@@ -1081,6 +1150,20 @@ ej: si quiero un nro al azar entre 50 y 70(no incluido):
 - Math.floor (*x*) : Devuelve el redondeo inferior de *X* (entero más bajo)
 - Math.fround (*x*) : Devuelve el redondeo de *X* (flotante con precisión simple)
 - Math.trunc (*x*) : Devuelve **sólamente** la parte entera de *X*
+
+## Conversion explícita de tipo de datos 
+Es el proceso de cambiar de un tipo de dato a otro siempre y cuando tenga sentido. La coherción es el proceso implícito de este cambio que hace el lenguaje en tiempo de ejecución cuando utilizamos ciertos operadores con ciertos tipos de valores.
+### convertir a número
+Pdemos convertir valores a números usando la función `Number()` o bien  `parseInt()` y `parseFloat()` para cadenas de texto.
+
+- `Number("numero en string")`
+```js
+Number("1243") //devuelve el número 1243
+
+
+```
+Si el número en string contiene caracteres de letras, el retorno es **NaN**.
+
 
 
 ## ARRAYS (vectores o arreglos)
