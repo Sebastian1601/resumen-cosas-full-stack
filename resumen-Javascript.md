@@ -289,7 +289,7 @@ for(let propiedad in datos){
 ```
 
 ## FOR...OF
-El metodo for of nos permite iterar sobre los valores de un **objeto iterable**, en particular los arrays que podemos definir con información dentro.
+El metodo for of nos permite iterar sobre los valores de un **objeto iterable**, en particular los **arrays** que podemos definir con información dentro.
 
 NO ESTA RESTRINGIDO solamente para recorrer arrays. En Javascript existen otras estructuras que están definidas como objetos iterables.
 - Arrays [arreglos de datos]
