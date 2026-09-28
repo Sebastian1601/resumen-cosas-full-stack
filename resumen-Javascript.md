@@ -618,7 +618,7 @@ for(let a = 0; a < propiedades.length; a++){
 el acceso a propiedades por corchete permite "evaluar" lo que hay dentro del corchete y luego intentar acceder al objeto, con ese valor de propiedad.
 
 
-## metodos()
+## Metodos()
 También los objetos pueden tener **METODOS** (son funciones asociadas a los objetos en si):
 
 ej:
