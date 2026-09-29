@@ -1,6 +1,6 @@
 # MongoDB NoSQL 
 
-### instalación de MongoDB Server y Shell
+## instalación de MongoDB Server y Shell
 
 para instalar el servidor, de acuerdo a la versión de Windows que tengamos, debemos descargar el paquete instalador desde la web oficial *https://www.mongodb.com/es*
 
@@ -14,11 +14,13 @@ Finalizado esto, debemos crear la carpeta
 Finalmente, descargamos el shell aparte, aqui no depende del sistema operativa en particular, hay que verificar que sea para windows 10+. 
 Si se descarga el zip del shell, se puede descomprimir en la misma carpeta del server, carpeta bin para poder luego agregar dicha carpeta a las variables de entorno.
 
-### Instalar en *PATH* la dirección de la carpeta BIN de mongodb. (esto permite que los comandos de MongoDB Shell se puedan utilizar desde la consola de comandos)
+### Instalación de variables de entorno
 
-Se crea un nuevo item del menú Variables de Entorno en PATH, con la ruta de la carpeta BIN en archivos de programa de MongoDB.
+Es recomendable copiar en el menú de variables de entorno `PATH` la dirección de la carpeta `BIN` de `mongodb`. (esto permite que los comandos de MongoDB Shell se puedan utilizar desde la consola de comandos desde cualquier ruta)
 
-## Ejecutar MongoDB
+Se crea un nuevo item del menú Variables de Entorno en `PATH`, con la ruta de la carpeta BIN en archivos de programa de MongoDB.
+
+## Ejecución de MongoDB
 
 Abrimos una Terminal, y ejecutamos   
 
@@ -32,57 +34,48 @@ Para conectar el Shell de la terminal, debemos abrir otra Terminal, y ejecutar
 para que el shell se conecte con el servicio de "MongoD".
 
 
-Ahi ya tenemos vinculado el Shell con el servicio y podemos ejecutar código de Mongo para administrar bases. *Deben estar ambos procesos abiertos*.
-
+Ahi ya tenemos vinculado el Shell con el servicio y podemos ejecutar código de Mongo para administrar bases. 
+>[!warning] IMPORTANTE
+>Deben estar ambos procesos abiertos!!!.
 
 ### Comandos Básicos del Shell.
-
-
-Se puede ejecutar el comando _base_ con el método .help y esto nos devolverá la lista de comandos derivados del comando base.
+Se puede ejecutar el comando base con el método `.help` y esto nos devolverá la lista de comandos derivados del comando base.
 ej:
+```shell
+db.help //esto dispara ayuda sobre los comandos db.(métodos)
+```
+### `db`
+ este comando devuelve la base de datos que estamos utilizando (independientemente de que el prompt ya lo indica)
 
-    > db.help //esto dispara ayuda sobre los comandos db.(métodos)
-    
+### `show dbs`
+Este comando devuelve la lista de base de datos que tenemos creadas (==IMPORTANTE==: Las bases deben tener algún dato para figurar en esta lista)
 
-#### _db_
+### `use [dbname]`
+Este comando "crea" una base de datos nueva de nombre [dbname] y pasa a ella directamente.
+>[!example] ejemplo
+>`>use peliculas`
 
->  este comando devuelve la base de datos que estamos utilizando (independientemente de que el prompt ya lo indica)
- 
-#### _show dbs_
+### `db.dropDatabase()`
+Este comando **elimina** la base de datos donde estábamos parados.
 
->  este comando devuelve la lista de base de datos que tenemos creadas(esto es importante, las bases deben tener algún dato para figurar en esta lista)
+### `db.createCollection("[nombre_de_colección_a_crear]")`
+Este comando nos permite crear una colleción nueva dentro de nuestra base de datos.
+>[!exmaple] Ejemplo:
+> `>db.createCollection("users")`
 
-#### _use [dbname]_
+### `show collections`
+Este comando nos devuelve las colecciones dentro de la base de datos actual.
 
->  este comando "crea" una base de datos nueva de nombre [dbname] y pasa a ella directamente.
-> ej: >use peliculas
-
-#### _db.dropDatabase()_
-
-> este comando elimina la base de datos donde estábamos parados.
-
-#### _db.createCollection("[nombre de la collecion a crear]")_
-
-> este comando nos permite crear una colleción nueva dentro de nuestra base de datos.
-> ej: > db.createCollection("users")
-
-
-#### _show collections_
-
-> este comando nos devuelve las colecciones dentro de la base de datos actual.
-
-#### _db.[nombre de una coleccion].drop()_
-
-> este comando elimina la coleccion indicada en el comando, devolviendo "true" si es exitoso.
-> ej: > db.users.drop()
-
+### `db.[nombre_de_una_coleccion].drop()`
+Este comando **elimina** la coleccion indicada en el comando, devolviendo "*true*" si es exitoso.
+> [!example] Ejemplo:
+> `>db.users.drop()`
 
 ### Ejemplo de Documento para una coleccion.
+Los documentos van a estar agregados en formato *JSON* (Javascript Object Notation) a la base de datos, y como tales, pueden contener datos primitivos, o incluso más objetos, o arrays.
 
-> Los documentos van a estar agregados en formato JSON (Javascript) a la base de datos, y como tales, pueden contener datos primitivos, o incluso más objetos, o arrays.
-
-ej:
-```
+>Ejemplo:
+```json
 {
       "nombre de propiedad 1":"valor string",
       "nombre de propiedad 2": valor Number,
@@ -90,11 +83,12 @@ ej:
       "nombre de propiedad 4": valor RegExp,
       "nombre de propiedad 5": {
             otro objeto como el definido,
-}
+			}
 }
 ```
-ej:
-```
+
+>Ejemplo 2:
+```json
 {
       "nombre":"Pedro",
       "edad":45,
@@ -106,107 +100,87 @@ ej:
             }
 }
 ```
+
 ---
 ### Insertar documentos en una coleccion
-
-Para insertar documentos en una coleccion, tenemos dos métodos: 
-
-1 db.collections('coleccion a usar').insertOne( {} ) // insertar un elemento.
-
-2 db.collections('coleccion a usar').insertMany( [{}, {}, ..., {}] ) // insertar varios documentos
-
-#### db.coleccion.insertOne()
-
-`db.collection('coleccion_donde_insertar').insertOne( {Obj JSON a insertar} )`
-
+Para insertar documentos en una coleccion, tenemos **dos métodos**: 
+1.  `db.collections('coleccion a usar').insertOne( {} )` // insertar un elemento.
+2. `db.collections('coleccion a usar').insertMany( [{}, {}, ..., {}] )` // insertar varios documentos
+### `db.coleccion.insertOne()`
+`db.collection('coleccion_donde_insertar').insertOne( {Obj_JSON_a_insertar} )`
 A su vez, podemos crear una coleccion al vuelo, insertando un documento directamente en la nueva colección, con el código
 
 `db.[nombre_de_nueva_coleccion].insertOne({ Obj JSON a insertar })`
-
 y esto nos devuelve un objeto del siguiente formado, confirmando si se agregó el documento:
-
-```
+```json
 {
-      acknowledged:true,
-insertedIds: {'[index]': ObjectId('[IdUnicaParaIdentificarElDocumento]')}
+  acknowledged:true,
+  insertedIds: {'[index]': ObjectId('[IdUnicaParaIdentificarElDocumento]')}
 }
 ```
 
-#### db.coleccion.insertMany()
-
+### `db.coleccion.insertMany()`
 `db.collection('coleccion_donde_insertar').insertMany( [ {}, {}, ..., {}] )`
 
-> ⚠️ NOTESE: al usar .insertMany se pasa como argumento, un array de Obj JSON a insertar. Cada operación es atómica, pero el proceso en sí no lo es.
-> Si la colección no existe, el método insertMany() crea la misma para guardar los datos.
+>[!warning] NOTESE:
+>al usar `.insertMany` se pasa como argumento, un **array** de *Obj JSON* a insertar. Cada operación es atómica, pero el proceso en sí no lo es.
+> Si la colección no existe, el método `.insertMany()` crea la misma para guardar los datos.
 
 ---
-
 ### Listar elementos en una coleccion
+Para buscar algún objeto dentro de una colección, tenemos el método de Javascript `find()`
 
-Para buscar algún objeto dentro de una colección, tenemos el método de Javascript _find()_
+>Ejemplo:
+`> db.[nombre de la coleccion].find()`
 
-ej:
-
-`db.[nombre de la coleccion].find()`
-
-esto nos devuelve el listado de todos los elementos de la coleccion.
-
-ejemplo de elemento guardado ya en la coleccion.
-
-`{
-      "_id: ObjectId('jaksljd32345klj8das988s8ds8')
-      "nombre":"Pedro",
-      "edad":45,
-      "vive": true,
-      "contactos":{
-            "nombre":"Ariana",
-            "parentesco":"hermana",
-            "nro_contacto":0115465231152
-            }
-}`
-
-#### Guardar múltiples datos al mismo tiempo
-
-Para guardar una lista de documentos a guardar, se pasa por el método insert, un array de los objetos a agregar...
-ej:
-
-`db.[coleccion_donde_agregamos_los_datos].insertMany( [ array de documentos a ingresar ])`
-
-ejemplo práctico:
-
-```
-db.productos.insert([
+Esto nos devuelve el listado de todos los elementos de la coleccion.
+Ejemplo de elemento guardado ya en la coleccion.
+```json
 {
-"name":"Monitor 24",
-"price":9.99
-},
-{
-"name":"Monitor 29",
-"price":14.99
+	"_id: ObjectId('jaksljd32345klj8das988s8ds8')
+    "nombre":"Pedro",
+    "edad":45,
+    "vive": true,
+    "contactos":{
+        "nombre":"Ariana",
+        "parentesco":"hermana",
+        "nro_contacto":0115465231152
+    }
 }
+```
+### Guardar múltiples datos al mismo tiempo
+Para guardar una lista de documentos a guardar, se pasa por el método `insert`, un **array** de los objetos a agregar...
+>[!example] Ejemplo:
+`db.[coleccion].insertMany( [Documentos_a_ingresar ])`
+
+>Ejemplo práctico:
+```js
+db.productos.insert([
+	{
+		"name":"Monitor 24",
+		"price":9.99
+	},
+	{
+		"name":"Monitor 29",
+		"price":14.99
+	}
 ])
 ```
 
 ---
+### Búsqueda por propiedad
+Para buscar y obtener resultados de un dato en particular, debemos usar el método `.find()` con un objeto dentro indicando el valor que queremos obtener o buscar.
 
-#### Buscar por una propiedad en particular
-
-Para buscar y obtener resultados de un dato en particular, debemos usar el método find() con un objeto dentro indicando el valor que queremos obtener o buscar.
-ej:
-
+>Ejemplo:
 `db.productos.find( { "price":4.99 } )`
 
-> Esto nos devolverá una ***lista de elementos*** donde TODOS coincidan con este dato en particular.
-
-
-#### Eliminar propiedades de las respuesta 
-
+Esto nos devolverá una ***lista de elementos*** donde *TODOS* coincidan con este dato en particular.
+### Eliminar propiedades de las respuesta 
 Al buscar documentos que coincidan con el criterio indicado, podemos indicar que los resultados, manejen solamente ciertas propiedades del documento.
-ej:
 
+>Ejemplo:
 Tengo la siguiente lista de elementos...
-
-```
+```json
 [
   {
     _id: ObjectId('670dc3b3c5633caa6786b01e'),
@@ -235,76 +209,61 @@ Tengo la siguiente lista de elementos...
   }
 ]
 ```
-Al realizar la busqueda de los mismos, podemos definir qué propiedades queremos obtener de los resultados, algo así como el `SELECT name, price FROM` de SQL, pero con objetos JSON...
+Al realizar la busqueda de los mismos, podemos definir qué propiedades queremos obtener de los resultados, algo así como el `SELECT name, price FROM` de SQL, pero con objetos *JSON*...
 
 Por lo tanto podemos realizar nuestra busqueda de la siguiente manera, de acuerdo a la lista anteriormente mencionada:
-
 `db.productos.find({"price":14.99}, {"name":1, "_id":0})`
 
 ...esto devolverá como resultado el siguiente array de documentos:
-
 `[ { name: "Monitor 29'" }, { name: 'tablet barata' } ]`
 
-demostrando que los documentos que coinciden con ese precio, son 2.
+demostrando que los documentos que coinciden con ese precio, son 2 y evitando campos que no nos interesan, como el `price` (que ya lo sabemos, y el `_id`)
 
 ---
+### Ordenar resultados al buscar
+Para poder ordenar los datos al buscar y obtener una lista de documentos, se utiliza el método `.sort()`.
+***NOTESE QUE DENTRO DEL METODO `SORT()`, NO SE USA COMILLA PARA EL OBJETO PASADO COMO PARAMETRO***
 
-#### Ordenar resultados al buscar
-
-Para poder ordenar los datos al buscar y obtener una lista de documentos, se utiliza el método .sort().
-
-***NOTESE QUE DENTRO DEL METODO SORT(), NO SE USA COMILLA PARA EL OBJETO PASADO COMO PARAMETRO***
-
-ej:
+>Ejemplo:
 `db.productos.find().sort({price: 1})`
 
-
 ---
+### Establecer límite en resultados
+Para obtener un límite en la busqueda, le agregamos el método `.limit([cant.])` 
 
-#### Establecer límite en los resultados de una busqueda
-
-Para obtener un límite en la busqueda, le agregamos el método .limit([cant. de resultados que queremos]) 
-
-ej:
-
+>Ejemplo:
 `db.productos.find().limit(5)`
 
 > Esto nos devuelve un listado de los primeros 5 documentos de entre todos los que listaría sin el límite.
 
-
 ---
-
-#### Contar documentos de una colección en particular
-
+### Contar documentos de una colección en particular
 Podemos contar qué cantidad de documentos tenemos en la colección que queremos, con el método `.countDocuments()`
-Ej:
+
+>Ejemplo:
 `db.[coleccion].countDocuments()`
 
 ---
+### Métodos de arrays en los resultados de busqueda.
+Al ser MongoDB un intérprete de *Javascript*, podemos definir que a los resultados de una busqueda, le apliquemos un callback para cada uno de ellos, como por ejemplo el método `.forEach(callback)`
 
-#### Métodos de arrays en los resultados de busqueda.
-
-Al ser MongoDB un intérprete de Javascript, podemos definir que a los resultados de una busqueda, le apliquemos un callback para cada uno de ellos, como por ejemplo el método `.forEach(callback)`
-
-ej:
-
+>Ejemplo:
 `db.productos.find().forEach(producto => print("Nombre del producto: " + producto.name))`
 
-> ⚠️ NOTESE: no se usa el método console.log() para imprimir en consola los datos, se usa print() de igual manera que console.log().
+>[!warning] NOTESE: 
+>No se usa el método `console.log()` para imprimir en consola los datos, se usa `print()` de igual manera que `console.log()`.
+
 ---
-
 ### Actualizar datos de un documento
-
 Para poder modificar propiedades de un documento, usamos el método dedicado `.update()`
 
-ej:
+>Ejemplo:
 `db.productos.updateOne({busqueda de propiedad}, { $set: {propiedad a editar o agregar con su valor}} )`
 
 `db.productos.updateOne({"name":"tablet barata"}, { $set: {"name":"tablet Samsung Galaxy X9"} } )`
 
-esto devolverá un objeto con la siguiente estructura:
-
-```
+esto *devolverá* un objeto con la siguiente estructura:
+```js
 {
   acknowledged: true,
   insertedId: null,
@@ -314,7 +273,6 @@ esto devolverá un objeto con la siguiente estructura:
 }
 ```
 ---
-
 ### Selectores de busqueda (importante)
 
 

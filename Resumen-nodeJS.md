@@ -1,7 +1,18 @@
-
-# Roadmap Node.js
-
-Node.js tiene una cantidad considerable de APIs propias: filesystem, streams, eventos, procesos, workers, networking, buffers, CLI, módulos, testing, etc. La documentación oficial actual las separa precisamente en esas áreas.
+## Roadmap Node.js
+Node.js tiene una cantidad considerable de APIs propias:   
+- filesystem
+- streams
+- eventos
+- procesos
+- workers
+- networking
+- buffers
+- CLI
+- módulos
+- testing
+- etc.
+ 
+La documentación oficial actual las separa precisamente en esas áreas.
 
 La idea sería avanzar desde **“cómo ejecuta JavaScript Node” → “cómo interactúa con el sistema operativo” → “cómo maneja concurrencia” → “cómo construir servidores”**.
 
@@ -9,7 +20,7 @@ La idea sería avanzar desde **“cómo ejecuta JavaScript Node” → “cómo 
 
 Antes de meterte profundamente con Node, deberías dominar:
 
-- `let`, `const`
+- `let`, `const` [hecho]
 - tipos y coerción [hecho]
 - objetos y arrays 
 - destructuring

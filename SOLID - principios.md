@@ -11,7 +11,7 @@ Los principios SOLID son guías que ayudan a los programadores a seguir un camin
 
 Estos 5 principios, nos permiten orientar el código para hacerlo escalable. Los principios SOLID introducidos por **Robert C. Martin**, son 5 reglas escenciales que ayudan a los desarrolladores a organizar mejor el código, reducir bugs y facilitar posibles modificaciones futuras.
 
-#### ¿Qué quiere significar SOLID?
+### ¿Qué quiere significar SOLID?
 
 - S - Single Responsibility Principle
 - O - Open/Closed Principle
@@ -19,15 +19,14 @@ Estos 5 principios, nos permiten orientar el código para hacerlo escalable. Los
 - I - Interface Segregation Principle
 - D - Dependency Inversion Principle
 
-##### 1. Single Responsibility Principle (SRP)
+### 1. Single Responsibility Principle (SRP)
 
 "*Una clase, módulo o función, debería tener una única razón para cambiar.*"
 
-En principio, se dice que esto significa que una función, clase o módulo, debería realizar una sola tarea. Esto hace el código legible, más fácil de testear y mantener.
+En principio, se dice que esto significa que una función, clase o módulo, debería realizar *una sola tarea*. Esto hace el código legible, más fácil de testear y mantener.
 Según lo leído en otros artículos, no es tan así, por lo que queda leer el libro de Clean Code para interpretar a qué se refiere el autor con respecto a este principio.
 
 Un ejemplo de una función que no aplica el principio de SRP.
-
 ```js
 function procesarRegistroUsuario(userData){
 //1.validar el input
@@ -81,16 +80,15 @@ function registrarUsuario(userData){
 >[!success] Beneficios
 >- Cada función tiene un propósito claro y definido.
 >- Más fácil de testear modular e independientemente.
->- Si la lógica del mail cambia, solo se actualiza la función enviarMailBienvenida()
+>- Si la lógica del mail cambia, solo se actualiza la función `enviarMailBienvenida()`
 
 Incluso en pequeños proyectos de JS, SRP guía a mejor disciplina de código y un mantenimiento a largo plazo. Siempre tenemos que preguntarnos **¿Esta función se dedica a hacer SOLO una tarea?**, si la respuesta es **NO**, entonces hay que **factorizar**.
 
-##### 2. Open/Closed Principle (OCP)
+### 2. Open/Closed Principle (OCP)
 
 El segundo principio de *SOLID*, ocp afirma lo siguiente:
 
 "*Las entidades de software deberían estar abiertas para extensión, pero cerradas para modificación.*"
-
 En términos simples, deberías poder agregar funcionalidad extra sin tener que cambiar el código existente. Este acercamiento reduce el riesgo de introducir nuevos bugs y promueve la reusabilidad y la flexibilidad  del código. 
 
 Ejemplo de mal código
