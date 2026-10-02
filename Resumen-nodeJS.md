@@ -1227,7 +1227,8 @@ Vamos a buscar la versión correspondiente al hardware que estemos corriendo y e
 >[!important] La manera recomendada, es utilizar ciertas apps, para poder manejar las distintas versiones que podemos instalar, y correr los programas dependiendo de cada version que querramos utilizar.
 
 Para esto, necesitamos de 3 aplicaciones requerídas. Windows Terminal (WSL), RUST, y Fast Node Manager (fnm).
-fast node manager (https://github.com/Schniz/fnm)
+
+### Fast node manager (https://github.com/Schniz/fnm)
 
 - Para instalar Windows Terminal(que no es cdm, ni windows powershell), podemos instalarlo desde la página oficial de microsoft con una simple busqueda.
 - Para instalar RUST, vamos a https://www.rust-lang.org/learn/get-started, y copiamos el código que brinda la página en nuestra Terminal.
@@ -1240,13 +1241,26 @@ fast node manager (https://github.com/Schniz/fnm)
 
   y esto debería resultar en la versión instalada de fnm.
 
-  comandos:
+##### comandos:
+ _fnm list_: devuelve la lista de versiones de node js instaladas.
+ _fnm install (version de node a instalar)_ : esto instala la versiòn que existe en la página oficial de node.
+_fnm use (version de node a usar)_ : esto determina qué versión ejecutará el código indicado.
+ _fnm alias (versión de node a referenciar) default_ : esto hace que la versión indicada de node quede "por defecto" a utilizar cada vez que iniciemos un código, evitando que se usen otras versiones ya instaladas automáticamente.
+ _fnm --HELP_ : muestra los distintos comandos que fnm puede tener.
+list-remote  List all remote Node.js versions [alias: ls-remote]
+list         List all locally installed Node.js versions [alias: ls]
+install      Install a new Node.js version [alias: i]
+use          Change Node.js version
+env          Print and set up required environment variables for fnm
+completions  Print shell completions to stdout
+alias        Alias a version to a common name
+unalias      Remove an alias definition
+default      Set a version as the default version or get the current default version
+current      Print the current Node.js version
+exec         Run a command within fnm context
+uninstall    Uninstall a Node.js version [alias: uni]
+help         Print this message or the help of the given subcommand(s)
 
-   - _fnm list_: devuelve la lista de versiones de node js instaladas.
-   - _fnm install (version de node a instalar)_ : esto instala la versiòn que existe en la página oficial de node.
-   - _fnm use (version de node a usar)_ : esto determina qué versión ejecutará el código indicado.
-   - _fnm alias (versión de node a referenciar) default_ : esto hace que la versión indicada de node quede "por defecto" a utilizar cada vez que iniciemos un código, evitando que se usen otras versiones ya instaladas automáticamente.
-   - _fnm --HELP_ : muestra los distintos comandos que fnm puede tener.
  
 ---
 
