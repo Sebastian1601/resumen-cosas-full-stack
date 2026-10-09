@@ -1,77 +1,70 @@
-# GIT & GITHUB
 
-Indice
+## Indice
 
-[[#Configuración inicial]]
-[[#Repositorios]]
-
-
+- Git
+	- configuración inicial
+	- 
 
 
+# Git
 ## Configuración inicial
-
 Al iniciar Git, hay opciones que es recomendable configurar de manera global, sistema y si es necesario, local también. Al iniciar un cambio en la configuración, podemos indicar que tipo será, de la siguiente manera
 
-`git config --(local/global/system)`
-
-`--local`  realiza cambios para ese repositorio en particular (por defecto si no se especifica) Por ejemplo, queremos usar un nombre de usuario distinto para un repositorio específico.
-
-`--global`  realiza cambios para todos los repos en ese equipo.
-
-`--system`  realiza cambios para todo el sistema.
-
-###### limpiar consola git
+##### limpiar consola git
 `clear`
+##### git config
+`git config --(local/global/system)`
+	 `--local`  realiza cambios para ese repositorio en particular (por defecto si no se especifica) Por ejemplo, queremos usar un nombre de usuario distinto para un repositorio específico.
+	`--global`  realiza cambios para todos los repos en ese equipo.
+	`--system`  realiza cambios para todo el sistema.
 
-###### Ver la lista de configuraciones globales
+**Ver la lista de configuraciones globales:**
+Para ver las configuraciones realizadas podemos usar el comando conjuntamente con el flag de tipo de config y `--list`:
+Ejemplo:
 `git config --global --list`
 
-###### ver configuración y de dónde se están aplicando (loca, usuario o global)
+**Ver configuración y entorno al cual se aplican**
+Para ver la lista de configs total y a qué entorno(local, global o sistema) se están aplicando, usamos:
 `git config --list --show-origin`
-
-
-###### Configurando el nombre global de usuario en git
-`git config --global user.name "Davidejemplo"`
-
-######  Configurando mail
+##### Configurar usuario
+Para configurar el nombre de usuario que queremos git use en commits y demás registros, usamos:
+`git config --global user.name "DavidGiordano"`
+#####  Configurar mail
+Se puede configurar el mail del usuario actual con:
 `git config --global user.email "davidseba.giordano@gmail.com"`
 
-###### Configurar el editor(visual studio code) para mensajes
+##### Configurar el editor por defecto (visual studio code) para mensajes y edición de archivos
+El entorno visual studio code es conocido como `code` en consola, y al ser una variable de entorno global, si está configurado, permite abrir una instancia de *VSCode* utilizando el comando desde la consola. Para que por defecto, se utilice en comandos de git, lo debemos configurar de la siguiente manera:
 `git config --global core.editor "code --wait"`
-(visual studio code)  El `--wait` genera que se confirmen los cambios cuando se cierre el editor de codigos.
 
-###### Configurar colores de interfaz
+El `--wait` genera que se confirmen los cambios cuando se cierre el editor de codigos.
+##### Configurar colores de interfaz
+Esto configura el uso de colores al presentar información pertinente.
 `git config --global color.ui true`
-
-
-###### Importante para evitar problemas a futuro con el texto (funciona solo en windows)
+##### Configuración extra, evitar problemas a futuro con el texto (funciona solo en windows)
 `git config --global core.autocrlf true (carriage return line feed)`
-
-###### Configurar para que la versión abreviada del hash de cada commit, sea de x dígitos (normalmente 10)
+##### Configuración abreviada del hash de commits, sea de x dígitos (normalmente 10)
+Normalmente, el hash que compone cada commit es presentado como una cadena de 10 dígitos. Como estos hash se utilizan bastante al momento de elegir aplicar cambios a un commit específico o aplicar un commit sobre otro, debemos poder escribirlos y referenciarlos.
+Para evitar escribir estos 10 dígitos, podemos "acortar" el código que presenta git (*aunque originalmente se utilicen los 10 dígitos para definirlo*) y usar un hash de "menos digitos" que igualmente, referencien al hash que necesitamos. Podemos setearlo determinando qué cantidad de dígitos queremos cambiando la `X`
 `git config --global core.abbrev X`
-
-
-###### Ver qué valor tiene cierta variable
+##### Ver qué valor tiene cierta variable
 Para poder ver qué valores tiene asignada una variable en particular de la configuración, se puede escribir el comando que se usaría para asignar un valor, sin asignar nada, y git informará qué valor tiene.
+Ejemplo, si queremos saber qué valor guarda la variable `defaultBranch` usamos:
 
-por ej. `git config init.defaultBranch` esto nos devolverá el nombre de la rama principal.
+ `git config init.defaultBranch` 
 
 ---
-
-###### Ayuda
+##### Ayuda de la consola.
 Para solicitar ayuda sobre qué parámetros puede llevar un comando, podemos escribir en la linea de comandos `git + comando + -h`
 
-
 ---
-
 ### info adicional
 [How do i force git to use lf instead of crlf](https://stackoverflow.com/questions/2517190/how-do-i-force-git-to-use-lf-instead-of-crlf-under-windows/13154031#13154031)
 
 ---
 
 ## Repositorios
-### Comandos basicos del shell (linea de comandos)
-
+##### Comandos basicos del shell (linea de comandos)
 Acceder a una carpeta:
 `cd (nombre entrar carpeta)` 
 
@@ -120,14 +113,11 @@ flowchart LR;
 ```
 
 ---
-
-## INICIALIZAR EL REPOSITORIO LOCAL
-
+#### Inicializar un repositorio local
 Antes de comenzar a guardar versiones de los archivos, se debe inicializar una carpeta como un repositorio mediante el comando:
 `git init` 
-
-### Agregar archivos al area de STAGING
-
+Esto crea una carpeta oculta llamada `.git` que guarda información relevante para el uso y manejo de ese repositorio por git-
+#### Agregar archivos al area de STAGING
 Agregar todos los archivos al area de staging 
  `git add .` 
 
@@ -136,63 +126,63 @@ Agregar un archivo específico al area de staging
 
 Agregar archivos por extensión en particular
 `git add *.c`
-esto agregará al tracking de archivos, los archivos de extensión .c nada más. *(cualquier otro archivo, si existiese, no se agregaría al tracking)*
+esto agregará al *tracking de archivos*, los archivos de extensión `.c` nada más. 
+*(cualquier otro archivo, si existiese, no se agregaría al tracking)*
 
-
->[!example] ejemplo:
+Ejemplo:
 `git add index.html image.jpg readme.txt`
 
-
-## CLONAR UN REPOSITORIO EXISTENTE
-Para clonar y traer un repo existente con todo su historial de commits y demás, se usa el comando git clone.
-ej: `git clone [dirección URL del repositorio remoto a clonar]`
-
-Se puede pasar un nombre de carpeta a donde ubicar el repo que estamos clonando como 2do parámetro del comando.
-ej: `git clone https://www.github.com/repo1 carpetaLocal1`
-esto traerá el repositorio remoto **repo1** a una carpeta en nuestra computadora llamada **carpetaLocal1**
-
-### VERIFICAR CAMBIOS EN LOS REPOSITORIOS
-Al ir modificando, creando y eliminando archivos, nos vamos a encontrar con que el repositorio local va a ir mostrando "cambios". Estos cambios, se pueden verificar con el comando git status
-`git status`
-
-existe otra forma de verificar los archivos de una manera más corta.
-`git status -s`
-
-### Sacar archivo del area de STAGING
+#### Eliminar archivos del area de STAGING
 Para sacar archivos del area de staging, puedes indicarle a GIT que **NO SIGA TRACKEANDO** el archivo (*untracked en git status*)
 `git rm --cached (nombre del archivo)`
-esto hace que al hacer git status, se muestre el archivo indicado en la parte de "**untracked files**"
-indicando que el archivo existe, pero que git no está "tomando cuenta" los cambios en el mismo.
+esto hace que al hacer `git status`, se muestre el archivo indicado en la parte de "**untracked files**".
+indicando que el archivo existe, pero que git no está "tomando cuenta" de los cambios en el mismo.
 
 Este comando en particular, remueve el archivo del area STAGED indicado. Si hemos mandando al STAGING un archivo, lo modificamos, y luego devolvemos con este comando al WORKING DIRECTORY el mismo archivo, la versión que prevalece es la modificada por último.
 `git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)`
 
-Elimina todos los archivos agregados actualmente al area de Staging
+#### Elimina todos los archivos del area de Staging
+Este comando devuelve todos los archivos al área de trabajo.
 `git reset` 
 
+#### Verificar cambios en los archivos trackeados
+Al ir modificando, creando y eliminando archivos, nos vamos a encontrar con que el repositorio local va a ir mostrando "cambios". Estos cambios, se pueden verificar con el comando git status
+`git status`
+
+**??** =  archivos que no se están "siguiendo".
+**M** = Los archivos modificados tienen una `M` al lado, esto indica que han cambiado desde el estado inicial del *commit actual*.
+Los archivos que no han cambiado, no figuran en la lista.
+
+existe otra forma de verificar los archivos de una manera más corta.
+`git status -s`
+
 ---
-### .GITIGNORE 
+#### Archivo .GITIGNORE 
+Podemos definir un archivo que determina qué archivos GIT debe ignorar al momento de trackear o buscar cambios para realizar un commit. 
+Esto sólo funciona para archivos que **NUNCA** se han guardado en un commit, si el archivo ya se subió *se seguirá trackeando siempre y cuando no se elimine del tracking* y esté agregado al **.gitignore**
 
- esto define qué archivos GIT debe ignorar al momento de buscar para commitear. y solo funciona para archivos que **NUNCA** se han guardado en un commit, si el archivo ya se subió se seguirá trackeando siempre y cuando no se elimine del tracking y esté agregado al **.gitignore** 
+El archivo se puede abrir con el *Visual Studio Code* y se puede comentar dentro con el símbolo
+`#`
 
-el archivo se puede abrir con el VSC y se puede comentar dentro con el símbolo #(comentario)
-se agrega el `[nombre.ext]` del archivo a ignorar, pero se puede definir por rangos
-  	ej: *.txt / *.jpg / *.py
-   
-para excepcionar un archivo dentro del grupo de archivos definidos por ej en *.txt, se pone
- `![nombre de archivo.txt]`
+- **Archivos**
+Se puede agrega el archivo a ignorar indicando `[nombre.ext]` 
+También se pueden definir por extensión directamente, pero esto ignorará TODOS los archivos de tales extensiones sin importar su nombre:  `.txt / *.jpg / *.py`
+
+Si queremos definir no trackear a todos los archivos de tal extensión, *PERO QUEREMOS EXCEPCIONAR* un archivo dentro del grupo de archivos definidos, podemos negar su nombre luego de haber definido ignorar la extensión
+`/.txt`
+`!miArchivoDeTexto.txt`
   
-Para ignorar un directorio completo se pone
-`[nombre de carpeta]/`
+- **Directorio Completo**
+Para ignorar una carpeta entera, escribimos el nombre de la carpeta en si.
+`MiCarpeta1/`
 
-CONFIGURAR QUE LOS REPOS LEAN UN ARCHIVO .GITIGNORE general:
+- **CONFIGURAR UN ARCHIVO .GITIGNORE general**:
+Para configurar un archivo .gitIgnore general local de nuestra pc, donde pongamos todos los archivos que no queremos que se tracken en ninguno de los proyectos que trabajemos, podemos definir la ruta al unico archivo .gitIgnore asi:
+`git config --global core.excludesfile [ruta en la pc del archivo]`
+Ejemplo: `git config --global core.excludesfile c:/generalfiles/.gitignore_global`
 
-  	git config --global core.excludesfile [ruta en la pc del archivo]
- 	ej: git config --global core.excludesfile c:/generalfiles/.gitignore_global
-
-realizar comentarios dentro del gitignore: arrancar el renglón con #.
-
-```
+#### Ejemplo de un archivo .gitignore
+```gitignore
 # ignorar todos los archivos de extensión .a
 *.a
 
@@ -213,7 +203,11 @@ doc/**/*.pdf
 ```
 
 ---
-### Realizar Commit 
+#### Realizar Commit 
+El commit es una instantánea del estado de proyecto actual del repositorio git.
+Estas instantáneas van a ser nuestros "estados" a los cuales podremos volver, revisar, comparar en otros momentos como "hitos" de nuestro proyecto.
+
+Para realizar un commit, debemos estar *trackeando* archivos del proyecto, y tenemos que haberlos *agregado al area de staging* primero, para indicar qué archivos incluirá el commit.
 
 `git commit -m "(mensaje de actualización en el commit)"`  : (-m permite agregar mensaje al commit).
 
@@ -416,7 +410,7 @@ Ver la lista de alias asignado:
 
 ---
   
-## GIT HUB (Repositorios Remotos) 
+# GIT HUB (Repositorios Remotos) 
 
 
 ```mermaid
@@ -443,9 +437,10 @@ Abrir el VSC dentro de la carpeta actual.
 
 ESTANDO en la carpeta donde queremos copiar el repositorio por HTTPS, copiamos la dirección http y luego:
 
-`git clone [dirección https del repositorio a clonar] ↩️`
-  
->Esto ya configura el remote origin, para el push y fetch
+`git clone [dirección https del repositorio a clonar]`
+
+>[!important] Importante
+>El comando git clone ya configura la variable origin para que se referencie al repositorio clonado de la web, para realizar `push`,  `fetch`, etc.
 
 #### GIT PUSH
 
