@@ -70,14 +70,14 @@ Aprende:
 
 - `node`
 - argumentos
-- `process`
+- process
 - código de salida
-- variables de entorno
-- `process.argv`
-- `process.env`
-- `process.stdin`
-- `process.stdout`
-- `process.stderr`
+- ==variables de entorno==
+- process.argv
+- process.env
+- process.stdin
+- process.stdout
+- process.stderr
 
 Por ejemplo:
 
@@ -87,6 +87,56 @@ console.log(process.env.NODE_ENV);
 ```
 
 Esto te permite empezar a hacer **programas de consola reales**.
+
+#### variables de entorno
+Una variable de entorno es un valor con un nombre dinámico en tu computadora que puede influir en el comportamiento de los procesos en ejecución. Forma parte del entorno donde se ejecuta un proceso. Por ejemplo, una variable de entorno puede almacenar la ubicación de tu directorio principal o tu editor preferido. Tanto las aplicaciones como el sistema utilizan estas variables para acceder a datos específicos sobre el sistema operativo o la sesión en curso.
+
+Al ejecutar código, podemos hacer uso de estos valores asignados a las variables, sin tener que escribirlos o exponerlos en nuestro código.
+Esto genera que tener un valor en una variable de entorno sea más seguro que tener el dato guardado en un archivo o parte de nuestro código.
+
+Podemos crear un archivo `.env` en la raíz de nuestro proyecto, donde usualmente está nuestro entry point del mismo, y asignar ahi dentro, los valores que queremos tener disponibles, en principio de manera local(desarrollo). Al momento de subir y exponer nuestro trabajo en un servidor u hosting, estas variables se pueden cargar manualmente en la interfaz del servicio, y asi no quedar guardadas en ningún archivo.
+
+>[!info] archivo .env
+>Este archivo se crea para manejar las variables en un entorno local, y normalmente no se sube al repositorio ni local ni remoto, dado que suelen ser datos sensibles. Este archivo es uno de los primeros que se define en el .gitIgnore para que git no rastree los cambios realizados al mismo, y tampoco los suba al agregar "todos los archivos"
+
+**Cargar un archivo .env al ejecutar código local.**
+Cuando estamos ejecutando y probando nuestro código localmente, podemos hacer uso del flag `--env-file=.env`  al momento de ejecutar nuestro comando principal y correr el entry point.
+
+>[!example] Ejemplo
+>```bash
+>> "dev" : "node --watch --env-file=.env miEntryPoint.js"
+>```
+
+Esto generaría que al yo correr `npm run dev` para levantar el proyecto, se carguen en process.env las variables que definí en mi archivo `.env`
+
+Un ejemplo del archivo .env sería
+```env
+PUERTO=3000
+MONGODBKEY=898asd9852c0g5j7as35re5424e5sa23d4
+JWTOKEN=d6532asd6503ag65g653a2sd3a02sd3a2sd3a
+```
+
+entonces, desde nuestro código, ya corriendo, podríamos acceder a estos valores de la siguiente manera:
+```js
+const puerto = process.env.PUERTO;
+
+//o también podría desestructurar las variables...
+const { MONGODBKEY } = process.env;
+```
+
+**OTRA MANERA DE CARGAR LAS VARIABLES DESDE EL ARCHIVO**
+otra manera que tenemos, no tan correcta dado que esto, en producción, si no olvidamos cambiar el código, puede tirar abajo nuestro servidor. Esto se debe a que el siguiente método, busca el archivo `.env` en el directorio raíz del proyecto, pero como hemos mencionado, ese archivo no se suele subir como tal en el despliegue, sino que los datos se cargan en el server manualmente.
+
+Aun asi, explicamos el proceso. Desde la versión 21.7.0 de NodeJS, tenemos la opción del método de process llamado `.loadEnvFile()`;
+Este método busca el archivo, carga los datos a process, para que luego podamos usarlos de igual manera que la última explicación.
+
+```js
+import { typeof process } from 'node:process';
+
+process.loadEnvFile();
+
+console.log(process.env.PUERTO);
+```
 
 ---
 

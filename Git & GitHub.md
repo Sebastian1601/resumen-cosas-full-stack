@@ -439,7 +439,7 @@ C-->D
 #### GIT CLONE
 
 Abrir el VSC dentro de la carpeta actual.
-  `c:>CODE .`     
+  `c:> CODE .`     
 
 ESTANDO en la carpeta donde queremos copiar el repositorio por HTTPS, copiamos la dirección http y luego:
 
@@ -506,6 +506,9 @@ y esto nos abre el editor de mensajes de commits, para poner un mensaje. al fina
 finalmente, hacemos un git push
 
 `git push --set-upstream origin main`
+
+Si creamos una rama nueva local, y queremos subir esta al repo remoto, usamos el comando anterior pero con una pequeña diferencia
+`git push -u origin [nombreRama]`
 
 #### ERRORES con git push
 
