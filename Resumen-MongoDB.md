@@ -87,6 +87,28 @@ Los documentos van a estar agregados en formato *JSON* (Javascript Object Notati
 }
 ```
 
+Podemos definir varias propiedades para una principal, de la siguiente manera
+
+```json
+{
+	"nombre propiedad1":{
+			type:String,
+			required:true,
+			trim:true
+		},
+	"nombre propiedad2":{
+			type:Mixed,
+			trim:true
+		},
+	"nombre propiedad3":{
+			type:Number,
+			max:9999,
+			min:1,
+			required:true
+	}
+}
+```
+
 >Ejemplo 2:
 ```json
 {
