@@ -181,7 +181,7 @@ Para configurar un archivo .gitIgnore general local de nuestra pc, donde pongamo
 `git config --global core.excludesfile [ruta en la pc del archivo]`
 Ejemplo: `git config --global core.excludesfile c:/generalfiles/.gitignore_global`
 
-#### Ejemplo de un archivo .gitignore
+>**Ejemplo de un archivo .gitignore**
 ```gitignore
 # ignorar todos los archivos de extensión .a
 *.a
@@ -207,32 +207,27 @@ doc/**/*.pdf
 El commit es una instantánea del estado de proyecto actual del repositorio git.
 Estas instantáneas van a ser nuestros "estados" a los cuales podremos volver, revisar, comparar en otros momentos como "hitos" de nuestro proyecto.
 
-Para realizar un commit, debemos estar *trackeando* archivos del proyecto, y tenemos que haberlos *agregado al area de staging* primero, para indicar qué archivos incluirá el commit.
+Para realizar un commit, debemos estar *trackeando* archivos del proyecto, y tenemos que haberlos *agregado al area de staging* primero, para indicar qué archivos incluirá el commit. Luego, al tener los archivos que queremos actualizar en el area de staging, podemos usar el comando:
 
-`git commit -m "(mensaje de actualización en el commit)"`  : (-m permite agregar mensaje al commit).
+`git commit -m "(mensaje de actualización en el commit)"`  
+>El flag `-m` permite escribir el mensaje de commit en la consola
 
-`git commit` :(esto abre automáticamente el editor de texto configurado antes, para escribir en
- 	detalle los datos del commit)`
+`git commit` 
+>al no usar el flag, se abre automáticamente el editor de texto configurado antes, para escribir el mensaje del commit ahi.
 
-### Realizar Commit --- Sin pasar por el área de STAGING ---
-
+#### Realizar Commit --- Sin pasar por el área de STAGING ---
 `git commit -a`
 
-### Buenas practicas en los mensajes
+##### Buenas practicas en los mensajes
 Las buenas prácticas en los mensajes de Git se pueden iniciar con ciertas palabras claves que nos indican en mayor medida qué fue lo que se hizo.
-
-feat: nueva característica
-
-fix: se corrige un bug
-
-tweak: pequeños cambios en el código.
-
-copy: Actualizado boton de inicio.
-
-refactor: se refactorizó el código de x función o módulo.
-### Ver Datos y Hash De Los Commits
-
-`git log` 
+**feat**: nueva característica
+**fix**: se corrige un bug
+**tweak**: pequeños cambios en el código.
+**copy**: Actualizado boton de inicio.
+**refactor**: se refactorizó el código de x función o módulo.
+#### Ver historial y hash de los commits
+Para ver el listado e historial de commits de la rama actual, podemos usar
+`git log`
 
 `git log --oneline`  :(muestra el log y los hash resumidos configurados de los commits)
 
@@ -241,20 +236,17 @@ refactor: se refactorizó el código de x función o módulo.
 `git ls-tree -r --name-only (hash resumido del commit a ver)` :(muestra lista de  archivos y carpetas en ese commit)
 `git ls-tree -r --name-only HEAD` :(esto refiere al último commit disponible)
 
-### Eliminar un archivo del repo
-
+#### Eliminar un archivo del repositorio
 `rm (archivo)`  :se elimina el archivo.
 luego, se debe agregar la "eliminación del archivo" con `git add (nombre de archivo o punto)` 
 finalmente se realiza el commit.		
 `git commit -m "(mensaje)" -a`
 
-### RESTAURAR UN ARCHIVO ELIMINADO LOCALMENTE DESDE EL REPO
-
-`git restore (ruta/nombre del archivo.ext)` :(esto restaura un archivo borrado localmente al punto de la última actualización que tuvo el mismo en el repo. si se hicieron cambios
-luego del commit y no se guardaron, no van a estar en el archivo restaurado)
-
-
-### VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
+#### Restaurar un archivo borrado localmente
+`git restore (ruta/nombre del archivo.ext)` 
+Esto restaura un archivo borrado localmente al punto de la última actualización que tuvo el mismo en el repo. 
+Si se hicieron cambios luego del commit y no se guardaron, no van a estar en el archivo restaurado.
+#### VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
 
 `Git revert` es similar a git reset, pero el enfoque es ligeramente diferente. En lugar de eliminar todos los commit a su paso, la reversión SÓLO deshace un único commit, devolviéndote a los archivos organizados antes del commit.
 
@@ -263,41 +255,32 @@ Así, en lugar de eliminar un commit, git revert invierte los cambios introducid
 `git revert HEAD`
 el código anterior, genera un NUEVO COMMIT, posterior al actual, con los cambios generados en este commit actual desestimados. O sea, elimina los cambios introducidos en el commit actual, pero creando un nuevo commmit "hacia adelante"
 
-
-
 `git revert --no-edit <commit ID>`
 La opción --no-edit permite al usuario no cambiar el mensaje utilizado para el commit que desea revertir, y esto hará que git revierta el archivo a la rama maestra.
 
-
 ----
-
 `git revert <commit hash>`
 Esto sólo eliminará los cambios asociados a este hash de commit y no afectará a ningún otro commit. incluso funciona si por ej. se han eliminado archivos en un commit anterior, al revertir ese commit, se recuperan los archivos.
 
 ---
-
 `git revert --no-comit <commit ID>  || [git revert -n <commit ID>]`
 este comando revertirá los cambios del commit indicado, pero no creará un nuevo commit, para que se puedan verificar y decidir si se commitean asi como están o se agregan más cambios.
 
-
 ## Ramas locales / Branches
-
 **T**ener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
 
+- `git branch`  (esto muestra todas las ramas activas y creadas del repo)
 
-`git branch`  (esto muestra todas las ramas activas y creadas del repo)
+- `git branch (nombre de la nueva rama)`  :esto crea una rama(copia del estado actual) con el nombre indicado.
 
-`git branch  (nombre de la rama)`  :esto crea una rama(copia del estado actual) con el nombre indicado.
+- `git branch -a` : muestra todas las **ramas locales** disponibles.
 
-`git branch -a` : muestra todas las **ramas locales** disponibles.
-
-`git branch -r` : muestra todas las **ramas locales y remotas registradas** (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
+- `git branch -r` : muestra todas las **ramas locales y remotas registradas** (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
 
 >[!warning] para actualizar esas referencias que quizás están erróneas, se usa 
 `git fetch --prune`
 
-
-#### CAMBIAR A UNA RAMA
+#### Cambiar la rama activa del código
 `git checkout (nombre de la rama en la que se quiere trabajar)` (ya no se suele utilizar)
 
 `git switch (nombre de la rama en la que se quiere trabajar)`
@@ -305,45 +288,39 @@ este comando revertirá los cambios del commit indicado, pero no creará un nuev
 Crear una rama y cambiar a esa inmediatamente:
 `git switch -c (nomber de la rama a crear)` 
 
-
-#### ELIMINAR RAMAS 
-
+#### Eliminar ramas 
 >ES IMPORTANTE QUE PARA ELIMINAR UNA RAMA, NO DEBEMOS ESTAR PARADOS EN ELLA
 
+>Eliminar rama
+- `git branch -d (nombre de la rama a borrar)`
 
-Eliminar rama
-`git branch -d (nombre de la rama a borrar)`
+> Cambiar Nombre de Rama
+- `git branch -m (nombre actual de la rama) (nombre nuevo de la rama)`
 
-Cambiar Nombre de Rama
-`git branch -m (nombre actual de la rama) (nombre nuevo de la rama)`
 > NO DEBEMOS ESTAR PARADOS SOBRE LA RAMA A MODIFICAR EL NOMBRE
 
 
-Cambiar Nombre de la Rama Actual
-`git branch -m (nuevo nombre a colocar en la rama actual)`
+> Cambiar Nombre de la Rama Actual
+- `git branch -m (nuevo nombre a colocar en la rama actual)`
 
-Eliminar una Rama Remota desde Git
-`git push origin --delete [rama_a_borrar]`
+> Eliminar una Rama Remota desde Git
+- `git push origin --delete [rama_a_borrar]`
 
-#### UNIR RAMAS (MERGE o FUSIONAR)
-
+#### Fusionar ramas (MERGE).
 >IMPORTANTE! para fusionar **RAMA1** con **RAMA2**, debemos estar "parados" en la rama a la cual queremos "mantener". En este caso, debemos estar en **RAMA1** y fusionar **RAMA2** con **RAMA1**, para que los cambios se agreguen a **RAMA1**.
 
-FUSIONAR RAMAS:
-`git merge [nombre de la rama a fusionar con la actual]`
+> Fusionar ramas:
+`git merge [nombre_de_la_rama_2_a_fusionar]`
 
 ==EN CASO DE HABERSE EQUIVOCADO:==
-
 `git reset --hard (HASH del último commit de la rama principal antes de fusionar las ramas)`
 
 ESTO ELIMINA EL COMMIT DE FUSION DE LAS RAMAS pero
 no la rama que se fusionó!
 EN EL CASO DE QUERER RECUPERAR UN COMMIT BORRADO CON RESET --HARD, si tenemos el HASH de referencia, podemos recuperarlo con
-
 `git reset --hard (HASH del commit borrado)`
 
-#### CONFLICTOS DE FUSIONADO (MERGE) 
-
+#### Conflictos en la fusión. 
 Esto suele suceder cuando se trabaja en una rama, desde un punto B de la rama principal, y antes de fusionar la rama con el principal, se da que la rama principal tuvo modificaciones. 
 
 ```mermaid
@@ -358,34 +335,29 @@ commit id:"0003"
 merge rama1 tag: "main + rama1 = posible conflicto"
 ```
 
-
-Abriendo el editor de Visual Studio Code permite seleccionar qué código va a quedar seleccionado y se realiza el commit desde ahi directamente.
+Abriendo el editor de *Visual Studio Code* permite seleccionar qué código va a quedar seleccionado y se realiza el commit desde ahi directamente.
 Se pueden aceptar cambios de una rama, de otra, ambas, o seleccionando la opción más conveniente de cada una.
 
 Caso contrario, se pone:
-
 `git merge --continue   (esto finaliza con el commit del merging)`
 
 VER la última actualización de cada rama
-
 `git branch -v`
 
-### EN CASO DE QUE FIGURE EN EL MERGE NO MERGIN UNRELATED HISTORIES(esto es cuando varia demasiado las ramas)
+#### Errores comúnes en la fusión
+
+Cuando querramos fusionar 2 ramas que divergen mucho del código, git intenta advertirnos de esto y nos da un error con el mensaje "NO MERGIN ALLOWED UNRELATED STORIES". Esto indica que no se alcanza cierto porcentaje de similitud al analizar ambos códigos a hacer merge. Para resolver esto, podemos usa el flag `--allow-unrelated-histories`.
 
 `git merge [nombre de la rama a fusionar con la actual] --allow-unrelated-histories`
 
- esto abre el editor para resolver codigo o dejar el mensaje de commit del merging
+esto abre el editor para resolver codigo o dejar el mensaje de commit del merging
  
- 
-### DIVERGENCIA ENTRE LAS RAMAS
-
+#### DIVERGENCIA ENTRE LAS RAMAS
 Puede suceder que si hemos estado trabajando en el proyecto, creado commits locales, cuando querramos integrar con la rama remota, la misma también haya tenido commits desde que le hicimos pull para trabajar en la nuestra, entonces eso se llama **divergencia entre las ramas**. 
 Para resolver esto, Podemos directamente hacer un **pull** verificando los conflictos que puedan generarse al integrar las 2 ramas con cambios y luego hacer un **push** con el proyecto mezclado, podemos hacer un rebase.
 
  ---
- 
-#### ALIAS EN GIT
-
+#### Aliases
 Se definen como funciones que guardan todos los comandos determinados para ejecutar más simple
 
  ej:

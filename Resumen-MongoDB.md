@@ -9,7 +9,7 @@ Si usamos Windows 10, la versión soportada es la 6.0.18. Instalar una versión 
 para eso, instalamos el paquete de forma "completa" al iniciar el MSI package, y se puede seleccionar si se instala como servicio de Windows, o si es necesario ejecutarlo cada vez que vayamos a utilizarlo.
 
 Finalizado esto, debemos crear la carpeta  
-> "C:/Data/db/"
+`C:/Data/db/`
 
 Finalmente, descargamos el shell aparte, aqui no depende del sistema operativa en particular, hay que verificar que sea para windows 10+. 
 Si se descarga el zip del shell, se puede descomprimir en la misma carpeta del server, carpeta bin para poder luego agregar dicha carpeta a las variables de entorno.
@@ -38,7 +38,27 @@ Ahi ya tenemos vinculado el Shell con el servicio y podemos ejecutar código de 
 >[!warning] IMPORTANTE
 >Deben estar ambos procesos abiertos!!!.
 
-### Comandos Básicos del Shell.
+
+## Instalación como Servicio de Windows
+Si al instalar el programa, dejamos seleccionado la casilla de "instalar MongoDB" como servicio de Windows, el mismo se ejecutará al iniciar windows directamente, estando "de fondo" todo el tiempo activo. Esto permite que al abrir Mongo DB Compass (GUI), el servicio responda correctamente y no haya que conectar manualmente o iniciarlo.
+
+Notar que en este paso de instalación, podemos cambiar el nombre del servicio de windows "MongoDB". En general, dejarlo como está dado que es estándar. Si lo cambiamos, y cerramos, deberemos buscar por la terminal cómo se llama el mismo para volverlo a ejecutar
+
+Si por alguna razón, cerramos el proceso, y no sabemos qué nombre le pusimos al mismo, por defecto es "MongoDb", y para ejeuctarlo nuevamente, no podemos usar el comando `mongod` de la consola. 
+En este caso, deberemos usar el comando
+`c:\net start MongoDB`
+y esto hará que el servicio inicie nuevamente.
+
+Si no recordamos qué nombre le seteamos al servicio, podemos revisar con el comando:
+```powershell
+Get-Service | Where-Object {$_.DisplayName -like "*Mongo*" -or $_.Name -like "*Mongo*"}
+```
+
+Este comando devolverá una tabla, que tiene las dos columnas solicitadas:
+- *Name*: es el nombre interno del servicio (el que se debe usar con el comando anterior net start [nombre del servicio])
+- *DisplayName*: esto es el nombre descriptivo que se puede haber cambiado en el instalador.
+
+## Comandos Básicos del Shell.
 Se puede ejecutar el comando base con el método `.help` y esto nos devolverá la lista de comandos derivados del comando base.
 ej:
 ```shell
@@ -297,5 +317,144 @@ esto *devolverá* un objeto con la siguiente estructura:
 ---
 ### Selectores de busqueda (importante)
 
+
+
+
+## Referencias en los modelos
+
+Al crear distintos modelos de datos, vamos a necesitar relacionar unos con otros, y crear referencias. Estas referencias, se pueden realizar de dos maneras, dependiendo de lo que necesite nuestros datos y aplicación.
+
+- Podemos crear referencias manuales, que consiste en guardar el `_id` de un documento de la **colección A**  dentro de un campo en un documento de la **colección B**. Luego, la aplicación se encarga de resolver la relación.
+
+```json
+//documento de la coleccion 'autores'
+{
+	"_id": ObjectId("kdhskjh343434jhjkh23k1"),
+	"nombre": "Gabriel García Marquez"
+}
+
+//documento de la coleccion 'libros'
+{
+	"_id":ObjectId("6as65fd514sdfghh87hggfhgf1"),
+	"titulo":"Cien años de soledad",
+	"autor_id": ObjectId("kdhskjh343434jhjkh23k1")
+}
+```
+
+
+### Consultar a nivel de base de datos ($lookup)
+
+Para consultar los datos combinados en una sola petición a la base de datos, MongoDB ofrece la etapa `$lookup`, que actua similar a un LEFT OUTER JOIN en SQL.
+```json
+db.libros.aggregate([
+{
+	$lookup:{
+		from:"autores", //colección a vincular
+		localField:"autor_id", // campo en la coleccion 'libros'
+		foreignField:"_id", // campo en la coleccion 'autores'
+		as:"datos_autor" // nombre del campo en la salida
+	}
+}
+])
+```
+
+#### Mongoose (Abstraccion con ODM)
+
+Si se utiliza la herramienta Mongoose, este proceso se vuelve nativo mediante la propiedad `ref` y la función `.populate()` que automatiza la búsqueda de los documentos de fondo de forma limpia en el código.
+
+#### Creación de "listas virtuales" para relacionar documentos.
+
+Esto permite definir una relación entre un modelo y otro sin necesidad de guardar manualmente un *array de ids* dentro del documento del primer modelo, evitando que crezca innecesariamente.
+
+Supongamos que tenemos un modeo `cliente` y otro `empresas`.
+
+1. Se debe configurar el modelo de la `Empresa` para que guarde el `id del cliente` al que pertenece. 
+
+```js
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
+//1.esquema de la empresa
+const empresaSchema = new Schema({
+	nombre:{
+		type: String,
+		required:true
+	},
+	cuit:{
+		type:String,
+		required:true
+	},
+	clienteId:{
+		type:Schema.Types.ObjectId,
+		ref:'Cliente',
+		required:true
+	}
+});
+
+const Empresa = mongoose.model('Empresa', empresaSchema);
+```
+
+Luego, definimos el modelo del `Cliente`, de la  siguiente manera:
+```js
+import { Schema, model } from 'mongoose';
+
+//2. Esquema del cliente
+const clienteSchema = new Schema({
+	nombre:{type:String, required:true },
+	email:{type:String, required true, unique:true }
+},{
+//aqui va la configuracion crucial que permite los campos virtuales
+//se incluyan al convertir a json los datos
+	toJSON: { virtuals:true },
+	toObject: { virtuals, true}
+});
+
+// Definimos el virtual populate, que permite vincular y traer los datos que queremos ANTES DE EXPORTA EL MODELO
+clienteSchema.virtual('misEmpresas', {
+	ref:'Empresa', //el MODELO que queremos buscar
+	localField: '_id', //el campo de ESTE MODELO Cliente que coincide con la clave foránea
+	foreignField: 'clienteId' //el campo en el modelo Empresa que guarda el ID del cliente
+});
+
+const Cliente = model('Cliente', clienteSchema);
+```
+
+
+#### Realizar búsqueda usando `.populate()`
+Los campos virtuales no se guardan en MongoDB, por lo que **no se muestran por defecto** a menos que le indiquemos explícitamente a Mongoose que los resuelva usando el métódo `.populate('nombredelVirtual')`
+
+```js
+import Cliente from ('./modelos');
+
+async function buscarClienteConEmpresas (_clienteId){
+	try{
+	//buscamos cliente y poblamos la lista virtual
+	const cliente = await Cliente.findById(_clienteId)
+	  .populate('misEmpresas');
+	  
+	  console.log(cliente);
+	  /* Resultado esperado en consola: 
+	  { 
+		  _id: ObjectId("60d5ec..."), 
+		  nombre: "Juan Pérez", 
+		  email: "juan@example.com", 
+		  misEmpresas: [ <-- Aquí aparece la lista virtual resuelta 
+			  { _id: ObjectId("..."), 
+				  nombre: "Empresa Alfa", 
+				  cuit: "30-123456-1", 
+				  clienteId: "60d5ec..." }, 
+			  { _id: ObjectId("..."), 
+				  nombre: "Empresa Beta", 
+				  cuit: "30-789012-2", 
+				  clienteId: "60d5ec..." 
+			  }],
+			   id: "60d5ec..." }
+	   */
+	   return cliente
+	} catch (error) {
+		console.log("error al buscar cliente:", error);
+	}
+}
+```
 
 
