@@ -109,8 +109,10 @@ Mover o renombrar alguno de estos archivos corromperá las bases guardadas de mo
 
 
 ## Instalación como Servicio de Windows
-Si al instalar el programa, dejamos seleccionado la casilla de "instalar MongoDB" como servicio de Windows, el mismo se ejecutará al iniciar windows directamente, estando "de fondo" todo el tiempo activo. Esto permite que al abrir Mongo DB Compass (GUI), el servicio responda correctamente y no haya que conectar manualmente o iniciarlo.
 
+Si al instalar el programa, dejamos seleccionado la casilla de "*instalar MongoDB*" como servicio de Windows, el mismo se ejecutará al iniciar windows directamente, estando "de fondo" todo el tiempo activo. Esto permite que al abrir Mongo DB Compass (GUI), el servicio responda correctamente y no haya que conectar manualmente o iniciarlo.
+
+>[!warning] IMPORTANTE
 Notar que en este paso de instalación, podemos cambiar el nombre del servicio de windows "MongoDB". En general, dejarlo como está dado que es estándar. Si lo cambiamos, y cerramos, deberemos buscar por la terminal cómo se llama el mismo para volverlo a ejecutar
 
 Si por alguna razón, cerramos el proceso, y no sabemos qué nombre le pusimos al mismo, por defecto es "MongoDb", y para ejeuctarlo nuevamente, no podemos usar el comando `mongod` de la consola. 
