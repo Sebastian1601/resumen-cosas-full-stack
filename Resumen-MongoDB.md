@@ -9,7 +9,7 @@ Si usamos Windows 10, la versión soportada es la 6.0.18. Instalar una versión 
 para eso, instalamos el paquete de forma "completa" al iniciar el MSI package, y se puede seleccionar si se instala como servicio de Windows, o si es necesario ejecutarlo cada vez que vayamos a utilizarlo.
 
 Finalizado esto, debemos crear la carpeta  
-> "C:/Data/db/"
+> `C:/Data/db/`
 
 Finalmente, descargamos el shell aparte, aqui no depende del sistema operativa en particular, hay que verificar que sea para windows 10+. 
 Si se descarga el zip del shell, se puede descomprimir en la misma carpeta del server, carpeta bin para poder luego agregar dicha carpeta a las variables de entorno.
@@ -37,7 +37,74 @@ para que el shell se conecte con el servicio de "MongoD".
 Ahi ya tenemos vinculado el Shell con el servicio y podemos ejecutar código de Mongo para administrar bases. 
 >[!warning] IMPORTANTE
 >Deben estar ambos procesos abiertos!!!.
+### Conectar desde nodejs con mongodb local
 
+Para comenzar a utilizar la el ORM de mongodb localmente, en código, debemos pasar la ubicación donde mongo está escuchando sus eventos.
+
+Normalmente, esto figura en las lineas de comando que se ejecutan e informan el estado de *mongodb* al ejecutar `mongod`.
+dentro de toda esa información, tenemos una linea que indica la URI, que por defecto es `127.0.0.1`
+y el puerto que suele ser el `27017`
+
+Por lo tanto, la URI local de mongo quedaría siendo `mongodb://127.0.0.1:27017/`
+Esa conexión local a mongo, por defecto no pide username y password, pero se puede configurar esto.
+
+### Crear usuario en mongodb local para crear una capa más de seguridad
+
+Para configurar más seguridad localmente, abrimos `mongosh` (el shell de mongo) y usamos el comando
+`use admin`
+para utilizar la base mongo principal.
+
+ejecutamos ahi el comando
+`db.createUser()`
+para registrar al usuario con el rol de superusuario(`root`)
+
+```js
+db.createUser({
+	user:"tu_usuario",
+	pwd:"tu_password_seguro",
+	roles:[{
+	role:"root", db:"admin"
+	}]
+})
+```
+
+Esto creará el user `tu_usuario` autenticado por el password.
+
+Para que esto se lleve a cabo, y mongodb solicite autenticación localmente, debemos configurar también el archivo de configuración de mongoDB llamado 
+`mongod-conf` o
+`mongod.cfg`
+
+Normalmente este archivo se encuentra en la carpeta de instalación de mongoDB en `c:\programfiles\MongoDB\Server\<version>\bin\mongod.cgf`
+
+dentro del archivo buscamos la linea que está indicada con 
+`#security`
+se borra el hashpad (#) y se deja de la siguiente manera y luego se guardan los cambios:
+```json
+security:
+	authorization: enabled
+```
+
+Una vez esté configurado esto, si intentas acceder mediante `mongodb://127.0.0.1.27017/` a secas, el servidor rechazará la conexión.
+
+Para resolver esto, como lo hacemos también con Mongo Atlas, usamos el string de conexión siguiente:
+```js
+//Estructura: mongodb://USUARIO:CONTRASEÑA@IP:PUERTO/BASE_DE_DATOS?authSource=admin 
+const MONGODB_URI = 'mongodb://tu_usuario:tu_password_seguro@127.0.0.1:27017/mi_base_datos?authSource=admin'
+```
+
+la parte final, `authSource=admin` le indica a Mongodb que los datos de autenticación se encuentran guardado en la base de datos admin.
+
+### Ubicar localmente el lugar de guardado de las bases
+
+Para ubicar el lugar lógico de guardado de la información, mongosh tiene un método que lo indica ya dentro de mongodb.
+```Mongosh
+db.adminCommand({
+	getCmdLineOpts: 1
+}).parsed.storage.dbPath
+```
+
+La carpeta no tiene separadas las bases por archivos enteros, mongodb utiliza un motor de almacenamiento interno llamado **WiredTiger**, el cual divide y encripta la información en múltiples archivos abstractos con extensiones `.wt` y archivos de registro de transacciones (**journals**)
+Mover o renombrar alguno de estos archivos corromperá las bases guardadas de mongodb.
 ### Comandos Básicos del Shell.
 Se puede ejecutar el comando base con el método `.help` y esto nos devolverá la lista de comandos derivados del comando base.
 ej:
@@ -55,8 +122,8 @@ Este comando "crea" una base de datos nueva de nombre [dbname] y pasa a ella dir
 >[!example] ejemplo
 >`>use peliculas`
 
-### `db.dropDatabase()`
-Este comando **elimina** la base de datos donde estábamos parados.
+### `db.dropDatabase`
+Este comando **elimina** la base de datos **donde estamos parados**. No es un método en si, por lo que no lleva `()`
 
 ### `db.createCollection("[nombre_de_colección_a_crear]")`
 Este comando nos permite crear una colleción nueva dentro de nuestra base de datos.
@@ -64,7 +131,7 @@ Este comando nos permite crear una colleción nueva dentro de nuestra base de da
 > `>db.createCollection("users")`
 
 ### `show collections`
-Este comando nos devuelve las colecciones dentro de la base de datos actual.
+Este comando nos devuelve las colecciones dentro de la base de datos actual. No lleva prefijo de la base de datos ni `db`
 
 ### `db.[nombre_de_una_coleccion].drop()`
 Este comando **elimina** la coleccion indicada en el comando, devolviendo "*true*" si es exitoso.
@@ -124,6 +191,186 @@ Podemos definir varias propiedades para una principal, de la siguiente manera
 ```
 
 ---
+### Crear un modelo de coleccion
+Podemos definir esquemas que son la "estructura" de los documentos que guardaremos en cada coleccion. Estos se definen justamente como objetos, y luego, mediante los drivers de mongoose, podemos guardarlos y esto creará las colecciones en nuestra base de datos
+
+Para definir modelos, podemos usar el metodo `Schema` y `model` del driver de *mongoose* en nodejs.
+
+podemos definir un nuevo esquema de la siguiente manera:
+
+```js
+import { Schema, model } from 'mongoose';
+
+const miEsquema = new Schema({
+	campo1: {
+		type:String,
+		required:true,
+		trim:true
+	},
+	campo2: {
+		type:Number,
+		required:true		
+	}, campo3: String,
+		campo4: [{ propiedad1: String, date:Date}],//esto significa que campo4 toma array de datos
+		campo5:{type: Date, default: Date.now },
+		campo5: Boolean,
+		meta: {
+			votes:Number,
+			favs:Number
+		}
+})
+
+//luego, creamos el "modelo"
+const esquema = model('Cliente', miEsquema);
+
+export default esquema;
+```
+
+Esto generará un modelo con tal esquema, que al crear un nuevo documento, requerirá los campos indicados, y si definimos que son requeridos, no permitírá que el documento no lo tenga.
+
+### Tipos de datos en los esquemas mongoose
+
+- String
+- Number
+- Date
+- Buffer
+- Boolean
+- Mixed
+- ObjectId
+- Array
+- Decimal128
+- Map
+- UUID
+- Double
+- Int32
+
+#### referencias a otro modelo dentro de un esquema
+Podemos definir que un esquema utilice un valor de referencia de otro elemento de otra coleccion. Estas relaciones las hacemos por ID,
+
+```js
+import { Schema, model } from 'mongoose';
+
+const miEsquema2 = new Schema({
+	campo1: {
+		type:String,
+		required:true
+		},
+	campo2:{
+		type:Schema.Types.ObjectId,
+		ref:'Cliente', //aqui definimos el nombre del modelo que creamos en el paso anterior
+		required:true
+	}
+})
+
+const esquema2 = new model('publicacion', miEsquema2);
+export default esquema2;
+```
+
+### validadores integrados
+Podemos validar al construir un modelo, los datos ingresados, agregando una capa de seguridad en ese punto del código.
+
+Según el tipo de dato, vamos a poder definir uno u otro.
+
+```js
+import { Schema, model } from 'mongoose';
+
+const productoSchema = new Schema({
+	nombre: {
+		type:String,
+		required:[true, 'el nombre es obligatorio']
+	},
+	precio: {
+		type: Number,
+		required: true,
+		min:[0, 'el precio no puede ser negativo']
+	},
+	categoria: {
+		type:String,
+		enum: {
+			values:['electronica', 'ropa', 'hogar'],
+			message:'{VALUE} no es una categoría válida'
+		}
+	}
+})
+
+const Producto = model('Producto', productoSchema);
+```
+
+- Globales (cualquier tipo de dato)
+	- **required** : [true / false]
+- String
+	- **minLength**: define la longitud mínima de caracteres permitida.
+	- **maxLength**: define la cantidad máxima de caracteres permitida.
+	- **match**: valida que el texto cumpla con una Expresión Regular específica
+	- **enum**: ['valor1', 'valor2', ..., 'valorN'] : define una lista donde se aceptan solo esos valores declarados para guardar
+- Number
+	- **min**: valor mínimo que acepta el registro
+	- **max**: valor máximo permitido.
+- Date
+	- **min**: fecha mínima permitida (puede ser un objeto `Date` o una cadena convertible en fecha)
+	- **max**: fecha máxima permitida
+```js
+	  fechaReserva: {
+		  type:Date,
+		  min: '2026-01-01',
+		  max: new Date() 
+	  }
+```
+
+#### Definir los validadores y el mensaje de error
+
+Mongoose permite configurar de 2 maneras equivalentes los mensajes de error de los validadores.
+Tambien se acepta `{VALUE}` para interpolar el valor evaluado en el mensaje de error.
+
+- Array syntax: `min:[6, 'debe ser al menos de 6 digitos el valor, {VALUE}]`
+- Object syntax: `enum: { values: ["cafe", "te"], message: '{VALUE} no es una opcion valida' }`
+
+>[!warning] IMPORTANTE
+>`Unique: true` NO ES UN VALIDADOR, se usa para crear índices de valores únicos, pero esto no evita que se creen más de un documento con el mismo valor, esto se debe validar manualmente.
+
+### validadores personalizados
+Podemos definir nuestros propios validadores de datos. Definimos una propiedad `validate` dentro del esquema en la propiedad que querramos validar, donde le pasamos una función o un objeto con la propiedad `validator` y un `message` para dar el mensaje de error.
+
+```js
+import { Schema, model } from 'mongoose';
+
+const usuarioSchema = new Schema({
+	username: {
+		type:String,
+		required:true,
+		validate: {
+			validator: function(v) {
+				//solo permite letras y numeros
+				return /^[a-zA-Z0-9]+\$/.test(v);
+			},
+			message: props => `${props.value} no es un nombre de usuario válido. solo se aceptan letras y nros`
+		}
+	}
+})
+
+const usuario = new model('usuario', usuarioSchema);
+export default usuario;
+
+```
+
+
+>[!warning] CUIDADO!
+>por defecto, los validadores se ejecutan solamente al crear un documento. Si buscamos para actualizar un documento existente con `findOneAndUpdate()`, el proceso no se realiza.
+>Para esto, debemos explícitamente declararlo al correr la actualización, indicando de la siguiente manera
+
+```js
+await producto.findByIdAndUpdate(
+	id, 
+	{ precio: -50},
+	{new: true, runValidators: true } //esto activa las validaciones en la operacion actual
+);
+```
+
+
+
+Tambien podemos crear propiedaes "virtuales", que se usarán cuando realicemos busquedas que necesiten de más relaciones.
+
+---
 ### Insertar documentos en una coleccion
 Para insertar documentos en una coleccion, tenemos **dos métodos**: 
 1.  `db.collections('coleccion a usar').insertOne( {} )` // insertar un elemento.
@@ -170,6 +417,7 @@ Ejemplo de elemento guardado ya en la coleccion.
     }
 }
 ```
+
 ### Guardar múltiples datos al mismo tiempo
 Para guardar una lista de documentos a guardar, se pasa por el método `insert`, un **array** de los objetos a agregar...
 >[!example] Ejemplo:
