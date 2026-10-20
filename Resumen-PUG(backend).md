@@ -1,4 +1,3 @@
-
 Pug permite desarrollar html desde el backend para las vistas con codigo más simple, pero aún asi, utilizando emmet expressions.
 
 PUG usa indentación para definir las etiquetas y la apertura y cierre.
@@ -22,7 +21,7 @@ Gracias a esto podemos presentar una web más rápidamente no teniendo que preoc
 Podemos definir clases, atributos e ids de la manera más simple.
 
 ##### Preparar el backend para usar plantillas pug
-Para poder usar pug(formerly jade) debemos indicarle al backend en nodejs que vamos a utilizar este motor de plantillas.
+Para poder usar pug(*formerly jade*) debemos indicarle al backend en nodejs que vamos a utilizar este motor de plantillas.
 Esto lo hacemos en la configuración de app al configurar Express.
 
 ```js
@@ -126,11 +125,11 @@ esto se traduce a
 Para definir atributos de las etiquetas html que estamos usando, lo hacemos creando un paréntesis luego de definir la etiqueta, y los valores van tal cual se usan en html, `atributo="valor"`
 
 ```pug
-img(src="ruta.png" alt="texto-alternativo" data-id="56")
+img(src="ruta.png", alt="texto-alternativo", data-id="56")
 ```
 
 ---
-#### Evaluar código en la plantilla
+#### Evaluar código JS en la plantilla
 Podemos usar la plantilla para evaluar variables o directamente código js inclusive al dibujar la página. Para eso ponemos un guión y luego indentamos el código js siguiente...
 ```pug
 - 
