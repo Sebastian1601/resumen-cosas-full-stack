@@ -1154,7 +1154,119 @@ const cacheKey = `productos-${JSON.stringify(sortedQuery)}`;
 Esto constituye ya un sistema robusto para implementar cache y flitrar búsquedas.
 
 ---
+## Nivel 22 - CORS
+CORS (*Cross-Origin Resource Sharing*) es un sistema de seguridad que tienen los navegadores que impiden que se soliciten datos de orígenes distintos por defecto. Por esto mismo, los clientes como Postman u otros que no son navegadores, ignoran por completo el sistema CORS.
 
+>[!warning] definición de orígen
+El orígen está definido por 3 elementos: 
+-**Protocolo**: `http`, `https` 
+-**Dominio**: `mi-web.com`
+-**Puerto**: `5173`
+>
+`http:mi-web.com:5173`;
+>
+Si alguno de estos 3 elementos cambia, el orígen se considera "*cruzado*"(Cross)
+
+Normalmente, no podemos solicitar desde nuestro frontend que NO SEA parte del mismo backend un fetch a otra página y que esta nos responda, a no ser que el backend esté explícitamente configurado para responder a peticiones de cualquier orígen, o que definamos qué orígenes pueden solicitarnos datos.
+
+Lo que hace el módulo de nodejs `cors` es verificar el tipo de peticiones y el orígen de las mismas, para agregar automáticamente el origen del que vienen, como un permitido, y agregar los tipos de cabeceras y métodos para que no haya bloqueo alguno.
+
+Normalmente el navegador 
+1. envía la petición al backend
+2. el middleware de cors (o el nuestro) va a verificar el orígen, y ahi en la petición al backend, se van a agregar cabeceras de autorización que luego de que el backend haga lo que debe, y responda, recién ahi van a ser interpretadas por el navegador al procesar la respuesta. Si no están dichas autorizaciones, el navegador destruye los datos enviados por el backend y muestra *errors de cors*.
+3. la peticion llega al backend
+4. el backend responde lo correspondiente al pedido
+5. el navegador recibe el objeto `response` con las cabeceras inyectadas en el middleware que proceso la solicitud inicial e interpreta la respuesta.
+
+**PREFLIGHT**
+Al usar métodos *POST*, *PUT* y *DELETE* en el fetch del frontend, el navegador hace una petición que se llama preflight, que justamente, es un paso previo a enviar el request real que estamos necesitando. Esto se da de manera automática cuando hacemos peticiones del tipo *post*, *put* y *delete*. Este fetch con método OPTIONS lo que hace basicamente es mandar una request al servidor, consultando si está autorizado desde el orígen indicado, a realizar una petición de esos tipos. El middleware que definimos mas arriba capta el método de la petición, y si asi lo definimos, autoriza con el `res.sendStatus(200)` que pusimos al final del middleware. 
+Esto le dice al navegador, mandá la petición que tengas con los métodos mencionados, que la voy a procesar.
+
+#### Configuración automática de CORS.
+Para configurar rapidamente cors en el backend, hay un módulo llamado justamente `cors` que se instala desde npm y permite filtrar automáticamente(y con muy poco control) las peticiones, pero permite rápidamente autorizar las mismas sin tener que configurar más.
+`npm install cors`
+
+
+
+#### Configuración manual (middleware)
+Para realizar una configuración y verificación manual de cors, podemos implementar un middleware en express que nos analice las peticiones entrantes y verifique el orígen de las mismas.
+
+1. vamos a definir uno o varios orígenes permitidos mediante protocolo e ips
+
+```js
+//VALIDAS
+const origenPermitido = 'http://192.168.1.50:5173';
+const otroOrigen = 'http://mi-frontend.com';
+
+//NO VALIDAS
+const origenNoValido = '192.168.1.50'; //falta el protocolo, se ignorará.
+```
+Estos orígenes, se pueden definir como un solo valor, o como un array de valores
+
+```js
+const origenesPermitidos = [
+	'http:localhost:5173',
+	'http://192.168.1.50:5173',
+	'http://192.168.1.55:5173'
+];
+```
+
+2. Luego, tenemos que agregar cabeceras a la respuesta que le vamos a dar al navegador
+
+```js
+app.use((req, res, next)=>{
+	const origenPermitido = 'http://mi-frontend.com';
+	
+	//le indicamos al navegador qué origen tiene permitido leer la respuesta
+	res.header('Acces-Control-Allow-Origin', origenPermitido);
+	
+	//si usamos un array de origenes
+	const origin = req.headers.origin;
+	
+	if (origenesPermitidos.includes(origin)){
+		res.header('Access-Control-Allow-Origin', origin);
+	}
+	
+	//metodos http que permites que use ese orígen
+	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+	
+	//cabeceras permitidas si tu frontend envía Json o tokes de autenticacion
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+	
+	//manejar la petición de control (Preflight/OPTIONS)
+	if (req.method === 'OPTIONS'){
+	return res.sendStatus(200);
+	};
+	
+	next();
+})
+```
+
+| Cabeceras HTTP escenciales       | Tipo      | Descripción                                                                                                  |
+| -------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------ |
+| Origin                           | Solicitud | Indica el dominio desde el que se origina la petición del cliente                                            |
+| Access-Control-Allow-Origin      | Respuesta | Define qué orígenes tienen permiso para leer la respuesta (puede ser un dominio específico o un comodín `*`) |
+| Access-Control-Allow-Methods     | Respuesta | Lista los métodos HTTP permitidos para la petición(GET, POST, PUT, etc)                                      |
+| Access-Control-Allow-Headers     | Respuesta | Especifica qué cabeceras personalizadas puede enviar el cliente                                              |
+| Access-Control-Allow-Credentials | Respuesta | Indica si se permite el envío de cookies o datos de autenticación (`true`/`false`)                           |
+| Access-Control-Max-Age           | Respuesta | Tiempo en segundos que se puede cachear el resultado de una solicitud previa al vuelo (`PREFLIGHT`)          |
+
+#### Cabeceras personalizadas habituales
+Las cabeceras personalizadas (cabeceras no estándar) son aquellas que añaden los desarrolladores para pasar información adicional que el protocolo `http` no incluye por defecto.
+
+Cuando utilizas una de estas cabeceras en tu frontend, el navegador se ve obligado a realizar una solicitud previa al vuelo (`Preflight/OPTIONS`) y el backend debe autorizarlas explícitamente respondiendo con la cabecera `Access-Control-Allow-Headers`.
+
+Las más habituales son:
+**Autenticación y Seguridad:**
+- `Authorization`: Es la más común de todas. Se utiliza para enviar tokens de acceso como los JWT o Bearer tokens que identifican al usuario ante la API.
+- `X-Api-Key` o `X-Access-Token` Muy utilizadas por proveedores de servicios externos (SaaS, pasarelas de pago, mapas) para validar que tu aplicación tiene permiso para consumir su API.
+
+**Identificación del cliente y contexto:**
+- `X-Requested-With`: Se enviaba con el valor `XMLHttpRequest` para indicarle al servidor que la petición se hizo mediante Javascript y no por una navegación nativa del navegador (ayudar a prevenir ataques CSRF).
+- `X-Client-ID` o `X-App-Version`: Ayudan al backend a identificar qué aplicación móvil o web específica está haciendo la consulta y en qué versión se encuentra.
+
+
+---
 ## Cómo lo ordenaría para ti
 
 Teniendo en cuenta que ya has trabajado con JavaScript, `readline`, `process.stdin`, `fetch`, REST, GraphQL, cookies, etc., **no te haría empezar desde JavaScript básico**.
