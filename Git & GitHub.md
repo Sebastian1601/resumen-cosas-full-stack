@@ -145,6 +145,29 @@ Este comando en particular, remueve el archivo del area STAGED indicado. Si hemo
 Este comando devuelve todos los archivos al área de trabajo.
 `git reset` 
 
+#### Eliminar modificaciones hechas en archivos sin agregarlos al staging, ni commiteados.
+Si tenemos un commit, y luego modificamos alguno de estos archivos trackeados, pero nos damos cuenta que no queremos aplicar estos cambios sobre el commit inicial, podemos hacer uso del comando
+`git reset --hard HEAD`
+Esto devuelve el estado de los *archivos trackeados* al estado del commit inicial.
+
+SI SE HAN CREADO archivos nuevos, en este proceso de modificaciones de los otros archivos trackeados, estos archivos no sufren cambios dado que no estaban siendo seguidos.
+
+>Si queremos mantener estos nuevos archivos pero descartar el codigo modificado, usamos el comando 
+
+`git reset --hard HEAD`
+y luego, sumamos los archivos no trackeados al area de *STAGING*
+
+`git add .`
+y luego hacemos commit.
+
+
+>Si queremos descartar estos archivos nuevos que creamos luego del commit inicial
+
+para que quede el proyecto tal cual lo recibimos luego del commit inicial, podemos usar también, luego de `git reset`
+el comando 
+`git clean -fd`
+
+Esto descarta los archivos nuevos no trackeados
 #### Verificar cambios en los archivos trackeados
 Al ir modificando, creando y eliminando archivos, nos vamos a encontrar con que el repositorio local va a ir mostrando "cambios". Estos cambios, se pueden verificar con el comando git status
 `git status`
