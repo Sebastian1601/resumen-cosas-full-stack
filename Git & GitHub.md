@@ -3,6 +3,7 @@
 
 - Git
 	- configuración inicial
+	- repositorios
 	- 
 
 
