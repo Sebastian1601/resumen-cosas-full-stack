@@ -990,6 +990,23 @@ Imagina que eres un cocinero en un restaurante:
 
 Pasadas un par de horas, si nadie lo compra, tiras ese plato porque ya no está fresco (eso es el **TTL** o tiempo de expiración) y preparas uno nuevo cuando vuelva a entrar un pedido.
 
+### Patrones y estrategias de almacenamiento en caché
+
+Dos enfoques comunes para el almacenamiento en caché son los paradigmas de caché lateral y de escritura directa.
+### Patrón de caché aparte
+El patrón de caché diferida, también conocido como carga diferida, es el más común. Funciona actualizando la caché solo después de solicitar los datos. De esta forma, para leer datos de la base de datos, primero se comprueba si la caché está disponible. Si los datos están disponibles (lo que se conoce como acierto de caché), se devuelven y se envía la respuesta al solicitante.
+
+Por otro lado, si los datos no están disponibles (lo que se conoce como fallo de caché), se consulta la base de datos. A continuación, se rellena la caché con los datos recuperados. La principal ventaja de este enfoque es que ofrece una forma sencilla de almacenamiento en caché para un framework que gestiona el almacenamiento en caché diferido internamente o mediante código personalizado. Además, este enfoque proporciona mejoras inmediatas en el rendimiento.
+
+Otra ventaja es que la caché contiene solo los datos que solicita la aplicación, lo que ayuda a mantener su tamaño reducido y a reducir los costos. Por otro lado, una desventaja común de este enfoque es que los datos se cargan en la caché solo después de un fallo de caché, ya que inicialmente no hay datos almacenados en ella. Además, existe cierta sobrecarga en los tiempos de respuesta iniciales de las consultas debido a que se requieren viajes de ida y vuelta a la caché y a la base de datos.
+
+### Patrón de caché de escritura directa
+Como alternativa, con el patrón de caché de escritura directa, la caché se actualiza inmediatamente cuando se actualiza la base de datos principal. Con este patrón, el orden de llenado de la caché suele ser inverso. El enfoque consiste en que la caché se actualiza inmediatamente después de que se actualice la base de datos principal. Con la estrategia de caché de escritura directa, cuando la aplicación o el proceso de backend actualiza la base de datos principal, los datos también se actualizan en la caché.
+
+En los casos en que se produce un fallo de caché debido a la caducidad de los datos o a la ausencia de estos, se utiliza el patrón de carga diferida para actualizar la caché. Por lo tanto, el patrón de escritura directa siempre se utiliza junto con el patrón de carga diferida.
+
+Una ventaja de este patrón es que reduce el número de lecturas de la base de datos, lo que se traduce en un rendimiento óptimo. Otra ventaja es que mejora el rendimiento de la aplicación y garantiza una buena experiencia de usuario, ya que existe una alta probabilidad de que los datos se encuentren en la caché.
+
 ### Usando node-cache
 
 Para implementar un caché directamente en la memoria de tu aplicación sin necesidad de instalar bases de datos externas como Redis, la librería

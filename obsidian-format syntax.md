@@ -777,3 +777,49 @@ Símbolos flecha
 |        $\mapsto$        |      `$\mapsto$`      |
 |         $\iff$          |       `$\iff$`        |
 
+---
+
+## Crear snippets 
+Para crear snippets (pequeñas parte de código html) que se apliquen al seleccionar texto y ejecutar un shortcut de teclas,  la mejor opción es *utilizar el plugin comunitario **Templater***, el cual permite capturar el texto seleccionado e insertarlo dentro de cualquier estructura HTML mediante un atajo de teclado.
+
+A continuación, tienes los pasos para configurarlo:
+
+1. Instalar y configurar Templater
+2. Ve a **Configuración** > **Plugins de la comunidad** y busca **Templater**.
+3. Instálalo y actívalo.
+4. Crea una carpeta en tu bóveda para guardar tus plantillas (por ejemplo, `Plantillas`).
+5. Entra a la configuración de Templater y asigna esa carpeta en el campo **Template folder location**.
+
+6. Crear el Snippet HTML
+
+Crea una nueva nota dentro de tu carpeta de plantillas (por ejemplo, llamada `Insertar HTML`) y pega el siguiente código:
+
+tpl
+
+```
+<%*
+// Captura el texto seleccionado actual
+let seleccionado = tp.file.selection(); 
+// Si no hay nada seleccionado, define un texto por defecto
+if (!seleccionado) seleccionado = "Texto por defecto"; 
+-%>
+<div class="mi-clase-personalizada">
+    <p><% seleccionado %></p>
+</div>
+```
+
+Usa el código con precaución.
+
+_(Puedes cambiar las etiquetas `<div>` y `<p>` por el código HTML exacto que necesites utilizar)._
+
+3. Asignar el atajo de teclado
+
+4. Abre la **Configuración** de Obsidian y baja hasta la sección de **Templater**.
+5. Ve a la sección **Template Hotkeys**.
+6. Añade tu plantilla `Insertar HTML` haciendo clic en el botón `+`.
+7. Ahora ve a la sección general de **Atajos de teclado** (Hotkeys) de Obsidian.
+8. Busca `Templater: Insertar HTML` y asígnale la combinación de teclas que prefieras (por ejemplo, `Alt + H`).
+
+Cómo usarlo
+
+Selecciona cualquier texto en tu nota actual y presiona tu atajo de teclado. El texto seleccionado desaparecerá y será reemplazado automáticamente por tu estructura HTML con el texto envuelto en ella.
