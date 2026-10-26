@@ -19,25 +19,21 @@ Si se descarga el zip del shell, se puede descomprimir en la misma carpeta del s
 Es recomendable copiar en el menú de variables de entorno `PATH` la dirección de la carpeta `BIN` de `mongodb`. (esto permite que los comandos de MongoDB Shell se puedan utilizar desde la consola de comandos desde cualquier ruta)
 
 Se crea un nuevo item del menú Variables de Entorno en `PATH`, con la ruta de la carpeta BIN en archivos de programa de MongoDB.
-
 ## Ejecución de MongoDB
 
 Abrimos una Terminal, y ejecutamos   
-
-      >mongod
-
+  `mongod`
 esto disparará varios comandos y devolverá información en la ventana, que  no se cierra ni se termina mientras esté en uso.
 
 Para conectar el Shell de la terminal, debemos abrir otra Terminal, y ejecutar 
-
-    >mongosh
+`mongosh`
 para que el shell se conecte con el servicio de "MongoD".
-
 
 Ahi ya tenemos vinculado el Shell con el servicio y podemos ejecutar código de Mongo para administrar bases. 
 >[!warning] IMPORTANTE
 >Deben estar ambos procesos abiertos!!!.
 
+---
 ### Conectar desde nodejs con mongodb local
 
 Para comenzar a utilizar la el ORM de mongodb localmente, en código, debemos pasar la ubicación donde mongo está escuchando sus eventos.
@@ -49,8 +45,8 @@ y el puerto que suele ser el `27017`
 Por lo tanto, la URI local de mongo quedaría siendo `mongodb://127.0.0.1:27017/`
 Esa conexión local a mongo, por defecto no pide username y password, pero se puede configurar esto.
 
+---
 ### Crear usuario en mongodb local para crear una capa más de seguridad
-
 Para configurar más seguridad localmente, abrimos `mongosh` (el shell de mongo) y usamos el comando
 `use admin`
 para utilizar la base mongo principal.
@@ -95,8 +91,8 @@ const MONGODB_URI = 'mongodb://tu_usuario:tu_password_seguro@127.0.0.1:27017/mi_
 
 la parte final, `authSource=admin` le indica a Mongodb que los datos de autenticación se encuentran guardado en la base de datos admin.
 
+---
 ### Ubicar localmente el lugar de guardado de las bases
-
 Para ubicar el lugar lógico de guardado de la información, mongosh tiene un método que lo indica ya dentro de mongodb.
 ```Mongosh
 db.adminCommand({
@@ -107,9 +103,8 @@ db.adminCommand({
 La carpeta no tiene separadas las bases por archivos enteros, mongodb utiliza un motor de almacenamiento interno llamado **WiredTiger**, el cual divide y encripta la información en múltiples archivos abstractos con extensiones `.wt` y archivos de registro de transacciones (**journals**)
 Mover o renombrar alguno de estos archivos corromperá las bases guardadas de mongodb.
 
-
+---
 ## Instalación como Servicio de Windows
-
 Si al instalar el programa, dejamos seleccionado la casilla de "*instalar MongoDB*" como servicio de Windows, el mismo se ejecutará al iniciar windows directamente, estando "de fondo" todo el tiempo activo. Esto permite que al abrir Mongo DB Compass (GUI), el servicio responda correctamente y no haya que conectar manualmente o iniciarlo.
 
 >[!warning] IMPORTANTE
