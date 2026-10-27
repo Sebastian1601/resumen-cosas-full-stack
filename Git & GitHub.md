@@ -426,6 +426,116 @@ C-->D
 
 ### CREAR Y CONFIGURAR REPOSITORIO REMOTO
 
+#### Autenticarse con ssh
+Las claves ssh corresponden a cada pc que vamos a usar, esto nos permite registrar cada equipo y si debemos revocarle el acceso a alguno, no afectamos los demás.
+
+La clave se genera desde windows mismo o desde el bash de git.
+
+Regla importante: generá una clave nueva en cada PC y no copies la clave privada de una computadora a otra. Si alguna PC se pierde o deja de ser confiable, podés revocar solamente su clave.
+##### Paso 1. Generar una clave SSH en Windows 11
+Abrí Git Bash y ejecutá:
+```bash
+ssh-keygen -t ed25519 -C "tu-correo@example.com"
+```
+
+- los datos de tu-correo@example.com van a ser los que usaste para loguearte en Github.
+
+Te hará algunas preguntas:
+
+1. `Enter file in which to save the key`: presioná Enter para aceptar la ruta predeterminada.
+    
+2. `Enter passphrase`: escribí una contraseña para proteger la clave privada. Es recomendable; no es la contraseña de GitHub.
+    
+3. `Enter same passphrase again`: repetí la contraseña.
+   
+Se crearán dos archivos:
+
+| Archivo                 | Función                                                  |
+| ----------------------- | -------------------------------------------------------- |
+| `~/.ssh/id_ed25519`     | Clave privada. Nunca la compartas.                       |
+| `~/.ssh/id_ed25519.pub` | Clave pública. Esta es la que vas a registrar en GitHub. |
+
+Si ya tenés una clave SSH que querés conservar, no la sobrescribas. Podés comprobarlo antes con:
+
+```bash
+ls -la ~/.ssh
+```
+##### Paso 2. Agregar la clave pública a GitHub
+En Git Bash, ejecutá:
+
+```
+clip < ~/.ssh/id_ed25519.pub
+```
+
+Esto copia la clave pública al portapapeles.
+
+Ahora abrí la configuración de claves SSH de GitHub:
+
+1. Hacé clic en New SSH key.
+    
+2. En `Title`, escribí algo que identifique la PC, por ejemplo `PC Windows 11 - Casa`.
+    
+3. En `Key type`, seleccioná `Authentication Key`.
+    
+4. En `Key`, pegá el contenido copiado.
+    
+5. Hacé clic en Add SSH key y confirmá si te lo solicita.
+
+Repetí este registro con una clave distinta para cada computadora.
+##### Paso 3. Probar la conexión SSH
+Volvé a Git Bash y ejecutá:
+
+```
+ssh -T git@github.com
+```
+
+La primera vez puede preguntarte si confiás en la huella del servidor. Verificá que corresponda al servidor oficial de GitHub y, si es correcta, aceptala.
+
+**Si configuraste una *contraseña* para la clave, puede pedirte esa *contraseña*.**
+
+Si todo funciona, verás un mensaje parecido a:
+
+```
+Hi TU_USUARIO! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+Eso significa que la autenticación SSH funciona.
+##### Paso 4. Comprobar tus repositorios existentes
+Ahora tenemos que asegurarnos de que tus repositorios utilicen SSH y no HTTPS.
+Entrá a uno de tus repositorios:
+
+```bash
+cd /c/gitworks/MiRepositorio
+git remote -v
+```
+
+Si ves una dirección como esta:
+```bash
+https://github.com/USUARIO/REPOSITORIO.git
+```
+
+ese repositorio sigue usando HTTPS. Para cambiarlo a SSH, ejecutá:
+
+```
+git remote set-url origin git@github.com:USUARIO/REPOSITORIO.git
+```
+
+Reemplazá `USUARIO` y `REPOSITORIO` por los valores reales de tu repositorio.
+
+Si la dirección ya comienza con `git@github.com:`, no necesitás cambiarla.
+
+Este cambio no elimina tu historial ni tus commits locales.
+##### Paso 5. Configurar tu identidad para los commits
+La autenticación SSH y la identidad de los commits son cosas diferentes. En cada PC, configurá el nombre y el correo que querés que aparezcan en tus commits:
+
+```
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu-correo@example.com"
+```
+
+Esto no configura el acceso a GitHub; solo define la identidad registrada en los commits nuevos.
+
+---
 #### GIT CLONE
 
 Abrir el VSC dentro de la carpeta actual.
