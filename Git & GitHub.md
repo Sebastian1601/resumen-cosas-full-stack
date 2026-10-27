@@ -469,6 +469,14 @@ clip < ~/.ssh/id_ed25519.pub
 
 Esto copia la clave pública al portapapeles.
 
+Si por algún motivo, windows no reconoce el comando (o no tenemos el Bash de Git instalado)
+Podemos usar el comando para Powershell que nos muestra los datos de la clave en pantalla
+```powershell
+Get-Content ~/.shh/id_ed25519.pub | Set-Clipboard
+```
+
+Esto leería y pegaría el contenido del archivo en tu portapapeles directamente.
+
 Ahora abrí la configuración de claves SSH de GitHub:
 
 1. Hacé clic en New SSH key.
