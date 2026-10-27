@@ -2,8 +2,8 @@
 ## Indice
 
 - Git
-	- configuración inicial
-	- repositorios
+	- [[#Configuración inicial]]
+	- [[#Repositorios]]
 	- 
 
 
