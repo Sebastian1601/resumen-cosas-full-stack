@@ -124,6 +124,180 @@ Este comando devolverá una tabla, que tiene las dos columnas solicitadas:
 - *Name*: es el nombre interno del servicio (el que se debe usar con el comando anterior net start [nombre del servicio])
 - *DisplayName*: esto es el nombre descriptivo que se puede haber cambiado en el instalador.
 
+
+## Identificar relaciones
+
+Al comenzar a diagramar nuestra base de datos, vamos a tener que identificar las entidades que haran de guía para nuestro guardado de los datos. En general, las entidades se presentan como sustantivos de elementos componentes de nuestro proyecto, negocio, etc.
+
+Al tener las entidades, deberemos responder las preguntas correspondientes a las relaciones que tienen dichas entidades entre si.
+
+¿Puede existir más de una relación entre la entidad A y la B?
+¿Puede existir más de una relación entre la entidad B y la A?
+
+Ejemplo:
+Si tuviéramos entidades como *libros*, *autores*, y *editoriales*, nos tenemos que preguntar:
+¿un libro puede tener más de un autor? - Respuesta: NO
+	relación ==uno a uno==
+
+¿Un autor, puede escribir más de un libro? - Respuesta: SI
+	relación: ==uno a muchos==
+
+¿Un libro, puede corresponder a más de una editorial? - Respuesta SI
+¿Una editorial, puede imprimir más de un libro? - Respuesta SI
+	Relacion: ==muchos a muchos==
+## ¿Insertar o referenciar datos?
+Normalmente, cuando usamos una base de datos SQL, lo que se hace es si existen referencias de un registro con otros en otra tabla, se referencian mediante una FK, para relacionarlos y poder luego reestablecer estas relaciones en las busquedas.
+En mongoDB, podemos optar por otro acercamiento, la inserción de los datos relacionados.
+
+>[!success] La regla dorada de creación de esquemas en MongoDB
+>"Los datos que son accesados juntos, deben estar guardado juntos"
+
+Existen también guias para determinar mediante puntaje si corresponde insertar las relaciones o referenciarlas.
+
+Esta guía se basa en varias preguntas que deberíamos hacernos al diseñar los esquemas.
+De acuerdo a las respuestas obtenidas, se le va sumando puntos a Incrustar o Referenciar, según corresponda. ==NO TODAS LAS RESPUESTAS== corresponden al mismo puntaje, y esto se realiza normalmente entre dos entidades relacionadas.
+
+- **Simpleza (Simplicity)**:
+	¿Mantener las piezas de información juntas nos llevaría a un código y un modelo de datos más simple? 
+	Si: Incrustar
+	No: Referenciar
+
+- **Van juntas (Go Together)**:
+	¿Las piezas de información tiene un "posee un/a...", "contiene...", o relaciones similares?
+	Si : Incrustar
+	No: Referenciar
+
+- **Atomicidad de la consulta (Query Atomicity)**:
+	¿La aplicación realiza ambas consultas juntas normalmente?
+	Si: Incrustar
+	No: Referenciar
+
+- **Complejidad al actualizar (Update Complexity)**:
+	¿Las piezas de información se suelen actualizar juntas?
+	Si: Incrustar
+	No: Referenciar
+
+- **Archivar (Archival)**:
+	¿Ambas piezas de información deberían archivarse al mismo tiempo ante un borrado de una de ellas?
+	Si: Incrustar
+	No: Referenciar
+
+- **Cardinalidad (Cardinality)**:
+	¿Existe la posibilidad de que la cardinalidad de la parte incrustada crezca o sea alta?
+	Si: Referenciar
+	No: Incrustar
+
+- **Datos duplicados (Data Duplication)**:
+	¿La duplicación de datos sería muy complicada de manejar e incluso no deseada?
+	Si: Referenciar
+	No: Incrustar
+
+- **Tamaño del documento (Document Size)**:
+	¿El tamaño combinado de ambas piezas de información ocuparían mucha memoria o ancho de banda de transferencia para la aplicación?
+	Si: Referenciar
+	No: Incrustar
+
+- **Crecimiento del documento (Document Growth)**:
+	La parte de información que se incrusta, ¿crecería sin límites?
+	Si: Referenciar
+	No: Incrustar
+
+- **Carga de trabajo (Workload)**:
+	¿Las partes de información se escriben en diferentes momentos en una carga de trabajo de escritura-intensa?
+	Si: Referenciar
+	No: Incrustar
+
+- **Individualismo (Individuality)**:
+	¿La parte incrustada puede existir en nuestra base de datos sin ser referenciada por la parte padre o tiene sentido que exista sin ser referenciada?
+	Si: Referenciar
+	No: Incrustar
+
+Al tener las respuestas a todas estas preguntas, se suman los puntos para determinar si conviene `Incrustar` los datos hijos en un documento padre, o si conviene `Referenciar`.
+
+## Validación de esquemas
+
+Normalmente, vamos a definir reglas para validar los esquemas de nuestros modelos de datos de MongoDb.
+Para eso, vamos a hacer uso del operador  `$JsonSchema`
+
+>[!important] Importante
+>Solo los nuevos documentos o los actualizados se validan al insertarlos de nuevo en la colección. Los documentos ya preexistentes no son validados por el esquema.
+
+Se puede correr el comando 
+`db.collection.find( { $nor: [validator] } )`
+para identificar los documentos que no son validados por el esquema actual.
+
+Al validar un documento por el esquema, tenemos dos caminos que el sistema seguirá:
+- Error
+	Rechaza la operación de inserción o actualización.
+
+- Warn
+	Permite la operación a realizar, pero anota la violación de la validación en el log.
+
+### Definiendo un esquema
+
+Dejamos un ejemplo para la creación de un esquema con varias propiedades
+```json
+const bookstore_reviews = {
+	bsonType: "object",
+	required:["_id", "review_id", "user_id", "timestamp", "review", "rating"],
+	additionalProperties: false, //esto evita que se agregen otras propiedades
+	properties: {
+		_id:{bsonType: "objectId" },
+		review_id:{bsonType:"string"},
+		user_id:{bsonType:"string"},
+		timestamp:{bsonType:"date"},
+		review:{bsonType:"string"},
+		rating: {
+			bsonType:"int",
+			minimum: 0,
+			maximum: 5,
+		},
+		comments:{
+			bsonType:"array",
+			maxItems: 3,
+			items: {
+				bsonType:"object",
+			},
+		},
+	},
+};
+```
+
+luego, al tener el esquema definido, corremos el comando que define el modelo;
+
+```js
+const schema_validation = { $jsonSchema: bookstore_reviews };
+
+db.runCommand({
+	collMod: "reviews",
+	validator: schema_validation,
+	validationLevel: "strict",
+	validationAction: "error",
+});
+```
+
+Si definimos un esquema de esta manera en un archivo `.js`, podemos cargarlo en el shell de MongoDB con el comando :
+`load('ruta_al_archivo');`
+el shell nos dará una respuesta `true` si se pudo cargar correctamente el esquema.
+
+### Verificar el esquema de validación de una coleccion
+
+Para poder verificar el esquema en el shell directamente, tenemos el comando
+`db.getCollectionInfos({name: 'validador' });`
+y si es correcto, se describirá el esquema para validar documentos de esa colección.
+
+
+## recursos sobre el modelado de datos
+Mongodb documentation: https://www.mongodb.com/docs/manual/data-modeling/
+https://www.mongodb.com/resources/basics/databases/data-modeling
+
+video: Los principios del modelado de datos
+https://www.youtube.com/watch?v=0XVmuyPGy-o
+
+video: Steve Hoberman, Pascal Desmarets, Daniel Coupal 2023
+https://www.youtube.com/watch?v=TNGOzuZJg3E
+
+
 ## Comandos Básicos del Shell.
 Se puede ejecutar el comando base con el método `.help` y esto nos devolverá la lista de comandos derivados del comando base.
 ej:
@@ -132,6 +306,9 @@ db.help //esto dispara ayuda sobre los comandos db.(métodos)
 ```
 ### `db`
  este comando devuelve la base de datos que estamos utilizando (independientemente de que el prompt ya lo indica)
+
+### `db.help()`
+este comando nos dará una lista de todos los comandos que podemos aplicar en el shell, para identificar alguna tarea en específico que debamos realizar.
 
 ### `show dbs`
 Este comando devuelve la lista de base de datos que tenemos creadas (==IMPORTANTE==: Las bases deben tener algún dato para figurar en esta lista)
