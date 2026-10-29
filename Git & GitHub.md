@@ -8,6 +8,8 @@
 	- 
 
 # Git
+
+>[Libro de Git](https://git-scm.com/book/en/v2)
 ## Configuración inicial
 Al iniciar Git, hay opciones que es recomendable configurar de manera global, sistema y si es necesario, local también. Al iniciar un cambio en la configuración, podemos indicar que tipo será, de la siguiente manera
 
@@ -19,12 +21,11 @@ Al iniciar Git, hay opciones que es recomendable configurar de manera global, si
 	`--global`  realiza cambios para todos los repos en ese equipo.
 	`--system`  realiza cambios para todo el sistema.
 
-**Ver la lista de configuraciones globales:**
+##### Ver la lista de configuraciones globales:
 Para ver las configuraciones realizadas podemos usar el comando conjuntamente con el flag de tipo de config y `--list`:
 Ejemplo:
 `git config --global --list`
-
-**Ver configuración y entorno al cual se aplican**
+##### Ver configuración y entorno al cual se aplican
 Para ver la lista de configs total y a qué entorno(local, global o sistema) se están aplicando, usamos:
 `git config --list --show-origin`
 ##### Configurar usuario
@@ -34,11 +35,26 @@ Para configurar el nombre de usuario que queremos git use en commits y demás re
 Se puede configurar el mail del usuario actual con:
 `git config --global user.email "davidseba.giordano@gmail.com"`
 
+Si queremos usar un nombre de usuario y mail en particular para un proyecto, corremos los mismos comandos, dentro del proyecto, pero sin el flag `--global`.
+
+>Ejemplos
+- `git config user.name "usuarioTemporal"`
+- `git config user.email "miUsuarioTemporal@yahoo.com"`
+
 ##### Configurar el editor por defecto (visual studio code) para mensajes y edición de archivos
-El entorno visual studio code es conocido como `code` en consola, y al ser una variable de entorno global, si está configurado, permite abrir una instancia de *VSCode* utilizando el comando desde la consola. Para que por defecto, se utilice en comandos de git, lo debemos configurar de la siguiente manera:
+Se puede configurar el editor de código por defecto que abre git al momento de tener que corregir un merge o escribir el texto de un commit. En general, lo que se setea aqui es el comando a ejecutar, para abrir el editor, que está definido como variable de entorno en Windows. `code` es el comando que Visual Studio Code deja en la variable de entorno `PATH` , el cual se puede ejecutar desde la consola y esto abre el IDE, por lo que si ejecutamos `code` esto permite abrir una instancia de *VSCode*. Para que por defecto, se utilice en comandos de git, lo debemos configurar de la siguiente manera:
 `git config --global core.editor "code --wait"`
 
 El `--wait` genera que se confirmen los cambios cuando se cierre el editor de codigos.
+
+##### default branch - rama por defecto al inicializar repositorio
+Por defecto, git creará una rama raíz con el nombre `main` cuando se crea un nuevo repositorio.
+Esto se puede configurar:
+`$ git config --global init.defaultBranch [nombreDeLaRamaPorDefecto]`
+
+>Ejemplo
+`$ git config --global init.defaultBranch principal`
+
 ##### Configurar colores de interfaz
 Esto configura el uso de colores al presentar información pertinente.
 `git config --global color.ui true`
@@ -55,8 +71,34 @@ Ejemplo, si queremos saber qué valor guarda la variable `defaultBranch` usamos:
  `git config init.defaultBranch` 
 
 ---
+##### Chequear la configuración general
+para verificar los valores ingresados en la configuración podemos usar:
+`$ git config --list`
+
+>Esto nos dara algo similar a esto dependiendo de las variables que configuramos
+```console
+$ git config --list
+user.name=John Doe
+user.email=johndoe@example.com
+color.status=auto
+color.branch=auto
+color.interactive=auto
+color.diff=auto
+...
+```
+
+También se puede ver el valor de una única variable usando
+`$ git config [variable]`
+
+>Ejemplo
+>`$ git config user.name`
+
+---
 ##### Ayuda de la consola.
 Para solicitar ayuda sobre qué parámetros puede llevar un comando, podemos escribir en la linea de comandos `git + comando + -h`
+
+>Ejemplo
+>`$ git commit -h`
 
 ---
 ### info adicional
@@ -64,7 +106,7 @@ Para solicitar ayuda sobre qué parámetros puede llevar un comando, podemos esc
 
 ---
 
-## Repositorios
+## comandos básicos del shell
 ##### Comandos basicos del shell (linea de comandos)
 Acceder a una carpeta:
 `cd (nombre entrar carpeta)` 
@@ -114,11 +156,23 @@ flowchart LR;
 ```
 
 ---
-#### Inicializar un repositorio local
+## Inicializar un repositorio local
 Antes de comenzar a guardar versiones de los archivos, se debe inicializar una carpeta como un repositorio mediante el comando:
-`git init` 
-Esto crea una carpeta oculta llamada `.git` que guarda información relevante para el uso y manejo de ese repositorio por git-
-#### Agregar archivos al area de STAGING
+`$ git init` 
+
+Esto crea una carpeta oculta llamada `.git` que guarda información relevante para el uso y manejo de ese repositorio por git.
+
+### Clonar un repositorio remoto
+Si en cambio, queremos descargar un repositorio remoto, usamos el comando 
+`$ git clone [protocolo][direccion del repositorio]`
+
+>Ejemplo HTTPS
+>`$ git clone https://github.com/Sebastian659835/miRepoRemoto01.git` 
+
+>Ejemplo SSH
+>`$ git clone Sebastian659835@github.com:miRepoRemoto01.git` 
+
+### Agregar archivos al area de STAGING
 Agregar todos los archivos al area de staging 
  `git add .` 
 
@@ -133,7 +187,7 @@ esto agregará al *tracking de archivos*, los archivos de extensión `.c` nada m
 Ejemplo:
 `git add index.html image.jpg readme.txt`
 
-#### Eliminar archivos del area de STAGING
+### Eliminar archivos del area de STAGING
 Para sacar archivos del area de staging, puedes indicarle a GIT que **NO SIGA TRACKEANDO** el archivo (*untracked en git status*)
 `git rm --cached (nombre del archivo)`
 esto hace que al hacer `git status`, se muestre el archivo indicado en la parte de "**untracked files**".
@@ -142,11 +196,11 @@ indicando que el archivo existe, pero que git no está "tomando cuenta" de los c
 Este comando en particular, remueve el archivo del area STAGED indicado. Si hemos mandando al STAGING un archivo, lo modificamos, y luego devolvemos con este comando al WORKING DIRECTORY el mismo archivo, la versión que prevalece es la modificada por último.
 `git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)`
 
-#### Elimina todos los archivos del area de Staging
+### Elimina todos los archivos del area de Staging
 Este comando devuelve todos los archivos al área de trabajo.
 `git reset` 
 
-#### Eliminar modificaciones hechas en archivos sin agregarlos al staging, ni commiteados.
+### Eliminar modificaciones hechas en archivos sin agregarlos al staging, ni commiteados.
 Si tenemos un commit, y luego modificamos alguno de estos archivos trackeados, pero nos damos cuenta que no queremos aplicar estos cambios sobre el commit inicial, podemos hacer uso del comando
 `git reset --hard HEAD`
 Esto devuelve el estado de los *archivos trackeados* al estado del commit inicial.
@@ -169,19 +223,38 @@ el comando
 `git clean -fd`
 
 Esto descarta los archivos nuevos no trackeados
-#### Verificar cambios en los archivos trackeados
+### git status - Verificar cambios en los archivos trackeados
 Al ir modificando, creando y eliminando archivos, nos vamos a encontrar con que el repositorio local va a ir mostrando "cambios". Estos cambios, se pueden verificar con el comando git status
 `git status`
 
 **??** =  archivos que no se están "siguiendo".
+**A** = archivos nuevos que han sido agregados al area de staging.
 **M** = Los archivos modificados tienen una `M` al lado, esto indica que han cambiado desde el estado inicial del *commit actual*.
 Los archivos que no han cambiado, no figuran en la lista.
+La lista de propiedades (**?, A, M**) se presenta en dos columnas, la primera responde al estado del archivo al agregarlos al area de Staging(luego de hacer `git add .`)
+La segunda columna, indica si luego de haber agregado archivos al area de Staging, se hizo otro cambio o se agregó otro archivo a la carpeta en cuestión, etc.
+
+>Ejemplo
+```console
+$ git status -s
+ M README
+MM Rakefile
+A  lib/git.rb
+M  lib/simplegit.rb
+?? LICENSE.txt
+```
+Esto indica que:
+- el archivo `README` ha sido modificado LUEGO de agregar los archivos al area de Staging.
+- el archivo `Rakefile`, ha sido agregado al area de Staging luego de ser modificado, y ha sido modificado nuevamente luego de ser agregado.(por lo tanto, si queremos incorporar los nuevos cambios, habría que agregarlo de nuevo)
+- el archivo `lib/git.rb` es un archivo nuevo del repositorio y ha sido agregado para ser "trackeado" por el mismo.
+- el archivo `lib/simplegit.rb` ha sido modificado desde su estado anterior y está agregado al area de Staging.
+- el archivo `LICENSE.txt` es un archivo *NO TRACKEADO* por el repositorio.
 
 existe otra forma de verificar los archivos de una manera más corta.
-`git status -s`
+`$ git status --short // git status -s`
 
 ---
-#### Archivo .GITIGNORE 
+### Archivo .GITIGNORE 
 Podemos definir un archivo que determina qué archivos GIT debe ignorar al momento de trackear o buscar cambios para realizar un commit. 
 Esto sólo funciona para archivos que **NUNCA** se han guardado en un commit, si el archivo ya se subió *se seguirá trackeando siempre y cuando no se elimine del tracking* y esté agregado al **.gitignore**
 
@@ -210,6 +283,9 @@ Ejemplo: `git config --global core.excludesfile c:/generalfiles/.gitignore_globa
 # ignorar todos los archivos de extensión .a
 *.a
 
+# ignorar archivos que tengan extension .gif o .tif
+*.[gt]if
+
 # pero sí hacer seguimiento del archivo lib.a, incluso si estás ignorando archivos de extensión .a
 !lib.a
 
@@ -227,8 +303,81 @@ doc/**/*.pdf
 ```
 
 ---
-#### Realizar Commit 
+### git diff - Ver los cambios detallados entre archivos mencionados por gitstatus
+
+##### git diff
+Git diff compara los cambios realizados en los archivos en el working tree con los del último commit.
+Si existen cambios en area de Staging, y cambios luego de agregar los archivos a Staging, entonces git diff muestra estos últimos cambios, entre *Staging* y *no agregados*
+```mermaid
+---
+title: git diff
+---
+flowchart LR
+primer["commit 65dg32..."]
+segundo["archivos en Working tree"]
+primer --cambios --> segundo
+```
+
+ Supongamos que hicimos cambios a un archivo `README`, y lo agregamos al Staging, y luego de esto, cambiamos otro archivo llamado `CONTRIBUTING.md`.
+ El retorno de `git status` sería algo asi:
+```console
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    modified:   README
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md
+```
+
+
+##### git diff -staged
+```mermaid
+---
+title: git diff --staged
+---
+flowchart LR
+primer["commit 65dg32..."]
+segundo["archivos en Staging Area"]
+primer --cambios --> segundo
+```
+
+Para ver qué *cambios* se hicieron, pero no se mandaron al *Staging*, usamos 
+`$ git diff` sin argumentos!
+
+>la devolución sería algo similar a esto (dependiendo de los datos cambiados)
+```console
+$ git diff
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 8ebb991..643e24f 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -65,7 +65,8 @@ branch directly, things can get messy.
+ Please include a nice description of your changes when you submit your PR;
+ if we have to read the whole diff to figure out why you're contributing
+ in the first place, you're less likely to get feedback and have your change
+-merged in.
++merged in. Also, split your changes into comprehensive chunks if your patch is
++longer than a dozen lines.
+
+ If you are starting to work on a particular area, feel free to submit a PR
+ that highlights your work in progress (and note in the PR title that it's
+```
+
+Este comando compara que está en tu actual `directorio de trabajo` con lo que está en tu `Staging`. 
+- Si queres ver, la diferencia de lo que hay en el area de Staging, con respecto a tu ultimo commit realizado anteriormente, se usa:
+`$ git diff --staged`
+
+---
+### Realizar Commit 
 El commit es una instantánea del estado de proyecto actual del repositorio git.
+Esto toma los archivos con sus cambios que hay en el `area de Staging` (*no agrega lo que está modificado luego de agregar los cambios a Staging*)
 Estas instantáneas van a ser nuestros "estados" a los cuales podremos volver, revisar, comparar en otros momentos como "hitos" de nuestro proyecto.
 
 Para realizar un commit, debemos estar *trackeando* archivos del proyecto, y tenemos que haberlos *agregado al area de staging* primero, para indicar qué archivos incluirá el commit. Luego, al tener los archivos que queremos actualizar en el area de staging, podemos usar el comando:
@@ -239,9 +388,11 @@ Para realizar un commit, debemos estar *trackeando* archivos del proyecto, y ten
 `git commit` 
 >al no usar el flag, se abre automáticamente el editor de texto configurado antes, para escribir el mensaje del commit ahi.
 
-#### Realizar Commit --- Sin pasar por el área de STAGING ---
-`git commit -a`
+##### Realizar Commit --- Sin pasar por el área de STAGING ---
+esto evita agregar los archivos al area de staging para hacer el commit.
+se pone el flag `-a` y luego el flag de mensaje `-m "mensaje"`
 
+`git commit -a -m "hotfix: login reparado!`
 ##### Buenas practicas en los mensajes
 Las buenas prácticas en los mensajes de Git se pueden iniciar con ciertas palabras claves que nos indican en mayor medida qué fue lo que se hizo.
 **feat**: nueva característica
@@ -249,22 +400,115 @@ Las buenas prácticas en los mensajes de Git se pueden iniciar con ciertas palab
 **tweak**: pequeños cambios en el código.
 **copy**: Actualizado boton de inicio.
 **refactor**: se refactorizó el código de x función o módulo.
-#### Ver historial y hash de los commits
+
+#### Eliminar un archivo del repositorio
+Para eliminar el seguimiento de un archivo del repositorio, hay que eliminarlo del area de Staging y luego hacer el commit.
+- `$ git rm (archivo)`  :se elimina el archivo.
+- luego, se debe agregar la "eliminación del archivo" con `git add (nombre de archivo o punto)` 
+- finalmente se realiza el commit.		
+`git commit -m "(mensaje)" -a`
+
+Si simplemente borras el archivo de tu directorio. al hacer `git status`, el output indicará que el archivo pertenece a **cambios no ubicados en staging para commit**
+
+Entonces, ahi hay que usar de nuevo el comando para eliminar:
+`$ git rm (archivo)`
+
+y eso finalmente deja limpio la salida de `git status`
+## Ver historial y hash de los commits
+
 Para ver el listado e historial de commits de la rama actual, podemos usar
 `git log`
 
-`git log --oneline`  :(muestra el log y los hash resumidos configurados de los commits)
+muestra el log y los hash resumidos configurados de los commits
+`git log --oneline`  
 
-`git log --oneline --all`  :(muestra los commits de TODAS las ramas)
+muestra los commits de TODAS las ramas
+`git log --oneline --all`
 
-`git ls-tree -r --name-only (hash resumido del commit a ver)` :(muestra lista de  archivos y carpetas en ese commit)
-`git ls-tree -r --name-only HEAD` :(esto refiere al último commit disponible)
+##### git log -[cantidad_de_commits_a_presentar]
+este comando nos muestra la cantidad de commits que especifiquemos por parámetro, del más actual hacia atrás.
 
-#### Eliminar un archivo del repositorio
-`rm (archivo)`  :se elimina el archivo.
-luego, se debe agregar la "eliminación del archivo" con `git add (nombre de archivo o punto)` 
-finalmente se realiza el commit.		
-`git commit -m "(mensaje)" -a`
+>Ejemplo
+>`$ git log -2`
+Esto muestra los ultimos 2 commits realizados.
+
+##### git log -p
+Esto muestra los commits junto con la diferencia de código ingresado/eliminado entre commits.
+
+>Ejemplo
+>`$ git log -p`
+
+##### git log --stat
+este comando muestra los commits con un resúmen de cuantas lineas se insertaron/eliminaron en cada commit.
+`$ git log --stat`
+
+##### git log --pretty=[modificador]
+Esto nos permite formatear como nosotros queramos la salida del `git log`.
+
+>Ejemplo
+```console
+$ git log --pretty=format:"%h - %an, %ar : %s"
+```
+
+Table 1. Useful specifiers for `git log --pretty=format`
+
+| Specifier | Description of Output                             |
+| --------- | ------------------------------------------------- |
+| `%H`      | Commit hash                                       |
+| `%h`      | Abbreviated commit hash                           |
+| `%T`      | Tree hash                                         |
+| `%t`      | Abbreviated tree hash                             |
+| `%P`      | Parent hashes                                     |
+| `%p`      | Abbreviated parent hashes                         |
+| `%an`     | Author name                                       |
+| `%ae`     | Author email                                      |
+| `%ad`     | Author date (format respects the `--date=option`) |
+| `%ar`     | Author date, relative                             |
+| `%cn`     | Committer name                                    |
+| `%ce`     | Committer email                                   |
+| `%cd`     | Committer date                                    |
+| `%cr`     | Committer date, relative                          |
+| `%s`      | Subject                                           |
+
+muestra lista de  archivos y carpetas en ese commit
+`git ls-tree -r --name-only (hash resumido del commit a ver)`
+
+esto refiere al último commit disponible
+`git ls-tree -r --name-only HEAD`
+
+## Deshacer cosas
+A veces será necesario corregir subidas, mensajes de commits, faltará agregar archivos, etc.
+los comandos para eso serán los siguientes.
+
+##### git commit -amend
+Si quieres rehacer el último commit de nuevo, porque faltaron archivos, o quieres reescribir el mensaje del commit, se puede dejar el area de Staging como se necesite(con los archivos que faltaron...) y ejecutar:
+`$ git commit --amend`
+
+Esto deja editar el mensaje nuevamente, y agrega y commitea los archivos nuevamente en *staging*.
+Esto se hace solamente con archivos locales, dado que si subimos el repo, y luego ejecutamos el amend, y volvemos a subir, puede ser que alguien ya lo haya bajado y se genera una inconsistencia con los archivos. **HACERLO SOLO LOCALMENTE**
+##### Sacar del area de Staging
+Supongamos que se generaron cambios en archivos y se quiere hacer commit de ellos, en dos cambios separados, pero por accidente se agregan todos con `git add .` y ahora todos los archivos están en *area de Staging*.
+En principio, el comando `git status` recuerda con qué otro comando se pueden "sacar" de alrea los archivos requeridos
+`...use 'git reset HEAD <file>...' to unstage`
+
+PERO, desde Git versión 2.23.0 se introdujo el comando `git restore` para este tipo de operaciones y evitar usar `git reset`
+
+entonces, si uno de los archivos que queremos sacar del stagin se llamase `archivoJs.js` haríamos:
+`git restore --staged archivoJs.js`
+
+y esto dejaría el area de Staging tal cual estaba, con todos los archivos modificados, pero **SIN EL ARCHIVO** `archivoJs.js`
+
+##### Descartar cambios realizados a un archivo en el working tree.
+Si nosotros hacemos un commit, y luego seguimos modificando un archivo, y finalmente, nos damos cuenta que no queremos guardar los cambios de ese archivo (pero quizás otros cambios en otros archivos sí) podemos "deshacer esos cambios no commiteados".
+
+**Primero**, si los archivos estan modificados pero no se han agregado al *area de Staging*, podemos hacer uso del comando:
+`git checkout -- archivo3.txt`
+
+Si el archivo que queremos descartar los cambios, ya está agregado al *area de Staging*, primero hacemos uso de 
+`git restore --staged [archivo]`
+y luego sí, usamos
+`git checkout -- [archivo]`
+Y esto descarta y deja el archivo en el estado que se tomó para el commit precedente.
 
 #### Restaurar un archivo borrado localmente
 `git restore (ruta/nombre del archivo.ext)` 
@@ -290,7 +534,7 @@ Esto sólo eliminará los cambios asociados a este hash de commit y no afectará
 `git revert --no-comit <commit ID>  || [git revert -n <commit ID>]`
 este comando revertirá los cambios del commit indicado, pero no creará un nuevo commit, para que se puedan verificar y decidir si se commitean asi como están o se agregan más cambios.
 
-## Ramas locales / Branches
+## git branch (ramas locales)
 **T**ener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
 
 - `git branch`  (esto muestra todas las ramas activas y creadas del repo)
@@ -381,6 +625,81 @@ Puede suceder que si hemos estado trabajando en el proyecto, creado commits loca
 Para resolver esto, Podemos directamente hacer un **pull** verificando los conflictos que puedan generarse al integrar las 2 ramas con cambios y luego hacer un **push** con el proyecto mezclado, podemos hacer un rebase.
 
  ---
+## Rebase
+
+La otra manera de combinar "ramas" es utilizar el comando `git rebase`.
+Este comando "trae" el historial de la rama pasada como parámetro, y lo aplica en la rama donde estamos ejecutando el comando.
+
+>[!warning] CUIDADO CON ESTO
+Rebase no se suele aplicar desde ramas públicas o compartidas (como `main`) porque esto generaría que se genere discrepancia en los commits que se actualizan al ejecutar el comando
+
+Por lo tanto, el rebase se hace generalmente en la rama que creamos, para traer el historial de la "rama pública", aplicarlo como **base** a nuestra rama, y luego usamos desde la rama que traemos la *base* `git merge` para fusionar y dejar limpio el historial.
+
+`(ramaAlternativa) $ git rebase main` y luego
+`(main) $ git merge ramaAlternativa`
+
+supongamos que tenemos lo siguiente
+
+```mermaid
+gitGraph
+commit id:"C0"
+commit id:"C1"
+branch bugFix
+	commit id:"C3"
+	commit id:"C4"
+checkout main
+commit id:"C2"
+```
+
+y quisieramos mover el trabajo de `bugFix` `C3` y `C4`, dado que divergieron de `main`, justamente a la rama `main`, para que parezca que esas dos tareas se hicieron secuencialmente. Podemos usar entonces el comando `git rebase`
+
+Para esto, tenemos que estar parados en la rama que vamos a **mover**, en nuestro caso, `bugFix`.
+
+1. Desde `bugFix` , hacemos el rebase de `main`
+	`$ git rebase main`
+2. Esto "mueve" todos los commits de `bugFix` a la rama `main` y descarta la ramificación y dejando solamente el historial de commits de `main` pero con los cambios aplicados de `bugFix`.
+
+##### SHORTCUT
+- Si tenemos varias ramas, y queremos hacer un rebase en main, de la rama bugFix, podemos aplicar el comando `git rebase main topic` y esto es un *shortcut* para 
+- `git checkout topic`
+- `git rebase main`
+
+```
+gitGraph
+commit id:"0001"
+commit id:"0002"
+branch rama1
+	commit id:"0101"
+	commit id:"0102"
+checkout main
+commit id:"0003"
+merge rama1 tag: "main + rama1 = posible conflicto"
+```
+
+```mermaid
+gitGraph
+commit id:"0001"
+commit id:"0002"
+branch rama1
+	commit id:"0101"
+	commit id:"0102"
+checkout main
+commit id:"0003"
+merge rama1 tag: "main + rama1 = posible conflicto"
+```
+
+Luego, para subir los cambios al repositorio en main debemos usar el comando
+`$ git push origin main --force-with-lease`
+
+se usa `--force-with-lease` en vez de `--force` a secas para evitar sobreescribir cambios si un colaborador subió algo mientras tanto.
+
+Luego de esto, se puede eliminar la `rama1` local si no se volverá a trabajar en ella.
+`$ git branch -d rama1`
+
+Si se creó una rama remota de seguimiento para `rama1`, se puede eliminar también
+`git push origin --delete rama1`
+
+---
 #### Aliases
 Se definen como funciones que guardan todos los comandos determinados para ejecutar más simple
 
