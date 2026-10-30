@@ -512,9 +512,9 @@ Y esto descarta y deja el archivo en el estado que se tomó para el commit prece
 
 #### Restaurar un archivo borrado localmente
 `git restore (ruta/nombre del archivo.ext)` 
-Esto restaura un archivo borrado localmente al punto de la última actualización que tuvo el mismo en el repo. 
+Esto restaura un archivo borrado localmente siempre y cuando no se haya hecho commit luego del archivo ya borrado. Esto restaura el archivo al punto antes del último commit.
 Si se hicieron cambios luego del commit y no se guardaron, no van a estar en el archivo restaurado.
-#### VOLVER ATRÁS EL ESTADO DE UN ARCHIVO, al último commit actualizado(HEAD).(esto no funciona si hay cambios subidos al ÁREA DE STAGING)
+#### git revert() - realizar un commit, volviendo al estado del commit anterior
 
 `Git revert` es similar a git reset, pero el enfoque es ligeramente diferente. En lugar de eliminar todos los commit a su paso, la reversión SÓLO deshace un único commit, devolviéndote a los archivos organizados antes del commit.
 
@@ -526,14 +526,13 @@ el código anterior, genera un NUEVO COMMIT, posterior al actual, con los cambio
 `git revert --no-edit <commit ID>`
 La opción --no-edit permite al usuario no cambiar el mensaje utilizado para el commit que desea revertir, y esto hará que git revierta el archivo a la rama maestra.
 
-----
 `git revert <commit hash>`
 Esto sólo eliminará los cambios asociados a este hash de commit y no afectará a ningún otro commit. incluso funciona si por ej. se han eliminado archivos en un commit anterior, al revertir ese commit, se recuperan los archivos.
 
----
 `git revert --no-comit <commit ID>  || [git revert -n <commit ID>]`
 este comando revertirá los cambios del commit indicado, pero no creará un nuevo commit, para que se puedan verificar y decidir si se commitean asi como están o se agregan más cambios.
 
+---
 ## git branch (ramas locales)
 **T**ener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
 
@@ -541,13 +540,14 @@ este comando revertirá los cambios del commit indicado, pero no creará un nuev
 
 - `git branch (nombre de la nueva rama)`  :esto crea una rama(copia del estado actual) con el nombre indicado.
 
-- `git branch -a` : muestra todas las **ramas locales** disponibles.
+- `git branch -a` : muestra todas las **ramas** tanto locales como en la nube disponibles.
 
-- `git branch -r` : muestra todas las **ramas locales y remotas registradas** (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
+- `git branch -r` : muestra todas las **ramas remotas registradas** (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
 
 >[!warning] para actualizar esas referencias que quizás están erróneas, se usa 
 `git fetch --prune`
 
+---
 #### Cambiar la rama activa del código
 `git checkout (nombre de la rama en la que se quiere trabajar)` (ya no se suele utilizar)
 
@@ -863,27 +863,176 @@ git config --global user.email "tu-correo@example.com"
 Esto no configura el acceso a GitHub; solo define la identidad registrada en los commits nuevos.
 
 ---
-#### GIT CLONE
-
+#### git clone
 Abrir el VSC dentro de la carpeta actual.
   `c:> CODE .`     
 
-ESTANDO en la carpeta donde queremos copiar el repositorio por HTTPS, copiamos la dirección http y luego:
+Este comando trae de un repositorio remoto todos los datos de la rama main.
 
-`git clone [dirección https del repositorio a clonar]`
+>Ejemplo
+`$git clone git@github.com:usuario/elRepoDelUsuario.git`
+
+Esto copia todo el repositorio mencionado, creando una carpeta de nombre [elRepoDelUsuario] y copiando ahi todos los archivos internos.
 
 >[!important] Importante
->El comando git clone ya configura la variable origin para que se referencie al repositorio clonado de la web, para realizar `push`,  `fetch`, etc.
+>El comando `git clone` ya configura la variable origin para que se referencie al repositorio clonado de la web, para realizar `push`,  `fetch`, etc.
 
-#### GIT PUSH
+#### git remote -v
+Este comando, permite ver las direcciones url que tiene el repositorio configurado para el fetch y el push.
+Dependiendo del protocolo de autenticación que usemos mediante Github, puede variar levemente, pero normalmente si hacemos el comando nos resulta en:
 
-Para poder subir archivos a nuestro repo, debemos tener configurado el mismo mail con el que iniciamos sesión
-en Github. 
-Luego, si queremos subir algo a un repo "clonado", se utiliza el comando
+```console
+$git remote -v 
 
+origin	ssh: git@github.com/usuario/repositorio (fetch)
+origin	ssh: git@github.com/usuario/repositorio (push)
+```
+
+Si esto no devuelve nada, quiere decir que tenemos el repositorio creado localmente, pero este no está "trackeando" los cambios de ningún repositorio remoto.
+
+Para vincular un repositorio remoto con el nuestro local, podemos usar
+#### git remote add
+este comando añade explícitamente un repositorio remoto de git del cual descargar y subir commits.
+
+`$ git remote add [nombre_de_referencia] [url]`
+
+notar que normalmente tendríamos solo las lineas de *origin* si es que clonamos el repositorio.
+Agregamos otra referencia llamada backdoor, y ahi vinculamos el otro repo remoto.
+
+>Ejemplo
+```
+$ git remote add backdoor https://github.com/CharlesXavier/mirepo.git
+
+$ git remote -v
+origin	https://github.com/schacon/ticgit (fetch)
+origin	https://github.com/schacon/ticgit (push)
+backdoor	https://github.com/CharlesXavier/mirepo.git (fetch)
+backdoor	https://github.com/CharlesXavier/mirepo.git (push)
+```
+
+>[!important] IMPORTANTE
+>Si creamos un repo local, y luego después de inicializarlo, creamos un repo remoto, deberemos configurar la referencia origin (suele ser ese nombre por defecto) para que el repo local se conecte con el remoto y nos permita hacer *fetch* y *push*
+
+---
+#### git fetch
+Normalmente, vamos a querer verificar si los repositorios remotos contienen cambios desde que los descargamos, al ser un repo remoto, más de una persona puede estar generando cambios en el código. Para hacer esta verificación, se usa `git fetch`
+
+Este comando sirve para verificar cambios que no tenemos todavia localmente. Si no especificamos el nombre del repositorio remoto como parámetro, la verificación por defecto será de ==origin==. Pero, se puede por ej, otro repositorio remoto, como pb que habiamos definido mucho antes:
+`$ git fetch pb`;
+después de hacer esto, deberías tener referencia de todas las ramas de ese repo remoto, las cuales se pueden fusionar o inspeccionar primero.
+
+Cuando se clona un repo, automáticamente el comando setea una referencia del repositorio con el nombre `origin`, asi que `git fetch origin` es el comando por defecto para ejecutar cuando tenemos un solo repositorio referenciado.
+
+>[!note] Nota Importante
+>`git fetch` baja los cambios del repositorio PERO NO LOS FUSIONA AUTOMATICAMENTE, esto se debe hacer manualmente.
+
+Cuando hacemos un `git fetch`, los cambios que vienen del repositorio remoto se mantienen en una "rama temporal". En general, el mensaje de la consola será:
+```console
+$ git fetch
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (3/3), 1006 bytes | 201.00 KiB/s, done.
+From github.com:Sebastian1601/repo-uno-curso-soy-dalto
+   4a0615f..50b20e3  main       -> origin/main
+```
+La última linea, nos indica que los cambios se guardan en la rama temporal `origin/main`.
+
+Para poder "ver" esa rama temporal, y ver qué cambios contienen los archivos que vienen, podemos separar el HEAD (puntero) para apuntar a esa rama, como lo haríamos con cualquier otra, pero con el flag `--detach`
+
+>Ejemplo
+>`$ git switch --detach origin/main`
+
+y esto nos dará un mensaje similar al siguiente:
+```console
+HEAD is now at 50b20e3 Create prueba-de-detach-js
+```
+
+Al ser una rama, si usamos el comando `$ git branch` nos figurará la rama temporal entre paréntesis, de la siguiente manera:
+```
+$ git branch
+ (HEAD detached at origin/main)
+  main
+```
+
+Esto significa que estamos parados en esa "rama temporal con nuestro puntero HEAD".
+Ahi podemos revisar el código, verificar qué cambios tiene y finalmente, ver si corresponde hacer el merge con nuestra rama o no.
+Si queremos integrar los cambios revisados, volvemos a nuestra rama y realizamos el 
+`$ git pull`
+Para fusionar los cambios de la rama remota con la nuestra local.
+
+Si en cambio, queremos crear una rama local a partir de esa rama remota que traemos, podemos hacerlo sin hacer el `--detach`
+Podemos utilizar entonces la siguiente combinación de comandos:
+
+`$ git fetch` y luego
+`$ git switch -c ramaLocal2 --no-track origin/main`
+
+Esto creará una rama local, que no hará track de origin/main, porque ya tu rama main hace track de esa rama remota, sino al hacer pull, se sobreescribiran ambas ramas, y probablemente, si haces una rama de esto, no querrás integrar los cambios en ambas ramas.
+
+Luego puedo verificar si la rama está trackeando alguna rama remota del repositorio, o si nuestro código funcionó con
+`$ git branch -vv`
+
+Esto nos listará las ramas locales, y si están trackeando a alguna rama remota, figurará su nombre entre corchetes. Si la rama local no trackea a ninguna remota, entonces figurará solo el mensaje del commit al lado:
+```console
+$ git branch -vv
+main         2b00029 [origin/main: ahead 2, behind 1] "archivo arprueba.txt recuperado!"
+* ramaTemporal 50b20e3 Create prueba-de-detach-js
+```
+#### git pull
+Este comando hace lo que `git fetch` no hacía, bajar los cambios del repositorio indicado y ejecutar un `git merge` para fusionar los mismos a nuestra rama en un solo paso.
+
+---
+#### Inspeccionando un repo remoto desde la terminal
+Si se quiere ver información más detallada sobre un remoto particular, se puede usar el comando:
+`$ git remote show <remote>`
+Esto nos dará información sobre las direcciones de fetch y push, asi como el nombre de la rama principal, y si las ramas alternativas están siendo trackeadas.
+
+```console
+$ git remote show origin
+* remote origin
+  URL: https://github.com/my-org/complex-project
+  Fetch URL: https://github.com/my-org/complex-project
+  Push  URL: https://github.com/my-org/complex-project
+  HEAD branch: master
+  Remote branches:
+    master                           tracked
+    dev-branch                       tracked
+    markdown-strip                   tracked
+    issue-43                         new (next fetch will store in remotes/origin)
+    issue-45                         new (next fetch will store in remotes/origin)
+    refs/remotes/origin/issue-11     stale (use 'git remote prune' to remove)
+  Local branches configured for 'git pull':
+    dev-branch merges with remote dev-branch
+    master     merges with remote master
+  Local refs configured for 'git push':
+    dev-branch                     pushes to dev-branch                     (up to date)
+    markdown-strip                 pushes to markdown-strip                 (up to date)
+    master                         pushes to master                         (up to date)
+```
+
+
+#### renombrar referencias de repositorios remotos
+Aunque es convención usar `origin` como referencia al repositorio remoto principal de cada repo local, se puede renombrar.
+`$ git remote rename [nombre_Actual] [nombre_nuevo]`
+
+>Ejemplo
+>`$ git remote rename origin cloudRepo`
+
+#### eliminar referencias a repositorios remotos
+Si queremos eliminar referencias a repos remotos, si agregamos más de origin, podemos eliminarlos con el comando:
+`$ git remote remove [referencia_al_repo_remoto]`
+
+Una vez que se elimina una referencia remota, todas las configuraciones de las ramas trackeando esa referencia también se eliminan.
+
+---
+#### git push
+
+Para poder subir archivos a nuestro repo, debemos tener configurado el mismo mail con el que iniciamos sesión en Github. 
+Luego, si queremos subir cambios (nuevos commits) a un repo "clonado", lo hacemos con el comando:
  `git push origin main`
  `git push [nombre del repo remoto] [rama del repo remoto]`
-  	
+
 Si esto abre una ventana de log, lo recomendable es hacerlo por [TOKEN]. Para obtener el [TOKEN],
  vamos a Settings > Developer Settings > Personal Acces Tokens > Tokens (classic) y ahi Generar nuevo token
 
@@ -892,6 +1041,7 @@ Recomendaciones sobre el token
 - Los permisos con la primera opción, REPO ya es suficiente.
 
  Esto generará un código que se debe copiar en el sistema de inicio de sesión de Github por la solapa TOKEN.
+ 
 * Para subir todas las ramas de tu repo local al remoto
 `git push --all`
 
@@ -899,25 +1049,17 @@ Recomendaciones sobre el token
 
 `git push OnlineRepo ramaL:ramaR`
 
- 
-#### GIT PULL
+>Ejemplo
+`$ git push origin hotFix2:hotFixNode`
 
-Utiliza para descargar CAMBIOS de archivos actualizados subidos al repo online. 
-Esto es un **git fetch** y luego hacer un **git merge** todo junto.
-
-`git pull [nombre_repo_remoto] [rama_remota]`
-`Git pull origin main`
-
-#### Hacer un GIT PULL de una rama en origin/ramaA la cual no existe en el repo local, y guardarla en una rama nueva.
+#### git pull de rama remota a rama local
 
 Para poder hacer un pull de una rama remota la cual no existe en nuestro repositorio local, debemos crear una **rama nueva** en el **repo local**, y podemos hacer el **git pull** automáticamente creando y descargando la misma con el comando:
 `git switch -c [rama_local] [origin]/[rama_remota_a_hacer_track]`
 
 esto crearía en nuestro repo local, una "rama_local", y se descargaría la rama remota desde origin/"rama_remota_a_hacer_track"
 
-
 #### Configurar un repo remoto limpio luego de tener un repo local con commits
-
 - Primer, ya teniendo los commits en el repo local, creamos el repo remoto, y en git usamos
 `git remote add origin [direccion http del repo remoto]`
 
@@ -933,7 +1075,8 @@ y esto nos abre el editor de mensajes de commits, para poner un mensaje. al fina
 
 finalmente, hacemos un git push
 
-`git push --set-upstream origin main`
+`git push --set-upstream origin main` o el shorthand
+`$ git push -u origin main`
 
 Si creamos una rama nueva local, y queremos subir esta al repo remoto, usamos el comando anterior pero con una pequeña diferencia
 `git push -u origin [nombreRama]`
