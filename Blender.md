@@ -233,4 +233,262 @@ Este motor se caracteriza por ser rápido, pero no detallado.
 
 
 
+## Voxel Remesh
+Esto nos permite unir varias piezas de primitivas en una sola malla, útil en modelado y esculpido.
 
+1. Se crea las primitivas
+	cada primitiva es un objeto independiente inicialmente.
+2. Se selecciona las piezas que se quieren unir, y se presiona `Ctrl + j`
+	Esto ejecuta un Join entre las primitivas.
+>[!warning] Importante!
+>Esto no fusiona "físicamente" todavia las geometrías, simplemente combina los objetos en un único objeto Blender (se mueve uno, se mueven todos...) pero las mallas siguen siendo independientes y pueden estar superpuestas.
+
+3. Se configura la resolución del **Voxel Remesh**
+![[Pasted image 20261112112601.png]]
+Ahora viene lo importante:
+	1. Se cambia a *sculpt mode*
+	2. Se presiona `R` para activar el ajuste de resolución del Voxel Remesh
+	3. Se mueve el cursor para modificar el tamaño de los vóxeles (Voxel size).
+
+Voxel pequeños: mayor resolución, más polígonos, y más detalles
+Voxel grandes: menor resolución, menos polígonos, y formas simplificadas.
+
+Esto se calcula "a ojo" un valor adecuado sin utilizar una medida exacta.
+
+4. Ejecutar el *Remesh* con `Ctrl + R`
+	Blender ejecuta el Voxel Remesh
+	Internamente, se analiza el volúmen ocupado por las geometrías.
+	se construye una nueva superficie basada en los vóxeles.
+	Se fusiona las partes que se intersectan
+	Genera una única topología continua.
+
+Esto dejaría ya los objetos unidos y la malla recalculada como una malla única.
+
+## Herramientas de Sculpt mode
+### Herramientas principales de escultura
+#### Draw
+Agrega volumen a la superficie siguiendo el movimiento del cursor.
+
+- Desplaza los vértices en dirección a las normales de la superficie.
+- Permite construir volumen progresivamente.
+- Es una de las herramientas más utilizadas para bloquear formas generales.
+
+Uso: agregar masa muscular, mejillas, frente, brazos o cualquier volumen básico.
+#### Draw Sharp
+Similar a Draw, pero genera trazos más definidos y estrechos.
+- Produce crestas y relieves pronunciados.
+- Permite crear pliegues y líneas de volumen.
+- Es útil para detalles más marcados.
+
+Uso: marcar tendones, arrugas, bordes y separaciones anatómicas.
+#### Clay
+Agrega volumen con un comportamiento similar al de colocar arcilla sobre una superficie.
+- Construye volumen progresivamente.
+- Tiene un efecto más suave y extendido que Draw.
+- Permite desarrollar masas orgánicas.
+
+Uso: construir músculos, pómulos, zonas del rostro y volúmenes corporales.
+#### Clay Strips
+Agrega volumen mediante trazos que parecen pequeñas tiras de arcilla.
+
+- Produce una superficie más irregular y con textura.
+- Permite construir volumen rápidamente.
+- Es especialmente útil para definir masas musculares.
+
+Uso: construir brazos, piernas, torso, músculos y estructuras orgánicas.
+### 2. Herramientas para modificar y desplazar geometría
+#### Grab
+Permite agarrar una región de la superficie y desplazarla.
+- No agrega ni elimina volumen directamente.
+- Mueve los vértices dentro del radio del pincel.
+- Permite cambiar la silueta de la escultura.
+
+Uso: modificar proporciones, alargar extremidades, desplazar una nariz o corregir la forma general de una cabeza.
+### Snake Hook
+Permite estirar la geometría como si estuvieras tirando de una porción de arcilla.
+- Desplaza y estira la superficie.
+- Puede generar extensiones largas y puntiagudas.
+- Es más agresivo que Grab.
+
+Uso: crear cuernos, dedos, orejas, tentáculos y otras extensiones.
+### Elastic Deform
+Deforma la geometría con un comportamiento elástico.
+- Distribuye la deformación sobre una región.
+- Intenta conservar una transición suave con el resto de la superficie.
+- Permite modificar volúmenes sin generar desplazamientos tan bruscos.
+
+Uso: cambiar proporciones y deformar regiones grandes de una escultura.
+### Pose
+Permite modificar una parte de la escultura como si tuviera una articulación.
+- Define una región que actúa como segmento deformable.
+- Permite rotar, desplazar o modificar partes de la geometría.
+- Es útil para cambiar la postura de una figura.
+
+Uso: doblar brazos, piernas, dedos o modificar la posición de una extremidad.
+
+### 3. Herramientas para generar pliegues, relieves y detalles
+#### Inflate / Deflate
+Infla o contrae la superficie desplazando los vértices en dirección a sus normales.
+- A diferencia de Draw, afecta el volumen de manera más radial.
+- Permite aumentar o reducir el grosor de una zona.
+- Es útil para trabajar con superficies redondeadas.
+
+Uso: inflar mejillas, músculos, labios o zonas carnosas.
+#### Blob
+Genera un volumen redondeado mientras desplazás el pincel.
+- Acumula geometría hacia afuera.
+- Produce formas más abultadas que Draw.
+- Es útil para agregar protuberancias.
+
+Uso: crear nudillos, bultos, verrugas, músculos o irregularidades orgánicas.
+### Crease
+Permite crear hendiduras y pliegues estrechos.
+- Empuja la geometría hacia adentro.
+- Concentra los vértices hacia el centro del trazo.
+- También permite crear crestas dependiendo de su configuración.
+
+Uso: definir separaciones musculares, arrugas, pliegues de la piel y detalles anatómicos.
+### Layer
+Agrega volumen hasta alcanzar una altura determinada.
+- Construye capas de volumen.
+- Permite realizar trazos de altura relativamente uniforme.
+- Evita que cada pasada aumente indefinidamente el volumen en el mismo sector.
+
+Uso: construir placas musculares, relieves, zonas del rostro y estructuras superficiales.
+
+### 4. Herramientas para aplanar y definir superficies
+#### Flatten
+Aplana la superficie tomando como referencia un plano promedio.
+- Reduce las irregularidades.
+- Lleva los vértices hacia una altura similar.
+- Permite crear superficies relativamente planas.
+
+Uso: definir planos de la mandíbula, pómulos, frente o superficies de una escultura.
+#### Fill
+Rellena zonas hundidas llevando la geometría hacia el plano del pincel.
+Uso: levantar hendiduras o corregir depresiones en la superficie.
+#### Scrape
+Realiza el efecto contrario a Fill: elimina o reduce las zonas que sobresalen del plano.
+
+Uso: definir planos de la cara, superficies de músculos y estructuras con bordes más definidos.
+#### Multiplane Scrape
+Utiliza dos planos inclinados para trabajar la superficie simultáneamente.
+- Genera transiciones angulares.
+- Permite construir bordes definidos.
+- Es especialmente útil para superficies con aspecto facetado.
+
+Uso: definir estructuras óseas, planos de la mandíbula y formas más angulares.
+#### Pinch
+Atrae los vértices hacia el centro del pincel.
+- Concentra la geometría.
+- Estrecha pliegues y bordes.
+- Ayuda a definir transiciones.
+
+Uso: acentuar arrugas, bordes de labios, separaciones musculares y pliegues.
+
+### 5. Herramientas para deformar y acomodar la superficie
+
+#### Thumb
+Desplaza y aplana la geometría siguiendo el movimiento del pincel.
+
+Es similar a empujar arcilla con el pulgar.
+
+Uso: acomodar pequeños volúmenes, suavizar transiciones y desplazar material superficial.
+
+#### Nudge
+Desplaza los vértices siguiendo la dirección del trazo.
+
+Uso: acomodar pliegues, mover pequeñas porciones de geometría y corregir irregularidades.
+#### Rotate
+Rota los vértices alrededor del centro del pincel.
+
+Uso: generar torsiones y modificar la orientación local de una región.
+#### Slide Relax
+Permite deslizar la topología para redistribuir los vértices sin modificar demasiado la forma general.
+
+También puede suavizar la distribución de la geometría.
+
+Uso: corregir zonas donde los vértices están demasiado concentrados o distribuidos irregularmente.
+#### Boundary
+Trabaja específicamente sobre los límites o bordes de una malla.
+
+Uso: deformar bordes abiertos, modificar contornos y trabajar con regiones delimitadas.
+#### Cloth
+Simula el comportamiento de una tela durante la deformación.
+- Permite arrastrar, empujar y tirar de la superficie.
+- Produce pliegues y deformaciones con comportamiento similar al tejido.
+- Puede utilizar simulaciones físicas locales.
+
+Uso: ropa, telas, pliegues y superficies blandas.
+
+### 6. Herramientas de máscaras y organización de la escultura.
+Estas herramientas no necesariamente agregan o eliminan volumen. Su función es controlar qué partes de la geometría se pueden modificar.
+
+#### Mask
+Permite pintar una máscara sobre la superficie.
+- Las regiones enmascaradas quedan protegidas de las deformaciones de otros pinceles.
+- Podés seleccionar zonas complejas mediante trazos.
+- Se puede invertir o eliminar la máscara.
+
+Uso: proteger los ojos mientras trabajás la cara, aislar una zona muscular o impedir que una deformación afecte otra parte del modelo.
+#### Draw Face Sets
+Permite asignar diferentes conjuntos de caras (Face Sets) mediante trazos.
+
+Los Face Sets sirven para organizar una escultura en regiones independientes.
+
+Uso: separar visualmente cabeza, torso, brazos y piernas para facilitar su manipulación.
+#### Box Mask / Lasso Mask / Line Mask
+Son herramientas para crear máscaras mediante selecciones geométricas:
+- Box Mask: selección rectangular.
+- Lasso Mask: selección dibujando un contorno libre.
+- Line Mask: selección mediante una línea.
+
+Son útiles para proteger regiones sin tener que pintarlas manualmente.
+#### Box Face Set / Lasso Face Set
+Funcionan de manera similar a las herramientas de selección anteriores, pero crean Face Sets en lugar de máscaras.
+#### Edit Face Set
+Permite modificar los conjuntos de caras existentes.
+
+### 7. Herramientas de filtros globales
+A diferencia de los pinceles tradicionales, estas herramientas permiten aplicar una transformación sobre una región amplia o sobre toda la escultura.
+
+#### Mesh Filter
+Aplica diferentes transformaciones a la geometría completa o a una región seleccionada.
+
+Entre sus operaciones se encuentran:
+
+- Smooth: suavizar la geometría.
+- Scale: escalar el volumen.
+- Inflate: inflar la superficie.
+- Sphere: aproximar la geometría a una esfera.
+- Relax: relajar la topología.
+- Sharpen: acentuar detalles.
+
+Uso: modificar grandes regiones sin tener que recorrerlas manualmente con un pincel.
+
+### Cloth Filter
+Aplica una simulación de tela a la geometría.
+
+Permite generar pliegues, arrugas y deformaciones sobre superficies.
+
+### Color Filter
+Permite modificar los colores de la superficie cuando trabajás con atributos de color.
+
+### 9. Parámetros que deberías conocer de los pinceles
+Independientemente del pincel que selecciones, hay propiedades que determinan cómo se comporta.
+
+|Parámetro|Función|
+|---|---|
+|Radius (Radio)|Determina el tamaño del área afectada.|
+|Strength (Fuerza)|Determina la intensidad del efecto.|
+|Falloff|Controla cómo disminuye el efecto desde el centro hacia los bordes.|
+|Direction|Determina si el pincel agrega o sustrae volumen, cuando corresponde.|
+|Autosmooth|Suaviza automáticamente la geometría durante el trazo.|
+|Front Faces Only|Evita afectar las caras orientadas hacia el lado opuesto de la vista.|
+|Symmetry|Permite reproducir los trazos simétricamente.|
+
+Dos parámetros merecen especial atención:
+
+Radius: un radio grande permite modificar volúmenes generales; uno pequeño permite trabajar detalles localizados.
+
+Strength: una fuerza baja permite trabajar progresivamente. Una fuerza alta produce modificaciones más agresivas.

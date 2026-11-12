@@ -498,6 +498,10 @@ entonces, si uno de los archivos que queremos sacar del stagin se llamase `archi
 
 y esto dejaría el area de Staging tal cual estaba, con todos los archivos modificados, pero **SIN EL ARCHIVO** `archivoJs.js`
 
+##### Descartar cambios en el working tree.
+Para descartar cambios hechos luego de haber pulleado un commit, un nuevo estado de la rama, o haber creado un commit local, y haber seguido modificando los archivos.
+Esto implica que hay un commit anterior, y desde ese punto, hicimos cambios en uno o más archivos en el working tree, pero no los agregamos al **staging**.
+
 ##### Descartar cambios realizados a un archivo en el working tree.
 Si nosotros hacemos un commit, y luego seguimos modificando un archivo, y finalmente, nos damos cuenta que no queremos guardar los cambios de ese archivo (pero quizás otros cambios en otros archivos sí) podemos "deshacer esos cambios no commiteados".
 
@@ -533,12 +537,12 @@ Esto sólo eliminará los cambios asociados a este hash de commit y no afectará
 este comando revertirá los cambios del commit indicado, pero no creará un nuevo commit, para que se puedan verificar y decidir si se commitean asi como están o se agregan más cambios.
 
 ---
-## git branch (ramas locales)
+## Ramas
 **T**ener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
 
 - `git branch`  (esto muestra todas las ramas activas y creadas del repo)
 
-- `git branch (nombre de la nueva rama)`  :esto crea una rama(copia del estado actual) con el nombre indicado.
+- `git branch (nombre de la nueva rama)`  : esto crea una rama(copia del estado actual) con el nombre indicado.
 
 - `git branch -a` : muestra todas las **ramas** tanto locales como en la nube disponibles.
 
@@ -547,14 +551,22 @@ este comando revertirá los cambios del commit indicado, pero no creará un nuev
 >[!warning] para actualizar esas referencias que quizás están erróneas, se usa 
 `git fetch --prune`
 
----
-#### Cambiar la rama activa del código
+##### Ver historial de una rama en particular
+`git log` no informa el historial de todas las ramas, sino que muestra los de la rama actual.
+Si cambiamos la rama activa, vamos a ver el historial de esa rama.
+
+Pero podemos pasar la rama a ver el historial como parámetro.
+`$ git log rama1` 
+Muestra el historial de la rama indicada.
+
+Si se quiere ver el historial de todas las ramas, se usa el flag `--all`
+##### Cambiar la rama activa del código
 `git checkout (nombre de la rama en la que se quiere trabajar)` (ya no se suele utilizar)
 
 `git switch (nombre de la rama en la que se quiere trabajar)`
-
-Crear una rama y cambiar a esa inmediatamente:
-`git switch -c (nomber de la rama a crear)` 
+##### Crear una rama y cambiar a esa inmediatamente:
+`git swith --create <nombre_de_rama>`
+`git switch -c <nombre_de_la_rama_nueva>`
 
 #### Eliminar ramas 
 >ES IMPORTANTE QUE PARA ELIMINAR UNA RAMA, NO DEBEMOS ESTAR PARADOS EN ELLA
@@ -574,6 +586,7 @@ Crear una rama y cambiar a esa inmediatamente:
 > Eliminar una Rama Remota desde Git
 - `git push origin --delete [rama_a_borrar]`
 
+---
 #### Fusionar ramas (MERGE).
 >IMPORTANTE! para fusionar **RAMA1** con **RAMA2**, debemos estar "parados" en la rama a la cual queremos "mantener". En este caso, debemos estar en **RAMA1** y fusionar **RAMA2** con **RAMA1**, para que los cambios se agreguen a **RAMA1**.
 
