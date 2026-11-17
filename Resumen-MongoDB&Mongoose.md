@@ -318,8 +318,8 @@ Este comando "crea" una base de datos nueva de nombre [dbname] y pasa a ella dir
 >[!example] ejemplo
 >`>use peliculas`
 
-### `db.dropDatabase`
-Este comando **elimina** la base de datos **donde estamos parados**. No es un método en si, por lo que no lleva `()`
+### `db.dropDatabase()`
+Este comando **elimina** la base de datos **donde estamos parados**. Si todo sale bien
 
 ### `db.createCollection("[nombre_de_colección_a_crear]")`
 Este comando nos permite crear una colleción nueva dentro de nuestra base de datos.

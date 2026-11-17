@@ -15,23 +15,23 @@ Al iniciar Git, hay opciones que es recomendable configurar de manera global, si
 
 ##### limpiar consola git
 `clear`
-##### git config
+## git config
 `git config --(local/global/system)`
 	 `--local`  realiza cambios para ese repositorio en particular (por defecto si no se especifica) Por ejemplo, queremos usar un nombre de usuario distinto para un repositorio específico.
 	`--global`  realiza cambios para todos los repos en ese equipo.
 	`--system`  realiza cambios para todo el sistema.
 
-##### Ver la lista de configuraciones globales:
+#### Ver la lista de configuraciones globales:
 Para ver las configuraciones realizadas podemos usar el comando conjuntamente con el flag de tipo de config y `--list`:
 Ejemplo:
 `git config --global --list`
-##### Ver configuración y entorno al cual se aplican
+#### Ver configuración y entorno al cual se aplican
 Para ver la lista de configs total y a qué entorno(local, global o sistema) se están aplicando, usamos:
 `git config --list --show-origin`
-##### Configurar usuario
+#### Configurar usuario
 Para configurar el nombre de usuario que queremos git use en commits y demás registros, usamos:
 `git config --global user.name "DavidGiordano"`
-#####  Configurar mail
+####  Configurar mail
 Se puede configurar el mail del usuario actual con:
 `git config --global user.email "davidseba.giordano@gmail.com"`
 
@@ -41,13 +41,13 @@ Si queremos usar un nombre de usuario y mail en particular para un proyecto, cor
 - `git config user.name "usuarioTemporal"`
 - `git config user.email "miUsuarioTemporal@yahoo.com"`
 
-##### Configurar el editor por defecto (visual studio code) para mensajes y edición de archivos
+#### Configurar el editor por defecto (visual studio code) para mensajes y edición de archivos
 Se puede configurar el editor de código por defecto que abre git al momento de tener que corregir un merge o escribir el texto de un commit. En general, lo que se setea aqui es el comando a ejecutar, para abrir el editor, que está definido como variable de entorno en Windows. `code` es el comando que Visual Studio Code deja en la variable de entorno `PATH` , el cual se puede ejecutar desde la consola y esto abre el IDE, por lo que si ejecutamos `code` esto permite abrir una instancia de *VSCode*. Para que por defecto, se utilice en comandos de git, lo debemos configurar de la siguiente manera:
 `git config --global core.editor "code --wait"`
 
 El `--wait` genera que se confirmen los cambios cuando se cierre el editor de codigos.
 
-##### default branch - rama por defecto al inicializar repositorio
+#### Default branch - rama por defecto al inicializar repositorio
 Por defecto, git creará una rama raíz con el nombre `main` cuando se crea un nuevo repositorio.
 Esto se puede configurar:
 `$ git config --global init.defaultBranch [nombreDeLaRamaPorDefecto]`
@@ -55,23 +55,23 @@ Esto se puede configurar:
 >Ejemplo
 `$ git config --global init.defaultBranch principal`
 
-##### Configurar colores de interfaz
+#### Configurar colores de interfaz
 Esto configura el uso de colores al presentar información pertinente.
 `git config --global color.ui true`
-##### Configuración extra, evitar problemas a futuro con el texto (funciona solo en windows)
+#### Configuración extra, evitar problemas a futuro con el texto (funciona solo en windows)
 `git config --global core.autocrlf true (carriage return line feed)`
 ##### Configuración abreviada del hash de commits, sea de x dígitos (normalmente 10)
 Normalmente, el hash que compone cada commit es presentado como una cadena de 10 dígitos. Como estos hash se utilizan bastante al momento de elegir aplicar cambios a un commit específico o aplicar un commit sobre otro, debemos poder escribirlos y referenciarlos.
 Para evitar escribir estos 10 dígitos, podemos "acortar" el código que presenta git (*aunque originalmente se utilicen los 10 dígitos para definirlo*) y usar un hash de "menos digitos" que igualmente, referencien al hash que necesitamos. Podemos setearlo determinando qué cantidad de dígitos queremos cambiando la `X`
 `git config --global core.abbrev X`
-##### Ver qué valor tiene cierta variable
+#### Ver qué valor tiene cierta variable
 Para poder ver qué valores tiene asignada una variable en particular de la configuración, se puede escribir el comando que se usaría para asignar un valor, sin asignar nada, y git informará qué valor tiene.
 Ejemplo, si queremos saber qué valor guarda la variable `defaultBranch` usamos:
 
  `git config init.defaultBranch` 
 
 ---
-##### Chequear la configuración general
+#### Chequear la configuración general
 para verificar los valores ingresados en la configuración podemos usar:
 `$ git config --list`
 
@@ -94,7 +94,7 @@ También se puede ver el valor de una única variable usando
 >`$ git config user.name`
 
 ---
-##### Ayuda de la consola.
+#### Ayuda de la consola.
 Para solicitar ayuda sobre qué parámetros puede llevar un comando, podemos escribir en la linea de comandos `git + comando + -h`
 
 >Ejemplo
@@ -105,9 +105,8 @@ Para solicitar ayuda sobre qué parámetros puede llevar un comando, podemos esc
 [How do i force git to use lf instead of crlf](https://stackoverflow.com/questions/2517190/how-do-i-force-git-to-use-lf-instead-of-crlf-under-windows/13154031#13154031)
 
 ---
-
-## comandos básicos del shell
-##### Comandos basicos del shell (linea de comandos)
+## Comandos básicos del shell
+#### Comandos basicos del shell (linea de comandos)
 Acceder a una carpeta:
 `cd (nombre entrar carpeta)` 
 
@@ -133,16 +132,16 @@ Listar contenido del directorio actual
 `ls -lh`
 
 Crear archivo nuevo
-`touch (nombre de archivo.ext)`
+`touch <nombre_archiv.ext>`
 
 Copiar archivos
-`cp (nombre del archivo a copiar) (nombre del directorio donde queremos copiarlo)`
+`cp <nombre_archivo.ext> <ruta_destino>`
 
 Mover archivos
-`mv (directorio del archivo/nombre de archivo.ext) (directorio a donde queremos mover el archivo)`
+`mv <directorio_origen/archivo.ext> <directorio_destino>`
 
-Elimina carpeta con archivos, todo junto
-`rm -r (nombre de la carpeta a eliminar, junto con sus archivos)`
+Elimina carpeta con archivos adentro, todo junto...
+`rm -r <nombre_carpeta>`
 
 ---
 
@@ -162,7 +161,7 @@ Antes de comenzar a guardar versiones de los archivos, se debe inicializar una c
 
 Esto crea una carpeta oculta llamada `.git` que guarda información relevante para el uso y manejo de ese repositorio por git.
 
-### Clonar un repositorio remoto
+## Clonar un repositorio remoto
 Si en cambio, queremos descargar un repositorio remoto, usamos el comando 
 `$ git clone [protocolo][direccion del repositorio]`
 
@@ -172,7 +171,7 @@ Si en cambio, queremos descargar un repositorio remoto, usamos el comando
 >Ejemplo SSH
 >`$ git clone Sebastian659835@github.com:miRepoRemoto01.git` 
 
-### Agregar archivos al area de STAGING
+#### Agregar archivos al area de STAGING
 Agregar todos los archivos al area de staging 
  `git add .` 
 
@@ -184,10 +183,10 @@ Agregar archivos por extensión en particular
 esto agregará al *tracking de archivos*, los archivos de extensión `.c` nada más. 
 *(cualquier otro archivo, si existiese, no se agregaría al tracking)*
 
-Ejemplo:
+>Ejemplo:
 `git add index.html image.jpg readme.txt`
 
-### Eliminar archivos del area de STAGING
+#### Eliminar archivos del area de STAGING
 Para sacar archivos del area de staging, puedes indicarle a GIT que **NO SIGA TRACKEANDO** el archivo (*untracked en git status*)
 `git rm --cached (nombre del archivo)`
 esto hace que al hacer `git status`, se muestre el archivo indicado en la parte de "**untracked files**".
@@ -196,11 +195,11 @@ indicando que el archivo existe, pero que git no está "tomando cuenta" de los c
 Este comando en particular, remueve el archivo del area STAGED indicado. Si hemos mandando al STAGING un archivo, lo modificamos, y luego devolvemos con este comando al WORKING DIRECTORY el mismo archivo, la versión que prevalece es la modificada por último.
 `git restore --staged (nombre del archivo EN EL area de staging que queremos SACAR)`
 
-### Elimina todos los archivos del area de Staging
+#### Elimina todos los archivos del area de Staging
 Este comando devuelve todos los archivos al área de trabajo.
 `git reset` 
 
-### Eliminar modificaciones hechas en archivos sin agregarlos al staging, ni commiteados.
+#### Eliminar modificaciones hechas en archivos sin agregarlos al staging, ni commiteados.
 Si tenemos un commit, y luego modificamos alguno de estos archivos trackeados, pero nos damos cuenta que no queremos aplicar estos cambios sobre el commit inicial, podemos hacer uso del comando
 `git reset --hard HEAD`
 Esto devuelve el estado de los *archivos trackeados* al estado del commit inicial.
@@ -215,15 +214,13 @@ y luego, sumamos los archivos no trackeados al area de *STAGING*
 `git add .`
 y luego hacemos commit.
 
-
->Si queremos descartar estos archivos nuevos que creamos luego del commit inicial
-
+**Si queremos descartar estos archivos nuevos que creamos luego del commit inicial**
 para que quede el proyecto tal cual lo recibimos luego del commit inicial, podemos usar también, luego de `git reset`
 el comando 
 `git clean -fd`
 
 Esto descarta los archivos nuevos no trackeados
-### git status - Verificar cambios en los archivos trackeados
+## git status - Verificar cambios en los archivos trackeados
 Al ir modificando, creando y eliminando archivos, nos vamos a encontrar con que el repositorio local va a ir mostrando "cambios". Estos cambios, se pueden verificar con el comando git status
 `git status`
 
@@ -254,7 +251,7 @@ existe otra forma de verificar los archivos de una manera más corta.
 `$ git status --short // git status -s`
 
 ---
-### Archivo .GITIGNORE 
+## Archivo .GITIGNORE 
 Podemos definir un archivo que determina qué archivos GIT debe ignorar al momento de trackear o buscar cambios para realizar un commit. 
 Esto sólo funciona para archivos que **NUNCA** se han guardado en un commit, si el archivo ya se subió *se seguirá trackeando siempre y cuando no se elimine del tracking* y esté agregado al **.gitignore**
 
@@ -303,7 +300,7 @@ doc/**/*.pdf
 ```
 
 ---
-### git diff - Ver los cambios detallados entre archivos mencionados por gitstatus
+## git diff - Ver los cambios detallados entre archivos mencionados por gitstatus
 
 ##### git diff
 Git diff compara los cambios realizados en los archivos en el working tree con los del último commit.
@@ -375,7 +372,7 @@ Este comando compara que está en tu actual `directorio de trabajo` con lo que e
 `$ git diff --staged`
 
 ---
-### Realizar Commit 
+## Realizar Commit 
 El commit es una instantánea del estado de proyecto actual del repositorio git.
 Esto toma los archivos con sus cambios que hay en el `area de Staging` (*no agrega lo que está modificado luego de agregar los cambios a Staging*)
 Estas instantáneas van a ser nuestros "estados" a los cuales podremos volver, revisar, comparar en otros momentos como "hitos" de nuestro proyecto.
@@ -414,7 +411,7 @@ Entonces, ahi hay que usar de nuevo el comando para eliminar:
 `$ git rm (archivo)`
 
 y eso finalmente deja limpio la salida de `git status`
-## Ver historial y hash de los commits
+#### Ver historial y hash de los commits
 
 Para ver el listado e historial de commits de la rama actual, podemos usar
 `git log`
@@ -425,24 +422,24 @@ muestra el log y los hash resumidos configurados de los commits
 muestra los commits de TODAS las ramas
 `git log --oneline --all`
 
-##### git log -[cantidad_de_commits_a_presentar]
+#### git log -[cantidad_de_commits_a_presentar]
 este comando nos muestra la cantidad de commits que especifiquemos por parámetro, del más actual hacia atrás.
 
 >Ejemplo
 >`$ git log -2`
 Esto muestra los ultimos 2 commits realizados.
 
-##### git log -p
+#### git log -p
 Esto muestra los commits junto con la diferencia de código ingresado/eliminado entre commits.
 
 >Ejemplo
 >`$ git log -p`
 
-##### git log --stat
+#### git log --stat
 este comando muestra los commits con un resúmen de cuantas lineas se insertaron/eliminaron en cada commit.
 `$ git log --stat`
 
-##### git log --pretty=[modificador]
+#### git log --pretty=[modificador]
 Esto nos permite formatear como nosotros queramos la salida del `git log`.
 
 >Ejemplo
@@ -476,17 +473,19 @@ muestra lista de  archivos y carpetas en ese commit
 esto refiere al último commit disponible
 `git ls-tree -r --name-only HEAD`
 
-## Deshacer cosas
+#### Deshacer cambios del ultimo commit
 A veces será necesario corregir subidas, mensajes de commits, faltará agregar archivos, etc.
 los comandos para eso serán los siguientes.
 
-##### git commit -amend
+#### git commit -amend
 Si quieres rehacer el último commit de nuevo, porque faltaron archivos, o quieres reescribir el mensaje del commit, se puede dejar el area de Staging como se necesite(con los archivos que faltaron...) y ejecutar:
 `$ git commit --amend`
 
 Esto deja editar el mensaje nuevamente, y agrega y commitea los archivos nuevamente en *staging*.
-Esto se hace solamente con archivos locales, dado que si subimos el repo, y luego ejecutamos el amend, y volvemos a subir, puede ser que alguien ya lo haya bajado y se genera una inconsistencia con los archivos. **HACERLO SOLO LOCALMENTE**
-##### Sacar del area de Staging
+
+>[!warning] IMPORTANTE
+>Esto se hace solamente con archivos locales, dado que si subimos el repo, y luego ejecutamos el amend, y volvemos a subir, puede ser que alguien ya lo haya bajado y se genera una inconsistencia con los archivos. **HACERLO SOLO LOCALMENTE**
+#### Sacar del area de Staging
 Supongamos que se generaron cambios en archivos y se quiere hacer commit de ellos, en dos cambios separados, pero por accidente se agregan todos con `git add .` y ahora todos los archivos están en *area de Staging*.
 En principio, el comando `git status` recuerda con qué otro comando se pueden "sacar" de alrea los archivos requeridos
 `...use 'git reset HEAD <file>...' to unstage`
@@ -540,16 +539,27 @@ este comando revertirá los cambios del commit indicado, pero no creará un nuev
 ## Ramas
 **T**ener en cuena que depende de en qué rama estemos posicionado, al crear una nueva rama, puede no ser del proyecto principal
 
-- `git branch`  (esto muestra todas las ramas activas y creadas del repo)
+- `$ git branch`  (esto muestra todas las ramas activas y creadas del repo)
 
 - `git branch (nombre de la nueva rama)`  : esto crea una rama(copia del estado actual) con el nombre indicado.
 
-- `git branch -a` : muestra todas las **ramas** tanto locales como en la nube disponibles.
+- `$ git branch -a` : muestra todas las **ramas** tanto locales como en la nube disponibles.
 
-- `git branch -r` : muestra todas las **ramas remotas registradas** (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
+- `$ git branch -r` : muestra todas las **ramas remotas registradas** (OJO! pueden haber referencias a ramas que ya no existen más remotamente.)
 
 >[!warning] para actualizar esas referencias que quizás están erróneas, se usa 
 `git fetch --prune`
+
+---
+#### Cambiar la rama activa del código
+- `git checkout <nombre de la rama en la que se quiere trabajar>` (ya no se suele utilizar)
+
+La manera más "moderna"
+- `git switch <nombre de la rama>`
+
+##### Crear una rama y cambiar a esa inmediatamente:
+`git swith --create <nombre_de_rama>` o
+`git switch -c <nombre_de_la_rama_nueva>`
 
 ##### Ver historial de una rama en particular
 `git log` no informa el historial de todas las ramas, sino que muestra los de la rama actual.
@@ -560,13 +570,6 @@ Pero podemos pasar la rama a ver el historial como parámetro.
 Muestra el historial de la rama indicada.
 
 Si se quiere ver el historial de todas las ramas, se usa el flag `--all`
-##### Cambiar la rama activa del código
-`git checkout (nombre de la rama en la que se quiere trabajar)` (ya no se suele utilizar)
-
-`git switch (nombre de la rama en la que se quiere trabajar)`
-##### Crear una rama y cambiar a esa inmediatamente:
-`git swith --create <nombre_de_rama>`
-`git switch -c <nombre_de_la_rama_nueva>`
 
 #### Eliminar ramas 
 >ES IMPORTANTE QUE PARA ELIMINAR UNA RAMA, NO DEBEMOS ESTAR PARADOS EN ELLA
@@ -643,8 +646,8 @@ Para resolver esto, Podemos directamente hacer un **pull** verificando los confl
 La otra manera de combinar "ramas" es utilizar el comando `git rebase`.
 Este comando "trae" el historial de la rama pasada como parámetro, y lo aplica en la rama donde estamos ejecutando el comando.
 
->[!warning] CUIDADO CON ESTO
-Rebase no se suele aplicar desde ramas públicas o compartidas (como `main`) porque esto generaría que se genere discrepancia en los commits que se actualizan al ejecutar el comando
+>[!warning] REGLA DE ORO DE REBASE!!!
+Rebase no se aplica a una rama pública o compartida (como `main`) porque esto generaría que se genere discrepancia en los commits que se actualizan al ejecutar el comando
 
 Por lo tanto, el rebase se hace generalmente en la rama que creamos, para traer el historial de la "rama pública", aplicarlo como **base** a nuestra rama, y luego usamos desde la rama que traemos la *base* `git merge` para fusionar y dejar limpio el historial.
 
@@ -713,19 +716,200 @@ Si se creó una rama remota de seguimiento para `rama1`, se puede eliminar tambi
 `git push origin --delete rama1`
 
 ---
-#### Aliases
-Se definen como funciones que guardan todos los comandos determinados para ejecutar más simple
+## Tagging
+Como muchos de los VCS (versioning control system), Git tiene la posibilidad de crear "etiquetas" para poder identificar ciertos commits con las versiones que representan. 
+En algún momento, querrás indicar que el commit "*ag5d1feab2103af....*"
+corresponde a la versión 1.0.0 de tu aplicación. Para esto, podemos crear un tag en dicho commit.
 
- ej:
+#### listar las etiquetas 
+Para listar las etiquetas ya existentes (si existe alguna o ya has creado alguna) usamos
+`$ git tag`
+
+Esto lista las etiquetas creadas, en orden alfabético, ==la fecha de creación o actualización no se tiene en cuenta.==
+
+También puedes aplicar subquerys para encontrar una tag o grupo de tags específicos.
+Para este comando, es obligatorio utilizar el flag `-l` o `--list` cuando utilizamos un wildcard como el asterisco.
+
+>Ejemplo `git tag -l "ver1.2*"`
+>Quiero buscar las tags de las versiones 1.2 en general, sin definir el microversionado
+```console
+$ git tag -l "ver1.2*"
+ver1.2.0
+ver1.2.1
+ver1.2.7
+ver1.2.9
+ver1.2.9.hotFix
+```
+
+#### crear etiquetas
+Git soporta dos tipos de etiquetas. *livianas* y *anotadas*
+
+Una etiqueta "liviana" es una rama que no cambia, solamente un puntero a un commit específico.
+
+Las etiquetas "anotadas" sin embargo, son guardadas como un **objeto completo** en la base de datos de Git. Son verificadas (checksummed), contienen el nombre de quién la creo, email y fecha. Tienen un mensaje de etiqueta, y pueden ser firmadas y verificadas con GNU Privacy Guard(GPG).
+Es recomendable crear este tipo de etiquetas, asi se puede tener toda esta información relevante.
+
+Sin embargo, si solamente quieres identificar una versión  y no quieres mantener otra información, la livianas son la manera.
+
+El tag se crea con respecto al último commit en el que estamos parados. Si hay cambios que no se pasaron por Staging y commitearon, son emitidos de la información del tag.
+#### Etiquetas Anotadas (Annotated tags)
+Para crear este tipo de etiqueta se usa el flag `-a` cuando ejecutamos `git tag`
+
+>Ejemplo
+>`$ git tag -a v1.4 -m "My version 1.4"`
+
+luego si vemos la lista:
+```console
+$ git tag
+...
+v1.4 <---- este es el nombre que figurará en la lista
+```
+
+#### Ver info de la etiqueta anotada
+Para ver toda la info que mencionamos anteriormente en una tag anotada, usamos
+`$ git show [tag]`
+
+>Ejemplo
+>`$git show v1.4`
+
+#### Etiquetas livianas (Lightweight tags)
+Este tipo de tags son básicamente el checksum del commit guardado en un archivo. No otra información es guardada.
+Para crear una etiqueta liviana, no se pasa ninguno de los flag `-a / -s / -m`, solo se provee un nombre de la etiqueta.
+`$ git tag v3.0-lw`
+
+Esta vez, si corremos el comando `git show v3.0-lw` nos mostrará solamente el commit al cual corresponde.
+
+#### Etiquetar commits que ya han pasado en el historial
+Se pueden etiquetar otros commits anteriores, mucho después de que han pasado en el historial.
+Supongamos que el historial de commits se ve algo asi
+
+```console
+$ git log --pretty=oneline
+
+c2878b107539eb1ea3eba1914d13ad0e25f01e6b (HEAD -> main) sabado editando en casa
+81714aabeb9b2b6f3e89af96c36dd78ebc14a3d5 (tag: v5.1, origin/main, origin/HEAD) modificado mongoose y gitygithub
+f5f755a6ca60e53dd8ba8c4caf88f838794fa325 datos de git actualizados
+419c3546d4302b0c4ef8cab621ada0c293a6bf8f mongo db editado
+5277c5d337746fbc7cac771ddfac2d5d2b43bc89 agregado datos sobre react helsinki
+d3a315de92ecc05c8f6268c93972bd10aa560728 modificaion100
+2b6542c572a733afe404fbb4a67dda52f22d0386 Merge branch 'main' of https://github.com /Sebastian1601/resumen-cosas-full-stack
+689d2eddf990737800fd3b639b8cf85d64b6cffd cambios desde pc del trabajo
+de1623593d5a1991db36c36e69857f2ec3783712 Merge branch 'main' of github.com: Sebastian1601/resumen-cosas-full-stack
+2b3239f608c8ca56c4c7d864dad5dc018b176727 agregado datos sobre ssh
+faf3c2ef6eebb383733a9d4816a9af1c77620b09 prueba de subida
+ab1762410e3506c240ff559088e14dca25039cbd editado resumenes varios, mongodb
+c863c3e1ba39e277af6b9182d4ef46fb0a4d01ff Merge branch 'main' of  https://github.com/Sebastian1601/resumen-cosas-full-stack
+19e119f1e64cc0c6751955497fbd52dbb74102e8 reac resumen
+eef2f639b46e586b884659a5300a121d6ae62fb7 editado resumen propio react
+```
+
+Y supón que se te olvidó poner el tag "v1.2" del proyecto, que era el commit "**agregado datos sobre ssh**". se puede agregar usando el checksum (**o parte del checksum!!**) al final del comando...
+`$ git tag -a ver1.0.0 2b3239f608`
+
+>[!tip] NOTA: 
+>verificar que le pasamos los primeros 10 dígitos del checksum del commit para crear la etiqueta.
+>`2b3239f608c8ca56c4c7d864dad5dc018b176727 agregado datos sobre ssh`
+
+Luego, podemos ver las etiquetas, y figurará esta nueva que creamos con un commit mucho anterior
+
+```console
+$ git tag
+v0.1.0
+v0.5.7
+v0.9.3
+v1.0.0
+```
+
+y si usamos `git show v1.0.0` tenemos todos los datos del commit, y quién creo el tag, fecha, etc.
+
+#### Compartiendo tags
+Por defecto, las tags creadas no se comparten con el repositorio remoto. Hay que explicitamente subirlas y empujarlas después de ser creadas.
+
+Esto se hace igual que al compartir una rama remota
+`$ git push origin <nombre_del_tag>`
+
+>Ejemplo
+`$ git push origin v1.0.0`
+
+Ahora, posiblemente tengas muchas tags que quieras compartir, eso se hace agregando el flag `--tags`
+
+>Ejemplo
+>`$ git push origin --tags`
+
+Ahora, cuando alguien descargue y clone el repositorio remoto, o haga *pull*, descargará las tags.
+NOTA: git push --tags sube los dos tipos de tags, no hace diferencia entre *lightweight* y *annotated*.
+
+#### Borrar tags
+Para eliminar tags localmente, podemos usar simplemente flag `-d` en el comando
+`$ git tag -d <nombre_del_tag>`
+
+>Ejemplo
+>`$ git tag -d v1.0.0`
+
+Y con esto obtenemos el mensaje de confirmación
+`Delete tag 'v1.0.0' (was ed62a1e7)`
+
+Pero esto no elimina las tags compartidas en el repo remoto.
+Para hacer eso, debemos hacer un push justamente del borrado con
+
+`$ git push <ramaRemota> --delete <tagname>`
+
+>Ejemplo
+`$ git push origin --delete v1.0.0`
+
+#### ver la referencia de una etiqueta
+Las etiquetas sirven para identificar un nombre más memorable, como la versión específica de un proyecto, con un commit en particular, y esto nos permite, justamente, ver esos commits invocando las etiquetas en vez de los hash de los commits.
+
+Para eso, usamos el comando `git checkout`
+
+>Ejemplo (**suponemos que existe un commit con la etiqueta v2.0.0**)
+
+```console
+$ git checkout v2.0.0
+
+Note: switching to 'v2.0.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 99ada87... Merge pull request #89 from schacon/appendix-final
+
+$ git checkout v2.0-beta-0.1
+Previous HEAD position was 99ada87... Merge pull request #89 from schacon/appendix-final
+HEAD is now at df3f601... Add atlas.json and cover image
+```
+
+Esto como indica, nos permite hacer minimos cambios, o crear una rama alternativa a partir de esta versión y commit asociados.
+
+---
+## Alias (aliases de comandos)
+Se definen como funciones que guardan todos los comandos determinados para una ejecución más simple
+
+>Ejemplo
   ` git log --oneline --graph --all`
   	
 se puede resumir configurando lo siguiente: elijiendo el nombre del comando propio como log simple
 
-`git config --global alias.[nombre del comando propio] "log --oneline --graph --all"`
+`git config --global alias.logSimple "log --oneline --graph --all"`
 
-esto genera que al escribir
-`c:> git logsimple` 
+Esto genera que al escribir
+`c:> git logSimple` 
 esto genere que se dispare el comando configurado anteriormente.
+
+>Sintaxis general
+>`git config --global alias.<nombre_del_comando_personalizado> "<comandos a ejecutar>"
 
 Ver la lista de alias asignado:
 `git config --global --list |grep alias`
@@ -733,6 +917,7 @@ Ver la lista de alias asignado:
 ---
 
 #### GIT REFLOG
+
   	esto es un log de todos los movimientos generados en el repo, borrados, HASH de elementos borrados, etc.
  
 

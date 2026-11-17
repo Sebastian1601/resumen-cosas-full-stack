@@ -1,36 +1,142 @@
 
+Dividir pantalla para agregar otro viewport como *timeline*, *scene collection*, o *properties*
+
+
+## herramientas:
+**Objetos:**
+
+**Modificadores:** permiten modificar el modelo, objeto o componente en vez de agregar directamente propiedades al objeto.
+El ==órden de aplicación de los modificadores importa==! tener en cuenta.
+	- ==Generate > subdivision surface==: aplica modificadores de subdivisión al objeto seleccionado.
+	- ==Generate > Solidify==: expande o "traslada" el objeto hacia fuera, con offset, o le dá más grosor con thickness.
 
 ## Shortcuts
 
-**botón medio del raton** : orbitar modelo
-**shift + botón medio**: panning de la escena
-**Rueda**: zoom
-**SHIFT + A**: menú para añadir elemento a escena en la posición del cursor 3D. (cámaras, luces, formas, primitivas, etc)
-	al agregar un elemento, aparece la ventana propiedades del mismo. si la cerramos, se abre de nuevo con F9
-**Shift + Botón derecho del mouse**: mover cursor 3D a la posición clickeada. 
-**F2** - Nombrar el objeto seleccionado con el cursor
-**G** : mover objeto seleccionado
-	si al usar G, y tener el objeto a mover seleccionado, apretamos x, y o z podemos mover el elemento en el eje seleccionado.
-**R** : rotar elemento en los ejes
-**S** - Escalar un elemento seleccionado.
-	con este método, lo unico que hacemos es escalar en el viewport el elemento seleccionado, pero para que el elemento *TOME* los nuevos valores de escala, debemos, con el objeto seleccionado, apretar *Ctrl + A* y luego seleccionar *SCALE* del menú. Esto termina por aplicar los cambios realizados.
-**Shift + D** - Duplicar objeto seleccionado
-**F12**  - renderizar imagen fija desde vista de camara.
-**numpad 0** - ver a traves del punto de vista de camara.
+[botón medio del raton] : girar alrededor del objeto
+
+[shift + botón medio] : panning de la escena
+
+[Rueda] : zoom
+
+[Boton derecho + shift] : mover el cursor de origen 3D a la posición donde estemos. Este cursor determina donde se agregan nuevos objetos al crearlos.
+
+[Shift + D] : Duplicar objeto seleccionado
+[ F12 ] : renderizar imagen fija desde vista de camara.
+[ numpad 0 ] : ver a traves del punto de vista de camara.
 	LUEGO para fijar la vista de la camara y usarla al editar, la seleccionamos de la coleccion de elementos, 
-	apretamos **N**,
+	apretamos [N],
 	eso trae el *menu de cámara*, y en la solapa **VIEW**, podemos clickear **LOCK camera to VIEW**.
 	
-**F3** : abre el menu para buscar un comando
-**FULLSCREEN** - Ctrl + Space
+[ F3 ] : abre el menu para buscar un comando
+[Ctrl + Space] : fullscreen edit
 
-**AGRUPAR** distintos objetos, sin que dejen de ser individuales: *PARENTING*
+`AGRUPAR` distintos objetos, *sin que dejen de ser individuales*: *PARENTING*
 Se selecciona primer el objeto hijo, que va a seguir al padre, y luego al padre.
 Luego con *Ctrl + P*, nos abre el menu de parenting. Ahi seleccionamos de las opciones, la que dice *Parent (Keep Transform)*
 
-**AGRUPAR elementos en la ventana de objetos (Scene Collection)**
+`AGRUPAR` elementos en la ventana de objetos (Scene Collection)
 Para organizar elementos en la ventana de *Scene Collection*, podemos agregar una *Colección* de elementos(algo así como una carpeta de elementos) desde el mismo menú de objetos.
 **Mover objetos de una colección a otra** - con el objeto u objetos seleccionados, apretamos *M* y nos abrirá una ventana donde podemos elegir a qué colección enviaremos el o los objetos seleccionados.
+## Object mode
+
+[Boton derecho] sobre un objeto abre el menú objeto.
+Ahi, 
+- `shade smooth` calcula más suavidad en el objeto automáticamente.
+- `shade flat` devuelve el objeto como está definido al crearse, con sus caras por defecto, sin hacer suavizado.
+
+[tab] : `Modo Objeto` a `Modo Edición` y viceversa
+
+[letra o - objeto seleccionado - edit mode] : proportinal editing activado / desactivado (para editar en general, no de a un vértice) A partir de activar esto, se debe seleccionar un vertice y moverlo o modificarlo con [G] en los ejes x, y, z.
+
+[alt + click izq. - objeto seleccionado - edit mode] : seleccion de bordes. Edge select. selecciona todos los bordes conectados al clickeado.
+	[ctrl + '+'] selecciona la siguiente serie de bordes adyacentes al seleccionado, aumentando la selección de egdes
+	[ctrl + '-'] disminuye la selección de edges adyacentes para modificar
+
+[h] / [alt + h] : oculta vértices seleccionados en edit mode. Para mostrar los vértices ocultos se usa alt + h
+
+
+[submenu objeto > duplicar] - [shift + D] : duplica un objeto seleccionado.
+[F2] renombra el objeto recién creado.
+
+[submenu Toogle X-Ray] - [Alt + Z] : seleccionar vértices a través de todas las caras del objeto.
+
+[E - vértices seleccionados - edit mode] : Con esto podemos extruir creando más malla de edición, duplicando vértices y colocándolos donde necesitemos.
+
+## **Edit mode(malla)**
+
+[1, 2, 3] : cambiar de modo de seleccion de vértices / bordes / caras
+
+[F]  Rellenar una cara vacía de un objeto : Se selecciona los bordes que cierran esa cara vacía
+
+==Generar un corte en una malla==: Se presiona [Ctrl + R] y ahi se elige donde se aplicará el corte, y luego de click, se ajusta exactamente a donde, en esa cara seleccionada, se quiere el corte.
+
+==Separar parte de una malla en un objeto separado==: elegir las caras que definen al nuevo objeto, presionar 
+[P] > selection
+Esto genera un nuevo objeto aparte. para moverlo o editarlo, hay que salir a objeto, y elegir el nuevo objeto separado para editarlo de nuevo.
+
+con un objeto seleccionado, para editar la malla.
+en el 2do submenu, está el modo, normalmente *OBJECT MODE*
+eso se puede pasar a *EDIT MODE* para modificar los vertex points.
+si selecionamos algun *vertex* y activamos el modo *Proportional Editing* con *O*, se abre un circulo que edita los vértices de la malla en proporcion a lo que toca.
+se puede agrandar o achicar con la rueda o *pageup* *pagedown*
+primero se elige un vertex. Luego se activa *O* y finalmente se aprieta *G* para mover.
+
+[Alt + Click] en un borde : Seleccionar vertices de un edge completo 
+[Alt + Click + Shift] : Acumular seleccion de más de un borde.
+[A] : Seleccionar todos los vértices del objeto en cuestión.
+
+**Para seleccionar los vertices unidos en el eje Y**, se selecciona uno, 
+*ALT + click* en el siguiente del eje Y.
+
+[Ctrl + +] Teniendo seleccionado un eje de vertices, por ej el eje X, si apretamos Ctrl + +, esto va sumando más ejes paralelos al seleccionado.
+
+[Ctrl + -] Deselecciona ejes ya seleccionados anteriormente.
+
+[Alt + Z] - ver en tipo Rayo X el objeto, para seleccionar vertices más facil.
+
+[H]  con vértices seleccionados, este shorcut "oculta" los mismos para que no sean modificados con otras herramientas, como la de *estirar/contraer malla*
+[Alt + H] - Mostrar vértices ocultos con H.
+
+[Ctrl + B]  Crear ángulos en la cara o vértices seleccionados. 
+	[rueda del mouse] Si se usa la *rueda del mouse* se crean más subdivisiones para el ángulo.
+
+Si tenemos dos *Edges*, y queremos aplicar el bevel hasta que estos dos bordes, "se unan", para que no se overlapeen entre si, apretamos C para activar el modo *Clamp*, y esto genera que el bevel se aplique hasta que ambos cortes de los edges se unan.
+>[!important] Importante
+>Luego de unir dos edges con bevel, podemos terminar con vertices practicamente en el mismo espacio, por unir dos edges, por lo tanto, para eliminar estos vertices duplicados, seleccionamos todo el objeto con **A**, y luego, **M** -> **Menú Merge** y seleccionamos *By Distance*. Esto elimina vértices que estén muy cerca uno de otro. 
+
+**Crear Cara** - Teniendo seleccionado al menos 3 vértices, se presiona F y esto crea una "cara" entre estos 3 puntos
+
+**SELECCIONAR "BORDES"** en vez de *vértices* en modo *Mesh editor* - Estando en modo mesh editor, presionar 2, o seleecionar el 2do modo en los 3 íconos al lado del menú de selección de modo.
+
+
+
+**/** - Aislar el elemento que estamos trabajando / volver a mostrar todos los elementos.
+
+**Ctrl + R** - inserta cortes en un objeto, inicia en 1, con la rueda del mouse se agregan más cortes. Al confirmar con click, da la opción de modificar, pero con click derecho se cancela y se aplica tal cual está.
+
+**Objeto seleccionado -> right click -> Set Origin -> Origin To Geometry** - Setear el punto de orígen de un objeto en el centro(para aplicar modificadores, etc) 
+
+Para que los elementos que modificamos con la malla, se peguen a otro modelo ya hecho debajo, debemos activar el snapping con **SHIFT + TAB** y setear la opción de *INCREMENT* a *Face Project*
+
+**EXTRUDING**: crea nuevas "caras" de acuerdo a la cantidad de vértices que elegimos y duplicamos. Seleccionar los vertices y luego apretar **E**, esto habilita el modo de posición. Podemos mover los vertices que elegimos y se creará una nueva "cara" desde donde estaban los vertices elegidos, hasta la nueva posición donde coloquemos nosotros los vértices.
+Esto logra "extender" la malla de edición, creando nuevos vertices para modificar y extender la malla en la que estemos trabajando.
+
+## sculpt mode
+
+Sirve para esculpir sobre las mallas del modelo.
+Se selecciona un objeto y se entra al modo Sulpt para esculpir los nodos de las mallas del objeto.
+
+Las herramientas hay que probarlas, 
+- ==Mask== nos permite "pintar" sobre un modelo para delimitar el area que será modificada. Se pinta y esto implica que la parte que queda oscuro NO se va a modificar. Para invertir esa selección, se puede ir al submenu [Mask >  invert mask]
+ 
+- ==Mesh filter== permite aplicar un filtro definido en el submenu `Filter Type` a toda la máscara por defecto. se hace click y se mueve para agregar / substraer.
+
+- ==Smooth tool== : permite suavizar partes de la malla que necesiten ser menos agresivas.
+
+[Submenu > Brush > font faces only ] : esto ayudaria a reducir la posibilidad de que al aplicar un pincel modificador, como inflate, grab, etc se aplique cambios al otro lado de la malla que estemos trabajando.  
+
+[/] : Aislar parte del objeto que tenemos seleccionada
+[Alt + /] : Mostrar nuevamente todo el objeto en conjunto
 
 ## **Camara** 
 
@@ -40,6 +146,11 @@ Fly View Mode - Activar el modo de mover la camara como un juego FPS. (wsad) - S
 ## Iluminacion
 
 Para una iluminacion real, podemos eliminar la luz que va por defecto en la escena, y agregar una luz natural desde el menú propiedades [WORLD] y luego, clickear en el punto amarillo de "*color*", y elegir Sky.
+
+- Luz lampara
+	Se puede crear una fuente de luz estilo lámpara, pero para que afecte a la escena, debe llevar un valor de al menos 10.000W. lueg se puede determinar si la luz es muy marcada, dura o es más difuminada y se esparce.
+
+- Luz Sol
 
 
 ## **MODIFICADORES** - 
@@ -63,54 +174,7 @@ Al generar los modificadores, estos se aplican luego del trabajo en la vista de 
 
 **ELEGIR SIMILARES** - Shift + G
 
-## **EDITAR MALLA(MESH)**
 
-con un objeto seleccionado, para editar la malla.
-en el 2do submenu, está el modo, normalmente *OBJECT MODE*
-eso se puede pasar a *EDIT MODE* para modificar los vertex points.
-si selecionamos algun *vertex* y activamos el modo *Proportional Editing* con *O*, se abre un circulo que edita los vértices de la malla en proporcion a lo que toca.
-se puede agrandar o achicar con la rueda o *pageup* *pagedown*
-primero se elige un vertex. Luego se activa *O* y finalmente se aprieta *G* para mover.
-
-**Seleccionar vertices de un edge completo** - *ALT + click* en uno.
-
-**Para seleccionar los vertices unidos en el eje Y**, se selecciona uno, 
-*ALT + click* en el siguiente del eje Y.
-
-**A** - seleccionar toda la malla del objeto en cuestión
-
-**Ctrl + +** - Teniendo seleccionado un eje de vertices, por ej el eje X, si apretamos Ctrl + +, esto va sumando más ejes paralelos al seleccionado.
-
-**Ctrl + -**  deselecciona ejes ya seleccionados anteriormente.
-
-**Alt + Z** - ver en tipo Rayo X el objeto, para seleccionar vertices más facil.
-
-**H** - con vértices seleccionados, este shorcut "oculta" los mismos para que no sean modificados con otras herramientas, como la de *estirar/contraer malla*
-
-**Alt + H** - Mostrar vértices ocultos con H.
-
-**Ctrl + B** - [Bevel Angles] Crear ángulos en la cara o vértices seleccionados. Si se usa la *rueda del mouse* se crean más subdivisiones para el ángulo.
-
-Si tenemos dos *Edges*, y queremos aplicar el bevel hasta que estos dos bordes, "se unan", para que no se overlapeen entre si, apretamos C para activar el modo *Clamp*, y esto genera que el bevel se aplique hasta que ambos cortes de los edges se unan.
->[!important] Importante
->Luego de unir dos edges con bevel, podemos terminar con vertices practicamente en el mismo espacio, por unir dos edges, por lo tanto, para eliminar estos vertices duplicados, seleccionamos todo el objeto con **A**, y luego, **M** -> **Menú Merge** y seleccionamos *By Distance*. Esto elimina vértices que estén muy cerca uno de otro. 
-
-**Crear Cara** - Teniendo seleccionado al menos 3 vértices, se presiona F y esto crea una "cara" entre estos 3 puntos
-
-**SELECCIONAR "BORDES"** en vez de *vértices* en modo *Mesh editor* - Estando en modo mesh editor, presionar 2, o seleecionar el 2do modo en los 3 íconos al lado del menú de selección de modo.
-
-
-
-**/** - Aislar el elemento que estamos trabajando / volver a mostrar todos los elementos.
-
-**Ctrl + R** - inserta cortes en un objeto, inicia en 1, con la rueda del mouse se agregan más cortes. Al confirmar con click, da la opción de modificar, pero con click derecho se cancela y se aplica tal cual está.
-
-**Objeto seleccionado -> right click -> Set Origin -> Origin To Geometry** - Setear el punto de orígen de un objeto en el centro(para aplicar modificadores, etc) 
-
-Para que los elementos que modificamos con la malla, se peguen a otro modelo ya hecho debajo, debemos activar el snapping con **SHIFT + TAB** y setear la opción de *INCREMENT* a *Face Project*
-
-**EXTRUDING**: crea nuevas "caras" de acuerdo a la cantidad de vértices que elegimos y duplicamos. Seleccionar los vertices y luego apretar **E**, esto habilita el modo de posición. Podemos mover los vertices que elegimos y se creará una nueva "cara" desde donde estaban los vertices elegidos, hasta la nueva posición donde coloquemos nosotros los vértices.
-Esto logra "extender" la malla de edición, creando nuevos vertices para modificar y extender la malla en la que estemos trabajando.
 ## **Esculpir (sculpting)**
 Al esculpir, podemos usar las distintas herramientas en la parte inferior.
 
@@ -232,6 +296,51 @@ Este motor se caracteriza por ser rápido, pero no detallado.
 
 
 
+## Huesos
+Ocultar huesos:
+Se puede seleccionar uno, o varios y apretar `H`
+Se pueden mostrar de nuevo los huesos ocultos con `Alt + H`
+
+Se pueden elegir uno o varios huesos y ocultar el resto con `Shift + H`
+
+También se puede ocultar un hueso o varios desde la lista de elementos de la escena("outliner").
+
+#### Ocultar huesos en la vista de objeto
+- Desactivar la categoría de armaduras(Armature)
+	En la esquina superior derecha, busca ==Viewport Overlays== y despliega el menú que tiene.
+	En la lista, buscar la opción `Armatures` y desmarcar la casilla.
+	De esta manera, todos los esqueletos de la escena se volverán invisibles al instante en el viewport, pero seguirán funcionando internamente (la animación y las deformaciones del objeto se mantendrán intactas)
+
+#### organizar huesos en colecciones
+Para organizar y clasificar tus huesos en grupos (como "Rostro", "Manos" o "Cuerpo"), Blender utiliza el sistema de **Bone Collections** (Colecciones de Huesos). Esto te permite encender, apagar o bloquear conjuntos enteros de huesos con un solo clic.
+
+Así es como puedes crearlas y clasificar tus huesos paso a paso:
+
+Paso 1: Crear tus Colecciones
+1. Selecciona tu esqueleto y entra en **Edit Mode** (Modo Edición) o **Pose Mode** (Modo Pose).
+2. Ve al panel de **Propiedades de la Armadura** a la derecha de la pantalla (el ícono verde con forma de "monigote" o persona corriendo).
+3. Busca la sección llamada **Bone Collections**.
+4. Haz clic en el botón **`+`** (añadir) para crear una nueva colección.
+5. Haz doble clic sobre el nombre genérico para cambiarlo (por ejemplo, escribe _Manos_, _Rostro_ o _Estructura Principal_).
+
+---
+
+Paso 2: Asignar los huesos a cada Colección
+
+Una vez que tienes creadas tus carpetas o colecciones, es momento de llenarlas:
+1. En la vista 3D, **selecciona todos los huesos** que quieras agrupar (por ejemplo, todos los huesos de los dedos).
+2. Presiona el atajo de teclado **`M`** (de _Move_ / Mover).
+3. Se abrirá un pequeño menú emergente con la lista de tus colecciones.
+4. **Haz clic en la colección** a la que pertenecen (ej. _Manos_).
+
+_Nota: Un mismo hueso puede pertenecer a más de una colección si mantienes presionada la tecla `Shift` al asignarlo en el menú de la tecla M._
+
+---
+
+Paso 3: Controlar la visibilidad y edición
+Ahora que están clasificados, regresa al panel de **Bone Collections** (el del monigote verde). Al lado de cada colección verás varios íconos muy útiles:
+- 👁️ **El ícono del Ojo:** Te permite ocultar o mostrar todos los huesos de esa categoría al instante. Es ideal para apagar los huesos de la cara mientras animas las piernas, por ejemplo.
+- 🔒 **El ícono del Candado:** Bloquea los huesos de esa colección. Seguirán siendo visibles, pero no podrás seleccionarlos ni moverlos por error.
 
 ## Voxel Remesh
 Esto nos permite unir varias piezas de primitivas en una sola malla, útil en modelado y esculpido.
